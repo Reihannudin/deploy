@@ -13,7 +13,6 @@ import React from "react";
 
 export const Unprotected = ({setIsLogged , isLogged}) => {
 
-    localStorage.setItem("isLogin", "false");
     const isLogin = localStorage.getItem("isLogin");
     console.log(isLogin)
 

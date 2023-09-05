@@ -15,6 +15,10 @@
 }
 
 
+.h-icon-main-nav{
+  height: 28px;
+}
+
 .bg-timeline {
 
 }
@@ -59,6 +63,9 @@
 @media (max-width: 767px){
   .w-res-card-news{
     width: 18rem;
+  }
+  .h-icon-main-nav{
+    height: 24px;
   }
 }
 

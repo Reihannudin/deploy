@@ -5,6 +5,7 @@ import { LoginCardComponent } from "../../Components/Auth/Card/LoginCard.Compone
 
 function Login({ setIsLogged }) {
   const navigate = useNavigate();
+  localStorage.setItem("isLogin", false);
 
   const [redirect, setRedirect] = useState("/");
   const [email, setEmail] = useState("");

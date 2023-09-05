@@ -17,6 +17,7 @@ function AddPassword(){
     const [redirect, setRedirect] = useState("/add/password");
     const [isLoading, setIsLoading] = useState(false);
     const [redirectPath, setRedirectPath] = useState("/register");
+    localStorage.setItem("isLogin", false);
 
     const bcrypt = require('bcryptjs');
     const salt = bcrypt.genSaltSync(10);

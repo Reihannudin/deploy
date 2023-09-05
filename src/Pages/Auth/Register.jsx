@@ -5,6 +5,7 @@ import api from "../../Config/api";
 
 function Register() {
     const navigate = useNavigate();
+    localStorage.setItem("isLogin", false);
 
     const [email, setEmail] = useState("");
     const [errorEmail, setErrorEmail] = useState("");

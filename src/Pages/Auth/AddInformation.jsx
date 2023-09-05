@@ -16,7 +16,7 @@ function AddInformation(){
     const [redirect, setRedirect] = useState("/add/information");
     const [redirectPath, setRedirectPath] = useState("/register");
     const [isLoading, setIsLoading] = useState(false);
-
+    localStorage.setItem("isLogin", false);
 
     const [errorEmail, setErrorEmail] = useState('');
     const [errorName, setErrorName] = useState('');

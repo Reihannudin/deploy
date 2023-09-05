@@ -29,10 +29,11 @@ function App() {
     }, 1000);
   }, []);
 
-  const [isLogged, setIsLogged] = useState(false);
 
+  const token = localStorage.getItem('token');
+  const [isLogged, setIsLogged] = useState(Boolean(token)); // Convert token to boolean
 
-  const token = localStorage.getItem('token')
+  console.log(isLogged)
 
   return (
     <div className="App">

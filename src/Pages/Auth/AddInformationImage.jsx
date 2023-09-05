@@ -21,6 +21,8 @@ function AddInformationImage (){
     const [isLoading, setIsLoading] = useState(false);
     const [redirectUrl, setRedirectUrl] = useState('');
 
+    localStorage.setItem("isLogin", false);
+
 
     console.log(errorSchool)
     const handleSubmit = (event) => {

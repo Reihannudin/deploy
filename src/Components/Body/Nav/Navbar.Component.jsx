@@ -3,7 +3,7 @@ import React, {useState} from "react";
 import axios from "axios";
 
 
-export const NavbarComponent = () => {
+export const NavbarComponent = ({user}) => {
 
     const [isMenuHidden , setIsMenuHidden] = useState(true);
     const toggleMenu = () => {
@@ -28,8 +28,6 @@ export const NavbarComponent = () => {
     const handleDropdownCreate = () => [
         setIsDropdownHiddenCreate(true)
     ]
-
-    const user = JSON.parse(localStorage.getItem('whoLogin'));
     const photoProfile = user.image;
 
     const urlParams = new URLSearchParams(window.location.search);
@@ -150,7 +148,8 @@ export const NavbarComponent = () => {
                                                         className="cursor-pointer ms-auto gap-2 my-auto flex"
                                                     >
                                                         <div style={{ width: "38px", height: "38px" }}>
-                                                            <img className="h-full w-full" src={photoProfile} alt="Profile" />
+
+                                                            <img className="h-full w-full" src={user.image || "../assets/default-profile.svg"} alt="Profile" />
                                                         </div>
                                                         <div className="my-auto" style={{ height: "19px", width: "19px" , transform: isDropdownHidden ? 'rotate(-180deg)' : 'none' ,    transition: 'transform 0.3s ease-in-out' }}>
                                                             <img className="w-full h-full" src="/assets/expand-icon.svg" alt="Expand" />

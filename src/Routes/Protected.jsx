@@ -42,11 +42,15 @@ import Feed from "../Pages/Feed/Feed";
 import TestProfille from "../Pages/Helper/TestProfille";
 
 export const Protected = () => {
+    localStorage.setItem("isLogin", true);
+
   return (
     <Routes>
       <Route path="/add/password" element={<AddPassword />} />
       <Route path="/add/information" element={<AddInformation />} />
       <Route path="/add/information/image" element={<AddInformationImage />} />
+
+
       {/*class Page*/}
       <Route path="/" element={<Main />} />
       <Route path="/my/class" element={<MyClass />} />

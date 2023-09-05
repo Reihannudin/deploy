@@ -2,6 +2,8 @@ import {ForgotPasswordCardComponent} from "../../Components/Auth/Card/ForgotPass
 
 function ForgotPassword(){
 
+    localStorage.setItem("isLogin", false);
+
     return(
         <>
             <div className="w-full md:py-6 py-0" style={{ background:"#FAFBFC" , minWidth:"385px"}}>

@@ -5,6 +5,7 @@ import {VerificationEmailCardComponent} from "../../Components/Auth/Card/Verific
 
 function VerificationEmail() {
     const navigate = useNavigate();
+    localStorage.setItem("isLogin", false);
 
     const [email, setEmail] = useState('');
     const [code, setCode] = useState('');
