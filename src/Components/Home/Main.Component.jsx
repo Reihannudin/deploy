@@ -269,9 +269,9 @@ export const MainComponent = ({user}) => {
                                                     {liveTask.map((item) => (
                                                         <>
                                                           {item.absent.length === 0 && item.assignment.length === 0 ? (
-                                                                  <div className="absolute top-1/3  left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                                                                  <div className="absolute lg:top-2/4 top-1/3  left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                                                                       <div className="md:py-8 py-2">
-                                                                          <div className="mb-8 mt-12">
+                                                                          <div className="pb-8 pt-12">
                                                                               <div className="mx-auto" style={{ height: "180px", width: "320px" }}>
                                                                                   <img className="w-full mx-auto h-full" src="/assets/tidak-ada-aktivitas.svg" alt="" />
                                                                               </div>

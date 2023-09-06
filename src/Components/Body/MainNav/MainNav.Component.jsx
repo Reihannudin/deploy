@@ -34,12 +34,16 @@ export const MainNavComponent = ({user}) => {
 
                         {/* Centered dropdown content */}
                         <div className="bg-white fixed bottom-20 w-6/12 py-4 z-50 border-radius-8">
-                            <div className="py-3 hover:bg-gray-100 font16-res-300">
-                                <p className="text-gray-500  hover:text-purple-700 cursor-pointer">Buat Kelas</p>
-                            </div>
-                            <div className="py-3 hover:bg-gray-100 font16-res-300">
-                                <p className="text-gray-500 hover:text-purple-700 cursor-pointer">Bergabung Kelas</p>
-                            </div>
+                            <Link to={'/create/class'}>
+                                <div className="py-3 hover:bg-gray-100 font16-res-300">
+                                    <p className="text-gray-500  hover:text-purple-700 cursor-pointer">Buat Kelas</p>
+                                </div>
+                            </Link>
+                            <Link to={'/join/class'}>
+                                <div className="py-3 hover:bg-gray-100 font16-res-300">
+                                    <p className="text-gray-500 hover:text-purple-700 cursor-pointer">Bergabung Kelas</p>
+                                </div>
+                            </Link>
                         </div>
                     </div>
                 )}

@@ -1,6 +1,7 @@
 import {useNavigate, useParams, useSearchParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
+import api from "../../Config/api";
 
 export const EditClassComponent = (props) => {
 
@@ -58,6 +59,8 @@ export const EditClassComponent = (props) => {
     const [errorMaxStudent , setErrorMaxStudent] = useState(0);
 
     const [redirectUrl, setRedirectUrl] = useState('');
+    const [redirectPath, setRedirectPath] = useState("/create/class");
+    const [isLoading, setIsLoading] = useState(false);
 
 
     useEffect(() => {
@@ -96,6 +99,8 @@ export const EditClassComponent = (props) => {
     const handleSubmit = (event) => {
         event.preventDefault();
 
+        setIsLoading(true); // Start loading indicator
+
         const formData = {
             name,
             room,
@@ -104,73 +109,99 @@ export const EditClassComponent = (props) => {
             max_student: rangeStudent,
         };
 
-        axios
-            // .put(`https://rest-api.spaceskool.site/public/api/${username}/${slug}/update/classes/${id}` , formData)
-            .put(`http://127.0.0.1:8000/api/${username}/${slug}/update/classes/${id}` , formData)
-            .then((response) =>{
-                console.log(response.data);
-                const {redirectUrl} = response.data
-                setRedirectUrl(redirectUrl);
+        api
+            .post(`/${slug}/update/classes/${id}`, formData)
+            .then((response) => {
+                setIsLoading(false); // Stop loading indicator
+                if (response.data.status === 201) {
+                    if (response.data.message === "Berhasil update kelas!") {
+                        let redirectUrl = response.data.redirect_path;
+                        setRedirectPath(redirectUrl);
+                        navigate(redirectUrl);
+                    }
+                }
+                else if (response.data.status === 406) {
+                    console.log(response.data.errors.error_name);
+                    if (response.data.errors.error_name === "Nama kelas tidak boleh kosong") {
+                        let redirectUrl = response.data.redirect_path;
+                        setRedirectPath(redirectUrl);
+                        setErrorName(response.data.errors.error_name);
+                        navigate(redirectUrl);
+                    } else if (response.data.errors.error_room === "Ruang kelas tidak boleh kosong") {
+                        let redirectUrl = response.data.redirect_path;
+                        setErrorRoom(response.data.errors.error_room);
+                        setRedirectPath(redirectUrl);
+                        navigate(redirectUrl);
+                    }
+                    else if (response.data.errors.error_section === "Kejuruan kelas tidak boleh kosong") {
+                        let redirectUrl = response.data.redirect_path;
+                        setErrorSection(response.data.errors.error_section);
+                        setRedirectPath(redirectUrl);
+                        navigate(redirectUrl);
+                    }
+                    else if (response.data.errors.error_subject === "Mata pelajaran tidak boleh kosong") {
+                        let redirectUrl = response.data.redirect_path;
+                        setErrorSubject(response.data.errors.error_subject);
+                        setRedirectPath(redirectUrl);
+                        navigate(redirectUrl);
+                    }
+                    else if (response.data.errors.error_max_student === "Minimal anda memiliki 1 jumlah maximal siswa") {
+                        let redirectUrl = response.data.redirect_path;
+                        setErrorMaxStudent(response.data.errors.error_max_student);
+                        setRedirectPath(redirectUrl);
+                        navigate(redirectUrl);
+                    } else if (response.data.errors.error_max_student === "Anda harus menjadi pengguna premium terlebih dahulu") {
+                        let redirectUrl = response.data.redirect_path;
+                        setErrorMaxStudent(response.data.errors.error_max_student);
+                        setRedirectPath(redirectUrl);
+                        navigate(redirectUrl);
+                    }
+                }
+
+
             })
             .catch((error) => {
-                const {errors} = error.response.data;
-
+                setIsLoading(false); // Stop loading indicator
+                const { errors } = error.response.data;
                 setErrorName(errors?.name?.[0] || '');
                 setErrorRoom(errors?.room?.[0] || '');
                 setErrorSection(errors?.section?.[0] || '');
                 setErrorSubject(errors?.subject?.[0] || '');
                 setErrorMaxStudent(errors?.max_student?.[0] || '');
-            }
-        );
-    }
-
-    // console.log(name);
-    // console.log(room);
-    // console.log(section);
-    // console.log(subject);
-
-    useEffect(() => {
-        if (redirectUrl) {
-            const url = new URL(redirectUrl);
-            const errorNameParam = url.searchParams.get('error_name');
-            const errorRoomParam = url.searchParams.get('error_room');
-            const errorSectionParam = url.searchParams.get('error_section');
-            const errorSubjectParam = url.searchParams.get('error_subject');
-            const errorMaxStrudentParam = url.searchParams.get('error_max_student');
-            const nameParam = url.searchParams.get('name');
-            const roomParam = url.searchParams.get('room');
-            const sectionParam = url.searchParams.get('section');
-            const subjectParam = url.searchParams.get('subject');
-            const maxStudentParam = url.searchParams.get('max_student');
-
-            setErrorName(errorNameParam);
-            setErrorRoom(errorRoomParam);
-            setErrorSection(errorSectionParam);
-            setErrorSubject(errorSubjectParam);
-            setErrorMaxStudent(errorMaxStrudentParam);
-
-            setName(nameParam);
-            setRoom(roomParam);
-            setSection(sectionParam);
-            setSubject(subjectParam);
-            setRangeStudent(maxStudentParam);
-
-            url.searchParams.delete('error_name');
-            url.searchParams.delete('name');
-
-            window.history.replaceState({}, '', url.href);
-
-            const statusParam = url.searchParams.get('status');
-
-            if (statusParam === "201"){
-                navigate(`/my/class`)
-            }
+            });
+    };
 
 
-            setRedirectUrl('');
-        }
-    }, [redirectUrl]);
-
+    // const handleSubmit = (event) => {
+    //     event.preventDefault();
+    //
+    //     const formData = {
+    //         name,
+    //         room,
+    //         section,
+    //         subject,
+    //         max_student: rangeStudent,
+    //     };
+    //
+    //     axios
+    //         // .put(`https://rest-api.spaceskool.site/public/api/${username}/${slug}/update/classes/${id}` , formData)
+    //         .put(`http://127.0.0.1:8000/api/` , formData)
+    //         .then((response) =>{
+    //             console.log(response.data);
+    //             const {redirectUrl} = response.data
+    //             setRedirectUrl(redirectUrl);
+    //         })
+    //         .catch((error) => {
+    //             const {errors} = error.response.data;
+    //
+    //             setErrorName(errors?.name?.[0] || '');
+    //             setErrorRoom(errors?.room?.[0] || '');
+    //             setErrorSection(errors?.section?.[0] || '');
+    //             setErrorSubject(errors?.subject?.[0] || '');
+    //             setErrorMaxStudent(errors?.max_student?.[0] || '');
+    //         }
+    //     );
+    // }
 
     return(
         <>
