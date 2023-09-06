@@ -1,47 +1,102 @@
 import React, {useEffect, useState} from "react";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import axios from "axios";
+import api from "../../Config/api";
 
-function CreateActivities(){
+function CreateActivities({user}){
 
     const [name, setName] = useState('');
     const [room, setRoom] = useState('');
     const [subject, setSubject] = useState('');
     const [section, setSection] = useState('');
     const [rangeStudent, setRangeStudent] = useState(1);
+
     const [errorName, setErrorName] = useState('');
     const [errorRoom, setErrorRoom] = useState('');
     const [errorSection, setErrorSection] = useState('');
     const [errorSubject, setErrorSubject] = useState('');
     const [errorMaxStudent, setErrorMaxStudent] = useState('');
+
     const [redirectUrl, setRedirectUrl] = useState('');
+    const [redirectPath, setRedirectPath] = useState("/create/class");
+    const [isLoading, setIsLoading] = useState(false);
 
     const [searchParams] = useSearchParams();
 
-    useEffect(() => {
-        const error = searchParams.get('error_name');
-        setErrorName(error);
-    }, [searchParams]);
+    const handleSubmit = (event) => {
+        event.preventDefault();
 
-    useEffect(() => {
-        const error = searchParams.get('error_room');
-        setErrorRoom(error);
-    }, [searchParams]);
+        setIsLoading(true); // Start loading indicator
 
-    useEffect(() => {
-        const error = searchParams.get('error_section');
-        setErrorSection(error);
-    }, [searchParams]);
+        const formData = {
+            name,
+            room,
+            section,
+            subject,
+            max_student: rangeStudent,
+        };
 
-    useEffect(() => {
-        const error = searchParams.get('error_subject');
-        setErrorSubject(error);
-    }, [searchParams]);
+        api
+            .post(`/create/classes`, formData)
+            .then((response) => {
+                setIsLoading(false); // Stop loading indicator
+                if (response.data.status === 201) {
+                    if (response.data.message === "Berhasil membuat kelas!") {
+                        let redirectUrl = response.data.redirect_path;
+                        setRedirectPath(redirectUrl);
+                        navigate(redirectUrl);
+                    }
+                }
+                else if (response.data.status === 406) {
+                    console.log(response.data.errors.error_name);
+                    if (response.data.errors.error_name === "Nama kelas tidak boleh kosong") {
+                        let redirectUrl = response.data.redirect_path;
+                        setRedirectPath(redirectUrl);
+                        setErrorName(response.data.errors.error_name);
+                        navigate(redirectUrl);
+                    } else if (response.data.errors.error_room === "Ruang kelas tidak boleh kosong") {
+                        let redirectUrl = response.data.redirect_path;
+                        setErrorRoom(response.data.errors.error_room);
+                        setRedirectPath(redirectUrl);
+                        navigate(redirectUrl);
+                    }
+                    else if (response.data.errors.error_section === "Kejuruan kelas tidak boleh kosong") {
+                        let redirectUrl = response.data.redirect_path;
+                        setErrorSection(response.data.errors.error_section);
+                        setRedirectPath(redirectUrl);
+                        navigate(redirectUrl);
+                    }
+                    else if (response.data.errors.error_subject === "Mata pelajaran tidak boleh kosong") {
+                        let redirectUrl = response.data.redirect_path;
+                        setErrorSubject(response.data.errors.error_subject);
+                        setRedirectPath(redirectUrl);
+                        navigate(redirectUrl);
+                    }
+                    else if (response.data.errors.error_max_student === "Minimal anda memiliki 1 jumlah maximal siswa") {
+                        let redirectUrl = response.data.redirect_path;
+                        setErrorMaxStudent(response.data.errors.error_max_student);
+                        setRedirectPath(redirectUrl);
+                        navigate(redirectUrl);
+                    } else if (response.data.errors.error_max_student === "Anda harus menjadi pengguna premium terlebih dahulu") {
+                        let redirectUrl = response.data.redirect_path;
+                        setErrorMaxStudent(response.data.errors.error_max_student);
+                        setRedirectPath(redirectUrl);
+                        navigate(redirectUrl);
+                    }
+                }
 
-    useEffect(() => {
-        const error = searchParams.get('error_max_student');
-        setErrorMaxStudent(error);
-    }, [searchParams]);
+
+            })
+            .catch((error) => {
+                setIsLoading(false); // Stop loading indicator
+                const { errors } = error.response.data;
+                setErrorName(errors?.name?.[0] || '');
+                setErrorRoom(errors?.room?.[0] || '');
+                setErrorSection(errors?.section?.[0] || '');
+                setErrorSubject(errors?.subject?.[0] || '');
+                setErrorMaxStudent(errors?.max_student?.[0] || '');
+            });
+    };
 
     const onChangeName = (event) => {
         const name = event.target.value;
@@ -68,87 +123,12 @@ function CreateActivities(){
         setRangeStudent(range);
     };
 
-    const user = JSON.parse(localStorage.getItem('whoLogin'));
-    const username = user.username;
-
     const navigate = useNavigate();
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-
-        const formData = {
-            name,
-            room,
-            section,
-            subject,
-            max_student: rangeStudent,
-        };
-
-        axios
-            // .post(`https://rest-api.spaceskool.site/public/api/${username}/create/classes`, formData)
-            .post(`http://127.0.0.1:8000/api/${username}/create/classes`, formData)
-            .then((response) => {
-                console.log(response.data);
-                const { redirectUrl } = response.data;
-                setRedirectUrl(redirectUrl);
-            })
-            .catch((error) => {
-                const { errors } = error.response.data;
-
-                setErrorName(errors?.name?.[0] || '');
-                setErrorRoom(errors?.room?.[0] || '');
-                setErrorSection(errors?.section?.[0] || '');
-                setErrorSubject(errors?.subject?.[0] || '');
-                setErrorMaxStudent(errors?.max_student?.[0] || '');
-            });
-    };
-
-    useEffect(() => {
-        if (redirectUrl) {
-            const url = new URL(redirectUrl);
-            const errorNameParam = url.searchParams.get('error_name');
-            const errorRoomParam = url.searchParams.get('error_room');
-            const errorSectionParam = url.searchParams.get('error_section');
-            const errorSubjectParam = url.searchParams.get('error_subject');
-            const errorMaxStrudentParam = url.searchParams.get('error_max_student');
-            const nameParam = url.searchParams.get('name');
-            const roomParam = url.searchParams.get('room');
-            const sectionParam = url.searchParams.get('section');
-            const subjectParam = url.searchParams.get('subject');
-            const maxStudentParam = url.searchParams.get('max_student');
-
-            setErrorName(errorNameParam);
-            setErrorRoom(errorRoomParam);
-            setErrorSection(errorSectionParam);
-            setErrorSubject(errorSubjectParam);
-            setErrorMaxStudent(errorMaxStrudentParam);
-
-            setName(nameParam);
-            setRoom(roomParam);
-            setSection(sectionParam);
-            setSubject(subjectParam);
-            setRangeStudent(maxStudentParam);
-
-            url.searchParams.delete('error_name');
-            url.searchParams.delete('name');
-
-            window.history.replaceState({}, '', url.href);
-
-            const statusParam = url.searchParams.get('status');
-
-            if (statusParam === "201"){
-                navigate(`/my/class`)
-            }
-
-            setRedirectUrl('');
-           
-        }
-    }, [redirectUrl]);
 
 
     return(
         <>
-            <div className=' h-full mx-auto md:pt-20  pt-16 px-0' style={{ minWidth:"375px"}}>
+            <div className=' h-full mx-auto md:pt-20  pt-16 px-0' style={{ minWidth:"300px"}}>
                 <div className="lg:flex lg:w-9/12 sm:w-10/12 w-11/12 mx-auto">
                     <div  className="w-full" style={{ background:"#ffffff"}}>
                         <div className=" sm:w-full w-full ">
