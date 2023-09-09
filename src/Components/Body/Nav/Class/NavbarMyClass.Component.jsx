@@ -53,8 +53,8 @@ export const NavbarMyClassComponent = (props) => {
 
     return(
         <>
-            <div className="w-full fixed md:py-0.5 py-0 bg-white" style={{  zIndex:"39" , minWidth:"333px"}}>
-                <div className="mx-auto   flex py-1 w-full" style={{ borderBottom:"1px solid #E5E3E9"}}>
+            <div className="w-full fixed md:py-0.5 py-0 bg-white" style={{  zIndex:"39" , minWidth:"300px"}}>
+                <div className="mx-auto   flex py-1 w-full border-b border-gray-50" >
                     <header className="w-full">
                         <nav
                             className="

@@ -20,11 +20,7 @@ function App() {
   // Retrieve login status from localStorage
   const storedToken = localStorage.getItem("auth_token");
   const [isLogged, setIsLogged] = useState(!!storedToken); // Convert token to boolean
-  //
-  // useEffect(() => {
-  //   // Store login status in localStorage whenever it changes
-  //   localStorage.setItem("isLogged", isLogged ? "true" : "false");
-  // }, [isLogged]);
+
   console.log("is logged?" ,isLogged)
 
   return (

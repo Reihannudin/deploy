@@ -181,24 +181,26 @@ export const DetailMyClassEmptyComponent = (props) => {
                     <MyDetailClassNavComponent />
                 </div>
                 <div className="lg:flex lg:py-0 md:py-8 py-5 md:block xl:w-10/12 lg:w-11/12 w-full mx-auto lg:justify-between">
-                    <div className="xl:w-10/12 w-full sm:w-11/12 md:w-10/12 mx-auto lg:my-0 my-5 lg:w-9/12">
+                        <div className=" w-full md:w-11/12 mx-auto lg:my-0 my-5 lg:w-9/12">
+
                         <div className="w-full lg:py-6 py-3 text-left  lg:mb-10 md:mb-5 bg-white">
-                            <h2 className="font30-res-300 mx-5 mb-5 bg-gray-200 py-4" style={{ animation: "loading 2s infinite" }}></h2>
+                            <h2 className="font30-res-300 mx-5 mb-5 bg-gray-200 py-4 animate-pulse"></h2>
+                            {/*<h2 className="font30-res-300 mx-5 mb-5 bg-gray-200 py-4" style={{ animation: "loading 2s infinite" }}></h2>*/}
                             <div className="text-left flex border-b border-gray-200 pb-5 justify-between mx-5">
                                 <div className="block">
-                                    <h2 className="font14-res-300 text-gray-700 my-2  w-32 bg-gray-100 py-1" style={{ animation: "loading 2s infinite" }} ></h2>
-                                    <h2 className="font14-res-300 text-gray-700 my-2   w-32 bg-gray-100 py-1" style={{ animation: "loading 2s infinite" }}></h2>
+                                    <h2 className="font14-res-300 text-gray-700 my-2  w-32 bg-gray-100 py-1 animate-pulse" ></h2>
+                                    <h2 className="font14-res-300 text-gray-700 my-2   w-32 bg-gray-100 py-1 animate-pulse"></h2>
                                 </div>
                                 <div className="block">
-                                    <h2 className="font14-res-300 text-gray-700 my-2  w-32 bg-gray-100 py-1" style={{ animation: "loading 2s infinite" }} ></h2>
-                                    <h2 className="font14-res-300 text-gray-700 my-2  w-32 bg-gray-100 py-1" style={{ animation: "loading 2s infinite" }} ></h2>
+                                    <h2 className="font14-res-300 text-gray-700 my-2  w-32 bg-gray-100 py-1 animate-pulse" ></h2>
+                                    <h2 className="font14-res-300 text-gray-700 my-2  w-32 bg-gray-100 py-1  animate-pulse "></h2>
                                 </div>
                             </div>
                             <div className="md:w-10/12 w-11/12 lg:hidden block  mx-auto my-6">
                                 <div className="my-2 text-center py-1 border-none md:border-t">
                                     <p className="my-2 font16-res-400">Code class</p>
                                     <div className="lg:w-10/12 md:w-8/12 w-10/12  bg-white flex  mx-auto border-radius-4" >
-                                        <input className=" font16-res-400 py-2 px-3 bg-gray-100 w-10/12 bg-gray-200 py-2" style={{ animation: "loading 2s infinite" }}  />
+                                        <input className=" font16-res-400 py-2 px-3 bg-gray-100 w-10/12 animate-pulse"   />
                                         <button className="w-2/12 bg-purple-500" >
                                             <img className="my-auto w-full " style={{ height:"20px"}} src="/assets/copy-icon.svg" />
                                         </button>
@@ -212,17 +214,17 @@ export const DetailMyClassEmptyComponent = (props) => {
                                 <div className="font14-res-300">
                                     <div className="flex gap-5 justify-between  px-6 pt-6">
                                         <label htmlFor="day">Pilih Hari : </label>
-                                        <div className="bg-gray-200 border-radius-4 w-2/5 py-0.5" style={{ animation: "loading 2s infinite" }} >
+                                        <div className="bg-gray-200 border-radius-8 w-2/5 py-0.5 animate-pulse"  >
                                         </div>
                                     </div>
                                     <div className="flex gap-5  justify-between px-6 py-5">
                                         <label htmlFor="month">Pilih Bulan : </label>
-                                        <div className="bg-gray-200 border-radius-4 w-2/5 py-0.5" style={{ animation: "loading 2s infinite" }} >
+                                        <div className="bg-gray-200 border-radius-8 w-2/5 py-0.5 animate-pulse" >
                                         </div>
                                     </div>
                                     <div className="flex gap-5 justify-between  px-6 pb-6">
                                         <label htmlFor="year">Pilih Tahun:</label>
-                                        <div className="bg-gray-200 border-radius-4 w-2/5 py-0.5" style={{ animation: "loading 2s infinite" }} >
+                                        <div className="bg-gray-200 border-radius-4 w-2/5 py-0.5 animate-pulse" >
                                         </div>
                                     </div>
                                 </div>
@@ -239,7 +241,7 @@ export const DetailMyClassEmptyComponent = (props) => {
                             </div>
                             <div className="p-4">
                                 <div className="text-right mb-3">
-                                    <h2 className="font15-res-300 bg-gray-300 w-32 ms-auto  py-2 border-radius-4" style={{ animation: "loading 2s infinite" }} ></h2>
+                                    <h2 className="font15-res-300 bg-gray-300 w-32 ms-auto  py-2 border-radius-8 animate-pulse"  ></h2>
 
                                 </div>
                                 <div className="grid grid-cols-7 gap-2">
@@ -253,8 +255,8 @@ export const DetailMyClassEmptyComponent = (props) => {
                                                 } py-2 px-1.5 rounded`}
                                                 onClick={() => handleDayClick(day, index)}
                                             >
-                                                <div className=" font15-res-300 bg-gray-100 w-10 mt-1 mb-2 mx-auto  py-2" style={{ animation: "loading 2s infinite" ,fontWeight:"550"}}></div>
-                                                <div className="font14-res-300 bg-gray-100 w-10  mb-1 mt-2 mx-auto py-1" style={{ animation: "loading 2s infinite" }} ></div>
+                                                <div className=" font15-res-300 bg-gray-100 w-10 mt-1 mb-2 mx-auto animate-pulse py-2 border-radius-4" style={{fontWeight:"550"}}></div>
+                                                <div className="font14-res-300 bg-gray-100 w-10  mb-1 mt-2 mx-auto animate-pulse py-1 border-radius-4" ></div>
                                             </div>
                                         )
                                     })}

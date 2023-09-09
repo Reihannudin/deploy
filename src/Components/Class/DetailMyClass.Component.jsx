@@ -13,6 +13,7 @@ const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 export const DetailMyClassComponent = (props) => {
 
     const navigate = useNavigate();
+    const location = useLocation();
 
     const { id, slug } = useParams();
 
@@ -56,42 +57,50 @@ export const DetailMyClassComponent = (props) => {
         }
     }
 
-    const handleTabCLick = (e , tabName) => {
-        e.preventDefault();
-        navigate(`/view/my/class/${id}/${slug}#${tabName}`)
-    }
+    const handleTabClick = (tabName) => {
+        navigate(`/view/my/class/${id}/${slug}#${tabName}`);
+    };
 
     useEffect(() => {
         const tabsContainer = document.querySelector("#tabs");
-        const tabTogglers = tabsContainer.querySelectorAll("#tabs a");
+        const tabTogglers = tabsContainer.querySelectorAll("a");
 
         tabTogglers.forEach(function (toggler) {
-            toggler.addEventListener("click" , function (e){
+            toggler.addEventListener("click", function (e) {
                 e.preventDefault();
-
-                let tabName = this.getAttribute("href");
+                const tabName = this.getAttribute("href").substring(1); // Remove the '#' symbol
 
                 let tabContents = document.querySelector("#tab-contents");
 
-                for (let i = 0; i < tabContents.children.length; i++){
-                    tabTogglers[i].parentElement.classList.remove("border-b" , "bg-white" , "py-1" , "-mb-px", "text-purple-500" );
-                    tabContents.children[i].classList.remove("hidden");
-
-                    if("#" + tabContents.children[i].id === tabName){
-                        continue;
-                    }
+                for (let i = 0; i < tabContents.children.length; i++) {
+                    tabTogglers[i].classList.remove("text-purple-600");
                     tabContents.children[i].classList.add("hidden");
 
-                    e.target.parentElement.classList.add("border-b" , "bg-white" , "py-1" , "-mb-px", "text-purple-500" , )
+                    if (tabContents.children[i].id === tabName) {
+                        tabContents.children[i].classList.remove("hidden");
+                    }
                 }
+
+                e.target.classList.add("text-purple-600");
+
+                // Update the URL hash without triggering a full page reload
+                window.history.replaceState(null, null, `#${tabName}`);
             });
         });
+
+        // Set the active tab based on the URL hash
+        const hash = location.hash.substring(1);
+        if (hash) {
+            handleTabClick(hash);
+        }
+
         return () => {
-            tabTogglers.forEach(function(toggler) {
+            tabTogglers.forEach(function (toggler) {
                 toggler.removeEventListener("click", () => {});
             });
         };
-    }, [])
+    }, [id, slug, location]);
+
 
 
     const [absents, setAbsents] = useState([]);
@@ -100,10 +109,6 @@ export const DetailMyClassComponent = (props) => {
     const [isDataFetchedAbsent, setIsDataFetchedAbsent] = useState(false);
     const [errorAbsent, setErrorAbsent] = useState(null);
 
-
-    // useEffect(() => {
-    //     fetchDataAbsent();
-    // }, [filterAbsent]);
 
     useEffect(() => {
         let isMounted = true;
@@ -255,19 +260,6 @@ export const DetailMyClassComponent = (props) => {
         };
     }, [isDataFetchedResource]);
 
-    //
-    // useEffect(() => {
-    //     fetchDataResource();
-    // }, [filterResource]);
-    // const fetchDataResource = async () => {
-    //     try {
-    //         const response = await axios.get(`http://127.0.0.1:8000/api/`);
-    //         const data = response.data;
-    //         setResources(data);
-    //     } catch (error) {
-    //         console.log("Error Fetching class data:", error);
-    //     }
-    // };
     const handleFilterClickResource = (filterValue) => {
         setFilterResource(filterValue);
         const url = `?filter=${filterValue}`;
@@ -279,7 +271,6 @@ export const DetailMyClassComponent = (props) => {
     let students = props.students;
     let classmateLength =  props.students.length;
 
-    const location = useLocation(); // React Router's location object
     const [searchParams] = useSearchParams();
     const params = useParams();
     // const navigate = useNavigate();
@@ -514,24 +505,30 @@ export const DetailMyClassComponent = (props) => {
                             <div className="bg-white">
                                 <div className="me-auto sm:mx-6 relative md:w-11/12 lg:w-full w-11/12 mx-auto">
                                     <div className="absolute text-left border-b w-11/12 left-0">
-                                        <ul id="tabs" className="flex mt-1  font18-res-300 w-8/12 px-1  text-purple-500">
-                                            <li className="pe-6 w-full text-gray-500 hover:text-purple-600 text-left  font16-res-400 py-2 ">
-                                                <a id="default-tab" href="#absent" className="w-full" onClick={(e) => handleTabCLick(e, 'absent')}>Absent</a>
+                                        <ul id="tabs" className="flex mt-1 font18-res-300 w-8/12 px-1 text-purple-500">
+                                            <li className="pe-6 w-full text-gray-500 hover:text-purple-600 text-left font16-res-400 py-2">
+                                                <a id="default-tab" href="#absent" className="w-full" onClick={() => handleTabClick('absent')}>
+                                                    Absent
+                                                </a>
                                             </li>
-                                            <li className="px-6 w-full  text-gray-500 hover:text-purple-600 text-left   mx-4 font16-res-400  py-2 ">
-                                                <a href="#tugas" className="w-full" onClick={(e) => handleTabCLick(e, 'tugas')}>Tugas</a>
+                                            <li className="px-6 w-full text-gray-500 hover:text-purple-600 text-left mx-4 font16-res-400 py-2">
+                                                <a href="#tugas" className="w-full" onClick={() => handleTabClick('tugas')}>
+                                                    Tugas
+                                                </a>
                                             </li>
-                                            <li className="px-6 w-full text-gray-500 hover:text-purple-600 text-left  font16-res-400 py-2 ">
-                                                <a href="#resource" className="w-full" onClick={(e) => handleTabCLick(e, 'resource')}>Resource</a>
+                                            <li className="px-6 w-full text-gray-500 hover:text-purple-600 text-left font16-res-400 py-2">
+                                                <a href="#resource" className="w-full" onClick={() => handleTabClick('resource')}>
+                                                    Resource
+                                                </a>
                                             </li>
-
-                                            <li className="px-4 text-gray-800 hidden font-semibold py-2 ">
+                                            <li className="px-4 text-gray-800 hidden font-semibold py-2">
                                                 <a href="#fourth">Tab 4</a>
                                             </li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
+
 
                             <div id="tab-contents" className=" w-11/12  lg:w-full lg:mx-3  mx-auto">
                                 <div id="absent" className="py-2 md:px-4 px-2">

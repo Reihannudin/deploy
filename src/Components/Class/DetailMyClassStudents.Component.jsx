@@ -2,6 +2,7 @@ import {Link, useLocation, useNavigate, useParams, useSearchParams} from "react-
 import React, {useEffect, useRef, useState} from "react";
 import {StudentCardComponent} from "../Classmate/Card/StudentCard.Component";
 import {TaskClassCardComponent} from "./Card/TaskClassCard.Component";
+import {MyDetailClassNavComponent} from "../Body/MainNav/MyDetailClassNav.Component";
 
 const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
@@ -22,8 +23,7 @@ export const DetailMyClassStudentsComponent = (props) => {
 
     const {id , slug} = useParams()
 
-    const user = JSON.parse(localStorage.getItem('whoLogin'));
-    const username = user.username;
+    const username = props.username;
 
     let studentLength = props.students.length;
 
@@ -156,6 +156,9 @@ export const DetailMyClassStudentsComponent = (props) => {
     return(
         <>
             <div className='h-full mx-auto lg:pt-16 md:pt-7  sm:pt-7 pt-7 px-0' style={{ minWidth:"300px"}} key={props.id}>
+                <div className="block w-full md:hidden">
+                    <MyDetailClassNavComponent />
+                </div>
                 <div className="lg:flex lg:py-0 md:py-8 py-5 md:block xl:w-10/12 lg:w-11/12 w-full mx-auto lg:justify-between">
                     <div className=" w-full md:w-11/12 mx-auto lg:my-0 my-5 lg:w-9/12">
                         <div className="w-full lg:py-2 py-3 text-left  bg-white"> <
@@ -184,7 +187,7 @@ export const DetailMyClassStudentsComponent = (props) => {
 
                         <div className="  md:w-full  w-11/12 h-full  mx-auto">
                             <div className="flex  md:mx-5 justify-between" style={{ borderBottom:"2px solid#A568E6"}}>
-                                <h2 className="my-3 font18-res-300" style={{  color:"#8D2EF4"}} >Siswa</h2>
+                                <h2 className="my-3 font16-res-300" style={{  color:"#8D2EF4"}} >Jumlah siswa</h2>
                                 <p className="my-auto font16-res-300" style={{  color:"#8D2EF4"}} >{studentLength} Siswa</p>
                             </div>
                             <ul  className="my-2 h-full scrollbar-hide" >
@@ -231,55 +234,55 @@ export const DetailMyClassStudentsComponent = (props) => {
                             {/*    </button>*/}
                             {/*</div>*/}
                         </div>
-                        <div className="md:w-10/12 hidden lg:block w-11/12 shadow mx-auto lg:my-6 my-2">
-                            <div className="md:pt-5 pt-1 font16-res-400 text-left mx-5">
-                                <h4 className="font16-res-400 ">Keleolah History anda</h4>
-                            </div>
-                            <div className="font14-res-300">
-                                <div className="flex gap-5 justify-between  px-6 pt-6">
-                                    <label htmlFor="day">Pilih Hari : </label>
-                                    <select id="day"  className="w-2/5" onChange={handleDayChange} value={selectedDay}>
-                                        <option value="" className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700" >Select</option>
-                                        {generateDaysOptions()}
-                                    </select>
-                                </div>
-                                <div className="flex gap-5  justify-between px-6 py-5">
-                                    <label htmlFor="month">Pilih Bulan : </label>
-                                    <select id="month" className="w-2/5" onChange={handleMonthChange} value={selectedMonth}>
-                                        <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="">Select</option>
-                                        <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="1">January</option>
-                                        <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="2">February</option>
-                                        <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="3">March</option>
-                                        <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="4">April</option>
-                                        <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="5">May</option>
-                                        <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="6">June</option>
-                                        <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="7">July</option>
-                                        <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="8">August</option>
-                                        <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="9">September</option>
-                                        <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="10">October</option>
-                                        <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="11">November</option>
-                                        <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="12">December</option>
-                                    </select>
-                                </div>
-                                <div className="flex gap-5 justify-between  px-6 pb-6">
-                                    <label htmlFor="year">Pilih Tahun:</label>
-                                    <select id="year" className="w-2/5 border-none" onChange={handleYearChange} value={selectedYear}>
-                                        <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700" value="">Select</option>
-                                        <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700" value="2021">2021</option>
-                                        <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700" value="2022">2022</option>
-                                        <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700" value="2023">2023</option>
-                                        {/* Add more year options */}
-                                    </select>
-                                </div>
-                            </div>
-                            <div className="w-full pb-4">
-                                <button
-                                    onClick={() => window.location.reload()}
-                                    className="w-10/12 py-1.5 bg-purple-600 hover:bg-purple-700 cursor-pointer border-radius-4 text-white hover:text-gray-50  font14-res-300 mx-auto ">
-                                    Save
-                                </button>
-                            </div>
-                        </div>
+                        {/*<div className="md:w-10/12 hidden lg:block w-11/12 shadow mx-auto lg:my-6 my-2">*/}
+                        {/*    <div className="md:pt-5 pt-1 font16-res-400 text-left mx-5">*/}
+                        {/*        <h4 className="font16-res-400 ">Keleolah History anda</h4>*/}
+                        {/*    </div>*/}
+                        {/*    <div className="font14-res-300">*/}
+                        {/*        <div className="flex gap-5 justify-between  px-6 pt-6">*/}
+                        {/*            <label htmlFor="day">Pilih Hari : </label>*/}
+                        {/*            <select id="day"  className="w-2/5" onChange={handleDayChange} value={selectedDay}>*/}
+                        {/*                <option value="" className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700" >Select</option>*/}
+                        {/*                {generateDaysOptions()}*/}
+                        {/*            </select>*/}
+                        {/*        </div>*/}
+                        {/*        <div className="flex gap-5  justify-between px-6 py-5">*/}
+                        {/*            <label htmlFor="month">Pilih Bulan : </label>*/}
+                        {/*            <select id="month" className="w-2/5" onChange={handleMonthChange} value={selectedMonth}>*/}
+                        {/*                <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="">Select</option>*/}
+                        {/*                <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="1">January</option>*/}
+                        {/*                <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="2">February</option>*/}
+                        {/*                <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="3">March</option>*/}
+                        {/*                <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="4">April</option>*/}
+                        {/*                <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="5">May</option>*/}
+                        {/*                <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="6">June</option>*/}
+                        {/*                <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="7">July</option>*/}
+                        {/*                <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="8">August</option>*/}
+                        {/*                <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="9">September</option>*/}
+                        {/*                <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="10">October</option>*/}
+                        {/*                <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="11">November</option>*/}
+                        {/*                <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="12">December</option>*/}
+                        {/*            </select>*/}
+                        {/*        </div>*/}
+                        {/*        <div className="flex gap-5 justify-between  px-6 pb-6">*/}
+                        {/*            <label htmlFor="year">Pilih Tahun:</label>*/}
+                        {/*            <select id="year" className="w-2/5 border-none" onChange={handleYearChange} value={selectedYear}>*/}
+                        {/*                <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700" value="">Select</option>*/}
+                        {/*                <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700" value="2021">2021</option>*/}
+                        {/*                <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700" value="2022">2022</option>*/}
+                        {/*                <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700" value="2023">2023</option>*/}
+                        {/*                /!* Add more year options *!/*/}
+                        {/*            </select>*/}
+                        {/*        </div>*/}
+                        {/*    </div>*/}
+                        {/*    <div className="w-full pb-4">*/}
+                        {/*        <button*/}
+                        {/*            onClick={() => window.location.reload()}*/}
+                        {/*            className="w-10/12 py-1.5 bg-purple-600 hover:bg-purple-700 cursor-pointer border-radius-4 text-white hover:text-gray-50  font14-res-300 mx-auto ">*/}
+                        {/*            Save*/}
+                        {/*        </button>*/}
+                        {/*    </div>*/}
+                        {/*</div>*/}
                     </div>
                 </div>
             </div>
