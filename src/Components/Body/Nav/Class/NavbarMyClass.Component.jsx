@@ -48,10 +48,8 @@ export const NavbarMyClassComponent = (props) => {
     const photoProfile = props.image;
 
     const propsName = props.name.length;
-    const truncatedName = propsName > 12 ? `${props.name.slice(0, 12)}...` : props.name;
+    const truncatedName = propsName > 12 ? `${props.name.slice(0, 20)}...` : props.name;
 
-
-    console.log(photoProfile)
 
     return(
         <>
@@ -165,7 +163,7 @@ export const NavbarMyClassComponent = (props) => {
                                                     style={{ fontSize: "14px" }}
                                                     className="cursor-pointer ms-auto gap-2 my-auto flex"
                                                 >
-                                                    <div style={{ width: "38px", height: "38px" }}>
+                                                    <div style={{ width: "38px", height: "38px" }} >
                                                         <img className="h-full w-full" src={photoProfile || '../assets/default-profile.svg' } alt="Profile" />
                                                     </div>
                                                     <div className="my-auto" style={{ height: "19px", width: "19px" , transform: isDropdownHidden ? 'rotate(-180deg)' : 'none' ,    transition: 'transform 0.3s ease-in-out' }}>

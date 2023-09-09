@@ -52,7 +52,7 @@ export const Protected = () => {
 
       {/*class Page*/}
       <Route path="/" element={<Main />} />
-      <Route path="/my/class" element={<MyClass />} />
+      <Route path="/my/class" element={<MyClass />} /> {/* Done */}
       <Route path="/profile" element={<TestProfille />} />
       <Route path="/view/class/:id/:slug" element={<DetailClass />} />
       <Route path="/view/my/class/:id/:slug" element={<MyClassDetail />} />
@@ -60,9 +60,9 @@ export const Protected = () => {
         path="/view/my/class/:id/:slug/students"
         element={<MyClassStudent />}
       />
-      <Route path="/create/class" element={<CreateClass />} />
-      <Route path="/edit/my/class/:id/:slug" element={<EditMyClass />} />
-      <Route path="/join/class" element={<JoinClass />} />
+      <Route path="/create/class" element={<CreateClass />} /> {/* Done */}
+      <Route path="/edit/my/class/:id/:slug" element={<EditMyClass />} /> {/* Done */}
+      <Route path="/join/class" element={<JoinClass />} /> {/* Done */}
       {/*absent Page*/}
       <Route path="/view/:slug/detail/absent/:id" element={<DetailAbsent />} />
       <Route

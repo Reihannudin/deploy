@@ -14,6 +14,16 @@
   100% { transform: rotate(360deg); }
 }
 
+@keyframes loading {
+  0% {
+    opacity: 0.6; /* Initial opacity value */
+    background-position: -100% 0;
+  }
+  100% {
+    opacity: 0.8; /* Final opacity value */
+    background-position: 100% 0;
+  }
+}
 
 .h-icon-main-nav{
   height: 28px;

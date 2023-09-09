@@ -16,9 +16,8 @@ export const DetailMyClassComponent = (props) => {
 
     const { id, slug } = useParams();
 
-    const user = JSON.parse(localStorage.getItem('whoLogin'));
-    const username = user.username;
-    const userId = user.id;
+    const username = props.user.username;
+    const userId = props.user.id;
 
     const [isDropdownFilterAbsent , setIsDropdownFilterAbsent] = useState(true);
     const [isDropdownFilterTugas , setIsDropdownFilterTugas] = useState(true);

@@ -50,10 +50,10 @@ export const  MyDetailClassNavComponent = () => {
                         </div>
                     </div>
                     <div className="w-full bg-white justify-between flex" style={{ height:"70px"}}>
-                        <div className="flex bg-white  justify-center pt-3 pb-2 mx-auto sm:w-5/12 w-5/12">
+                        <div className="flex bg-white  justify-center pt-2 pb-1 mx-auto sm:w-5/12 w-5/12">
                             <Link to={`/view/my/class/${id}/${slug}`} className="text-center bg-white cursor-pointer   " style={{ height: "28px" }}>
                                 <div className="cursor-pointer p-1 bg-white hover:bg-gray-100 radius-full" style={{ width:"60px"}}>
-                                    <div className="mx-auto cursor-pointer" style={{ height: "28px" }}>
+                                    <div className="mx-auto cursor-pointer h-icon-main-nav">
                                         <img className="mx-auto cursor-pointer h-full" src="/assets/icon-myclass-main-nav.svg" alt="Home Icon" />
                                     </div>
                                     <p className="my-1 text-gray-400 hover:text-purple-700" style={{ fontSize: "11px" }}>Kelas</p>
@@ -62,11 +62,10 @@ export const  MyDetailClassNavComponent = () => {
 
                         </div>
 
-                        <div className="flex justify-center  bg-white mx-auto py-3 sm:w-5/12 w-5/12">
-
+                        <div className="flex justify-center  bg-white mx-auto  pt-2 pb-1 sm:w-5/12 w-5/12">
                             <Link to={`/view/my/class/${id}/${slug}/students`} className="text-center bg-white cursor-pointer  radius-full " style={{ height: "28px" }}>
                                 <div className="cursor-pointer p-1 hover:bg-gray-100 radius-full" style={{ width:"60px"}}>
-                                    <div className="mx-auto cursor-pointer" style={{ height: "28px" }}>
+                                    <div className="mx-auto cursor-pointer h-icon-main-nav" >
                                         <img className="mx-auto cursor-pointer h-full" src="/assets/icon-student-nav.svg" alt="Profile Icon" />
                                     </div>
                                     <p className="my-1 text-gray-500 hover:text-purple-700" style={{ fontSize: "11px" }}>Murid</p>

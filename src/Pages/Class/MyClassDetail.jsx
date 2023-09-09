@@ -1,10 +1,11 @@
 
 import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
-import axios from "axios";
 import {NavbarMyClassComponent} from "../../Components/Body/Nav/Class/NavbarMyClass.Component";
-import {DetailMyClassComponent} from "../../Components/Class/DetailMyClass.Component";
 import api from "../../Config/api";
+import {NavbarMyClassEmptyComponent} from "../../Components/Body/Nav/Empty/NavbarMyClassEmpty.Component";
+import {DetailMyClassEmptyComponent} from "../../Components/Class/Empty/DetailMyClassEmpty.Component";
+import {DetailMyClassComponent} from "../../Components/Class/DetailMyClass.Component";
 
 function MyClassDetail (){
 
@@ -100,42 +101,110 @@ function MyClassDetail (){
         };
     } , [user])
 
-
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         try {
-    //             // const response = await axios.get(`https://rest-api.spaceskool.site/public/api/${username}/${slug}/my/class`);
-    //             const response = await axios.get(`http://127.0.0.1:8000/api/${username}`);
-    //             const data = response.data;
-    //             setClasses(data);
-    //         } catch (error){
-    //             console.log("Error Fetching class data:"  , error)
-    //         }
-    //     }
-    //     fetchData()
-    // } , [])
+    console.log("isFetchingClass" , isFetchingClass)
+    console.log("isDataFetchingClass" , isDataFetchedClass)
 
     return(
         <>
-            {classes.map((item) => {
-                return(
-                    <div key={item.id}>
-                        <div className="w-full" style={{ background:"#FFFFFF"}}>
-                            <NavbarMyClassComponent name={item.name} image={user.image} username={user.username}  />
-                            <div className="w-full pb-5 mx-0 px-0 h-full " style={{ background:"#FFFFFF"}}>
-                                <DetailMyClassComponent code={item.code} name={item.name} teacher={item.teacher} students={item.students} subjects={item.subject} section={item.section} room={item.room} />
-                            </div>
-                        </div>
-                        <div className="lg:hidden block mx-0 px-0">
-                            {/*<FooterComponent  />*/}
+            {isFetchingClass ? (
+                <div>
+                    <div className="w-full" style={{ background: "#FFFFFF" }}>
+                        <NavbarMyClassEmptyComponent />
+                        <div className="w-full pb-5 mx-0 px-0 h-full " style={{ background:"#FFFFFF"}}>
+                            <DetailMyClassEmptyComponent />
                         </div>
                     </div>
-                )
-            })}
-
+                    <div className="lg:hidden block mx-0 px-0">
+                        {/* FooterComponent */}
+                    </div>
+                </div>
+            ) : !isDataFetchedClass ? (
+                <div>
+                    <div className="w-full" style={{ background: "#FFFFFF" }}>
+                        <NavbarMyClassEmptyComponent />
+                        <div className="w-full pb-5 mx-0 px-0 h-full " style={{ background:"#FFFFFF"}}>
+                            <DetailMyClassEmptyComponent />
+                            {/*<DetailMyClassEmptyComponent code={item.code} user={user} name={item.name} teacher={item.teacher} students={item.students} subjects={item.subject} section={item.section} room={item.room} />*/}
+                        </div>
+                    </div>
+                    <div className="lg:hidden block mx-0 px-0">
+                        {/* FooterComponent */}
+                    </div>
+                </div>
+            ) : (
+                <>
+                    {classes.map((item) => (
+                        <div key={item.id}>
+                            <div className="w-full" style={{ background: "#FFFFFF" }}>
+                                <NavbarMyClassComponent name={item.name} image={user.image} />
+                                <div className="w-full pb-5 mx-0 px-0 h-full " style={{ background:"#FFFFFF"}}>
+                                    <DetailMyClassComponent code={item.code} user={user} name={item.name} teacher={item.teacher} students={item.students} subjects={item.subject} section={item.section} room={item.room} />
+                                </div>
+                            </div>
+                            <div className="lg:hidden block mx-0 px-0">
+                                {/* FooterComponent */}
+                            </div>
+                        </div>
+                    ))}
+                </>
+            )}
         </>
     )
 }
+
+
+// <>
+//     {isFetchingClass === true ?
+//         (
+//             <div>
+//                 <div className="w-full" style={{ background:"#FFFFFF"}}>
+//                     {/*<NavbarMyClassComponent />*/}
+//                     <NavbarMyClassEmptyComponent />
+//                     {/*<NavbarMyClassComponent name={item.name} image={user.image}   />*/}
+//                     {/*<div className="w-full pb-5 mx-0 px-0 h-full " style={{ background:"#FFFFFF"}}>*/}
+//                     {/*    <DetailMyClassComponent code={item.code} name={item.name} teacher={item.teacher} students={item.students} subjects={item.subject} section={item.section} room={item.room} />*/}
+//                     {/*</div>*/}
+//                 </div>
+//                 <div className="lg:hidden block mx-0 px-0">
+//                     {/*<FooterComponent  />*/}
+//                 </div>
+//             </div>
+//         ):(isDataFetchedClass === false & isFetchingClass === false ?(
+//             <div>
+//                 <div className="w-full" style={{ background:"#FFFFFF"}}>
+//                     {/*<NavbarMyClassComponent />*/}
+//                     <NavbarMyClassEmptyComponent />
+//                     {/*<NavbarMyClassComponent name={item.name} image={user.image}   />*/}
+//                     {/*<div className="w-full pb-5 mx-0 px-0 h-full " style={{ background:"#FFFFFF"}}>*/}
+//                     {/*    <DetailMyClassComponent code={item.code} name={item.name} teacher={item.teacher} students={item.students} subjects={item.subject} section={item.section} room={item.room} />*/}
+//                     {/*</div>*/}
+//                 </div>
+//                 <div className="lg:hidden block mx-0 px-0">
+//                     {/*<FooterComponent  />*/}
+//                 </div>
+//             </div>
+//         ) : (
+//             <>
+//                 {classes.map((item) => {
+//                     return(
+//                         <div key={item.id}>
+//                             <div className="w-full" style={{ background:"#FFFFFF"}}>
+//                                 {/*<NavbarMyClassComponent />*/}
+//                                 {/*<NavbarMyClassEmptyComponent />*/}
+//                                 <NavbarMyClassComponent name={item.name} image={user.image}   />
+//                                 {/*<div className="w-full pb-5 mx-0 px-0 h-full " style={{ background:"#FFFFFF"}}>*/}
+//                                 {/*    <DetailMyClassComponent code={item.code} name={item.name} teacher={item.teacher} students={item.students} subjects={item.subject} section={item.section} room={item.room} />*/}
+//                                 {/*</div>*/}
+//                             </div>
+//                             <div className="lg:hidden block mx-0 px-0">
+//                                 {/*<FooterComponent  />*/}
+//                             </div>
+//                         </div>
+//                     )
+//                 })}
+//             </>
+{/*        )}*/}
+{/*</>*/}
 
 
 export default MyClassDetail
