@@ -1,22 +1,10 @@
+import React from "react";
 import { useEffect, useState } from "react";
 import LoadingComponent from "./Components/Helper/Loading.Component";
 import { Route, Routes } from "react-router-dom";
 
-import Home from "./Pages/Home/Home";
-import Learning from "./Pages/Learning/Learning";
-import About from "./Pages/About/About";
-import Login from "./Pages/Auth/Login";
-import React from "react";
-import VerificationEmail from "./Pages/Auth/VerificationEmail";
-import Register from "./Pages/Auth/Register";
-import ForgotPassword from "./Pages/Auth/ForgotPassword";
-
 import { Protected } from "./Routes/Protected";
 
-import AddPassword from "./Pages/Auth/AddPassword";
-import AddInformation from "./Pages/Auth/AddInformation";
-import AddInformationImage from "./Pages/Auth/AddInformationImage";
-import TestProfille from "./Pages/Helper/TestProfille";
 import {Unprotected} from "./Routes/Unprotected";
 
 function App() {
@@ -29,11 +17,15 @@ function App() {
     }, 1000);
   }, []);
 
-
-  const token = localStorage.getItem('token');
-  const [isLogged, setIsLogged] = useState(Boolean(token)); // Convert token to boolean
-
-  console.log(isLogged)
+  // Retrieve login status from localStorage
+  const storedToken = localStorage.getItem("auth_token");
+  const [isLogged, setIsLogged] = useState(!!storedToken); // Convert token to boolean
+  //
+  // useEffect(() => {
+  //   // Store login status in localStorage whenever it changes
+  //   localStorage.setItem("isLogged", isLogged ? "true" : "false");
+  // }, [isLogged]);
+  console.log("is logged?" ,isLogged)
 
   return (
     <div className="App">

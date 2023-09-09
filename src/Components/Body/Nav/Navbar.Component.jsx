@@ -148,7 +148,6 @@ export const NavbarComponent = ({user}) => {
                                                         className="cursor-pointer ms-auto gap-2 my-auto flex"
                                                     >
                                                         <div style={{ width: "38px", height: "38px" }}>
-
                                                             <img className="h-full w-full" src={user.image || "../assets/default-profile.svg"} alt="Profile" />
                                                         </div>
                                                         <div className="my-auto" style={{ height: "19px", width: "19px" , transform: isDropdownHidden ? 'rotate(-180deg)' : 'none' ,    transition: 'transform 0.3s ease-in-out' }}>

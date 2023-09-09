@@ -42,7 +42,6 @@ import Feed from "../Pages/Feed/Feed";
 import TestProfille from "../Pages/Helper/TestProfille";
 
 export const Protected = () => {
-    localStorage.setItem("isLogin", true);
 
   return (
     <Routes>

@@ -8,7 +8,6 @@ import {FooterComponent} from "../../Components/Body/Footer/Footer.Component";
 
 function Home(){
 
-    localStorage.setItem("isLogin", false);
 
     return(
         <>

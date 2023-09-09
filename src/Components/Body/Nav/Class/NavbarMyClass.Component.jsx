@@ -45,12 +45,13 @@ export const NavbarMyClassComponent = (props) => {
         }
     } , []);
 
-    const user = JSON.parse(localStorage.getItem('whoLogin'));
-    const photoProfile = user.image;
+    const photoProfile = props.image;
 
     const propsName = props.name.length;
     const truncatedName = propsName > 12 ? `${props.name.slice(0, 12)}...` : props.name;
 
+
+    console.log(photoProfile)
 
     return(
         <>
@@ -74,7 +75,7 @@ export const NavbarMyClassComponent = (props) => {
                         >
                             <div className="w-full justify-between flex">
                                 <div className="flex my-auto mt-1 gap-4">
-                                    <Link to={`https://spaceskool.site/my/class`}>
+                                    <Link to={`/my/class`}>
                                         <div className="my-3" style={{ height:"24px"}}>
                                             <img className="h-full" src="/assets/arrow-back.svg"/>
                                         </div>
@@ -165,7 +166,7 @@ export const NavbarMyClassComponent = (props) => {
                                                     className="cursor-pointer ms-auto gap-2 my-auto flex"
                                                 >
                                                     <div style={{ width: "38px", height: "38px" }}>
-                                                        <img className="h-full w-full" src={photoProfile} alt="Profile" />
+                                                        <img className="h-full w-full" src={photoProfile || '../assets/default-profile.svg' } alt="Profile" />
                                                     </div>
                                                     <div className="my-auto" style={{ height: "19px", width: "19px" , transform: isDropdownHidden ? 'rotate(-180deg)' : 'none' ,    transition: 'transform 0.3s ease-in-out' }}>
                                                         <img className="w-full h-full" src="/assets/expand-icon.svg" alt="Expand" />

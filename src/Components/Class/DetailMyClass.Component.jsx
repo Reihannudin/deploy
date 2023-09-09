@@ -6,6 +6,7 @@ import {TaskClassCardComponent} from "./Card/TaskClassCard.Component";
 import {ClassmateCardComponent} from "../Classmate/Card/ClassmateCard.Component";
 import {MainNavComponent} from "../Body/MainNav/MainNav.Component";
 import {MyDetailClassNavComponent} from "../Body/MainNav/MyDetailClassNav.Component";
+import api from "../../Config/api";
 
 const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
@@ -96,18 +97,55 @@ export const DetailMyClassComponent = (props) => {
 
     const [absents, setAbsents] = useState([]);
     const [filterAbsent, setFilterAbsent] = useState('');
+    const [isFetchingAbsent, setIsFetchingAbsent] = useState(true);
+    const [isDataFetchedAbsent, setIsDataFetchedAbsent] = useState(false);
+    const [errorAbsent, setErrorAbsent] = useState(null);
+
+
+    // useEffect(() => {
+    //     fetchDataAbsent();
+    // }, [filterAbsent]);
+
     useEffect(() => {
-        fetchDataAbsent();
-    }, [filterAbsent]);
-    const fetchDataAbsent = async () => {
-        try {
-            const response = await axios.get(`http://127.0.0.1:8000/api/${slug}/absents?filter=${filterAbsent}`);
-            const data = response.data;
-            setAbsents(data);
-        } catch (error) {
-            console.log("Error Fetching absent data:", error);
-        }
-    };
+        let isMounted = true;
+
+        const fetchData = async () => {
+            try {
+                if (!isDataFetchedAbsent) {
+                    const response = await api.get(`${slug}/absents?filter=${filterAbsent}`);
+                    const data = response.data;
+
+                    if (isMounted) {
+                        setAbsents(data);
+                        setIsDataFetchedAbsent(true);
+                        setIsFetchingAbsent(false);
+                    }
+                }
+
+            } catch (error) {
+                if (isMounted) {
+                    setErrorAbsent(error);
+                    setIsFetchingAbsent(false);
+                }
+            }
+        };
+
+        const timeout = setTimeout(() => {
+            if (isFetchingAbsent) {
+                if (isMounted) {
+                    setErrorAbsent(new Error("Timeout: Could not fetch data."));
+                    setIsFetchingAbsent(false);
+                }
+            }
+        }, 20000);
+
+        fetchData();
+
+        return () => {
+            isMounted = false;
+            clearTimeout(timeout);
+        };
+    }, [isDataFetchedAbsent]);
 
     const handleFilterAbsentClick = (filterValue) => {
         setFilterAbsent(filterValue);
@@ -118,20 +156,52 @@ export const DetailMyClassComponent = (props) => {
 
     const [assignments, setAssignments] = useState([]);
     const [filterAssignment, setFilterAssignment] = useState('');
+    const [isFetchingAssignment, setIsFetchingAssignment] = useState(true);
+    const [isDataFetchedAssignment, setIsDataFetchedAssignment] = useState(false);
+    const [errorAssignment, setErrorAssignment] = useState(null);
 
     useEffect(() => {
-        fetchDataAssignment();
-    }, [filterAssignment]);
+        let isMounted = true;
 
-    const fetchDataAssignment = async () => {
-        try {
-            const response = await axios.get(`http://127.0.0.1:8000/api/${slug}/assignment?filter=${filterAssignment}`);
-            const data = response.data;
-            setAssignments(data);
-        } catch (error) {
-            console.log("Error Fetching absent data:", error);
-        }
-    };
+        const fetchData = async () => {
+            try {
+                if (!isDataFetchedAssignment) {
+                    const response = await api.get(`${slug}/assignment?filter=${filterAssignment}`);
+                    const data = response.data;
+
+                    if (isMounted) {
+                        setAssignments(data);
+                        setIsDataFetchedAssignment(true);
+                        setIsFetchingAssignment(false);
+                    }
+                }
+
+            } catch (error) {
+                if (isMounted) {
+                  isFetchingAssignment(error);
+                    setIsFetchingAssignment(false);
+                }
+            }
+        };
+
+        const timeout = setTimeout(() => {
+            if (isFetchingAssignment) {
+                if (isMounted) {
+                    setErrorAssignment(new Error("Timeout: Could not fetch data."));
+                    setIsFetchingAssignment(false);
+                }
+            }
+        }, 20000);
+
+        fetchData();
+
+        return () => {
+            isMounted = false;
+            clearTimeout(timeout);
+        };
+    }, [isDataFetchedAssignment]);
+
+
     const handleFilterAssignmentsClick = (filterValue) => {
         setFilterAssignment(filterValue);
         const url = `?filter=${filterValue}`;
@@ -141,18 +211,64 @@ export const DetailMyClassComponent = (props) => {
 
     const [resources , setResources] = useState([]);
     const [filterResource, setFilterResource] = useState('');
+    const [isFetchingResource, setIsFetchingResource] = useState(true);
+    const [isDataFetchedResource, setIsDataFetchedResource] = useState(false);
+    const [errorResource, setErrorResource] = useState(null);
+
     useEffect(() => {
-        fetchDataResource();
-    }, [filterResource]);
-    const fetchDataResource = async () => {
-        try {
-            const response = await axios.get(`http://127.0.0.1:8000/api/${slug}/resources?filter=${filterResource}`);
-            const data = response.data;
-            setResources(data);
-        } catch (error) {
-            console.log("Error Fetching class data:", error);
-        }
-    };
+        let isMounted = true;
+
+        const fetchData = async () => {
+            try {
+                if (!isDataFetchedResource) {
+                    const response = await api.get(`${slug}/resources?filter=${filterResource}`);
+                    const data = response.data;
+
+                    if (isMounted) {
+                        setResources(data);
+                        setIsDataFetchedResource(true);
+                        setIsFetchingResource(false);
+                    }
+                }
+
+            } catch (error) {
+                if (isMounted) {
+                    setErrorResource(error);
+                    setIsFetchingResource(false);
+                }
+            }
+        };
+
+        const timeout = setTimeout(() => {
+            if (isFetchingResource) {
+                if (isMounted) {
+                    setErrorResource(new Error("Timeout: Could not fetch data."));
+                    setIsFetchingResource(false);
+                }
+            }
+        }, 20000);
+
+        fetchData();
+
+        return () => {
+            isMounted = false;
+            clearTimeout(timeout);
+        };
+    }, [isDataFetchedResource]);
+
+    //
+    // useEffect(() => {
+    //     fetchDataResource();
+    // }, [filterResource]);
+    // const fetchDataResource = async () => {
+    //     try {
+    //         const response = await axios.get(`http://127.0.0.1:8000/api/`);
+    //         const data = response.data;
+    //         setResources(data);
+    //     } catch (error) {
+    //         console.log("Error Fetching class data:", error);
+    //     }
+    // };
     const handleFilterClickResource = (filterValue) => {
         setFilterResource(filterValue);
         const url = `?filter=${filterValue}`;

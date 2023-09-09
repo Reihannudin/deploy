@@ -12,7 +12,6 @@ function EditMyClass (){
     const [isFetching, setIsFetching] = useState(true);
     const [isDataFetched, setIsDataFetched] = useState(false);
     const [error, setError] = useState(null);
-    localStorage.setItem("isLogin", "true");
 
     useEffect(()=> {
         let isMounted = true;

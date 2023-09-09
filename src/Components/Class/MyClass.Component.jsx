@@ -55,7 +55,6 @@ export const MyClassComponent = ({user}) => {
     }, [isDataFetched]);
 
 
-
     return(
         <>
             <div className=' h-full mx-auto md:pt-16  pt-16 px-0' style={{ minWidth:"300px"}}>

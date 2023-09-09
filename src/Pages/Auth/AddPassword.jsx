@@ -17,7 +17,6 @@ function AddPassword(){
     const [redirect, setRedirect] = useState("/add/password");
     const [isLoading, setIsLoading] = useState(false);
     const [redirectPath, setRedirectPath] = useState("/register");
-    localStorage.setItem("isLogin", false);
 
     const bcrypt = require('bcryptjs');
     const salt = bcrypt.genSaltSync(10);
@@ -32,7 +31,7 @@ function AddPassword(){
             confirm_password: confirmPassword
         }
 
-        let token =localStorage.getItem('token');
+        let token = localStorage.getItem('token');
 
         api
             .post(`/add/password`, formData , {

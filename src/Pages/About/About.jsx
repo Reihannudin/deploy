@@ -6,7 +6,6 @@ import {PreRegisterCardComponent} from "../../Components/Home/PreRegisterCard.Co
 import {FooterComponent} from "../../Components/Body/Footer/Footer.Component";
 
 function About(){
-    localStorage.setItem("isLogin", false);
 
     return(
         <>

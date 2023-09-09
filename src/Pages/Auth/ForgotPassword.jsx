@@ -2,7 +2,6 @@ import {ForgotPasswordCardComponent} from "../../Components/Auth/Card/ForgotPass
 
 function ForgotPassword(){
 
-    localStorage.setItem("isLogin", false);
 
     return(
         <>

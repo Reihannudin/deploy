@@ -16,7 +16,6 @@ function AddInformation(){
     const [redirect, setRedirect] = useState("/add/information");
     const [redirectPath, setRedirectPath] = useState("/register");
     const [isLoading, setIsLoading] = useState(false);
-    localStorage.setItem("isLogin", false);
 
     const [errorEmail, setErrorEmail] = useState('');
     const [errorName, setErrorName] = useState('');
@@ -125,6 +124,7 @@ function AddInformation(){
                             setBirthday={setBirthday}
                             erroremail={errorEmail}
                             errorName={errorName}
+                            errorContact={errorContact}
                             errorUsername={errorUsername}
                             errorBirthday={errorBirthday}
                             setErrorEmail={setErrorEmail}
