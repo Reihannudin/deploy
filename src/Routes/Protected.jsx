@@ -59,7 +59,7 @@ export const Protected = () => {
       <Route path="/view/my/class/:id/:slug/students" element={<MyClassStudent />}/> {/* Done */}
 
       <Route path="/class/:id/:slug/create/absent" element={<CreateAbsent />} /> {/* Done */}
-      <Route path="/class/:slug/:class_id/edit/absent/:id" element={<EditMyAbsent />}/>
+      <Route path="/class/:slug/:class_id/edit/absent/:id" element={<EditMyAbsent />}/> {/* Done */}
       <Route path="/view/:slug/:class_id/my/absent/:id" element={<MyDetailAbsent />}/> {/* Done */}
       <Route path="/view/:slug/:class_id/my/absent/:id/students" element={<MyDetailAbsentStudents />}/> {/* Done */}
 
