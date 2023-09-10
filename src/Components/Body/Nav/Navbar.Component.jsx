@@ -3,7 +3,7 @@ import React, {useState} from "react";
 import axios from "axios";
 
 
-export const NavbarComponent = ({user}) => {
+export const NavbarComponent = ({isFetching ,isDataFetched ,user}) => {
 
     const [isMenuHidden , setIsMenuHidden] = useState(true);
     const toggleMenu = () => {
@@ -147,9 +147,20 @@ export const NavbarComponent = ({user}) => {
                                                         style={{ fontSize: "14px" }}
                                                         className="cursor-pointer ms-auto gap-2 my-auto flex"
                                                     >
-                                                        <div style={{ width: "38px", height: "38px" }}>
-                                                            <img className="h-full w-full" src={user.image || "../assets/default-profile.svg"} alt="Profile" />
-                                                        </div>
+                                                        {isFetching? (
+                                                            <div style={{ width: "38px", height: "38px" }} >
+                                                                <div className="h-full w-full  radius-full bg-gray-200 py-2 animate-pulse"   ></div>
+                                                            </div>
+                                                        ) : !isDataFetched ? (
+                                                            <div style={{ width: "38px", height: "38px" }} >
+                                                                <div className="h-full w-full  radius-full bg-gray-200 py-2 animate-pulse"   ></div>
+                                                            </div>
+                                                        ) :(
+                                                                <div style={{ width: "38px", height: "38px" }}>
+                                                                    <img className="h-full w-full" src={user.image || "../assets/default-profile.svg"} alt="Profile" />
+                                                                </div>
+                                                            )
+                                                        }
                                                         <div className="my-auto" style={{ height: "19px", width: "19px" , transform: isDropdownHidden ? 'rotate(-180deg)' : 'none' ,    transition: 'transform 0.3s ease-in-out' }}>
                                                             <img className="w-full h-full" src="/assets/expand-icon.svg" alt="Expand" />
                                                         </div>

@@ -53,7 +53,7 @@ function MyClass (){
     return(
         <>
             <div className="w-full" style={{ background:"#FFFFFF"}}>
-                <NavbarComponent user={user}/>
+                <NavbarComponent isFetching={isFetching} isDataFetched={isDataFetched} user={user}/>
                 <div className="w-full mx-0 px-0 h-full " style={{ background:"#FFFFFF"}}>
                     <MyClassComponent user={user} />
                 </div>
