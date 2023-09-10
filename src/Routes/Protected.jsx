@@ -62,10 +62,12 @@ export const Protected = () => {
       <Route path="/join/class" element={<JoinClass />} /> {/* Done */}
 
       {/*absent Page*/}
+        <Route path="/view/:slug/detail/absent/:id" element={<DetailAbsent />} />
+
       <Route path="/class/:slug/:id/create/absent" element={<CreateAbsent />} /> {/* Done */}
-      <Route path="/view/:slug/detail/absent/:id" element={<DetailAbsent />} />
+      <Route path="/class/:slug/:class_id/edit/absent/:id" element={<EditMyAbsent />}/>
       <Route path="/view/:slug/:class_id/my/absent/:id" element={<MyDetailAbsent />}/> {/* Done */}
-      <Route path="/view/:slug/:class_id/my/absent/:id/students" element={<MyDetailAbsentStudents />}/>
+      <Route path="/view/:slug/:class_id/my/absent/:id/students" element={<MyDetailAbsentStudents />}/> {/* Done */}
       <Route
         path="/view/:slug/detail/absent/:id/classmate"
         element={<DetailAbsentClassmate />}
@@ -112,10 +114,7 @@ export const Protected = () => {
       <Route path="/edit/profile" element={<EditProfile />} />
       <Route path="/edit/profile/password" element={<EditProfilePassword />} />
       {/*/!*crud*!/*/}
-      <Route
-        path="/class/:slug/:class_id/edit/absent/:id"
-        element={<EditMyAbsent />}
-      />
+
       <Route
         path="/class/:slug/:id/create/resource"
         element={<CreateResource />}

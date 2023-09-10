@@ -137,7 +137,7 @@ export const MainComponent = ({user}) => {
                 <div className="block w-full md:hidden">
                     <MainNavComponent user={user} />
                 </div>
-                <div className="w-full py-3  mx-auto  lg:mb-10 md:mb-5 bg-white">
+                <div className="w-11/12 md:w-full py-3  mx-auto  lg:mb-10 md:mb-5 bg-white">
                     <div className="bg-white">
                         <div className="me-auto relative xl:w-10/12 lg:w-11/12 md:w-11/12  sm:w-11/12 w-full  mx-auto">
                             <div className="absolute left-0">

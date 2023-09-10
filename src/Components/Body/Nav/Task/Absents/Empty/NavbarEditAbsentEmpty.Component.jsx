@@ -1,6 +1,6 @@
 import {Link, useNavigate, useParams} from "react-router-dom";
 
-export const NavbarEditAbsentComponent = () => {
+export const NavbarEditAbsentEmptyComponent = () => {
 
     const navigate = useNavigate();
 
@@ -24,8 +24,8 @@ export const NavbarEditAbsentComponent = () => {
                                 </div>
                             </Link>
                             <div className="my-2 text-left" >
-                                <h4 className="font16-res-400">Mengedit Absent</h4>
-                                <p className="font14-res-300 text-purple-700" >{classname}</p>
+                                <h4 className="font16-res-400 bg-gray-200 py-2 mb-2 w-40 animate-pulse"></h4>
+                                <p className="font14-res-300 text-purple-700 bg-gray-200 w-36 py-1 mt-3 mb-1 animate-pulse" ></p>
                             </div>
                         </div>
                     </div>
