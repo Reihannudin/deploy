@@ -1,79 +1,28 @@
 import React, {useEffect, useState} from "react";
 import {Link, useNavigate, useParams, useSearchParams} from "react-router-dom";
 import axios from "axios";
-import {DetailStudentAbsentCardComponent} from "../Absent/Card/DetailStudentAbsentCard.Component";
-import {AbsentNavComponent} from "../Body/MainNav/AbsentNav.Component";
-
-export const DetailStudentAbsentComponent = (props) => {
-
-    const [absentStatus , setAbsentStatus] = useState([]);
-
-    const { id, class_id , slug } = useParams();
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                // const response = await axios.get(`https://rest-api.spaceskool.site/public/api/${slug}/absent/${id}/status`);
-                const response = await axios.get(`http://127.0.0.1:8000/api/${slug}/absent/${id}/status`);
-                const data = response.data;
-                setAbsentStatus(data);
-            } catch (error){
-                console.log("Error Fetching class data:"  , error)
-            }
-        }
-        fetchData()
-    } , [])
-
-
-    const [student , setStudent] = useState([]);
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get(`http://127.0.0.1:8000/api/${slug}/absent/${id}/show/action/user?filter=${filterStudent}`);
-                const data = response.data;
-                setStudent(data);
-            } catch (error){
-                console.log("Error Fetching students data:"  , error)
-            }
-        }
-        fetchData()
-    } , [])
-
-    const [isDropdownFilterStudent , setIsDropdownFilterStudent] = useState(true);
+import {AbsentNavComponent} from "../../Body/MainNav/AbsentNav.Component";
+export const DetailStudentAbsentEmptyComponent = (props) => {
 
     const navigate = useNavigate();
-    const toggleDropdowFilterStudent = () => {
-        setIsDropdownFilterStudent((prevHidden) => ! prevHidden);
-    }
+    const { id, class_id , slug } = useParams();
 
-    const [filterStudent, setFilterStudent] = useState('');
 
-    useEffect(() => {
-        fetchDataStudent();
-    }, [filterStudent]);
+    const [isDropdownFilterStudent, setIsDropdownFilterStudent] = useState(true);
+
+    const toggleDropdownFilterStudent = () => {
+        setIsDropdownFilterStudent((prevHidden) => !prevHidden);
+    };
+
     const handleFilterStudentClick = (filterValue) => {
-        setFilterStudent(filterValue);
         const url = `?filter=${filterValue}`;
-        navigate(url); // Replace navigate with your navigation function
+        // Replace navigate with your navigation function
+        navigate(url);
     };
 
     const handleFilterStudent = () => {
-        setIsDropdownFilterStudent(true)
-    }
-
-    const fetchDataStudent = async () => {
-        try {
-            const response = await axios.get(`http://127.0.0.1:8000/api/${slug}/absent/${id}/show/action/user?filter=${filterStudent}`);
-            const data = response.data;
-            setStudent(data);
-        } catch (error) {
-            console.log("Error Fetching absent data:", error);
-        }
+        setIsDropdownFilterStudent(true);
     };
-
-    console.log(student);
-
 
     return(
         <>
@@ -87,25 +36,11 @@ export const DetailStudentAbsentComponent = (props) => {
                             <div className="mx-2 md:mx-4 text-left md:pt-2 pb-0 ">
                                 <div className="flex justify-between">
                                     <h2 className="font16-res-400" style={{ color:"#646464" , fontWeight:"500"}}>Rangkuman Absent </h2>
-                                    {props.status === "selesai" || props.status === "hadir" ? (
                                         <div>
-                                            <div className="w-full text-green-600 bg-green-200 px-4 border-radius-4">
-                                                <p className="font13-res-300">{props.status}</p>
+                                            <div className="w-full text-green-600 px-0 border-radius-4">
+                                                <p className="font13-res-300 bg-gray-200 w-16 py-2 animate-pulse"></p>
                                             </div>
                                         </div>
-                                    ) : props.status === "melewatkan" ? (
-                                        <div>
-                                            <div className="w-full text-red-600 bg-red-200 px-2 border-radius-4">
-                                                <p className="font13-res-300">{props.status}</p>
-                                            </div>
-                                        </div>
-                                    ) : (
-                                        <div>
-                                            <div className="w-full text-yellow-600 bg-yellow-200 px-4 border-radius-4">
-                                                <p className="font13-res-300">{props.status}</p>
-                                            </div>
-                                        </div>
-                                    )}
                                 </div>
                                 <p className="my-1 font14-res-300" style={{ color:"#646464"}}>Tanggal {props.date} dengan Jumlah {props.action_length} Siswa</p>
                             </div>
@@ -117,37 +52,34 @@ export const DetailStudentAbsentComponent = (props) => {
                                             <p className="font14-res-300">Hadir</p>
                                             <div className="w-12 h-12 bg-gray-200 rounded-full mx-auto">
                                                 <div
-                                                    className={`w-12 h-12 ${absentStatus.izin === 0 ? "bg-gray-200" : "bg-green-400"} rounded-full relative flex justify-center items-center`}
+                                                    className={`w-12 h-12  "bg-gray-200" rounded-full relative flex justify-center items-center`}
                                                     style={{
                                                         clipPath: `polygon(0 0, 100% 0, 100%, 0 100%)`,
                                                     }}
                                                 >
                                                     <p className="font22-res-300 text-white font-normal">
                                                         0
-                                                        {/*{absentStatus.izin === 0 ? "Tidak ada siswa" : absentStatus.izin + " siswa"}*/}
                                                     </p>
+
                                                 </div>
 
                                             </div>
                                         </div>
                                     </div>
-
                                     <div className="my-3 w-full">
                                         <div className="block w-full text-center">
                                             <p className="font14-res-300">Izin</p>
                                             <div className="w-12 h-12 bg-gray-200 rounded-full mx-auto">
                                                 <div
-                                                    className={`w-12 h-12 ${absentStatus.izin === 0 ? "bg-gray-200" : "bg-yellow-400"} rounded-full relative flex justify-center items-center`}
+                                                    className={`w-12 h-12 "bg-gray-200" rounded-full relative flex justify-center items-center`}
                                                     style={{
                                                         clipPath: `polygon(0 0, 100% 0, 100%, 0 100%)`,
                                                     }}
                                                 >
                                                     <p className="font22-res-300 text-white font-normal">
                                                         0
-                                                        {/*{absentStatus.izin === 0 ? "Tidak ada siswa" : absentStatus.izin + " siswa"}*/}
                                                     </p>
                                                 </div>
-
                                             </div>
                                         </div>
                                     </div>
@@ -156,14 +88,13 @@ export const DetailStudentAbsentComponent = (props) => {
                                             <p className="font14-res-300">Alpha</p>
                                             <div className="w-12 h-12 bg-gray-200 rounded-full mx-auto">
                                                 <div
-                                                    className={`w-12 h-12 ${absentStatus.izin === 0 ? "bg-gray-200" : "bg-red-400"} rounded-full relative flex justify-center items-center`}
+                                                    className={`w-12 h-12 bg-gray-200 rounded-full relative flex justify-center items-center`}
                                                     style={{
                                                         clipPath: `polygon(0 0, 100% 0, 100%, 0 100%)`,
                                                     }}
                                                 >
                                                     <p className="font22-res-300 text-white font-normal">
                                                         0
-                                                        {/*{absentStatus.izin === 0 ? "Tidak ada siswa" : absentStatus.izin + " siswa"}*/}
                                                     </p>
                                                 </div>
 
@@ -171,9 +102,8 @@ export const DetailStudentAbsentComponent = (props) => {
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
-
-
                         </div>
                     </div>
                     <div className="lg:w-8/12 mx-auto sm:w-11/12  w-full">
@@ -182,7 +112,7 @@ export const DetailStudentAbsentComponent = (props) => {
                                 <h2 className="font16-res-400 text-gray-600">Daftar Student absent</h2>
                             </div>
                             <div className="relative">
-                                <button className="my-auto"  onClick={toggleDropdowFilterStudent}>
+                                <button className="my-auto"  onClick={toggleDropdownFilterStudent}>
                                     <div  className="px-1 py-2 bg-white hover:px-1 hover:bg-gray-100 radius-100 ">
                                         <div className="my-auto  mx-1 " style={{ height:"20px"}}>
                                             <img className="h-full w-full" src="/assets/filter-icon.svg"/>
@@ -229,35 +159,14 @@ export const DetailStudentAbsentComponent = (props) => {
                             </div>
                         </div>
                         <ul className="pt-1 w-full block">
-                            {student.length === 0 ? (
                                 <div className="my-20">
-                                    <div className="mx-auto my-5" style={{ height:"30px"}}>
-                                        <img className="h-full mx-auto" src="/assets/icon-tidak-ada.svg" />
+                                    <div className="flex items-center justify-center h-32 mb-2 mt-6 ">
+                                        <div className="animate-spin">
+                                            <img src="/assets/planet_gif-1.gif" className="h-20 w-20" alt="Loading" />
+                                        </div>
                                     </div>
-                                    <h2 className="font16-res-300 my-3 text-gray-500">Belum ada murid yang melakukan absensi</h2>
                                 </div>
-                            ):(
-                                <div>
-                                    {student.map((item) => {
-                                        return(
-                                            <li key={item.id} className="">
-                                                {item.action === 0 ? (
-                                                    <div className="my-8">
-                                                        <div className="mx-auto my-5" style={{ height:"30px"}}>
-                                                            <img className="h-full mx-auto" src="/assets/icon-tidak-ada.svg" />
-                                                        </div>
-                                                        <h2 className="font16-res-300 my-3 text-gray-500">Belum ada murid yang melakukan absensi</h2>
-                                                    </div>
-                                                ) : (
-                                                    <div>
-                                                        <DetailStudentAbsentCardComponent id={item.id} confirmation_status={item.absent_confirmation} student={item.name} status={item.status} absent_time={item.absent_time} />
-                                                    </div>
-                                                )}
-                                            </li>
-                                        )
-                                    })}
-                                </div>
-                            )}
+
                         </ul>
                     </div>
                 </div>

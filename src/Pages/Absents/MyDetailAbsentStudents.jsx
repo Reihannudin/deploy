@@ -2,13 +2,14 @@ import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import axios from "axios";
 import {NavbarMyDetailAbsentComponent} from "../../Components/Body/Nav/Task/Absents/NavbarMyDetailAbsent.Component";
-import {DetailStudentAbsentComponent} from "../../Components/Classmate/DetailStudentAbsent.Component";
+import {DetailStudentAbsentComponent} from "../../Components/Absent/DetailStudentAbsent.Component";
 import api from "../../Config/api";
 import {
     NavbarMyDetailAbsentComponentEmpty
 } from "../../Components/Body/Nav/Task/Absents/Empty/NavbarMyDetailAbsentEmpty.Component";
 import {DetailMyAbsentComponentEmpty} from "../../Components/Absent/Empty/DetailMyAbsentEmpty.Component";
 import {DetailMyAbsentComponent} from "../../Components/Absent/DetailMyAbsent.Component";
+import {DetailStudentAbsentEmptyComponent} from "../../Components/Absent/Empty/DetailStudentAbsentEmpty.Component";
 
 
 function MyDetailAbsentStudents () {
@@ -121,9 +122,16 @@ function MyDetailAbsentStudents () {
                     <div className="w-full" style={{ background: "#FFFFFF" }}>
                         <NavbarMyDetailAbsentComponentEmpty />
                         <div className="w-full pb-5 mx-0 px-0 h-full " style={{ background:"#FFFFFF"}}>
-                            {/*<DetailMyAbsentComponentEmpty />*/}
+                            {/* Tab Contents */}
+                            <div id="tab-contents" className=" w-full mx-auto">
+                                <div id="student" className=" p-4">
+                                    <div className="xl:w-10/12 lg:w-11/12 md:w-10/12 w-full mx-auto  md:pt-16  pt-16">
+                                        <DetailStudentAbsentEmptyComponent />
 
-                            {/*<DetailMyClassEmptyComponent code={item.code} user={user} name={item.name} teacher={item.teacher} students={item.students} subjects={item.subject} section={item.section} room={item.room} />*/}
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
                     <div className="lg:hidden block mx-0 px-0">
@@ -135,8 +143,16 @@ function MyDetailAbsentStudents () {
                     <div className="w-full" style={{ background: "#FFFFFF" }}>
                         <NavbarMyDetailAbsentComponentEmpty />
                         <div className="w-full pb-5 mx-0 px-0 h-full " style={{ background:"#FFFFFF"}}>
-                            {/*<DetailMyAbsentComponentEmpty />*/}
-                            {/*<DetailMyClassEmptyComponent code={item.code} user={user} name={item.name} teacher={item.teacher} students={item.students} subjects={item.subject} section={item.section} room={item.room} />*/}
+                            {/* Tab Contents */}
+                            <div id="tab-contents" className=" w-full mx-auto">
+                                <div id="student" className=" p-4">
+                                    <div className="xl:w-10/12 lg:w-11/12 md:w-10/12 w-full mx-auto  md:pt-16  pt-16">
+                                        <DetailStudentAbsentEmptyComponent />
+
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
                     <div className="lg:hidden block mx-0 px-0">
