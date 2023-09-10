@@ -218,72 +218,6 @@ export const EditAbsentComponent = (props) => {
     };
 
 
-    // const handleSubmit = (event) => {
-    //     event.preventDefault();
-    //
-    //     const formData = {
-    //         name,
-    //         date,
-    //         start_time: startTime,
-    //         end_time: endTime
-    //     };
-    //
-    //     // axios.put(`https://rest-api.spaceskool.site/public/api/${username}/${slug}/${class_id}/update/absent/${id}`, formData)
-    //     axios.put(`http://127.0.0.1:8000/api/`, formData)
-    //         .then((response) => {
-    //             console.log(response.data)
-    //             const { redirectUrl } = response.data;
-    //             setRedirectUrl(redirectUrl);
-    //         })
-    //         .catch((error) => {
-    //             const { errors } = error.response.data;
-    //
-    //             setErrorName(errors?.name?.[0] || '');
-    //             setErrorDate(errors?.date?.[0] || '');
-    //             setErrorStartTime(errors?.start_time?.[0] || '');
-    //             setErrorEndTime(errors?.end_time?.[0] || '');
-    //         });
-    // };
-
-
-
-    // useEffect(() => {
-    //     if (redirectUrl) {
-    //         const url = new URL(redirectUrl);
-    //         const searchParams = new URLSearchParams(url.search);
-    //
-    //         setErrorName(searchParams.get('error_name') || '');
-    //         setErrorDate(searchParams.get('error_date') || '');
-    //         setErrorStartTime(searchParams.get('error_start_time') || '');
-    //         setErrorEndTime(searchParams.get('error_end_time') || '');
-    //
-    //         setName(searchParams.get('name') || '');
-    //         setDate(searchParams.get('date') || '');
-    //         setStartTime(searchParams.get('start_time') || '');
-    //         setEndTime(searchParams.get('end_time') || '');
-    //
-    //         searchParams.delete('error_name');
-    //         searchParams.delete('name');
-    //         searchParams.delete('error_date');
-    //         searchParams.delete('date');
-    //         searchParams.delete('error_start_time');
-    //         searchParams.delete('start_time');
-    //
-    //         url.search = searchParams.toString();
-    //         window.history.replaceState({}, '', url.href);
-    //
-    //         const statusParam = searchParams.get('status');
-    //
-    //         if (statusParam === '201') {
-    //             navigate(`/view/my/class/${id}/${slug}`);
-    //         }
-    //
-    //         setRedirectUrl('');
-    //     }
-    // }, [redirectUrl]);
-
-
-
     return (
         <>
             <div className="h-full mx-auto md:pt-20 pt-16 px-0" style={{ minWidth: "300px" }}>
@@ -302,9 +236,9 @@ export const EditAbsentComponent = (props) => {
                                         <div className="sm:flex block w-full text-left ">
                                             <div className="md:flex block w-full text-left " >
                                                 <div className="mt-3 w-full mx-auto">
-                                                    <label className="font14-res-300" style={{ color:"#777575" }}>Nama Absensi</label>
+                                                    <label className="font14-res-300" htmlFor={"name"} style={{ color:"#777575" }}>Nama Absensi</label>
                                                     <div className="flex  w-full">
-                                                        <input id="name"  value={name} onChange={onChangeName} type="text"
+                                                        <input id="name"  name={"name"} value={name} onChange={onChangeName} type="text"
                                                                className="md:w-11/12 w-full py-1.5 md:py-2.5 font15-res-300 border-b-gray-300"
                                                                style={{ borderBottom:"1px solid #ebebeb"}} placeholder={props.name}/>
                                                     </div>
@@ -318,9 +252,9 @@ export const EditAbsentComponent = (props) => {
                                                     )}
                                                 </div>
                                                 <div className="mt-3 w-full mx-auto">
-                                                    <label className={"font16-res-300"} style={{ color:"#606060" }}>Date</label>
+                                                    <label className={"font16-res-300"} htmlFor={"date"} style={{ color:"#606060" }}>Date</label>
                                                     <div className="flex w-full">
-                                                        <input id="date" onChange={onChangeDate} value={date} type="date"
+                                                        <input id="date" name={"date"} onChange={onChangeDate} value={date} type="date"
                                                                className="md:w-11/12 w-full py-1.5 md:py-2.5 font15-res-300 border-b-gray-300"
                                                                style={{ borderBottom:"1px solid #ebebeb"}} placeholder={props.date}/>
                                                     </div>
@@ -336,7 +270,7 @@ export const EditAbsentComponent = (props) => {
                                             </div>
                                         </div>
                                         <div className="text-left my-6">
-                                            <label className={"font16-res-300"} style={{ color:"#606060" }}>Range Time</label>
+                                            <label className={"font16-res-300"} htmlFor={"starttime"} style={{ color:"#606060" }}>Range Time</label>
                                             <div className="flex md:w-8/12 w-full mb-6  justify-between">
                                                 <div className="mt-0 w-7/12 mx-auto">
                                                     {/*<label  style={{ fontSize:"14px"}}>Start Time</label>*/}

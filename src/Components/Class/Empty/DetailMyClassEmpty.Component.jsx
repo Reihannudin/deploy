@@ -198,9 +198,9 @@ export const DetailMyClassEmptyComponent = (props) => {
                             </div>
                             <div className="md:w-10/12 w-11/12 lg:hidden block  mx-auto my-6">
                                 <div className="my-2 text-center py-1 border-none md:border-t">
-                                    <p className="my-2 font16-res-400">Code class</p>
+                                    <label className="my-2 font16-res-400" htmlFor={"code"}>Code class</label>
                                     <div className="lg:w-10/12 md:w-8/12 w-10/12  bg-white flex  mx-auto border-radius-4" >
-                                        <input className=" font16-res-400 py-2 px-3 bg-gray-100 w-10/12 animate-pulse"   />
+                                        <input id={"code"} name={"code"} className=" font16-res-400 py-2 px-3 bg-gray-100 w-10/12 animate-pulse"   />
                                         <button className="w-2/12 bg-purple-500" >
                                             <img className="my-auto w-full " style={{ height:"20px"}} src="/assets/copy-icon.svg" />
                                         </button>
@@ -214,18 +214,18 @@ export const DetailMyClassEmptyComponent = (props) => {
                                 <div className="font14-res-300">
                                     <div className="flex gap-5 justify-between  px-6 pt-6">
                                         <label htmlFor="day">Pilih Hari : </label>
-                                        <div className="bg-gray-200 border-radius-8 w-2/5 py-0.5 animate-pulse"  >
-                                        </div>
+                                        <input id="day" name="day" className="bg-gray-200 border-radius-8 w-2/5 py-0.5 animate-pulse"  >
+                                        </input>
                                     </div>
                                     <div className="flex gap-5  justify-between px-6 py-5">
                                         <label htmlFor="month">Pilih Bulan : </label>
-                                        <div className="bg-gray-200 border-radius-8 w-2/5 py-0.5 animate-pulse" >
-                                        </div>
+                                        <input  id="month" name={"month"}className="bg-gray-200 border-radius-8 w-2/5 py-0.5 animate-pulse" >
+                                        </input>
                                     </div>
                                     <div className="flex gap-5 justify-between  px-6 pb-6">
                                         <label htmlFor="year">Pilih Tahun:</label>
-                                        <div className="bg-gray-200 border-radius-4 w-2/5 py-0.5 animate-pulse" >
-                                        </div>
+                                        <input  id="year" name="year" className="bg-gray-200 border-radius-4 w-2/5 py-0.5 animate-pulse" >
+                                        </input>
                                     </div>
                                 </div>
                                 <div className="w-full mx-auto pb-4">
@@ -415,18 +415,18 @@ export const DetailMyClassEmptyComponent = (props) => {
                             <div className="font14-res-300">
                                 <div className="flex gap-5 justify-between px-6 pt-6">
                                     <label htmlFor="day">Pilih Hari :</label>
-                                    <div className="bg-gray-200 w-2/5 py-1" style={{ animation: "loading 2s infinite" }} >
-                                    </div>
+                                    <input id="day" name={"day"} className="bg-gray-200 w-2/5 py-1" style={{ animation: "loading 2s infinite" }} >
+                                    </input>
                                 </div>
                                 <div className="flex gap-5 justify-between px-6 py-5">
                                     <label htmlFor="month">Pilih Bulan :</label>
-                                    <div className="bg-gray-200 w-2/5 py-1" style={{ animation: "loading 2s infinite" }} >
-                                    </div>
+                                    <input id="month" name={"month"} className="bg-gray-200 w-2/5 py-1" style={{ animation: "loading 2s infinite" }} >
+                                    </input>
                                 </div>
                                 <div className="flex gap-5 justify-between px-6 pb-6">
                                     <label htmlFor="year">Pilih Tahun:</label>
-                                    <div className="bg-gray-200 w-2/5 py-1" style={{ animation: "loading 2s infinite" }} >
-                                    </div>
+                                    <input id="year" name="year" className="bg-gray-200 w-2/5 py-1" style={{ animation: "loading 2s infinite" }} >
+                                    </input>
                                 </div>
                             </div>
 

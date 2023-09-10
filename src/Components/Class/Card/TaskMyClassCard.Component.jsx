@@ -2,6 +2,8 @@ import React, {useEffect, useRef, useState} from "react";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
 import api from "../../../Config/api";
+import CustomAlert from "../../Helper/CustomAlert.Component";
+import {DeleteAlertComponent} from "../../Helper/DeleteAlert.Component";
 
 export const TaskMyClassCardComponent = (props) => {
 
@@ -40,17 +42,29 @@ export const TaskMyClassCardComponent = (props) => {
     //  Copy Absent
     const urlAbsent = window.location.href;
 
-    const definedUrlAbsent = `https://spaceskool.site/view/${slug}/my/absent/${props.id}`;
+    const definedUrlAbsent = `/view/${slug}/detail/absent/${props.id}`;
+
+    const [showAlert, setShowAlert] = useState(false);
 
     const inputRefAbsent = useRef(null);
 
     const copyUrlAbsent = () => {
         if (inputRefAbsent.current) {
+            setShowAlert(true);
             inputRefAbsent.current.value = definedUrlAbsent;
             inputRefAbsent.current.select();
             document.execCommand('copy');
-            alert('Copied URL: ' + definedUrlAbsent);
         }
+    };
+
+    const [showAlertDelete  , setShowAlertDelete] = useState(false);
+    const inputRefClassDelete = useRef(null);
+
+    const handleAlertClass = () => {
+        setShowAlertDelete(true)
+        setIsDropdownMenu(false)
+        inputRefClassDelete.current.select();
+        document.execCommand('delete');
     };
 
 
@@ -82,7 +96,8 @@ export const TaskMyClassCardComponent = (props) => {
                     if (response.data.message === "Berhasil mengahpus absensi") {
                         let redirectUrl = response.data.redirect_path;
                         setRedirectPath(redirectUrl);
-                        navigate(redirectUrl);
+                        navigate(`/view/my/class/${id}/${slug}`);
+                        window.location.reload(); // Refresh the page
                     }
                 }
                 else if (response.data.status === 406) {
@@ -189,7 +204,7 @@ export const TaskMyClassCardComponent = (props) => {
 
     useEffect(() => {
         if (error) {
-            navigate("/my/class");
+            navigate(`/view/my/class/${id}/${slug}`);
         }
     }, [error, navigate]);
 
@@ -240,9 +255,32 @@ export const TaskMyClassCardComponent = (props) => {
                                                             <Link to={`/class/${slug}/${id}/edit/absent/${props.id}`} className="block px-4 py-1.5 lg:py-2  font14-res-300 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600  dark:hover:text-white">Edit Absent</Link>
                                                         </li>
                                                         <li className={"py-1"}>
-                                                            <button onClick={handleDeleteAbsent} className="block px-4 py-1.5 lg:py-2  font14-res-300 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600  dark:hover:text-white">Hapus</button>
+                                                            <button
+                                                                onClick={() => setShowAlertDelete(true)}
+                                                                className="block px-4 py-1.5 lg:py-2  font14-res-300 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600  dark:hover:text-white">Hapus
+                                                            </button>
+                                                            {/*<button onClick={handleDeleteAbsent} */}
+                                                            {/*        className="block px-4 py-1.5 lg:py-2  font14-res-300 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600  dark:hover:text-white">Hapus*/}
+                                                            {/*</button>*/}
 
                                                         </li>
+                                                        {showAlertDelete && (
+                                                            <div id="drop-action" className="fixed inset-0 flex items-center justify-center">
+                                                                <button
+                                                                    onClick={() => setShowAlertDelete(false)} // Close the alert when clicking the backdrop
+                                                                    className="bg-gray-500 bg-opacity-30 w-full h-full absolute top-0 left-0"
+                                                                    style={{ zIndex: "300" }}
+                                                                ></button>
+
+                                                                <DeleteAlertComponent
+                                                                    type={"Absensi"}
+                                                                    name={props.name}
+                                                                    onClose={() => setShowAlertDelete(false)} // Close the alert when using the custom alert's close button
+                                                                    onSubmit={(event) => handleDeleteAbsent(event)}
+                                                                />
+
+                                                            </div>
+                                                        )}
                                                     </ul>
                                                 </div>
 
@@ -452,6 +490,22 @@ export const TaskMyClassCardComponent = (props) => {
                     </div>
                 )}
             </div>
+
+            {showAlert && (
+                <div id="drop-action" className="fixed inset-0 flex items-center justify-center"  style={{ zIndex: "10000" }}>
+                    {/* This div serves as a backdrop and should cover the entire screen */}
+                    <button
+                        onClick={() => setShowAlert(false)} // Close the alert when clicking the backdrop
+                        className="bg-gray-500 bg-opacity-30 w-full h-full fixed top-0 left-0"
+                        style={{ zIndex: "10000" }}
+                    ></button>
+
+                    <CustomAlert
+                        message={`Copied Url: ${urlAbsent}`}
+                        onClose={() => setShowAlert(false)} // Close the alert when using the custom alert's close button
+                    />
+                </div>
+            )}
         </>
     )
 }

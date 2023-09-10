@@ -3,6 +3,7 @@ import React, {useEffect, useRef, useState} from "react";
 import {StudentCardComponent} from "../Classmate/Card/StudentCard.Component";
 import {TaskClassCardComponent} from "./Card/TaskClassCard.Component";
 import {MyDetailClassNavComponent} from "../Body/MainNav/MyDetailClassNav.Component";
+import CustomAlert from "../Helper/CustomAlert.Component";
 
 const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
@@ -10,16 +11,18 @@ export const DetailMyClassStudentsComponent = (props) => {
 
     const navigate = useNavigate();
 
-    const inputRef = useRef(null);
+
+    const inputRefCode = useRef(null);
+    const [showAlert, setShowAlert] = useState(false);
 
     const copyText = () => {
-        if (inputRef.current){
-            inputRef.current.select();
-            inputRef.current.setSelectionRange(0 , 999999);
-            document.execCommand('copy');
-            alert('Copied the code: ' + inputRef.current.value);
+        if (inputRefCode.current) {
+            setShowAlert(true);
+            inputRefCode.current.select();
+            inputRefCode.current.setSelectionRange(0 , 999999);
+            document.execCommand('copy'); // Attempt to copy
         }
-    }
+    };
 
     const {id , slug} = useParams()
 
@@ -161,7 +164,7 @@ export const DetailMyClassStudentsComponent = (props) => {
                 </div>
                 <div className="lg:flex lg:py-0 md:py-8 py-5 md:block xl:w-10/12 lg:w-11/12 w-full mx-auto lg:justify-between">
                     <div className=" w-full md:w-11/12 mx-auto lg:my-0 my-5 lg:w-9/12">
-                        <div className="w-full lg:py-2 py-3 text-left  bg-white"> <
+                        <div className="w-full  lg:py-6 py-3  text-left  lg:mb-10 md:mb-5  bg-white"> <
                             h2 className="font30-res-300 mx-5">{props.name}</h2>
                             <div className="text-left flex border-b border-gray-200  pb-5  justify-between mx-5">
                                 <div className="block">
@@ -177,10 +180,18 @@ export const DetailMyClassStudentsComponent = (props) => {
                             <div className="my-2 text-center py-1 border-none md:border-t">
                                 <p className="my-2 font16-res-400">Code class</p>
                                 <div className="lg:w-10/12 md:w-8/12 w-10/12  bg-white flex  mx-auto border-radius-4" >
-                                    <input ref={inputRef}  className=" font16-res-400 py-2 px-3 bg-gray-100 w-10/12" value={props.code}  onChange={() => {}} />
+                                    <input
+                                        ref={inputRefCode}
+                                        className="font16-res-400 py-2 px-3 bg-gray-100 w-10/12"
+                                        value={props.code}
+                                        readOnly
+                                    />
                                     <button className="w-2/12 bg-purple-500" onClick={copyText}>
-                                        <img className="my-auto w-full " style={{ height:"20px"}} src="/assets/copy-icon.svg" />
+                                        <img className="my-auto w-full" style={{ height: "20px" }} src="/assets/copy-icon.svg" alt="Copy" />
                                     </button>
+                                    <Link className="w-2/12 bg-white border border-purple-600">
+                                        <img className="my-2 w-full" style={{ height: "20px" }} src="/assets/change-code.svg" alt="Change Code" />
+                                    </Link>
                                 </div>
                             </div>
                         </div>
@@ -217,74 +228,40 @@ export const DetailMyClassStudentsComponent = (props) => {
                             <div className="my-2 pt-3 border-t">
                                 <p className="my-2 font16-res-400">Code class</p>
                                 <div className="lg:w-10/12 md:w-8/12 w-10/12  bg-white flex  mx-auto border-radius-4" >
-                                    <input ref={inputRef}  className=" font16-res-400 py-2 px-3 bg-gray-100 w-10/12"   onChange={() => {}} value={props.code}  />
+                                    <input
+                                        ref={inputRefCode}
+                                        className="font16-res-400 py-2 px-3 bg-gray-100 w-10/12"
+                                        value={props.code}
+                                        readOnly
+                                    />
                                     <button className="w-2/12 bg-purple-500" onClick={copyText}>
-                                        <img className="my-auto w-full " style={{ height:"20px"}} src="/assets/copy-icon.svg" />
+                                        <img className="my-auto w-full" style={{ height: "20px" }} src="/assets/copy-icon.svg" alt="Copy" />
                                     </button>
-                                    <Link  to={`https://rest-api.spaceskool.site/public/api/${username}/${slug}/update/classes/code/${id}`} className="w-2/12 bg-white border border-purple-600" >
-                                        <img className="my-2 w-full " style={{ height:"20px"}} src="/assets/change-code.svg" />
+                                    <Link className="w-2/12 bg-white border border-purple-600">
+                                        <img className="my-2 w-full" style={{ height: "20px" }} src="/assets/change-code.svg" alt="Change Code" />
                                     </Link>
                                 </div>
                             </div>
-                            {/*<p className="my-2 font16-res-400">Code class</p>*/}
-                            {/*<div className="lg:w-10/12 md:w-8/12 w-10/12  bg-white flex  mx-auto border-radius-4" >*/}
-                            {/*    <input ref={inputRef}  className=" font16-res-400 py-2 px-3 bg-gray-100 w-10/12" value={props.code}  onChange={() => {}} />*/}
-                            {/*    <button className="w-2/12 bg-purple-500" onClick={copyText}>*/}
-                            {/*        <img className="my-auto w-full " style={{ height:"20px"}} src="/assets/copy-icon.svg" />*/}
-                            {/*    </button>*/}
-                            {/*</div>*/}
+
                         </div>
-                        {/*<div className="md:w-10/12 hidden lg:block w-11/12 shadow mx-auto lg:my-6 my-2">*/}
-                        {/*    <div className="md:pt-5 pt-1 font16-res-400 text-left mx-5">*/}
-                        {/*        <h4 className="font16-res-400 ">Keleolah History anda</h4>*/}
-                        {/*    </div>*/}
-                        {/*    <div className="font14-res-300">*/}
-                        {/*        <div className="flex gap-5 justify-between  px-6 pt-6">*/}
-                        {/*            <label htmlFor="day">Pilih Hari : </label>*/}
-                        {/*            <select id="day"  className="w-2/5" onChange={handleDayChange} value={selectedDay}>*/}
-                        {/*                <option value="" className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700" >Select</option>*/}
-                        {/*                {generateDaysOptions()}*/}
-                        {/*            </select>*/}
-                        {/*        </div>*/}
-                        {/*        <div className="flex gap-5  justify-between px-6 py-5">*/}
-                        {/*            <label htmlFor="month">Pilih Bulan : </label>*/}
-                        {/*            <select id="month" className="w-2/5" onChange={handleMonthChange} value={selectedMonth}>*/}
-                        {/*                <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="">Select</option>*/}
-                        {/*                <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="1">January</option>*/}
-                        {/*                <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="2">February</option>*/}
-                        {/*                <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="3">March</option>*/}
-                        {/*                <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="4">April</option>*/}
-                        {/*                <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="5">May</option>*/}
-                        {/*                <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="6">June</option>*/}
-                        {/*                <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="7">July</option>*/}
-                        {/*                <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="8">August</option>*/}
-                        {/*                <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="9">September</option>*/}
-                        {/*                <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="10">October</option>*/}
-                        {/*                <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="11">November</option>*/}
-                        {/*                <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="12">December</option>*/}
-                        {/*            </select>*/}
-                        {/*        </div>*/}
-                        {/*        <div className="flex gap-5 justify-between  px-6 pb-6">*/}
-                        {/*            <label htmlFor="year">Pilih Tahun:</label>*/}
-                        {/*            <select id="year" className="w-2/5 border-none" onChange={handleYearChange} value={selectedYear}>*/}
-                        {/*                <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700" value="">Select</option>*/}
-                        {/*                <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700" value="2021">2021</option>*/}
-                        {/*                <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700" value="2022">2022</option>*/}
-                        {/*                <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700" value="2023">2023</option>*/}
-                        {/*                /!* Add more year options *!/*/}
-                        {/*            </select>*/}
-                        {/*        </div>*/}
-                        {/*    </div>*/}
-                        {/*    <div className="w-full pb-4">*/}
-                        {/*        <button*/}
-                        {/*            onClick={() => window.location.reload()}*/}
-                        {/*            className="w-10/12 py-1.5 bg-purple-600 hover:bg-purple-700 cursor-pointer border-radius-4 text-white hover:text-gray-50  font14-res-300 mx-auto ">*/}
-                        {/*            Save*/}
-                        {/*        </button>*/}
-                        {/*    </div>*/}
-                        {/*</div>*/}
+
                     </div>
                 </div>
+                {showAlert && (
+                    <div id="drop-action" className="fixed inset-0 flex items-center justify-center"  style={{ zIndex: "10000" }}>
+                        {/* This div serves as a backdrop and should cover the entire screen */}
+                        <button
+                            onClick={() => setShowAlert(false)} // Close the alert when clicking the backdrop
+                            className="bg-gray-500 bg-opacity-30 w-full h-full fixed top-0 left-0"
+                            style={{ zIndex: "10000" }}
+                        ></button>
+
+                        <CustomAlert
+                            message={`Copied Code: ${props.code}`}
+                            onClose={() => setShowAlert(false)} // Close the alert when using the custom alert's close button
+                        />
+                    </div>
+                )}
             </div>
         </>
     )

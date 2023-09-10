@@ -7,6 +7,7 @@ import {DeleteAlertComponent} from "../../Helper/DeleteAlert.Component";
 
 export const MyClassCardComponent = ( props ) => {
 
+    const navigate = useNavigate();
 
     const [isDropdownMenu , setIsDropdownMenu] = useState(true);
 
@@ -104,13 +105,13 @@ export const MyClassCardComponent = ( props ) => {
             .delete(`${props.slug}/delete/classes/${props.id}`)
             .then((response) => {
                 setIsLoading(false); // Stop loading indicator
-                if (response.data.status === 201) {
-                    if (response.data.message === "Berhasil menghapus kelas!") {
-                        let redirectUrl = response.data.redirect_path;
-                        setRedirectPath(redirectUrl);
-                        navigate("/my/class");
-                    }
-                }
+                if (response.data.status === 201 && response.data.message === "Berhasil menghapus kelas!") {
+                    let redirectUrl = response.data.redirect_path;
+                    setRedirectPath(redirectUrl);
+                    navigate(redirectUrl);
+                    window.location.reload(); // Refresh the page
+                  }
+
                 else if (response.data.status === 406) {
                     // console.log(response.data.errors);
                     if (response.data.errors.error_name === "Kelas tidak ditemukan") {
@@ -129,22 +130,6 @@ export const MyClassCardComponent = ( props ) => {
             });
 
     };
-
-
-    // const urlClass = window.location.href;
-    //
-    // const definedUrlClass = `http://localhost:3000/view/class/${props.id}/${props.slug}`
-    //
-    // const inputRefClass = useRef(null);
-    //
-    // const copyUrlClass = () => {
-    //     if (inputRefClass.current){
-    //         inputRefClass.current.value = definedUrlClass;
-    //         inputRefClass.current.select();
-    //         document.execCommand('copy');
-    //         alert("Copied URL: " + definedUrlClass)
-    //     }
-    // }
 
     const urlClass = window.location.href;
     const definedUrlClass = `http://localhost:3000/view/class/${props.id}/${props.slug}`;
@@ -178,7 +163,6 @@ export const MyClassCardComponent = ( props ) => {
     // console.log(showAlert)
 
 
-    const navigate = useNavigate();
 
     return(
         <>
@@ -218,6 +202,7 @@ export const MyClassCardComponent = ( props ) => {
 
                                                             <div  >
                                                                 <input
+                                                                    id="copyCode"
                                                                     ref={inputRefClass}
                                                                     defaultValue={urlClass}
                                                                     style={{ position: 'fixed', top: '-9999px' }}

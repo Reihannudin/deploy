@@ -209,79 +209,117 @@ export const EditClassComponent = (props) => {
                         <div className=" w-full mx-auto">
                             <div className="my-2">
                                 <form onSubmit={handleSubmit}>
-                                    <div className="w-full mx-auto   ">
-                                        <div className="sm:flex block w-full text-left ">
-                                            <div className="sm:flex block  w-full text-left " >
+                                    <div className="w-full mx-auto">
+                                        <div className="sm:flex block w-full text-left">
+                                            <div className="sm:flex block w-full text-left">
                                                 <div className="mt-3 w-full mx-auto">
-                                                    <label className="font14-res-300" style={{ color:"#777575" }}>Nama Kelas</label>
+                                                    <label className="font14-res-300" style={{ color: "#777575" }} htmlFor="class">
+                                                        Nama Kelas
+                                                    </label>
                                                     <div className="flex md:w-11/12 w-full">
-                                                        <input id="class" required onChange={onChangeName} value={name} type="text"
-                                                               className="md:w-11/12 w-full py-1.5 md:py-2.5 font15-res-300 border-b-gray-300"
-                                                               style={{ borderBottom:"1px solid #ebebeb"}} placeholder="Nama Kelas"/>
+                                                        <input
+                                                            id="class"
+                                                            required
+                                                            onChange={onChangeName}
+                                                            value={name}
+                                                            type="text"
+                                                            className="md:w-11/12 w-full py-1.5 md:py-2.5 font15-res-300 border-b-gray-300"
+                                                            style={{ borderBottom: "1px solid #ebebeb" }}
+                                                            placeholder="Nama Kelas"
+                                                        />
                                                     </div>
-                                                    {errorName === '' ? (
+                                                    {errorName === "" ? (
+                                                        <div className="my-2"></div>
+                                                    ) : (
                                                         <div className="my-2">
-                                                        </div>
-                                                    ): (
-                                                        <div className="my-2">
-                                                            <span  className={"text-red-600 font14-res-300"}>{errorName}</span>
+                                                            <span className={"text-red-600 font14-res-300"}>{errorName}</span>
                                                         </div>
                                                     )}
                                                 </div>
                                                 <div className="mt-3 w-full mx-auto">
-                                                    <label className="font14-res-300" style={{ color:"#777575" }}>Ruang</label>
+                                                    <label className="font14-res-300" style={{ color: "#777575" }} htmlFor="room">
+                                                        Ruang
+                                                    </label>
                                                     <div className="flex md:w-11/12 w-full">
-                                                        <input id="room" onChange={onChangeRoom} value={room} type="text"  className="md:w-11/12 w-full py-1.5 md:py-2.5 font15-res-300 border-b-gray-300"  style={{ borderBottom:"1px solid #ebebeb"}} placeholder="Nama Ruang"/>
+                                                        <input
+                                                            id="room"
+                                                            onChange={onChangeRoom}
+                                                            value={room}
+                                                            type="text"
+                                                            className="md:w-11/12 w-full py-1.5 md:py-2.5 font15-res-300 border-b-gray-300"
+                                                            style={{ borderBottom: "1px solid #ebebeb" }}
+                                                            placeholder="Nama Ruang"
+                                                        />
                                                     </div>
-                                                    {errorRoom === '' ? (
+                                                    {errorRoom === "" ? (
+                                                        <div className="my-2"></div>
+                                                    ) : (
                                                         <div className="my-2">
-                                                        </div>
-                                                    ): (
-                                                        <div className="my-2">
-                                                            <span  className={"text-red-600 font14-res-300"}>{errorRoom}</span>
+                                                            <span className={"text-red-600 font14-res-300"}>{errorRoom}</span>
                                                         </div>
                                                     )}
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="sm:flex block w-full text-left ">
-                                            <div className="sm:flex block  w-full text-left ">
+                                        <div className="sm:flex block w-full text-left">
+                                            <div className="sm:flex block w-full text-left">
                                                 <div className="mt-3 w-full mx-auto">
-                                                    <label className="font14-res-300" style={{ color:"#777575" }}>Jurusan</label>
-                                                    <div className="flex  md:w-11/12 w-full">
-                                                        <input id="section"  onChange={onChangeSection} value={section} type="text"  className="md:w-11/12 w-full py-1.5 md:py-2.5 font15-res-300  border-b-gray-300"  style={{ borderBottom:"1px solid #ebebeb"}} placeholder="Nama Jurusan"/>
+                                                    <label className="font14-res-300" style={{ color: "#777575" }} htmlFor="section">
+                                                        Jurusan
+                                                    </label>
+                                                    <div className="flex md:w-11/12 w-full">
+                                                        <input
+                                                            id="section"
+                                                            onChange={onChangeSection}
+                                                            value={section}
+                                                            type="text"
+                                                            className="md:w-11/12 w-full py-1.5 md:py-2.5 font15-res-300 border-b-gray-300"
+                                                            style={{ borderBottom: "1px solid #ebebeb" }}
+                                                            placeholder="Nama Jurusan"
+                                                        />
                                                     </div>
-                                                    {errorSection === '' ? (
-                                                        <div className="my-2">
-                                                        </div>
-                                                    ): (
+                                                    {errorSection === "" ? (
+                                                        <div className="my-2"></div>
+                                                    ) : (
                                                         <div className="my-2">
                                                             <span className={"text-red-600 font14-res-300"}>{errorSection}</span>
                                                         </div>
                                                     )}
                                                 </div>
                                                 <div className="mt-3 w-full mx-auto">
-                                                    <label className="font14-res-300" style={{ color:"#777575" }}>Mata Pelajaran</label>
-                                                    <div className="flex  md:w-11/12 w-full">
-                                                        <input id="subject"  onChange={onChangeSubjct} value={subject} type="text"  className="md:w-11/12 w-full py-1.5 md:py-2.5 font15-res-300  border-b-gray-300"  style={{ borderBottom:"1px solid #ebebeb"}} placeholder="Nama Mata Pelajaran"/>
+                                                    <label className="font14-res-300" style={{ color: "#777575" }} htmlFor="subject">
+                                                        Mata Pelajaran
+                                                    </label>
+                                                    <div className="flex md:w-11/12 w-full">
+                                                        <input
+                                                            id="subject"
+                                                            onChange={onChangeSubjct}
+                                                            value={subject}
+                                                            type="text"
+                                                            className="md:w-11/12 w-full py-1.5 md:py-2.5 font15-res-300 border-b-gray-300"
+                                                            style={{ borderBottom: "1px solid #ebebeb" }}
+                                                            placeholder="Nama Mata Pelajaran"
+                                                        />
                                                     </div>
-                                                    {errorSubject === '' ? (
-                                                        <div className="my-2">
-                                                        </div>
-                                                    ): (
+                                                    {errorSubject === "" ? (
+                                                        <div className="my-2"></div>
+                                                    ) : (
                                                         <div className="my-2">
                                                             <span className={"text-red-600 font14-res-300"}>{errorSubject}</span>
                                                         </div>
                                                     )}
                                                 </div>
                                             </div>
-
                                         </div>
-                                        <div className="mt-3  xl:w-7/12 lg:w-8/12 md:w-9/12 sm:10/12  w-full text-left ">
-                                            <label className="font14-res-300" style={{ color:"#777575" }}>Maximal jumlah Siswa</label>
+                                        <div className="mt-3 xl:w-7/12 lg:w-8/12 md:w-9/12 sm:10/12 w-full text-left">
+                                            <label className="font14-res-300" style={{ color: "#777575" }} htmlFor="max_students">
+                                                Maximal jumlah Siswa
+                                            </label>
                                             <div className="flex w-full">
                                                 <div className="flex w-full my-3 items-center">
                                                     <input
+                                                        id="max_students"
+                                                        name="max_students"
                                                         type="range"
                                                         min="0"
                                                         max="30"
@@ -289,31 +327,33 @@ export const EditClassComponent = (props) => {
                                                         onChange={handleChangeRangeStudent}
                                                         className="w-full h-2 font16-res-300 cursor-pointer appearance-none bg-gray-300 rounded-md outline-none"
                                                     />
-                                                    <span className="font16-res-300 ml-4" style={{ color:"#777575" }}>{rangeStudent}</span>
+                                                    <span className="font16-res-300 ml-4" style={{ color: "#777575" }}>
+            {rangeStudent}
+          </span>
                                                 </div>
                                             </div>
-                                            {errorMaxStudent === '' ? (
-                                                <div className="my-2">
-                                                </div>
-                                            ): (
+                                            {errorMaxStudent === "" ? (
+                                                <div className="my-2"></div>
+                                            ) : (
                                                 <div className="my-2">
                                                     <span className={"text-red-600 font14-res-300"}>{errorMaxStudent}</span>
                                                 </div>
                                             )}
                                         </div>
                                         <div className="flex w-full justify-between mt-20 text-right">
-                                            <div>
-
-                                            </div>
+                                            <div></div>
                                             <button
                                                 type="submit"
                                                 onClick={handleSubmit}
-                                                className="shadow weverse-background-btn py-2 lg:px-4 font15-res-300 md:px-6 px-8 text-white " style={{ borderRadius:"4px"}}>
+                                                className="shadow weverse-background-btn py-2 lg:px-4 font15-res-300 md:px-6 px-8 text-white"
+                                                style={{ borderRadius: "4px" }}
+                                            >
                                                 Edit Kelas
                                             </button>
                                         </div>
                                     </div>
                                 </form>
+
                             </div>
                         </div>
                     </div>

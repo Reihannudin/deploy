@@ -18,7 +18,7 @@ export const NavbarEditClassComponent = (props) => {
     return(
         <>
             <nav className="w-full fixed  bg-white" style={{  zIndex:"44" , minWidth:"360px" , borderBottom:"1px solid #E5E3E9"}}>
-                <header className="sm:w-10/12 w-11/12  mx-auto">
+                <header className="sm:w-10/12 w-11/12 py-1  mx-auto">
                     <div className="flex py-0 justify-between gap-4">
                         <div className="flex gap-4">
                             <button onClick={navigateBack}>

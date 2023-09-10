@@ -7,6 +7,7 @@ import {ClassmateCardComponent} from "../Classmate/Card/ClassmateCard.Component"
 import {MainNavComponent} from "../Body/MainNav/MainNav.Component";
 import {MyDetailClassNavComponent} from "../Body/MainNav/MyDetailClassNav.Component";
 import api from "../../Config/api";
+import CustomAlert from "../Helper/CustomAlert.Component";
 
 const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
@@ -47,17 +48,20 @@ export const DetailMyClassComponent = (props) => {
         setIsDropdownFilterResource(true)
     }
 
-
-    const inputRef = useRef(null);
+    const inputRefCode = useRef(null);
+    const [showAlert, setShowAlert] = useState(false);
 
     const copyText = () => {
-        if (inputRef.current){
-            inputRef.current.select();
-            inputRef.current.setSelectionRange(0 , 999999);
-            document.execCommand('copy');
-            alert('Copied the code: ' + inputRef.current.value);
+        if (inputRefCode.current) {
+            setShowAlert(true);
+            inputRefCode.current.select();
+            inputRefCode.current.setSelectionRange(0 , 999999);
+            document.execCommand('copy'); // Attempt to copy
         }
-    }
+    };
+
+
+
 
     const handleTabClick = (tabName) => {
         navigate(`/view/my/class/${id}/${slug}#${tabName}`);
@@ -422,16 +426,20 @@ export const DetailMyClassComponent = (props) => {
                                     <h2 className="font14-res-300 text-gray-700" >Pelajaran : {props.section}</h2>
                                 </div>
                             </div>
-                            <div className="md:w-10/12 w-11/12 lg:hidden block  mx-auto my-6">
-                                <div className="my-2 text-center py-1 border-none md:border-t">
-                                    <p className="my-2 font16-res-400">Code class</p>
-                                    <div className="lg:w-10/12 md:w-8/12 w-10/12  bg-white flex  mx-auto border-radius-4" >
-                                        <input ref={inputRef}  className=" font16-res-400 py-2 px-3 bg-gray-100 w-10/12" value={props.code}  onChange={() => {}} />
-                                        <button className="w-2/12 bg-purple-500" onClick={copyText}>
-                                            <img className="my-auto w-full " style={{ height:"20px"}} src="/assets/copy-icon.svg" />
-                                        </button>
-                                    </div>
-                                </div>
+                            <div className="lg:w-10/12 md:w-8/12 w-10/12 bg-white flex mx-auto border-radius-4">
+                                <input
+                                    ref={inputRefCode}
+                                    className="font16-res-400 py-2 px-3 bg-gray-100 w-10/12"
+                                    value={props.code}
+                                    readOnly
+                                />
+                                <button className="w-2/12 bg-purple-500" onClick={copyText}>
+                                    <img className="my-auto w-full" style={{ height: "20px" }} src="/assets/copy-icon.svg" alt="Copy" />
+                                </button>
+                                <Link className="w-2/12 bg-white border border-purple-600">
+                                    <img className="my-2 w-full" style={{ height: "20px" }} src="/assets/change-code.svg" alt="Change Code" />
+                                </Link>
+
                             </div>
                             <div className="lg:w-10/12 w-11/12 lg:hidden block lg:shadow border-t border-b mx-auto my-6">
                                 <div className="pt-5  font16-res-400 text-left mx-5">
@@ -759,18 +767,26 @@ export const DetailMyClassComponent = (props) => {
                             </div>
                         </div>
                     </div>
+                    {/*2*/}
                     <div className="xl:w-4/12 lg:w-5/12 mx-auto lg:mx-0 sm:w-full w-full md:w-full">
                         <div className="md:w-10/12 hidden lg:block w-11/12 mx-auto my-6">
                             <div className="my-2 pt-3 border-t">
                                 <p className="my-2 font16-res-400">Code class</p>
                                 <div className="lg:w-10/12 md:w-8/12 w-10/12  bg-white flex  mx-auto border-radius-4" >
-                                    <input ref={inputRef}  className=" font16-res-400 py-2 px-3 bg-gray-100 w-10/12"   onChange={() => {}} value={props.code}  />
+                                    <input
+                                        ref={inputRefCode}
+                                        className="font16-res-400 py-2 px-3 bg-gray-100 w-10/12"
+                                        value={props.code}
+                                        readOnly
+                                    />
                                     <button className="w-2/12 bg-purple-500" onClick={copyText}>
-                                        <img className="my-auto w-full " style={{ height:"20px"}} src="/assets/copy-icon.svg" />
+                                        <img className="my-auto w-full" style={{ height: "20px" }} src="/assets/copy-icon.svg" alt="Copy" />
                                     </button>
-                                    <Link   className="w-2/12 bg-white border border-purple-600" >
-                                        <img className="my-2 w-full " style={{ height:"20px"}} src="/assets/change-code.svg" />
+                                    <Link className="w-2/12 bg-white border border-purple-600">
+                                        <img className="my-2 w-full" style={{ height: "20px" }} src="/assets/change-code.svg" alt="Change Code" />
                                     </Link>
+
+
                                 </div>
                             </div>
 
@@ -827,6 +843,21 @@ export const DetailMyClassComponent = (props) => {
 
                     </div>
                    </div>
+                {showAlert && (
+                    <div id="drop-action" className="fixed inset-0 flex items-center justify-center"  style={{ zIndex: "10000" }}>
+                        {/* This div serves as a backdrop and should cover the entire screen */}
+                        <button
+                            onClick={() => setShowAlert(false)} // Close the alert when clicking the backdrop
+                            className="bg-gray-500 bg-opacity-30 w-full h-full fixed top-0 left-0"
+                            style={{ zIndex: "10000" }}
+                        ></button>
+
+                        <CustomAlert
+                            message={`Copied Code: ${props.code}`}
+                            onClose={() => setShowAlert(false)} // Close the alert when using the custom alert's close button
+                        />
+                    </div>
+                )}
             </div>
         </>
     )

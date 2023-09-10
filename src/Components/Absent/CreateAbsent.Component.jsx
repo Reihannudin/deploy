@@ -214,10 +214,11 @@ export const CreateAbsentComponent = ({user}) => {
                                         <div className="sm:flex block w-full text-left ">
                                             <div className="md:flex block w-full text-left">
                                                 <div className="mt-3 w-full mx-auto">
-                                                    <label className="font14-res-300" style={{ color:"#777575" }}>Nama</label>
+                                                    <label className="font14-res-300" style={{ color:"#777575" }} htmlFor={"name"}>Nama</label>
                                                     <div className="flex w-full">
                                                         <input
                                                             id="name"
+                                                            name="name"
                                                             onChange={onChangeName}
                                                             type="text"
                                                             className="md:w-11/12 w-full py-1.5 md:py-2.5 font15-res-300 border-b-gray-300"
@@ -234,10 +235,11 @@ export const CreateAbsentComponent = ({user}) => {
                                                     )}
                                                 </div>
                                                 <div className="mt-3 w-full mx-auto">
-                                                    <label className="font14-res-300" style={{ color:"#777575" }}>Tanggal</label>
+                                                    <label className="font14-res-300" style={{ color:"#777575" }} htmlFor={"date"}>Tanggal</label>
                                                     <div className="flex w-full">
                                                         <input
                                                             id="date"
+                                                            name="date"
                                                             onChange={onChangeDate}
                                                             type="date"
                                                             className="md:w-11/12 w-full py-1.5 md:py-2.5 font15-res-300 border-b-gray-300"
@@ -256,12 +258,13 @@ export const CreateAbsentComponent = ({user}) => {
                                             </div>
                                         </div>
                                         <div className="text-left my-6">
-                                            <label className="font14-res-300" style={{ color:"#777575" }}>Tenggat waktu</label>
+                                            <label className="font14-res-300" style={{ color:"#777575" }} htmlFor={"starttime"}>Tenggat waktu</label>
                                             <div className="flex md:w-8/12 w-full mb-6 justify-between">
                                                 <div className="mt-0 w-7/12 mx-auto">
                                                     <div className="flex w-full">
                                                         <input
                                                             id="starttime"
+                                                            name="starttime"
                                                             onChange={onChangeStartTime}
                                                             type="time"
                                                             className="md:w-11/12 sm:w-full w-11/12 py-1.5 md:py-2.5 font15-res-300 border-b-gray-300"
@@ -277,6 +280,7 @@ export const CreateAbsentComponent = ({user}) => {
                                                     <div className="flex w-full">
                                                         <input
                                                             id="endtime"
+                                                            name="endtime"
                                                             onChange={onChangeEndTime}
                                                             type="time"
                                                             className="md:w-11/12 sm:w-full w-11/12 py-1.5 md:py-2.5 font15-res-300 border-b-gray-300"

@@ -163,6 +163,9 @@ export const DetailMyClassStudentsEmptyComponent = (props) => {
                                     <button className="w-2/12 bg-purple-500" >
                                         <img className="my-auto w-full " style={{ height:"20px"}} src="/assets/copy-icon.svg" />
                                     </button>
+                                    <Link className="w-2/12 bg-white border border-purple-600">
+                                        <img className="my-2 w-full" style={{ height: "20px" }} src="/assets/change-code.svg" alt="Change Code" />
+                                    </Link>
                                 </div>
                             </div>
                         </div>

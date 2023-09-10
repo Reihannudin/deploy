@@ -151,23 +151,5 @@ function MyClassStudent(){
     )
 }
 
-// <>
-//     {classes.map((item) => {
-//         return(
-//             <div key={item.id}>
-//                 <div className="w-full" style={{ background:"#FFFFFF"}}>
-//                     <NavbarMyClassComponent name={item.name} username={user.username}  />
-//                     <div className="w-full pb-5 mx-0 px-0 h-full " style={{ background:"#FFFFFF"}}>
-//                         {/*<DetailMyClassStudentsComponent code={item.code} name={item.name} teacher={item.teacher} students={item.students} subjects={item.subject} section={item.section} room={item.room} />*/}
-//                     </div>
-//                 </div>
-//                 <div className="lg:hidden block mx-0 px-0">
-//                     {/*<FooterComponent  />*/}
-//                 </div>
-//             </div>
-//         )
-//     })}
-//
-// </>
 
 export default MyClassStudent
