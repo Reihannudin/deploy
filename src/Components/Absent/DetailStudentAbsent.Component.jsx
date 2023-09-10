@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {Link, useNavigate, useParams, useSearchParams} from "react-router-dom";
 import axios from "axios";
 import {DetailStudentAbsentCardComponent} from "./Card/DetailStudentAbsentCard.Component";
@@ -143,6 +143,16 @@ export const DetailStudentAbsentComponent = (props) => {
 
     console.log(student);
 
+    const inputRef = useRef(null);
+    const copyText = () => {
+        if (inputRef.current){
+            inputRef.current.select();
+            inputRef.current.setSelectionRange(0 , 999999);
+            document.execCommand('copy');
+            alert('Copied the code: ' + inputRef.current.value);
+        }
+    }
+
     return(
         <>
             <div className=" md:w-full sm:w-11/12  mx-auto w-full"  style={{ minWidth:"300px"}}>
@@ -150,8 +160,8 @@ export const DetailStudentAbsentComponent = (props) => {
                     <AbsentNavComponent />
                 </div>
                 <div className="lg:flex gap-4 lg:justify-between grid  md:grid-cols-1 sm:w-full sm:mx-0 mx-auto w-full">
-                    <div className="lg:w-4/12 w-full">
-                        <div className="lg:shadow mt-0  lg:w-11/12 lg:pt-4 border-b border-purple-700 w-full pb-6 md:border-radius-8">
+                    <div className="lg:w-4/12 md:border-none border-b border-purple-700 w-full">
+                        <div className="lg:shadow md:mt-0 mt-3  lg:w-11/12 lg:pt-4 md:border-b border-b  md:border-purple-700 w-full pb-6 md:border-radius-8">
                             <div className="mx-2 md:mx-4 text-left md:pt-2 pb-0 ">
                                 <div className="flex justify-between">
                                     <h2 className="font16-res-400" style={{ color:"#646464" , fontWeight:"500"}}>Rangkuman Absent </h2>
@@ -357,6 +367,17 @@ export const DetailStudentAbsentComponent = (props) => {
                                         </div>
                                     </div>
                                 )}
+                            </div>
+                        </div>
+                        <div className=" lg:shadow w-11/12  block pb-3 md:mx-0 mx-auto md:my-6 my-2">
+                            <div className="my-2 text-center py-1 border-none md:border-t">
+                                <p className="my-2 font16-res-400">URL Absensi</p>
+                                <div className="lg:w-10/12 md:w-8/12 w-10/12  bg-white flex  mx-auto border-radius-4" >
+                                    <input ref={inputRef}  className=" font16-res-400 py-2 px-3 bg-gray-100 w-10/12" value={"/"}  onChange={() => {}} />
+                                    <button className="w-2/12 bg-purple-500" onClick={copyText}>
+                                        <img className="my-auto w-full " style={{ height:"20px"}} src="/assets/copy-icon.svg" />
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>

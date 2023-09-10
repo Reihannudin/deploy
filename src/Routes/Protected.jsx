@@ -64,7 +64,7 @@ export const Protected = () => {
       {/*absent Page*/}
       <Route path="/class/:slug/:id/create/absent" element={<CreateAbsent />} /> {/* Done */}
       <Route path="/view/:slug/detail/absent/:id" element={<DetailAbsent />} />
-      <Route path="/view/:slug/:class_id/my/absent/:id" element={<MyDetailAbsent />}/>
+      <Route path="/view/:slug/:class_id/my/absent/:id" element={<MyDetailAbsent />}/> {/* Done */}
       <Route path="/view/:slug/:class_id/my/absent/:id/students" element={<MyDetailAbsentStudents />}/>
       <Route
         path="/view/:slug/detail/absent/:id/classmate"
