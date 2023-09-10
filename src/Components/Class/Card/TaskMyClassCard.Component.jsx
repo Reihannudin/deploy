@@ -93,12 +93,10 @@ export const TaskMyClassCardComponent = (props) => {
                 console.log(response.data.message);
                 console.log(response.data.redirect_path);
                 if (response.data.status === 201) {
-                    if (response.data.message === "Berhasil mengahpus absensi") {
-                        let redirectUrl = response.data.redirect_path;
-                        setRedirectPath(redirectUrl);
+                        // let redirectUrl = response.data.redirect_path;
+                        // setRedirectPath(redirectUrl);
                         navigate(`/view/my/class/${id}/${slug}`);
                         window.location.reload(); // Refresh the page
-                    }
                 }
                 else if (response.data.status === 406) {
                     console.log(response.data.errors);

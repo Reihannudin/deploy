@@ -4,6 +4,7 @@ import axios from "axios";
 import {DetailStudentAbsentCardComponent} from "./Card/DetailStudentAbsentCard.Component";
 import {AbsentNavComponent} from "../Body/MainNav/AbsentNav.Component";
 import api from "../../Config/api";
+import CustomAlert from "../Helper/CustomAlert.Component";
 
 export const DetailStudentAbsentComponent = (props) => {
 
@@ -141,15 +142,18 @@ export const DetailStudentAbsentComponent = (props) => {
         setIsDropdownFilterStudent(true);
     };
 
-    console.log(student);
+
+    const definedUrlAbsent = `/view/${slug}/detail/absent/${props.id}`;
 
     const inputRef = useRef(null);
+    const [showAlert, setShowAlert] = useState(false);
+
     const copyText = () => {
         if (inputRef.current){
+            setShowAlert(true);
+            inputRef.current.value = definedUrlAbsent;
             inputRef.current.select();
-            inputRef.current.setSelectionRange(0 , 999999);
             document.execCommand('copy');
-            alert('Copied the code: ' + inputRef.current.value);
         }
     }
 
@@ -373,7 +377,7 @@ export const DetailStudentAbsentComponent = (props) => {
                             <div className="my-2 text-center py-1 border-none md:border-t">
                                 <p className="my-2 font16-res-400">URL Absensi</p>
                                 <div className="lg:w-10/12 md:w-8/12 w-10/12  bg-white flex  mx-auto border-radius-4" >
-                                    <input ref={inputRef}  className=" font16-res-400 py-2 px-3 bg-gray-100 w-10/12" value={"/"}  onChange={() => {}} />
+                                    <input ref={inputRef}  className=" font16-res-400 py-2 px-3 bg-gray-100 w-10/12" value={definedUrlAbsent}  onChange={() => {}} />
                                     <button className="w-2/12 bg-purple-500" onClick={copyText}>
                                         <img className="my-auto w-full " style={{ height:"20px"}} src="/assets/copy-icon.svg" />
                                     </button>
@@ -467,6 +471,21 @@ export const DetailStudentAbsentComponent = (props) => {
                     </div>
                 </div>
             </div>
+            {showAlert && (
+                <div id="drop-action" className="fixed inset-0 flex items-center justify-center"  style={{ zIndex: "10000" }}>
+                    {/* This div serves as a backdrop and should cover the entire screen */}
+                    <button
+                        onClick={() => setShowAlert(false)} // Close the alert when clicking the backdrop
+                        className="bg-gray-500 bg-opacity-30 w-full h-full fixed top-0 left-0"
+                        style={{ zIndex: "10000" }}
+                    ></button>
+
+                    <CustomAlert
+                        message={`Copied Url: ${definedUrlAbsent}`}
+                        onClose={() => setShowAlert(false)} // Close the alert when using the custom alert's close button
+                    />
+                </div>
+            )}
         </>
     )
 }
