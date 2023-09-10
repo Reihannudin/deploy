@@ -7,6 +7,7 @@ export const CreateAbsentComponent = ({user}) => {
 
     const { id, slug } = useParams();
 
+
     const [name, setName] = useState('');
     const [date, setDate] = useState('');
     const [startTime, setStartTime] = useState('');
@@ -73,6 +74,8 @@ export const CreateAbsentComponent = ({user}) => {
         setEndTime(endTimeValue);
     };
 
+    console.log("id" , id)
+    console.log("slug" , slug)
 
     let token = localStorage.getItem('auth_token');
 

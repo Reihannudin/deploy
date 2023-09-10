@@ -16,10 +16,6 @@ export const MyClassCardComponent = ( props ) => {
     const handleDropdownClass = () => {
         setIsDropdownMenu(true)
 
-        // Close the custom alert if the dropdown menu is closed
-        // if (isDropdownMenu === false ) {
-        //     setShowAlert(false);
-        // }
 
     }
 

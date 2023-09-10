@@ -1,6 +1,7 @@
 import React, {useEffect, useRef, useState} from "react";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
+import api from "../../../Config/api";
 
 export const TaskMyClassCardComponent = (props) => {
 
@@ -52,6 +53,69 @@ export const TaskMyClassCardComponent = (props) => {
         }
     };
 
+
+    const navigate = useNavigate();
+
+    const [error, setError] = useState("");
+
+    let token = localStorage.getItem('auth_token');
+
+    const [redirectPath, setRedirectPath] = useState("/");
+    const [isLoading, setIsLoading] = useState(false);
+
+    console.log(`/${slug}/${id}/delete/absent/${props.id}`)
+
+    const handleDeleteAbsent = async (event) => {
+        event.preventDefault();
+
+        api
+            .delete(`/${slug}/${id}/delete/absent/${props.id}` , {
+                "Content-Type" : "multipart/form-data" ,
+                "Authorization" : "Bearer " + token,
+            })
+            .then((response) => {
+                setIsLoading(false); // Stop loading indicator
+                console.log(response.data.status);
+                console.log(response.data.message);
+                console.log(response.data.redirect_path);
+                if (response.data.status === 201) {
+                    if (response.data.message === "Berhasil mengahpus absensi") {
+                        let redirectUrl = response.data.redirect_path;
+                        setRedirectPath(redirectUrl);
+                        navigate(redirectUrl);
+                    }
+                }
+                else if (response.data.status === 406) {
+                    console.log(response.data.errors);
+                    if (response.data.errors.message === "Absent tidak ditemukan") {
+                        let redirectUrl = response.data.redirect_path;
+                        setRedirectPath(redirectUrl);
+                        setError(response.data.errors.message);
+                        navigate(redirectUrl);
+                    } else  if (response.data.errors.message === "Anda Bukan Pengajar di kelas ini") {
+                        let redirectUrl = response.data.redirect_path;
+                        setRedirectPath(redirectUrl);
+                        setError(response.data.errors.message);
+                        navigate(redirectUrl);
+                    } else  if (response.data.errors.message === "Pengguna tidak ditemukan") {
+                        let redirectUrl = response.data.redirect_path;
+                        setRedirectPath(redirectUrl);
+                        setError(response.data.errors.message);
+                        navigate(redirectUrl);
+                    }
+                }
+
+            })
+            .catch((error) => {
+                const { errors } = error.response.data;
+                setError(errors?.errors?.[0] || '');
+            });
+
+    };
+
+
+    // =====================================
+
     // Copy Assignment
     const urlAssignment = window.location.href;
 
@@ -84,22 +148,18 @@ export const TaskMyClassCardComponent = (props) => {
         }
     }
 
-    const navigate = useNavigate();
-
-    const [error, setError] = useState("");
-
-    const handleDeleteAbsent = async () => {
-        try {
-            const response = await axios.delete(
-                `https://rest-api.spaceskool.site/public/api/${username}/${props.slug}/${props.class_id}/delete/absent/${props.id}`
-            );
-            const { redirectUrl } = response.data;
-            window.location.href = redirectUrl;
-        } catch (error) {
-            const { errors } = error.response.data;
-            setError(errors?.classname?.[0] || "");
-        }
-    };
+    // const handleDeleteAbsent = async () => {
+    //     try {
+    //         const response = await axios.delete(
+    //             `https://rest-api.spaceskool.site/public/api/${username}/${props.slug}/${props.class_id}/delete/absent/${props.id}`
+    //         );
+    //         const { redirectUrl } = response.data;
+    //         window.location.href = redirectUrl;
+    //     } catch (error) {
+    //         const { errors } = error.response.data;
+    //         setError(errors?.classname?.[0] || "");
+    //     }
+    // };
 
     const handleDeleteAssignment = async () => {
         try {
