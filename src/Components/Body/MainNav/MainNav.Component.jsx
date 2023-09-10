@@ -22,7 +22,7 @@ export const MainNavComponent = ({user}) => {
         setDropAction(false);
     };
 
-    console.log(user.image)
+    // console.log(user.image)
 
         return (
             <>

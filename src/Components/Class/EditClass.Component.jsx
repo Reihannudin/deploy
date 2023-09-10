@@ -89,8 +89,6 @@ export const EditClassComponent = (props) => {
         setErrorMaxStudent(error)
     } , [searchParams])
 
-    const user = JSON.parse(localStorage.getItem('whoLogin'));
-    const username = user.username;
 
     const navigate = useNavigate();
 

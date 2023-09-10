@@ -21,7 +21,7 @@ function App() {
   const storedToken = localStorage.getItem("auth_token");
   const [isLogged, setIsLogged] = useState(!!storedToken); // Convert token to boolean
 
-  console.log("is logged?" ,isLogged)
+  // console.log("is logged?" ,isLogged)
 
   return (
     <div className="App">

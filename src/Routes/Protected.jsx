@@ -40,6 +40,7 @@ import AddInformationImage from "./../Pages/Auth/AddInformationImage";
 import { Route, Routes } from "react-router-dom";
 import Feed from "../Pages/Feed/Feed";
 import TestProfille from "../Pages/Helper/TestProfille";
+import Test from "../Pages/Test";
 
 export const Protected = () => {
 
@@ -151,6 +152,7 @@ export const Protected = () => {
       />{" "}
       {/*Beneran Aman*/}
 
+        <Route path={"/test/component"} element={<Test />}/>
 
       {/*/!*Auth*!/*/}
       <Route path="/logout" element={<Logout />} />

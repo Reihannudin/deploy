@@ -3,6 +3,7 @@ import {Link, useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
 import api from "../../../Config/api";
 import CustomAlert from "../../Helper/CustomAlert.Component";
+import {DeleteAlertComponent} from "../../Helper/DeleteAlert.Component";
 
 export const MyClassCardComponent = ( props ) => {
 
@@ -97,7 +98,7 @@ export const MyClassCardComponent = ( props ) => {
     const handleDeleteClass = async (event) => {
         event.preventDefault();
 
-        console.log(`${props.slug}/delete/classes/${props.id}`)
+        // console.log(`${props.slug}/delete/classes/${props.id}`)
 
         api
             .delete(`${props.slug}/delete/classes/${props.id}`)
@@ -107,11 +108,11 @@ export const MyClassCardComponent = ( props ) => {
                     if (response.data.message === "Berhasil menghapus kelas!") {
                         let redirectUrl = response.data.redirect_path;
                         setRedirectPath(redirectUrl);
-                        navigate(redirectUrl);
+                        navigate("/my/class");
                     }
                 }
                 else if (response.data.status === 406) {
-                    console.log(response.data.errors);
+                    // console.log(response.data.errors);
                     if (response.data.errors.error_name === "Kelas tidak ditemukan") {
                         let redirectUrl = response.data.redirect_path;
                         setRedirectPath(redirectUrl);
@@ -151,12 +152,21 @@ export const MyClassCardComponent = ( props ) => {
     const [showAlert, setShowAlert] = useState(false);
 
     const copyUrlClass = () => {
-        if (inputRefClass.current) {
             setShowAlert(true)
+            setIsDropdownMenu(false)
             inputRefClass.current.value = definedUrlClass;
             inputRefClass.current.select();
             document.execCommand('copy');
-        }
+    };
+
+    const [showAlertDelete  , setShowAlertDelete] = useState(false);
+    const inputRefClassDelete = useRef(null);
+
+    const handleAlertClass = () => {
+        setShowAlertDelete(true)
+        setIsDropdownMenu(false)
+        inputRefClassDelete.current.select();
+        document.execCommand('delete');
     };
 
     const handleAlertnItemClick = () => {
@@ -164,7 +174,8 @@ export const MyClassCardComponent = ( props ) => {
         setShowAlert(false);
     };
 
-    console.log(showAlert)
+
+    // console.log(showAlert)
 
 
     const navigate = useNavigate();
@@ -194,9 +205,11 @@ export const MyClassCardComponent = ( props ) => {
                                     <div
                                         id="dropdown_profile"
                                         className="z-10"
-                                        onClick={handleDropdownClass}
+
                                     >
-                                        <div className="bg-white bg-opacity-0 w-full h-full z-40 absolute right-0 bottom-0"></div>
+                                        <div className="bg-white bg-opacity-0 w-full h-full z-40 absolute right-0 bottom-0"
+                                            onClick={handleDropdownClass}
+                                        ></div>
                                         <div className="relative">
                                             <div className="absolute right-0  z-50 bottom-10 font14-res-300 bg-white divide-y divide-gray-100 rounded-lg shadow w-36 md:w-44 dark:bg-gray-700 dark:divide-gray-600">
                                                 <div id="dropdown_profile" className={`z-10 ${isDropdownMenu ? 'hidden' : ''} absolute right-10 top-0 font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-36 dark:bg-gray-700 dark:divide-gray-600`}>
@@ -244,7 +257,30 @@ export const MyClassCardComponent = ( props ) => {
                                                         </li>
                                                         <li>
                                                             <div>
-                                                                <button onClick={handleDeleteClass} className="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-red-600 hover:text-red-600 dark:hover:text-white">Hapus</button>
+                                                                <button
+                                                                    onClick={() => setShowAlertDelete(true)}
+                                                                    className="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-red-600 hover:text-red-600 dark:hover:text-white"
+                                                                >
+                                                                    Hapus
+                                                                </button>
+
+                                                                {showAlertDelete && (
+                                                                    <div id="drop-action" className="fixed inset-0 flex items-center justify-center">
+                                                                        <button
+                                                                            onClick={() => setShowAlertDelete(false)} // Close the alert when clicking the backdrop
+                                                                            className="bg-gray-500 bg-opacity-30 w-full h-full absolute top-0 left-0"
+                                                                            style={{ zIndex: "300" }}
+                                                                        ></button>
+
+                                                                        <DeleteAlertComponent
+                                                                            type={"Kelas"}
+                                                                            name={props.name}
+                                                                            onClose={() => setShowAlertDelete(false)} // Close the alert when using the custom alert's close button
+                                                                            onSubmit={(event) => handleDeleteClass(event)}
+                                                                        />
+
+                                                                    </div>
+                                                                )}
                                                             </div>
                                                         </li>
                                                     </ul>

@@ -122,7 +122,7 @@ export const MyClassComponent = ({user}) => {
                                             {!isFetching && (
                                                 <ul className="sm:gap-3  md:gap-6 lg:gap-3 gap-2 md:my-6 my-4 flex flex-wrap">
                                                     {classes.map((item) => (
-                                                        <li key={item.id} className="grid-class-card-flex sm:w-1/2 md:w-1/2 lg:w-1/3 xl:w-1/5">
+                                                        <li key={item.id} className="grid-class-card-flex mb-3  sm:w-1/2 md:w-1/2 lg:w-1/3 xl:w-1/5">
                                                             <MyClassCardComponent id={item.id} name={item.name} slug={item.slug} teacher={item.teacher} />
                                                         </li>
                                                     ))}
