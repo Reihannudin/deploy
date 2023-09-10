@@ -63,7 +63,7 @@ export const LoginCardComponent = ({
                     type="email"
                     value={email}
                     onChange={onChangeEmail}
-                    className="w-full py-3 border-b-gray-300"
+                    className="w-full py-3 border-b border-gray-300"
                     // style={{ borderBottom: "1px solid #ebebeb" }}
                     placeholder="your@email.com"
                   />

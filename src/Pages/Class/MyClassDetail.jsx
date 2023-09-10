@@ -54,21 +54,34 @@ function MyClassDetail (){
         };
     } , [user])
 
-    const [classes , setClasses] =  useState([]);
+
+    const [classes, setClasses] = useState([]);
     const [isFetchingClass, setIsFetchingClass] = useState(true);
     const [isDataFetchedClass, setIsDataFetchedClass] = useState(false);
     const [errorClass, setErrorClass] = useState(null);
 
-    const { id, slug } = useParams();
+    const {  id ,  slug } = useParams();
 
-    useEffect(()=> {
+    console.log("slug" , slug)
+    console.log("id" , id)
+
+    useEffect(() => {
         let isMounted = true;
         const fetchData = async () => {
             try {
                 if (!isDataFetchedClass) {
-                    const response = await api.get(`/${slug}/my/class`);
+                    const token = localStorage.getItem('auth_token');
+                    const response = await api.get(`/${slug}/my/class`, {
+                        headers: {
+                            "Content-Type": "application/json", // Use application/json content type
+                            "Authorization": `Bearer ${token}`, // Use template literal to concatenate token
+                        },
+                    });
+
+                    // Simulate a delay (1.5 seconds)
                     await new Promise((resolve) => setTimeout(resolve, 1500));
 
+                    console.log(response.data)
                     const data = response.data;
                     if (isMounted) {
                         setClasses(data);
@@ -78,16 +91,16 @@ function MyClassDetail (){
                 setIsFetchingClass(false);
             } catch (error) {
                 if (isMounted) {
-                    setError(error);
+                    setErrorClass(error); // Set the error to errorClass
                     setIsFetchingClass(false);
                 }
             }
-        }
+        };
 
         const timeout = setTimeout(() => {
             if (isFetchingClass) {
                 if (isMounted) {
-                    setError(new Error("Timeout: Could not fetch data."));
+                    setErrorClass(new Error("Timeout: Could not fetch data.")); // Set the error to errorClass
                     setIsFetchingClass(false);
                 }
             }
@@ -99,10 +112,12 @@ function MyClassDetail (){
             isMounted = false;
             clearTimeout(timeout);
         };
-    } , [user])
+    }, [slug, isDataFetchedClass]); // Include slug and isDataFetchedClass in the dependencies array
 
-    console.log("isFetchingClass" , isFetchingClass)
-    console.log("isDataFetchingClass" , isDataFetchedClass)
+
+    // console.log("isFetchingClass" , isFetchingClass)
+    // console.log("isDataFetchingClass" , isDataFetchedClass)
+    console.log("Class" , classes)
 
     return(
         <>

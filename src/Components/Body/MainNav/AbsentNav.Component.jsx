@@ -1,10 +1,14 @@
 
 import React, {useState} from "react";
-import {Link, useParams} from "react-router-dom";
+import {Link, useLocation, useParams} from "react-router-dom";
 
 export const  AbsentNavComponent = () => {
-    
+
+    const location = useLocation();
     const { id , class_id, slug } = useParams();
+
+    const isAbsentActive = location.pathname === `/view/${slug}/${class_id}/my/absent/${id}`;
+    const isStudentActive = location.pathname === `/view/${slug}/${class_id}/my/absent/${id}/students`
 
     return(
         <>
@@ -16,10 +20,10 @@ export const  AbsentNavComponent = () => {
                         <div className="flex bg-white  justify-center pt-3 pb-2 mx-auto sm:w-5/12 w-5/12">
                             <Link to={`/view/${slug}/${class_id}/my/absent/${id}`} className="text-center bg-white cursor-pointer   " style={{ height: "28px" }}>
                                 <div className="cursor-pointer p-1 bg-white hover:bg-gray-100 radius-full" style={{ width:"60px"}}>
-                                    <div className="mx-auto cursor-pointer" style={{ height: "28px" }}>
-                                        <img className="mx-auto cursor-pointer h-full" src="/assets/icon-absent-nav.svg" alt="Home Icon" />
+                                    <div className="mx-auto cursor-pointer h-icon-main-nav" >
+                                        <img className="mx-auto cursor-pointer h-full" src={`${isAbsentActive ? '/assets/icon-absent-nav.svg' : '/assets/icon-absent-nav-gray.svg'}`}  alt="Home Icon" />
                                     </div>
-                                    <p className="my-1 text-gray-400 hover:text-purple-700" style={{ fontSize: "11px" }}>Absensi</p>
+                                    <p className={`my-1 ${isAbsentActive ? 'text-purple-600' : 'text-gray-400'} hover:text-purple-700`} style={{ fontSize: "11px" }}>Kelasku</p>
                                 </div>
                             </Link>
 
@@ -29,11 +33,10 @@ export const  AbsentNavComponent = () => {
 
                             <Link to={`/view/${slug}/${class_id}/my/absent/${id}/students`} className="text-center bg-white cursor-pointer  radius-full " style={{ height: "28px" }}>
                                 <div className="cursor-pointer p-1 hover:bg-gray-100 radius-full" style={{ width:"60px"}}>
-                                    <div className="mx-auto cursor-pointer" style={{ height: "28px" }}>
-                                        <img className="mx-auto cursor-pointer h-full" src="/assets/icon-student-nav.svg" alt="Profile Icon" />
+                                    <div className="mx-auto cursor-pointer h-icon-main-nav">
+                                        <img className="mx-auto cursor-pointer h-full"  src={`${isStudentActive ? '/assets/icon-student-nav.svg' : '/assets/icon-student-nav-gray.svg'}`} alt="Profile Icon" />
                                     </div>
-                                    <p className="my-1 text-gray-500 hover:text-purple-700" style={{ fontSize: "11px" }}>Murid</p>
-
+                                    <p className={`my-1 ${isStudentActive ? 'text-purple-600' : 'text-gray-400'} hover:text-purple-700`} style={{ fontSize: "11px" }}>Kelasku</p>
                                 </div>
                             </Link>
                         </div>

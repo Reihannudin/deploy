@@ -16,6 +16,8 @@ export const DetailMyClassComponent = (props) => {
     const location = useLocation();
 
     const { id, slug } = useParams();
+    console.log("slug" , slug)
+    console.log("id" , id)
 
     const username = props.user.username;
     const userId = props.user.id;
@@ -109,6 +111,7 @@ export const DetailMyClassComponent = (props) => {
     const [isDataFetchedAbsent, setIsDataFetchedAbsent] = useState(false);
     const [errorAbsent, setErrorAbsent] = useState(null);
 
+    let token = localStorage.getItem('auth_token');
 
     useEffect(() => {
         let isMounted = true;
@@ -116,7 +119,10 @@ export const DetailMyClassComponent = (props) => {
         const fetchData = async () => {
             try {
                 if (!isDataFetchedAbsent) {
-                    const response = await api.get(`${slug}/absents?filter=${filterAbsent}`);
+                    const response = await api.get(`${slug}/absents?filter=${filterAbsent}` , {
+                        "Content-Type" : "multipart/form-data" ,
+                        "Authorization" : "Bearer " + token,
+                    });
                     const data = response.data;
 
                     if (isMounted) {
@@ -149,13 +155,15 @@ export const DetailMyClassComponent = (props) => {
             isMounted = false;
             clearTimeout(timeout);
         };
-    }, [isDataFetchedAbsent]);
+    }, [absents]);
 
     const handleFilterAbsentClick = (filterValue) => {
         setFilterAbsent(filterValue);
         const url = `?filter=${filterValue}`;
         navigate(url); // Replace navigate with your navigation function
     };
+
+    console.log("absent" , absents)
 
 
     const [assignments, setAssignments] = useState([]);
@@ -592,7 +600,7 @@ export const DetailMyClassComponent = (props) => {
                                                         return(
                                                             <div key={item.id}>
                                                                 <li  key={item.id}>
-                                                                    <TaskMyClassCardComponent  id={item.id} user_id={userId} name={item.name} type={item.type} action={item.action} status={item.status} end_time={item.end_time}  date={item.date} post_time={item.post_time}/>
+                                                                    <TaskMyClassCardComponent username={username} id={item.id} user_id={userId} name={item.name} type={item.type} action={item.action} status={item.status} end_time={item.end_time}  date={item.date} post_time={item.post_time}/>
                                                                 </li>
                                                             </div>
                                                         )
@@ -666,7 +674,7 @@ export const DetailMyClassComponent = (props) => {
                                                         return(
                                                             <div key={item.id}>
                                                                 <li  key={item.id}>
-                                                                    <TaskMyClassCardComponent  id={item.id} user_id={userId} name={item.name} status={item.status} action={item.action} type={item.type} end_time={item.end_time}  date={item.date}  deadline_date={item.deadline_date} post_time={item.post_time}/>
+                                                                    <TaskMyClassCardComponent   username={username} id={item.id} user_id={userId} name={item.name} status={item.status} action={item.action} type={item.type} end_time={item.end_time}  date={item.date}  deadline_date={item.deadline_date} post_time={item.post_time}/>
                                                                 </li>
                                                             </div>
                                                         )
@@ -735,7 +743,7 @@ export const DetailMyClassComponent = (props) => {
                                                         return(
                                                             <div key={item.id}>
                                                                 <li  key={item.id}>
-                                                                    <TaskMyClassCardComponent  id={item.id} name={item.name} status={item.status} deadline_date={item.deadline_date} type={item.task_type} post_time={item.post_time} end_time={item.end_time}  date={item.date}/>
+                                                                    <TaskMyClassCardComponent   username={username} id={item.id} name={item.name} status={item.status} deadline_date={item.deadline_date} type={item.task_type} post_time={item.post_time} end_time={item.end_time}  date={item.date}/>
                                                                 </li>
                                                             </div>
                                                         )
@@ -760,7 +768,7 @@ export const DetailMyClassComponent = (props) => {
                                     <button className="w-2/12 bg-purple-500" onClick={copyText}>
                                         <img className="my-auto w-full " style={{ height:"20px"}} src="/assets/copy-icon.svg" />
                                     </button>
-                                    <Link  to={`https://rest-api.spaceskool.site/public/api/${username}/${slug}/update/classes/code/${id}`} className="w-2/12 bg-white border border-purple-600" >
+                                    <Link   className="w-2/12 bg-white border border-purple-600" >
                                         <img className="my-2 w-full " style={{ height:"20px"}} src="/assets/change-code.svg" />
                                     </Link>
                                 </div>
@@ -823,264 +831,3 @@ export const DetailMyClassComponent = (props) => {
         </>
     )
 }
-
-
-//
-// <div className="xl:w-4/12 lg:w-5/12 mx-auto lg:mx-0 sm:w-full w-full md:w-full">
-//     <div className="my-7">
-//         <div className="lg:w-10/12 xl:w-11/12 md:w-full  w-full bg-white shadow pb-1 lg:mx-auto mx-auto border-radius-8" >
-//             <div className="w-full lg:h-full md::h-56 sm:h-48 h-44 mx-auto">
-//                 <img className="w-full h-full sm:border-radius-8 object-cover" src="/assets/bg-absence.svg"/>
-//             </div>
-//             <div className="md:w-9/12 w-10/12 lg:w-10/12 xl:w-11/12   mt-3 lg:mb-2 mb-1 mx-auto text-left">
-//                 <div className="flex justify-between">
-//                     <div>
-//                         <h2 className="font18-res-300">{props.name}</h2>
-//                         <h2 className="font14-res-300 text-gray-700">Ruang : {props.room}</h2>
-//                     </div>
-//                     <Link to={`/edit/my/class/${id}/${slug}`} className="my-auto">
-//                         <div  className="px-1 py-2 bg-white hover:px-1 hover:bg-gray-100 radius-100 ">
-//                             <div className="my-auto mx-1 " style={{ height:"20px"}}>
-//                                 <img className="h-full w-full" src="/assets/edit-icon.svg"/>
-//                             </div>
-//                         </div>
-//                     </Link>
-//                 </div>
-//                 <h2 className="font16-res-300" style={{ fontWeight:"500" , color:"#525252"}}>Guru : {props.teacher}</h2>
-//                 <div className="border-t pt-2 mt-2">
-//                     <div className="my-0 flex justify-between py-0">
-//                         <div className="flex">
-//                             <h2 className="font14-res-300" style={{  color:"#525252"}}>Kejuruan : {props.subjects}</h2>
-//                         </div>
-//                         <div className="flex">
-//                             <h2 className="font14-res-300" style={{  color:"#525252"}}>Pelajaran : {props.section}</h2>
-//                         </div>
-//                     </div>
-//
-//                 </div>
-//             </div>
-//             <div className="my-2 pt-3 border-t">
-//                 <p className="my-2 font16-res-400">Code class</p>
-//                 <div className="lg:w-10/12 md:w-8/12 w-10/12  bg-white flex  mx-auto border-radius-4" >
-//                     <input ref={inputRef}  className=" font16-res-400 py-2 px-3 bg-gray-100 w-10/12"   onChange={() => {}} value={props.code}  />
-//                     <button className="w-2/12 bg-purple-500" onClick={copyText}>
-//                         <img className="my-auto w-full " style={{ height:"20px"}} src="/assets/copy-icon.svg" />
-//                     </button>
-//                     <Link  to={`https://rest-api.spaceskool.site/public/api/${username}/${slug}/update/classes/code/${id}`} className="w-2/12 bg-white border border-purple-600" >
-//                         <img className="my-2 w-full " style={{ height:"20px"}} src="/assets/change-code.svg" />
-//                     </Link>
-//                 </div>
-//             </div>
-//         </div>
-//     </div>
-// </div>
-// <div className="xl:w-10/12 w-11/12 md:w-10/12 mx-auto lg:my-0 my-5 lg:order-2 order-1 lg:w-9/12">
-//     <div className="w-full lg:py-6 py-3    lg:mb-10 md:mb-5 bg-white">
-//         <div className="bg-white">
-//             <div className="me-auto sm:mx-6 relative md:w-11/12 lg:w-full w-full mx-auto">
-//                 <div className="absolute left-0">
-//                     <ul id="tabs" className="flex mt-1 border-b font18-res-300 w-full px-1  text-purple-500">
-//                         <li className="px-4 w-full text-gray-500 hover:text-purple-600 font-normal py-2 ">
-//                             <a id="default-tab" href="#absent" className="w-full" onClick={(e) => handleTabCLick(e, 'absent')}>Absent</a>
-//                         </li>
-//                         <li className="px-4 w-full  text-gray-500 hover:text-purple-600  mx-4 font-normal  py-2 ">
-//                             <a href="#tugas" className="w-full" onClick={(e) => handleTabCLick(e, 'tugas')}>Tugas</a>
-//                         </li>
-//                         <li className="px-4 w-full text-gray-500 hover:text-purple-600 font-normal py-2 ">
-//                             <a href="#resource" className="w-full" onClick={(e) => handleTabCLick(e, 'resource')}>Resource</a>
-//                         </li>
-//                         <li className="px-4 text-gray-800 hidden font-semibold py-2 ">
-//                             <a href="#fourth">Tab 4</a>
-//                         </li>
-//                     </ul>
-//                 </div>
-//             </div>
-//         </div>
-//         <div id="tab-contents" className=" md:w-11/12  lg:w-full lg:mx-3 w-full mx-auto">
-//             <div id="absent" className="py-2 md:px-4 px-2">
-//                 <div className="w-full pt-5">
-//                     <div className="mt-8">
-//                         <div className="flex w-full  sm:mx-6  md:mx-0 pb-0 border-b mb-2">
-//                             <div className="flex w-full justify-between">
-//                                 <div className="my-auto roboto font18-res-300 " style={{  color:"#4f4f4f"}}>
-//                                     <h2 className="" style={{ fontWeight:"500"}}>Absent List</h2>
-//                                 </div>
-//                                 <div className="relative">
-//                                     <button className="my-auto"  onClick={toggleDropdowFilterAbsent}>
-//                                         <div  className="px-1 py-2 bg-white hover:px-1 hover:bg-gray-100 radius-100 ">
-//                                             <div className="my-auto  mx-1 " style={{ height:"24px"}}>
-//                                                 <img className="h-full w-full" src="/assets/filter-icon.svg"/>
-//                                             </div>
-//                                         </div>
-//                                     </button>
-//                                     <div id="dropdown_profile"
-//                                          className={`z-10 ${isDropdownFilterAbsent ? 'hidden' : ''} absolute right-0 top-10 font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600`}>
-//                                         <ul className="py-2 text-sm text-left text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
-//
-//                                             <li>
-//                                                 <button className="block px-4 py-2 font16-res-300 w-full text-left hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600 dark:hover:text-white" onClick={() => handleFilterAbsentClick('terbaru')}>Terbaru</button>
-//                                             </li>
-//                                             <li>
-//                                                 <button className="block px-4 py-2 font16-res-300 w-full text-left hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600 dark:hover:text-white" onClick={() => handleFilterAbsentClick('berjalan')}>Berjalan</button>
-//                                             </li>
-//                                             <li>
-//                                                 <button className="block px-4 py-2 font16-res-300 w-full text-left hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600 dark:hover:text-white" onClick={() => handleFilterAbsentClick('selesai')}>Selesai</button>
-//                                             </li>
-//                                         </ul>
-//                                     </div>
-//                                 </div>
-//                             </div>
-//                         </div>
-//                         {absents.length === 0 ? (
-//                             <div className="md:py-8 sm:py-6 py-4">
-//                                 <div className="mb-0 mt-2">
-//                                     <div>
-//                                         <div className="mx-auto" style={{ minHeight: "140px", minWidth: "200px"  , maxHeight:"140px" , maxWidth:"250px"}}>
-//                                             <img className="w-full mx-auto h-full" src="/assets/tidak-ada-absen.svg" />
-//                                         </div>
-//                                     </div>
-//                                 </div>
-//                             </div>
-//                         ):(
-//                             <ul>
-//                                 {absents.map((item) => {
-//                                     return(
-//                                         <div key={item.id}>
-//                                             <li  key={item.id}>
-//                                                 <TaskMyClassCardComponent id={item.id} class_id={id} slug={slug} name={item.name} type={item.type} action={item.action} status={item.status} end_time={item.end_time}  date={item.date} post_time={item.post_time}/>
-//                                             </li>
-//                                         </div>
-//                                     )
-//                                 })}
-//                             </ul>
-//                         )}
-//                     </div>
-//                 </div>
-//             </div>
-//             <div id="tugas" className="hidden py-2 md:px-4 px-2">
-//                 <div className="w-full py-5">
-//                     <div className="mt-8">
-//                         <div className="flex sm:mx-6  md:mx-0 w-full pb-0 border-b mb-2">
-//                             <div className="flex w-full justify-between">
-//                                 <div className="my-auto roboto  font18-res-300" style={{  color:"#4f4f4f"}}>
-//                                     <h2 className="" style={{ fontWeight:"500"}}>List Tugas</h2>
-//                                 </div>
-//                                 <div className="relative">
-//                                     <button className="my-auto"  onClick={toggleDropdowFilterTugas}>
-//                                         <div  className="px-1 py-2 bg-white hover:px-1 hover:bg-gray-100 radius-100 ">
-//                                             <div className="my-auto  mx-1 " style={{ height:"24px"}}>
-//                                                 <img className="h-full w-full" src="/assets/filter-icon.svg"/>
-//                                             </div>
-//                                         </div>
-//                                     </button>
-//                                     <div id="dropdown_profile"
-//                                          className={`z-10 ${isDropdownFilterTugas ? 'hidden' : ''} absolute right-0 top-10 font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600`}>
-//                                         <ul className="py-2 text-sm text-left text-gray-700 font14-res-300 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
-//                                             <li>
-//                                                 <button className="block px-4 py-2 w-full text-left hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600 dark:hover:text-white"  onClick={() => handleFilterAssignmentsClick('terbaru')}>Terbaru</button>
-//                                             </li>
-//                                             <li>
-//                                                 <button className="block px-4 py-2  w-full text-left hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600 dark:hover:text-white" onClick={() => handleFilterAssignmentsClick('berlangsung')}>Berlangsung</button>
-//                                             </li>
-//                                             <li>
-//                                                 <button className="block px-4 py-2  w-full text-left hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600 dark:hover:text-white" onClick={() => handleFilterAssignmentsClick('selesai')}>Selesai</button>
-//                                             </li>
-//
-//                                         </ul>
-//                                     </div>
-//                                 </div>
-//
-//                             </div>
-//                         </div>
-//                         {assignments.length === 0 ? (
-//                             <div className="md:py-8 sm:py-6 py-4">
-//                                 <div className="mb-0 mt-2">
-//                                     <div>
-//                                         <div className="mx-auto" style={{ minHeight: "170px", minWidth: "300px"  , maxHeight:"240px" , maxWidth:"330px"}}>
-//                                             <img className="w-full mx-auto h-full" src="/assets/tidak-ada-tugas.svg" />
-//                                         </div>
-//                                     </div>
-//                                 </div>
-//                             </div>
-//                         ):(
-//                             <ul>
-//                                 {assignments.map((item) => {
-//                                     return(
-//                                         <div key={item.id}>
-//                                             <li key={item.id}>
-//                                                 <TaskMyClassCardComponent id={item.id} class_id={id} slug={slug} name={item.name} type={item.type} status={item.status} end_time={item.end_time} date={item.date} post_time={item.post_time}/>
-//                                             </li>
-//                                         </div>
-//                                     )
-//                                 })}
-//                             </ul>
-//                         )}
-//                     </div>
-//                 </div>
-//             </div>
-//             <div id="resource" className="hidden py-2 md:px-4 px-2">
-//                 <div className="w-full py-5">
-//                     <div className="mt-8">
-//                         <div className="flex sm:mx-6 md:mx-0 w-full pb-0 border-b mb-2">
-//
-//                             <div className="flex w-full justify-between">
-//                                 <div className="my-auto roboto  font18-res-300" style={{  color:"#4f4f4f"}}>
-//                                     <h2 className="" style={{ fontWeight:"500"}}>Resources List</h2>
-//                                 </div>
-//                                 <div className="relative">
-//                                     <button className="my-auto"  onClick={toggleDropdowFilterResource}>
-//                                         <div  className="px-1 py-2 bg-white hover:px-1 hover:bg-gray-100 radius-100 ">
-//                                             <div className="my-auto  mx-1 " style={{ height:"24px"}}>
-//                                                 <img className="h-full w-full" src="/assets/filter-icon.svg"/>
-//                                             </div>
-//                                         </div>
-//                                     </button>
-//                                     <div id="dropdown_profile"
-//                                          className={`z-10 ${isDropdownFilterResource ? 'hidden' : ''} absolute right-0 top-10 font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600`}>
-//                                         <ul className="py-2 text-sm text-left text-gray-700 font14-res-300 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
-//
-//                                             <li>
-//                                                 <button className="block px-4 py-2 w-full text-left hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600 dark:hover:text-white"  onClick={() => handleFilterClickResource('terbaru')}>Terbaru</button>
-//                                             </li>
-//                                             <li>
-//                                                 <button className="block px-4 py-2  w-full text-left hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600 dark:hover:text-white" onClick={() => handleFilterClickResource('terlama')}>Terlama</button>
-//                                             </li>
-//                                         </ul>
-//
-//                                     </div>
-//                                 </div>
-//                             </div>
-//                         </div>
-//                         {resources.length === 0 ? (
-//                             <div className="md:py-8 sm:py-6 py-4">
-//                                 <div className="mb-0 mt-2">
-//                                     <div>
-//                                         <div className="mx-auto" style={{ minHeight: "170px", minWidth: "300px"  , maxHeight:"220px" , maxWidth:"310px"}}>
-//                                             <img className="w-full mx-auto h-full" src="/assets/tidak-ada-resource.svg" />
-//                                         </div>
-//                                     </div>
-//                                 </div>
-//                             </div>
-//                         ):(
-//                             <ul>
-//                                 {resources.map((item) => {
-//                                     return(
-//                                         <div key={item.id}>
-//                                             <li  key={item.id}>
-//                                                 <TaskMyClassCardComponent id={item.id} slug={slug} name={item.name} type={item.type} action={item.action} status={item.status} end_time={item.end_time}  date={item.date} post_time={item.post_time}/>
-//                                             </li>
-//                                         </div>
-//                                     )
-//                                 })}
-//                             </ul>
-//                         )}
-//                     </div>
-//                 </div>
-//             </div>
-//             <div id="fourth" className="hidden py-2 md:px-4 px-2">
-//                 Fourth tab
-//             </div>
-//         </div>
-//     </div>
-// </div>
-//

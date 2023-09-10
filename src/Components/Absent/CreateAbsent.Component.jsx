@@ -1,21 +1,30 @@
 import {useNavigate, useParams, useSearchParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
+import api from "../../Config/api";
 
-export const CreateAbsentComponent = () => {
+export const CreateAbsentComponent = ({user}) => {
+
+    const { id, slug } = useParams();
+
     const [name, setName] = useState('');
     const [date, setDate] = useState('');
     const [startTime, setStartTime] = useState('');
     const [endTime, setEndTime] = useState('');
+    const [faceRecognitionChecked, setFaceRecognitionChecked] = useState(false);
+    const [passwordChecked, setPasswordChecked] = useState(false);
+
 
     const [searchParams] = useSearchParams();
     const [errorName, setErrorName] = useState('');
     const [errorStartTime, setErrorStartTime] = useState('');
     const [errorEndTime, setErrorEndTime] = useState('');
     const [errorDate, setErrorDate] = useState('');
+    const [error, setError] = useState('');
 
-    const [faceRecognitionChecked, setFaceRecognitionChecked] = useState(false);
-    const [passwordChecked, setPasswordChecked] = useState(false);
+    const [redirectUrl, setRedirectUrl] = useState('');
+    const [redirectPath, setRedirectPath] = useState(`/view/my/class/${slug}/${id}`);
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleFaceRecognitionChange = () => {
         setFaceRecognitionChecked(!faceRecognitionChecked);
@@ -29,7 +38,6 @@ export const CreateAbsentComponent = () => {
     console.log("face recognation : " , faceRecognitionChecked)
     console.log("password : " , passwordChecked)
 
-    const [redirectUrl, setRedirectUrl] = useState('');
 
     useEffect(() => {
         const errorNameParam = searchParams.get('error_name');
@@ -65,34 +73,124 @@ export const CreateAbsentComponent = () => {
         setEndTime(endTimeValue);
     };
 
-    const { id, slug } = useParams();
-    const user = JSON.parse(localStorage.getItem('whoLogin'));
-    const username = user.username;
+
+    let token = localStorage.getItem('auth_token');
 
     const navigate = useNavigate();
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        setIsLoading(true);
 
         const formData = {
-            name,
-            date,
+            name : name,
+            date : date,
             start_time: startTime,
-            end_time: endTime
+            end_time: endTime,
+            use_password : passwordChecked,
+            use_face_recog : faceRecognitionChecked,
+
         };
 
-        axios
-            // .post(`https://rest-api.spaceskool.site/public/api/${username}/${slug}/${id}/create/absent`, formData)
-            .post(`http://127.0.0.1:8000/api/${username}/${slug}/${id}/create/absent`, formData)
+        api
+            .post(`/${id}/${slug}/create/absent`, formData , {
+                "Content-Type" : "multipart/form-data" ,
+                "Authorization" : "Bearer " + token,
+            })
             .then((response) => {
-                console.log(response.data)
-                const { redirectUrl } = response.data;
-                setRedirectUrl(redirectUrl);
+                console.log("response data" , response)
+                console.log(response.data);
+                console.log("its 201 :"  ,response.data.status === 201);
+                console.log("response redirect"  ,response.data.redirect_path)
+                setIsLoading(false); // Stop loading indicator
+                if (response.data.status === 201) {
+                        let redirectUrl = response.data.redirect_path;
+                        setErrorName('');
+                        setErrorDate('');
+                        setErrorStartTime('');
+                        setErrorEndTime('');
+                        setError(''); // Clear any general error message
+
+                        setRedirectPath(redirectUrl);
+                        navigate(redirectUrl);
+                        // navigate(`/view/my/class/${slug}/${id}`);
+
+                }
+                else if (response.data.status === 406) {
+                    if (response.data.errors.message === "Nama Absent tidak boleh kosong") {
+                        let redirectUrl = response.data.redirect_path;
+                        setErrorName('');
+                        setErrorDate('');
+                        setErrorStartTime('');
+                        setErrorEndTime('');
+                        setError(''); // Clear any general error message
+                        setRedirectPath(redirectUrl);
+                        setErrorName(response.data.errors.message);
+                        navigate(redirectUrl);
+                        } else if (response.data.errors.message === "Isi dengan tanggal yang kamu tentukan") {
+                        let redirectUrl = response.data.redirect_path;
+                        setErrorName('');
+                        setErrorDate('');
+                        setErrorStartTime('');
+                        setErrorEndTime('');
+                        setError(''); // Clear any general error message
+                        setErrorDate(response.data.errors.message);
+                        setRedirectPath(redirectUrl);
+                        navigate(redirectUrl);
+                       }
+                    else if (response.data.errors.message === "Tolong isi waktu dimulainya Absent") {
+                        let redirectUrl = response.data.redirect_path;
+                        setErrorName('');
+                        setErrorDate('');
+                        setErrorStartTime('');
+                        setErrorEndTime('');
+                        setError(''); // Clear any general error message
+
+                        setErrorStartTime(response.data.errors.message);
+                        setRedirectPath(redirectUrl);
+                        navigate(redirectUrl);
+                    }
+                    else if (response.data.errors.message === "Tolong isi waktu tenggatnya Absent") {
+                        let redirectUrl = response.data.redirect_path;
+                        setErrorName('');
+                        setErrorDate('');
+                        setErrorStartTime('');
+                        setErrorEndTime('');
+                        setError(''); // Clear any general error message
+                        setErrorEndTime(response.data.errors.message);
+                        setRedirectPath(redirectUrl);
+                        navigate(redirectUrl);
+                    }
+                    else if (response.data.errors.message === "Pilih salah satu metode absent!") {
+                        let redirectUrl = response.data.redirect_path;
+                        setErrorName('');
+                        setErrorDate('');
+                        setErrorStartTime('');
+                        setErrorEndTime('');
+                        setError(''); // Clear any general error message
+                        setError(response.data.errors.message);
+                        setRedirectPath(redirectUrl);
+                        navigate(redirectUrl);
+                       }
+                     else if (response.data.errors.message === "Terjadi Kesalahan") {
+                        let redirectUrl = response.data.redirect_path;
+                        setErrorName('');
+                        setErrorDate('');
+                        setErrorStartTime('');
+                        setErrorEndTime('');
+                        setError(''); // Clear any general error message
+                        setError(response.data.errors.message);
+                        setRedirectPath(redirectUrl);
+                        navigate(redirectUrl);
+                     }
+                }
+
+
             })
             .catch((error) => {
-                console.log(error.response.data);
+                console.log("error" , error)
+                setIsLoading(false); // Stop loading indicator
                 const { errors } = error.response.data;
-
                 setErrorName(errors?.name?.[0] || '');
                 setErrorDate(errors?.date?.[0] || '');
                 setErrorStartTime(errors?.start_time?.[0] || '');
@@ -100,40 +198,6 @@ export const CreateAbsentComponent = () => {
             });
     };
 
-    useEffect(() => {
-        if (redirectUrl) {
-            const url = new URL(redirectUrl);
-            const searchParams = new URLSearchParams(url.search);
-
-            setErrorName(searchParams.get('error_name') || '');
-            setErrorDate(searchParams.get('error_date') || '');
-            setErrorStartTime(searchParams.get('error_start_time') || '');
-            setErrorEndTime(searchParams.get('error_end_time') || '');
-
-            setName(searchParams.get('name') || '');
-            setDate(searchParams.get('date') || '');
-            setStartTime(searchParams.get('start_time') || '');
-            setEndTime(searchParams.get('end_time') || '');
-
-            searchParams.delete('error_name');
-            searchParams.delete('name');
-            searchParams.delete('error_date');
-            searchParams.delete('date');
-            searchParams.delete('error_start_time');
-            searchParams.delete('start_time');
-
-            url.search = searchParams.toString();
-            window.history.replaceState({}, '', url.href);
-
-            const statusParam = searchParams.get('status');
-
-            if (statusParam === '201') {
-                navigate(`/view/my/class/${id}/${slug}`);
-            }
-
-            setRedirectUrl('');
-        }
-    }, [redirectUrl]);
 
     return (
         <>
@@ -261,6 +325,13 @@ export const CreateAbsentComponent = () => {
                                                             <p className="font14-res-300">Password Penggguna</p>
                                                         </div>
                                                     </div>
+                                                    {error === '' ? (
+                                                        <div className="my-1"></div>
+                                                    ) : (
+                                                        <div className="my-1 text-left">
+                                                            <span className="text-red-600 font14-res-300">{error}</span>
+                                                        </div>
+                                                    )}
                                                 </div>
                                             </div>
                                         </div>

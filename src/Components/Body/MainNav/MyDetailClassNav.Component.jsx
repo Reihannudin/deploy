@@ -1,9 +1,13 @@
 import React, {useState} from "react";
-import {Link, useParams} from "react-router-dom";
+import {Link, useLocation, useParams} from "react-router-dom";
 
 export const  MyDetailClassNavComponent = () => {
 
+    const location = useLocation();
+
     const { id, slug } = useParams();
+    const isDetailClassActive = location.pathname === `/view/my/class/${id}/${slug}`
+    const isStudentActive = location.pathname === `/view/my/class/${id}/${slug}/students`
     const [dropAction , setDropAction] = useState(false);
 
     const toggleDropAction = () => {
@@ -51,27 +55,32 @@ export const  MyDetailClassNavComponent = () => {
                     </div>
                     <div className="w-full bg-white justify-between flex" style={{ height:"70px"}}>
                         <div className="flex bg-white  justify-center pt-2 pb-1 mx-auto sm:w-5/12 w-5/12">
+                            <div className=" p-1 bg-white hover:bg-gray-100 radius-full" style={{ width:"60px"}}>
+
                             <Link to={`/view/my/class/${id}/${slug}`} className="text-center bg-white cursor-pointer   " style={{ height: "28px" }}>
-                                <div className="cursor-pointer p-1 bg-white hover:bg-gray-100 radius-full" style={{ width:"60px"}}>
+                                <div>
                                     <div className="mx-auto cursor-pointer h-icon-main-nav">
-                                        <img className="mx-auto cursor-pointer h-full" src="/assets/icon-myclass-main-nav.svg" alt="Home Icon" />
+                                        <img className="mx-auto cursor-pointer h-full" src={`${isDetailClassActive ? '/assets/icon-myclass-main-nav.svg' : '/assets/icon-myclass-main-nav-gray.svg'} `} alt="Home Icon" />
                                     </div>
-                                    <p className="my-1 text-gray-400 hover:text-purple-700" style={{ fontSize: "11px" }}>Kelas</p>
+                                    <p className={`my-1 ${isDetailClassActive ? 'text-purple-600' : 'text-gray-400'} hover:text-purple-700`} style={{ fontSize: "11px" }}>Kelasku</p>
+
                                 </div>
                             </Link>
+                            </div>
 
                         </div>
 
                         <div className="flex justify-center  bg-white mx-auto  pt-2 pb-1 sm:w-5/12 w-5/12">
-                            <Link to={`/view/my/class/${id}/${slug}/students`} className="text-center bg-white cursor-pointer  radius-full " style={{ height: "28px" }}>
+                            <div className="text-center bg-white cursor-pointer  radius-full " >
                                 <div className="cursor-pointer p-1 hover:bg-gray-100 radius-full" style={{ width:"60px"}}>
-                                    <div className="mx-auto cursor-pointer h-icon-main-nav" >
-                                        <img className="mx-auto cursor-pointer h-full" src="/assets/icon-student-nav.svg" alt="Profile Icon" />
-                                    </div>
-                                    <p className="my-1 text-gray-500 hover:text-purple-700" style={{ fontSize: "11px" }}>Murid</p>
-
+                                    <Link to={`/view/my/class/${id}/${slug}/students`} >
+                                            <div className="mx-auto cursor-pointer h-icon-main-nav" >
+                                                <img className="mx-auto cursor-pointer h-full" src={`${isStudentActive ? '/assets/icon-student-nav.svg' : '/assets/icon-student-nav-gray.svg'} `} alt="Home Icon" />
+                                            </div>
+                                            <p className={`my-1 ${isStudentActive ? 'text-purple-600' : 'text-gray-400'} hover:text-purple-700`} style={{ fontSize: "11px" }}>Murid</p>
+                                    </Link>
                                 </div>
-                            </Link>
+                                </div>
                         </div>
                     </div>
                 </div>

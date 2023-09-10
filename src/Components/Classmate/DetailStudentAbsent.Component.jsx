@@ -109,56 +109,70 @@ export const DetailStudentAbsentComponent = (props) => {
                                 </div>
                                 <p className="my-1 font14-res-300" style={{ color:"#646464"}}>Tanggal {props.date} dengan Jumlah {props.action_length} Siswa</p>
                             </div>
+
                             <div className="text-left mx-2 md:mx-4">
-                                <div className="my-3 w-full">
-                                    <div className="flex w-full justify-between">
-                                        <p className="font14-res-300">Hadir</p>
-                                        <p className="font14-res-300 text-gray-600">
-                                            {absentStatus.hadir === 0 ? "Tidak ada siswa" : absentStatus.hadir + " siswa"}
-                                        </p>
+                                <div className="flex">
+                                    <div className="my-3 w-full">
+                                        <div className="block w-full text-center">
+                                            <p className="font14-res-300">Hadir</p>
+                                            <div className="w-12 h-12 bg-gray-200 rounded-full mx-auto">
+                                                <div
+                                                    className={`w-12 h-12 ${absentStatus.izin === 0 ? "bg-gray-200" : "bg-green-400"} rounded-full relative flex justify-center items-center`}
+                                                    style={{
+                                                        clipPath: `polygon(0 0, 100% 0, 100%, 0 100%)`,
+                                                    }}
+                                                >
+                                                    <p className="font22-res-300 text-white font-normal">
+                                                        0
+                                                        {/*{absentStatus.izin === 0 ? "Tidak ada siswa" : absentStatus.izin + " siswa"}*/}
+                                                    </p>
+                                                </div>
+
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div className="w-full my-2 h-2 bg-gray-200 rounded-full">
-                                        <div
-                                            className="h-full bg-green-400 rounded-full"
-                                            style={{
-                                                width: `${Math.min((absentStatus.hadir * 3), 100)}%`,
-                                            }}
-                                        ></div>
+
+                                    <div className="my-3 w-full">
+                                        <div className="block w-full text-center">
+                                            <p className="font14-res-300">Izin</p>
+                                            <div className="w-12 h-12 bg-gray-200 rounded-full mx-auto">
+                                                <div
+                                                    className={`w-12 h-12 ${absentStatus.izin === 0 ? "bg-gray-200" : "bg-yellow-400"} rounded-full relative flex justify-center items-center`}
+                                                    style={{
+                                                        clipPath: `polygon(0 0, 100% 0, 100%, 0 100%)`,
+                                                    }}
+                                                >
+                                                    <p className="font22-res-300 text-white font-normal">
+                                                        0
+                                                        {/*{absentStatus.izin === 0 ? "Tidak ada siswa" : absentStatus.izin + " siswa"}*/}
+                                                    </p>
+                                                </div>
+
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="my-3 w-full">
-                                    <div className="flex w-full justify-between">
-                                        <p className="font14-res-300">Izin</p>
-                                        <p className="font14-res-300 text-gray-600">
-                                            {absentStatus.izin === 0 ? "Tidak ada siswa" : absentStatus.izin + " siswa"}
-                                        </p>
-                                    </div>
-                                    <div className="w-full my-2 h-2 bg-gray-200 rounded-full">
-                                        <div
-                                            className="h-full bg-yellow-400 rounded-full"
-                                            style={{
-                                                width: `${Math.min((absentStatus.izin * 3), 100)}%`,
-                                            }}
-                                        ></div>
-                                    </div>
-                                </div>
-                                <div className="my-3 w-full">
-                                    <div className="flex w-full justify-between">
-                                        <p className="font14-res-300">Alpha</p>
-                                        <p className="font14-res-300 text-gray-600">
-                                            {absentStatus.melewatkan === 0 ? "Tidak ada siswa" : absentStatus.melewatkan + " siswa"}
-                                        </p>
-                                    </div>
-                                    <div className="w-full my-2 h-2 bg-gray-200 rounded-full">
-                                        <div
-                                            className="h-full bg-red-400 rounded-full"
-                                            style={{
-                                                width: `${Math.min((absentStatus.melewatkan * 3), 100)}%`,
-                                            }}
-                                        ></div>
+                                    <div className="my-3 w-full">
+                                        <div className="block w-full text-center">
+                                            <p className="font14-res-300">Alpha</p>
+                                            <div className="w-12 h-12 bg-gray-200 rounded-full mx-auto">
+                                                <div
+                                                    className={`w-12 h-12 ${absentStatus.izin === 0 ? "bg-gray-200" : "bg-red-400"} rounded-full relative flex justify-center items-center`}
+                                                    style={{
+                                                        clipPath: `polygon(0 0, 100% 0, 100%, 0 100%)`,
+                                                    }}
+                                                >
+                                                    <p className="font22-res-300 text-white font-normal">
+                                                        0
+                                                        {/*{absentStatus.izin === 0 ? "Tidak ada siswa" : absentStatus.izin + " siswa"}*/}
+                                                    </p>
+                                                </div>
+
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+
 
                         </div>
                     </div>

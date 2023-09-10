@@ -9,7 +9,7 @@ export const NavbarCreateAbsentComponent = () => {
 
     const { id, slug } = useParams();
 
-    const classname = slug.replace(/_/g, ' ');
+    const classname = id.replace(/_/g, ' ');
 
     return(
         <>
@@ -22,9 +22,9 @@ export const NavbarCreateAbsentComponent = () => {
                                     <img className="h-full" src="/assets/arrow-back.svg"/>
                                 </div>
                             </Link>
-                            <div className="my-2 text-left" >
+                            <div className="my-3 text-left" >
                                 <h4 className=" font16-res-400">Membuat Absent</h4>
-                                <p  className=" font14-res-300">{classname}</p>
+                                <p  className=" font14-res-300 text-purple-500">{classname}</p>
                             </div>
                         </div>
                     </div>

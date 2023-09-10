@@ -1,7 +1,7 @@
 import {Link, useNavigate, useParams} from "react-router-dom";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 
-export const NavbarMyDetailAbsentComponent = (props) => {
+export const NavbarMyDetailAbsentComponentEmpty = () => {
 
     const navigate = useNavigate();
 
@@ -9,7 +9,6 @@ export const NavbarMyDetailAbsentComponent = (props) => {
 
     const { id , class_id, slug } = useParams();
 
-    const classname = slug.replace(/_/g, ' ');
     const navigateBack = () => {
         navigate(-1)
     };
@@ -33,8 +32,10 @@ export const NavbarMyDetailAbsentComponent = (props) => {
                     </Link>
 
                     <div className="my-2 text-left" >
-                        <h4 className="font16-res-400" >{props.name}</h4>
-                        <p className="font14-res-300 text-purple-700" >{classname}</p>
+                        
+                        <h4 className=" font16-res-400 w-44 border-radius-4 bg-gray-200 py-2 animate-pulse">
+                        </h4>
+                        <p className="font14-res-300 w-44 border-radius-4 bg-gray-200 py-1 mt-3 animate-pulse" ></p>
                     </div>
                 </div>
                 <div className="flex justify-between">

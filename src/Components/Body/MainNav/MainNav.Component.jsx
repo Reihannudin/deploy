@@ -19,7 +19,6 @@ export const MainNavComponent = ({user}) => {
     }
 
     const handleDropdownItemClick = () => {
-        // Close the dropdown when an item is clicked
         setDropAction(false);
     };
 

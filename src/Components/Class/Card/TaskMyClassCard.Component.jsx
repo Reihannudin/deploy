@@ -33,8 +33,7 @@ export const TaskMyClassCardComponent = (props) => {
 
     const {id  ,slug} = useParams();
 
-    const user = JSON.parse(localStorage.getItem('whoLogin'));
-    const username = user.username;
+    const username = props.username;
 
 
     //  Copy Absent

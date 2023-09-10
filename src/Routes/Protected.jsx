@@ -56,25 +56,21 @@ export const Protected = () => {
       <Route path="/profile" element={<TestProfille />} />
       <Route path="/view/class/:id/:slug" element={<DetailClass />} />
       <Route path="/view/my/class/:id/:slug" element={<MyClassDetail />} /> {/* Done */}
-      <Route path="/view/my/class/:id/:slug/students" element={<MyClassStudent />}/>
+      <Route path="/view/my/class/:id/:slug/students" element={<MyClassStudent />}/> {/* Done */}
       <Route path="/create/class" element={<CreateClass />} /> {/* Done */}
       <Route path="/edit/my/class/:id/:slug" element={<EditMyClass />} /> {/* Done */}
       <Route path="/join/class" element={<JoinClass />} /> {/* Done */}
+
       {/*absent Page*/}
+      <Route path="/class/:slug/:id/create/absent" element={<CreateAbsent />} /> {/* Done */}
       <Route path="/view/:slug/detail/absent/:id" element={<DetailAbsent />} />
+      <Route path="/view/:slug/:class_id/my/absent/:id" element={<MyDetailAbsent />}/>
+      <Route path="/view/:slug/:class_id/my/absent/:id/students" element={<MyDetailAbsentStudents />}/>
       <Route
         path="/view/:slug/detail/absent/:id/classmate"
         element={<DetailAbsentClassmate />}
       />
-      <Route
-        path="/view/:slug/:class_id/my/absent/:id"
-        element={<MyDetailAbsent />}
-      />
-      <Route
-        path="/view/:slug/:class_id/my/absent/:id/students"
-        element={<MyDetailAbsentStudents />}
-      />
-      <Route path="/class/:slug/:id/create/absent" element={<CreateAbsent />} />
+
       <Route
         path="/view/:slug/detail/absent/:id/classmate"
         element={<DetailAbsentClassmate />}
