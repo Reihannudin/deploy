@@ -14,6 +14,7 @@ import {DetailMyAbsentComponent} from "../../Components/Absent/DetailMyAbsent.Co
 import {
     NavbarEditAbsentEmptyComponent
 } from "../../Components/Body/Nav/Task/Absents/Empty/NavbarEditAbsentEmpty.Component";
+import {EditEmptyComponent} from "../../Components/Absent/Empty/EditEmpty.Component";
 
 function EditMyAbsent(){
 
@@ -127,7 +128,7 @@ function EditMyAbsent(){
                     <div className="w-full pb-5 mx-0 px-0 h-full " style={{ background:"#FFFFFF"}}>
                         <div id="absent" className="w-full">
                             <div className="w-full">
-                                {/*<EditAbsentComponent name={item.name} date={item.date} start_time={item.start_time} end_time={item.end_time} />*/}
+                                <EditEmptyComponent />
                             </div>
                         </div>
                     </div>

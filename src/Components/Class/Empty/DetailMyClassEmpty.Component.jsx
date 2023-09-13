@@ -44,7 +44,6 @@ export const DetailMyClassEmptyComponent = (props) => {
     const [selectedDate, setSelectedDate] = useState(startDate);
     const [activeIndex, setActiveIndex] = useState(0);
 
-    console.log("current day : " , currentDay)
 
     useEffect(() => {
         if (startDay && month && year) {
@@ -55,8 +54,6 @@ export const DetailMyClassEmptyComponent = (props) => {
             setActiveIndex(currentDay);
         }
     }, [queryParams]);
-
-    console.log(activeIndex)
 
     const handleDayClick = (clickedDay, index) => {
         setSelectedDate(clickedDay);
@@ -88,10 +85,6 @@ export const DetailMyClassEmptyComponent = (props) => {
     const [selectedDay, setSelectedDay] = useState('');
     const [selectedMonth, setSelectedMonth] = useState('');
     const [selectedYear, setSelectedYear] = useState('');
-
-    console.log("select Month  : " ,selectedMonth)
-    console.log("select Year  : " ,selectedYear)
-
 
     const handleMonthChange = (event) => {
         const newSelectMonth = event.target.value;
@@ -198,9 +191,9 @@ export const DetailMyClassEmptyComponent = (props) => {
                             </div>
                             <div className="md:w-10/12 w-11/12 lg:hidden block  mx-auto my-6">
                                 <div className="my-2 text-center py-1 border-none md:border-t">
-                                    <label className="my-2 font16-res-400" htmlFor={"code"}>Code class</label>
+                                    <label className="my-2 font16-res-400" htmlFor={"code_empty"}>Code class</label>
                                     <div className="lg:w-10/12 md:w-8/12 w-10/12  bg-white flex  mx-auto border-radius-4" >
-                                        <input id={"code"} name={"code"} className=" font16-res-400 py-2 px-3 bg-gray-100 w-10/12 animate-pulse"   />
+                                        <input id={"code_empty"} name={"code_empty"} className=" font16-res-400 py-2 px-3 bg-gray-100 w-10/12 animate-pulse"   />
                                         <button className="w-2/12 bg-purple-500" >
                                             <img className="my-auto w-full " style={{ height:"20px"}} src="/assets/copy-icon.svg" />
                                         </button>
@@ -213,18 +206,18 @@ export const DetailMyClassEmptyComponent = (props) => {
                                 </div>
                                 <div className="font14-res-300">
                                     <div className="flex gap-5 justify-between  px-6 pt-6">
-                                        <label htmlFor="day">Pilih Hari : </label>
-                                        <input id="day" name="day" className="bg-gray-200 border-radius-8 w-2/5 py-0.5 animate-pulse"  >
+                                        <label htmlFor="day_empty_s">Pilih Hari : </label>
+                                        <input id="day_empty_s" name="day_empty_s" className="bg-gray-200 border-radius-8 w-2/5 py-0.5 animate-pulse"  >
                                         </input>
                                     </div>
                                     <div className="flex gap-5  justify-between px-6 py-5">
-                                        <label htmlFor="month">Pilih Bulan : </label>
-                                        <input  id="month" name={"month"}className="bg-gray-200 border-radius-8 w-2/5 py-0.5 animate-pulse" >
+                                        <label htmlFor="month_empty_s">Pilih Bulan : </label>
+                                        <input  id="month_empty_s" name={"month_empty_s"}className="bg-gray-200 border-radius-8 w-2/5 py-0.5 animate-pulse" >
                                         </input>
                                     </div>
                                     <div className="flex gap-5 justify-between  px-6 pb-6">
-                                        <label htmlFor="year">Pilih Tahun:</label>
-                                        <input  id="year" name="year" className="bg-gray-200 border-radius-4 w-2/5 py-0.5 animate-pulse" >
+                                        <label htmlFor="year_empty_s">Pilih Tahun:</label>
+                                        <input  id="year_empty_s" name="year_empty_s" className="bg-gray-200 border-radius-4 w-2/5 py-0.5 animate-pulse" >
                                         </input>
                                     </div>
                                 </div>
@@ -414,18 +407,18 @@ export const DetailMyClassEmptyComponent = (props) => {
                             </div>
                             <div className="font14-res-300">
                                 <div className="flex gap-5 justify-between px-6 pt-6">
-                                    <label htmlFor="day">Pilih Hari :</label>
-                                    <input id="day" name={"day"} className="bg-gray-200 w-2/5 py-1" style={{ animation: "loading 2s infinite" }} >
+                                    <label htmlFor="day_empty">Pilih Hari :</label>
+                                    <input id="day_empty" name={"day_empty"} className="bg-gray-200 w-2/5 py-1" style={{ animation: "loading 2s infinite" }} >
                                     </input>
                                 </div>
                                 <div className="flex gap-5 justify-between px-6 py-5">
-                                    <label htmlFor="month">Pilih Bulan :</label>
-                                    <input id="month" name={"month"} className="bg-gray-200 w-2/5 py-1" style={{ animation: "loading 2s infinite" }} >
+                                    <label htmlFor="month_empty">Pilih Bulan :</label>
+                                    <input id="month_empty" name={"month_empty"} className="bg-gray-200 w-2/5 py-1" style={{ animation: "loading 2s infinite" }} >
                                     </input>
                                 </div>
                                 <div className="flex gap-5 justify-between px-6 pb-6">
-                                    <label htmlFor="year">Pilih Tahun:</label>
-                                    <input id="year" name="year" className="bg-gray-200 w-2/5 py-1" style={{ animation: "loading 2s infinite" }} >
+                                    <label htmlFor="year_empty">Pilih Tahun:</label>
+                                    <input id="year_empty" name="year_empty" className="bg-gray-200 w-2/5 py-1" style={{ animation: "loading 2s infinite" }} >
                                     </input>
                                 </div>
                             </div>

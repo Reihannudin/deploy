@@ -176,7 +176,7 @@ export const DetailMyClassStudentsComponent = (props) => {
                                     <h2 className="font14-res-300 text-gray-700" >Pelajaran : {props.section}</h2>
                                 </div>
                             </div></div>
-                        <div className="md:w-10/12 w-11/12 lg:hidden block  mx-auto my-6">
+                        <div className="md:w-10/12 w-11/12 lg:hidden block  mx-auto my-0">
                             <div className="my-2 text-center py-1 border-none md:border-t">
                                 <p className="my-2 font16-res-400">Code class</p>
                                 <div className="lg:w-10/12 md:w-8/12 w-10/12  bg-white flex  mx-auto border-radius-4" >

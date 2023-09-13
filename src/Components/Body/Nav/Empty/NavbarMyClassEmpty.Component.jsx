@@ -40,7 +40,7 @@ export const NavbarMyClassEmptyComponent = (props) => {
                                 </div>
 
                                 <div className="flex justify-between">
-                                    <div className="  mx-16 w-full lg:flex hidden my-auto  lg:items-center lg:w-auto" id="menu">
+                                    <div className="  mx-16 w-full lg:flex hidden my-auto  lg:items-center lg:w-auto" id="menu_empty">
                                         <div className="flex gap-4 my-auto ">
                                             <div  className="font-medium mt-1">
                                                 <ul className="list-none gap-6 font16-res-300 flex" style={{ fontWeight :"500"}}>
@@ -61,7 +61,7 @@ export const NavbarMyClassEmptyComponent = (props) => {
                                         </div>
                                     </div>
                                     <div className="relative my-auto hidden md:block">
-                                        <button  id="menu-button" className={`me-4 ms-2  bg-white px-1  my-2`} >
+                                        <button  id="menu-button_empty" className={`me-4 ms-2  bg-white px-1  my-2`} >
                                             <div className="h-8 w-8 mx-auto my-auto cursor-pointer block" style={{ height:"36px"}} >
                                                 <img className="h-full w-full" style={{ height:"36px"}} src="/assets/add-icon.svg"/>
                                             </div>
