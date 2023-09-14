@@ -84,6 +84,10 @@ export const DetailMyClassComponent = (props) => {
 
     //  =================== update ==================
 
+    const [selectedDay, setSelectedDay] = useState('');
+    const [selectedMonth, setSelectedMonth] = useState('');
+    const [selectedYear, setSelectedYear] = useState('');
+
     let students = props.students;
     let classmateLength =  props.students.length;
 
@@ -128,37 +132,64 @@ export const DetailMyClassComponent = (props) => {
         }
     }, [queryParams]);
 
-
     const handleDayClick = (clickedDay, index) => {
         setSelectedDate(clickedDay);
         setActiveIndex(index); // Set the active index
 
-        const clickedYear = clickedDay.getFullYear();
-        const clickedMonth = clickedDay.getMonth() + 1; // Months are 0-based
-        const clickedDayOfMonth = clickedDay.getDate();
 
+        const clickedDayOfMonth = clickedDay.getDate();
+        const clickedMonth = clickedDay.getMonth() + 1; // Months are 0-based
+        const clickedYear = clickedDay.getFullYear();
+
+        // console.log(clickedDayOfMonth)
+        // console.log(clickedMonth)
+        // console.log(clickedYear)
+
+
+            const newSearchParams = new URLSearchParams({
+                start_day: clickedDayOfMonth.toString(),
+                month: clickedMonth,
+                year: clickedYear,
+            });
+
+            setSelectedDay(clickedDayOfMonth);
+            setSelectedMonth(clickedMonth);
+            setSelectedYear(clickedYear)
+
+            newSearchParams.set('start_day', clickedDayOfMonth.toString());
+            newSearchParams.set('month', clickedMonth.toString());
+            newSearchParams.set('year', clickedYear.toString());
+
+            navigate({
+                search: newSearchParams.toString(),
+            });
+        // const url = `http://localhost:3000/view/my/class/${id}/${slug}?day=${selectedDay}&month=${selectedMonth}&year=${selectedYear}`;
+
+        // Use window.location.href to navigate to the URL
+        // window.location.href = url;
+    };
+
+    const handleSaveButtonClick = () => {
         const newSearchParams = new URLSearchParams({
-            start_day: clickedDayOfMonth.toString(),
-            month: clickedMonth.toString(),
-            year: clickedYear.toString(),
+            start_day: selectedDay,
+            month: selectedMonth,
+            year: selectedYear,
         });
 
-        // Use the navigate function to update the URL
-        newSearchParams.set('start_day', clickedDayOfMonth.toString());
-        newSearchParams.set('month', clickedMonth.toString());
-        newSearchParams.set('year', clickedYear.toString());
 
-        // Navigate to the updated URL
+        newSearchParams.set('start_day', selectedDay.toString());
+        newSearchParams.set('month', selectedMonth.toString());
+        newSearchParams.set('year', selectedYear.toString());
+
         navigate({
             search: newSearchParams.toString(),
         });
-    };
+    }
 
 
-    const [selectedDay, setSelectedDay] = useState('');
-    const [selectedMonth, setSelectedMonth] = useState('');
-    const [selectedYear, setSelectedYear] = useState('');
-
+    // console.log(selectedDay);
+    // console.log(selectedMonth);
+    // console.log(selectedYear);
 
     const handleMonthChange = (event) => {
         const newSelectMonth = event.target.value;
@@ -199,6 +230,12 @@ export const DetailMyClassComponent = (props) => {
         }
         return daysOptions;
     };
+
+
+
+    // console.log("My detail class Day : " , selectedDay)
+    // console.log("My detail class Month : " ,selectedMonth)
+    // console.log("My detail class Year : " ,selectedYear)
 
     return(
         <>
@@ -278,11 +315,19 @@ export const DetailMyClassComponent = (props) => {
                                 </div>
                                 <div className="w-full mx-auto pb-4">
                                     <div className="w-11/12 mx-auto">
+                                        {/*<button*/}
+                                        {/*    onClick={handleSaveButtonClick}*/}
+                                        {/*    className=" w-full py-1.5 bg-purple-600 hover:bg-purple-700 cursor-pointer border-radius-4 text-white hover:text-gray-50  font14-res-300 mx-auto ">*/}
+                                        {/*    Save*/}
+                                        {/*</button>*/}
                                         <button
-                                            onClick={() => window.location.reload()}
-                                            className=" w-full py-1.5 bg-purple-600 hover:bg-purple-700 cursor-pointer border-radius-4 text-white hover:text-gray-50  font14-res-300 mx-auto ">
+                                            onClick={handleSaveButtonClick}
+                                            type="button" // Add this line to specify the button type
+                                            className="w-full py-1.5 bg-purple-600 hover:bg-purple-700 cursor-pointer border-radius-4 text-white hover:text-gray-50 font14-res-300 mx-auto"
+                                        >
                                             Save
                                         </button>
+
                                     </div>
                                 </div>
                             </div>
@@ -292,21 +337,33 @@ export const DetailMyClassComponent = (props) => {
 
                                 </div>
                                 <div className="grid grid-cols-7 gap-2">
-                                    {weekDays.map((day , index) => {
+                                    {/*{weekDays.map((day , index) => {*/}
 
-                                        return(
-                                            <div
-                                                key={index}
-                                                className={`text-center cursor-pointer ${
-                                                    index === activeIndex ? "bg-purple-600 text-white" : "bg-gray-200 hover:bg-purple-600 hover:text-white"
-                                                } py-2 px-1.5 rounded`}
-                                                onClick={() => handleDayClick(day, index)}
-                                            >
-                                                <div className=" font15-res-300" style={{ fontWeight:"550"}}>{daysOfWeek[index]}</div>
-                                                <div className="font14-res-300">{day.getDate()}</div>
-                                            </div>
-                                        )
-                                    })}
+                                    {/*    return(*/}
+                                    {/*        <div*/}
+                                    {/*            key={index}*/}
+                                    {/*            className={`text-center cursor-pointer ${*/}
+                                    {/*                index === activeIndex ? "bg-purple-600 text-white" : "bg-gray-200 hover:bg-purple-600 hover:text-white"*/}
+                                    {/*            } py-2 px-1.5 rounded`}*/}
+                                    {/*            onClick={() => handleDayClick(day, index)}*/}
+                                    {/*        >*/}
+                                    {/*            <div className=" font15-res-300" style={{ fontWeight:"550"}}>{daysOfWeek[index]}</div>*/}
+                                    {/*            <div className="font14-res-300">{day.getDate()}</div>*/}
+                                    {/*        </div>*/}
+                                    {/*    )*/}
+                                    {/*})}*/}
+                                    {weekDays.map((day , index) => (
+                                        <div
+                                            key={index}
+                                            className={`text-center cursor-pointer ${
+                                                day.getDate() === selectedDay ? "bg-purple-600 text-white" : "bg-gray-200 hover:bg-purple-600 hover:text-white"
+                                            } py-2 px-1.5 rounded`}
+                                            onClick={() => handleDayClick(day, index)}
+                                        >
+                                            <div className=" font15-res-300" style={{ fontWeight:"550"}}>{daysOfWeek[index]}</div>
+                                            <div className="font14-res-300">{day.getDate()}</div>
+                                        </div>
+                                    ))}
                                     {/*{weekDays.map((day, index) => (*/}
                                     {/*    ))}*/}
                                 </div>
@@ -346,12 +403,7 @@ export const DetailMyClassComponent = (props) => {
                                 <div id="absent" className="py-2 md:px-4 ">
                                     <AbsentDetailMyClassHelper slug={slug} username={username} start_day={selectedDay} month={selectedMonth} year={selectedYear} userId={userId} />
                                 </div>
-                                {/*<div id="tugas" className="hidden py-2 md:px-4 ">*/}
-                                {/*    <AssignmentDetailMyClassHelper slug={slug} username={username} userId={userId}  />*/}
-                                {/*</div>*/}
-                                {/*<div id="resource" className="hidden py-2 md:px-4 ">*/}
-                                {/*    <ResourceDetailMyClassHelper slug={slug} username={username} userId={userId}  />*/}
-                                {/*</div>*/}
+
                             </div>
                         </div>
                     </div>
@@ -422,7 +474,7 @@ export const DetailMyClassComponent = (props) => {
                             </div>
                             <div className="w-full pb-4">
                                 <button
-                                    onClick={() => window.location.reload()}
+                                    onClick={handleSaveButtonClick}
                                     className="w-10/12 py-1.5 bg-purple-600 hover:bg-purple-700 cursor-pointer border-radius-4 text-white hover:text-gray-50  font14-res-300 mx-auto ">
                                     Save
                                 </button>
