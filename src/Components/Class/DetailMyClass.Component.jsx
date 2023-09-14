@@ -101,6 +101,8 @@ export const DetailMyClassComponent = (props) => {
 
     const today = new Date();
     const currentDay = today.getDay(); // Index of the current day (0 - 6)
+    const currentDate = today.getDate(); // Index of the current day (0 - 6)
+    const currentDateMin7 = currentDate  / 2; // Index of the current day (0 - 6)
 
     const queryParams = new URLSearchParams(location.search);
     const startDay = queryParams.get('start_day');
@@ -111,12 +113,36 @@ export const DetailMyClassComponent = (props) => {
     const startOfWeek = new Date(startDate);
     startOfWeek.setDate(startDate.getDate() - startDate.getDay() + (startDate.getDay() === 0 ? 7 : 0));
 
+    console.log("currentDate: " ,currentDateMin7)
+    // Assuming startOfWeek is a Date object representing the desired start date
     const weekDays = [];
     for (let i = 0; i < 7; i++) {
         const day = new Date(startOfWeek);
         day.setDate(startOfWeek.getDate() + i);
+
+        console.log("startOfWeek = ", startOfWeek.getDate());
+        console.log("selected day = ", selectedDay);
+
+        console.log("is < " , selectedDay <= startOfWeek.getDate())
+        console.log("is > " , selectedDay >= startOfWeek.getDate())
+
+        if (selectedDay >= startOfWeek.getDate()) {
+            day.setDate(day.getDate());
+        } else if (selectedDay <= startOfWeek.getDate()){
+            day.setDate(day.getDate() - 7);
+        }
+
         weekDays.push(day);
     }
+
+    // console.log("startOfWeek = ", startOfWeek);
+    // console.log("is same? " ,selectedDay <= startOfWeek.getDate())
+    // console.log("is true? " ,startOfWeek.getDate() === "Sun")
+
+
+    // console.log(weekDays[0])
+    // console.log(startOfWeek.getDate())
+    // console.log("is true? " ,startOfWeek.getDate() === "Sun")
 
     const [selectedDate, setSelectedDate] = useState(startDate);
     const [activeIndex, setActiveIndex] = useState(0);
@@ -136,6 +162,10 @@ export const DetailMyClassComponent = (props) => {
         setSelectedDate(clickedDay);
         setActiveIndex(index); // Set the active index
 
+        const startOfWeekContainingClickedDay = new Date(clickedDay);
+        startOfWeekContainingClickedDay.setDate(
+            clickedDay.getDate() - clickedDay.getDay() + (clickedDay.getDay() === 0 ? 7 : 0)
+        );
 
         const clickedDayOfMonth = clickedDay.getDate();
         const clickedMonth = clickedDay.getMonth() + 1; // Months are 0-based
@@ -353,20 +383,23 @@ export const DetailMyClassComponent = (props) => {
                                     {/*        </div>*/}
                                     {/*    )*/}
                                     {/*})}*/}
-                                    {weekDays.map((day , index) => (
-                                        <div
-                                            key={index}
-                                            className={`text-center cursor-pointer ${
-                                                index === activeIndex ? "bg-purple-600 text-white" : "bg-gray-200 hover:bg-purple-600 hover:text-white"
-                                            } py-2 px-1.5 rounded`}
-                                            onClick={() => handleDayClick(day, index)}
-                                        >
-                                            <div className=" font15-res-300" style={{ fontWeight:"550"}}>{daysOfWeek[index]}</div>
-                                            <div className="font14-res-300">{day.getDate()}</div>
-                                        </div>
-                                    ))}
-                                    {/*{weekDays.map((day, index) => (*/}
-                                    {/*    ))}*/}
+                                    {weekDays.map((day , index) => {
+                                        console.log(day)
+
+                                        return(
+                                            <div
+                                                key={index}
+                                                className={`text-center cursor-pointer ${
+                                                    index === activeIndex ? "bg-purple-600 text-white" : "bg-gray-200 hover:bg-purple-600 hover:text-white"
+                                                } py-2 px-1.5 rounded`}
+                                                onClick={() => handleDayClick(day, index)}
+                                            >
+                                                <div className=" font15-res-300" style={{ fontWeight:"550"}}>{daysOfWeek[index]}</div>
+                                                <div className="font14-res-300">{day.getDate()}</div>
+                                            </div>
+                                        )
+                                    })}
+
                                 </div>
                             </div>
 
