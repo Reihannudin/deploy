@@ -187,6 +187,7 @@ export const DetailMyClassComponent = (props) => {
     }
 
 
+    console.log("this active : " , activeIndex);
     // console.log(selectedDay);
     // console.log(selectedMonth);
     // console.log(selectedYear);
@@ -356,7 +357,7 @@ export const DetailMyClassComponent = (props) => {
                                         <div
                                             key={index}
                                             className={`text-center cursor-pointer ${
-                                                day.getDate() === selectedDay ? "bg-purple-600 text-white" : "bg-gray-200 hover:bg-purple-600 hover:text-white"
+                                                index === activeIndex ? "bg-purple-600 text-white" : "bg-gray-200 hover:bg-purple-600 hover:text-white"
                                             } py-2 px-1.5 rounded`}
                                             onClick={() => handleDayClick(day, index)}
                                         >

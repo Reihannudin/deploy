@@ -89,7 +89,7 @@ const AbsentDetailMyClassHelper = ({ slug, username, userId , start_day , month 
 
     const handleFilterAbsentClick = (filterValue) => {
         setFilterAbsent(filterValue);
-        const url = `?filter=${filterValue}`;
+        const url = `?filter=${filterValue}&start_day=${currentDay}&month=${currentMonth}&year=${currentYear}`;
         navigate(url); // Replace navigate with your navigation function
     };
 
