@@ -84,8 +84,8 @@ const AbsentDetailMyClassHelper = ({ slug, username, userId , start_day , month 
         fetchData();
     }, [ slug, filterAbsent, currentDay, currentMonth, currentYear]);
 
-    console.log("isFetchingAbsent" , isFetchingAbsent)
-    console.log("isDataFetchedAbsent" , isDataFetchedAbsent)
+    // console.log("isFetchingAbsent" , isFetchingAbsent)
+    // console.log("isDataFetchedAbsent" , isDataFetchedAbsent)
 
     const handleFilterAbsentClick = (filterValue) => {
         setFilterAbsent(filterValue);

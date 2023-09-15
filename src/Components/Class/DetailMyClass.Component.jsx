@@ -104,6 +104,16 @@ export const DetailMyClassComponent = (props) => {
     const currentDate = today.getDate(); // Index of the current day (0 - 6)
     const currentDateMin7 = currentDate  / 2; // Index of the current day (0 - 6)
 
+    console.log("currentDay" , currentDay)
+    console.log("currentDate"  ,currentDate)
+    useEffect(() => {
+        // Check if selectedDay is empty or undefined
+        if (!selectedDay) {
+
+            // Format the currentDate as needed
+            setSelectedDay(currentDate);
+        }
+    }, [selectedDay]); //
     const queryParams = new URLSearchParams(location.search);
     const startDay = queryParams.get('start_day');
     const month = queryParams.get('month');
@@ -119,21 +129,37 @@ export const DetailMyClassComponent = (props) => {
     for (let i = 0; i < 7; i++) {
         const day = new Date(startOfWeek);
         day.setDate(startOfWeek.getDate() + i);
+        // i = 0
+        console.log("i = " , i)
 
+        console.log("day : " , day)
+
+        console.log("startOfWeek + i = ", startOfWeek.getDate() + i * 2);
         console.log("startOfWeek = ", startOfWeek.getDate());
         console.log("selected day = ", selectedDay);
 
-        console.log("is < " , selectedDay <= startOfWeek.getDate())
+        // console.log("is === " , selectedDay startOfWeek.getDate())
+        console.log("is < " , selectedDay  <= startOfWeek.getDate())
         console.log("is > " , selectedDay >= startOfWeek.getDate())
 
         if (selectedDay >= startOfWeek.getDate()) {
             day.setDate(day.getDate());
-        } else if (selectedDay <= startOfWeek.getDate()){
+
+        }else if (selectedDay <= startOfWeek.getDate()){
+            console.log("i > 0",  i > 0)
+            // day.setDate(startOfWeek.getDate() + i * 2);
             day.setDate(day.getDate() - 7);
+            // if (selectedDay === startOfWeek.getDate()){
+            //     day.setDate(day.getDate()- 7);
+            //     console.log("select day same as start of week")
+            //     // day.setDate(day.getDate() - 7);
+            // }
         }
 
         weekDays.push(day);
     }
+
+    console.log("week day  : " , weekDays)
 
     // console.log("startOfWeek = ", startOfWeek);
     // console.log("is same? " ,selectedDay <= startOfWeek.getDate())
@@ -384,7 +410,6 @@ export const DetailMyClassComponent = (props) => {
                                     {/*    )*/}
                                     {/*})}*/}
                                     {weekDays.map((day , index) => {
-                                        console.log(day)
 
                                         return(
                                             <div
