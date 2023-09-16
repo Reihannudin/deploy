@@ -38,8 +38,55 @@ export const DetailMyClassComponent = (props) => {
     };
 
     const handleTabClick = (tabName) => {
+        // Check if tabName is undefined or an empty string, and set it to "absent" as the default value
+        if (!tabName) {
+            tabName = "absent";
+        }
         navigate(`/view/my/class/${id}/${slug}#${tabName}`);
     };
+
+    // useEffect(() => {
+    //     const tabsContainer = document.querySelector("#tabs");
+    //     const tabTogglers = tabsContainer.querySelectorAll("a");
+    //
+    //     tabTogglers.forEach(function (toggler) {
+    //         toggler.addEventListener("click", function (e) {
+    //             e.preventDefault();
+    //             const tabName = this.getAttribute("href").substring(1); // Remove the '#' symbol
+    //
+    //             let tabContents = document.querySelector("#tab-contents");
+    //
+    //             for (let i = 0; i < tabContents.children.length; i++) {
+    //                 tabTogglers[i].classList.remove("text-purple-600");
+    //                 tabContents.children[i].classList.add("hidden");
+    //
+    //                 if (tabContents.children[i].id === tabName) {
+    //                     tabContents.children[i].classList.remove("hidden");
+    //                 }
+    //             }
+    //
+    //             e.target.classList.add("text-purple-600");
+    //
+    //             // Update the URL hash without triggering a full page reload
+    //             window.history.replaceState(null, null, `#${tabName}`);
+    //         });
+    //     });
+    //
+    //     // Set the active tab based on the URL hash
+    //     const hash = location.hash.substring(1);
+    //     if (hash) {
+    //         handleTabClick(hash);
+    //     } else {
+    //         // If no hash exists in the URL, set "Absent" tab as active
+    //         tabTogglers[0].classList.add("text-purple-600");
+    //     }
+    //
+    //     return () => {
+    //         tabTogglers.forEach(function (toggler) {
+    //             toggler.removeEventListener("click", () => {});
+    //         });
+    //     };
+    // }, []);
 
     useEffect(() => {
         const tabsContainer = document.querySelector("#tabs");
@@ -53,13 +100,17 @@ export const DetailMyClassComponent = (props) => {
                 let tabContents = document.querySelector("#tab-contents");
 
                 for (let i = 0; i < tabContents.children.length; i++) {
-                    tabTogglers[i].classList.remove("text-purple-600");
-                    tabContents.children[i].classList.add("hidden");
+                    const tabContent = tabContents.children[i];
+                    const tabId = tabContent.id;
 
-                    if (tabContents.children[i].id === tabName) {
-                        tabContents.children[i].classList.remove("hidden");
+                    if (tabId === tabName) {
+                        tabContent.style.display = "block"; // Display the selected tab content
+                    } else {
+                        tabContent.style.display = "none"; // Hide other tab contents
                     }
                 }
+
+                // Rest of your code...
 
                 e.target.classList.add("text-purple-600");
 
@@ -72,6 +123,10 @@ export const DetailMyClassComponent = (props) => {
         const hash = location.hash.substring(1);
         if (hash) {
             handleTabClick(hash);
+        } else {
+            // If no hash exists in the URL, set "absent" tab as active and display its content
+            tabTogglers[0].classList.add("text-purple-600");
+            document.getElementById("absent").style.display = "block";
         }
 
         return () => {
@@ -80,6 +135,46 @@ export const DetailMyClassComponent = (props) => {
             });
         };
     }, []);
+
+    // useEffect(() => {
+    //     const tabsContainer = document.querySelector("#tabs");
+    //     const tabTogglers = tabsContainer.querySelectorAll("a");
+    //
+    //     tabTogglers.forEach(function (toggler) {
+    //         toggler.addEventListener("click", function (e) {
+    //             e.preventDefault();
+    //             const tabName = this.getAttribute("href").substring(1); // Remove the '#' symbol
+    //
+    //             let tabContents = document.querySelector("#tab-contents");
+    //
+    //             for (let i = 0; i < tabContents.children.length; i++) {
+    //                 tabTogglers[i].classList.remove("text-purple-600");
+    //                 tabContents.children[i].classList.add("hidden");
+    //
+    //                 if (tabContents.children[i].id === tabName) {
+    //                     tabContents.children[i].classList.remove("hidden");
+    //                 }
+    //             }
+    //
+    //             e.target.classList.add("text-purple-600");
+    //
+    //             // Update the URL hash without triggering a full page reload
+    //             window.history.replaceState(null, null, `#${tabName}`);
+    //         });
+    //     });
+    //
+    //     // Set the active tab based on the URL hash
+    //     const hash = location.hash.substring(1);
+    //     if (hash) {
+    //         handleTabClick(hash);
+    //     }
+    //
+    //     return () => {
+    //         tabTogglers.forEach(function (toggler) {
+    //             toggler.removeEventListener("click", () => {});
+    //         });
+    //     };
+    // }, []);
 
 
     //  =================== update ==================
@@ -441,20 +536,33 @@ export const DetailMyClassComponent = (props) => {
                                 </div>
                             </div>
 
-
-                            <div id="tab-contents" className=" w-11/12  lg:w-full lg:mx-3  mx-auto">
-                                <div id="absent" className="py-2 md:px-4 ">
+                            <div id="tab-contents" className="w-11/12 lg:w-full lg:mx-3 mx-auto">
+                                <div id="absent" className="py-2 md:px-4">
                                     <AbsentDetailMyClassHelper slug={slug} username={username} start_day={selectedDay} month={selectedMonth} year={selectedYear} userId={userId} />
                                 </div>
-                                <div id="assignment" className="py-2 md:px-4 ">
+                                <div id="assignment" className="py-2 md:px-4" style={{ display: 'none' }}>
                                     <AssignmentDetailMyClassHelper slug={slug} username={username} start_day={selectedDay} month={selectedMonth} year={selectedYear} userId={userId} />
                                 </div>
-                                <div id="resource" className="py-2 md:px-4 ">
+                                <div id="resource" className="py-2 md:px-4" style={{ display: 'none' }}>
                                     <ResourceDetailMyClassHelper slug={slug} username={username} start_day={selectedDay} month={selectedMonth} year={selectedYear} userId={userId} />
                                 </div>
-                                <div id="fourth" className="py-2 md:px-4 ">
+                                <div id="fourth" className="py-2 md:px-4" style={{ display: 'none' }}>
                                 </div>
                             </div>
+
+                            {/*<div id="tab-contents" className=" w-11/12  lg:w-full lg:mx-3  mx-auto">*/}
+                            {/*    <div id="absent" className="py-2 md:px-4 ">*/}
+                            {/*        <AbsentDetailMyClassHelper slug={slug} username={username} start_day={selectedDay} month={selectedMonth} year={selectedYear} userId={userId} />*/}
+                            {/*    </div>*/}
+                            {/*    <div id="assignment" className="py-2 md:px-4 ">*/}
+                            {/*        <AssignmentDetailMyClassHelper slug={slug} username={username} start_day={selectedDay} month={selectedMonth} year={selectedYear} userId={userId} />*/}
+                            {/*    </div>*/}
+                            {/*    <div id="resource" className="py-2 md:px-4 ">*/}
+                            {/*        <ResourceDetailMyClassHelper slug={slug} username={username} start_day={selectedDay} month={selectedMonth} year={selectedYear} userId={userId} />*/}
+                            {/*    </div>*/}
+                            {/*    <div id="fourth" className="py-2 md:px-4 ">*/}
+                            {/*    </div>*/}
+                            {/*</div>*/}
                         </div>
                     </div>
                     {/*2*/}
