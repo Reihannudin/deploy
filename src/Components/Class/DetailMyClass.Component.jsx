@@ -88,6 +88,57 @@ export const DetailMyClassComponent = (props) => {
     //     };
     // }, []);
 
+    // useEffect(() => {
+    //     const tabsContainer = document.querySelector("#tabs");
+    //     const tabTogglers = tabsContainer.querySelectorAll("a");
+    //
+    //     tabTogglers.forEach(function (toggler) {
+    //         toggler.addEventListener("click", function (e) {
+    //             e.preventDefault();
+    //             const tabName = this.getAttribute("href").substring(1); // Remove the '#' symbol
+    //
+    //             let tabContents = document.querySelector("#tab-contents");
+    //
+    //             for (let i = 0; i < tabContents.children.length; i++) {
+    //                 const tabContent = tabContents.children[i];
+    //                 const tabId = tabContent.id;
+    //
+    //                 if (tabId === tabName) {
+    //                     tabContent.style.display = "block"; // Display the selected tab content
+    //                 } else {
+    //                     tabContent.style.display = "none"; // Hide other tab contents
+    //                 }
+    //             }
+    //
+    //             // Rest of your code...
+    //
+    //             e.target.classList.add("text-purple-600");
+    //
+    //             // Update the URL hash without triggering a full page reload
+    //             window.history.replaceState(null, null, `#${tabName}`);
+    //         });
+    //     });
+    //
+    //     // Set the active tab based on the URL hash
+    //     const hash = location.hash.substring(1);
+    //     if (hash) {
+    //         handleTabClick(hash);
+    //     } else {
+    //         // If no hash exists in the URL, set "absent" tab as active and display its content
+    //         tabTogglers[0].classList.add("text-purple-600");
+    //         //         tabTogglers[0].classList.add("text-purple-600");
+    //
+    //         document.getElementById("absent").style.display = "block";
+    //     }
+    //
+    //     return () => {
+    //         tabTogglers.forEach(function (toggler) {
+    //             toggler.removeEventListener("click", () => {});
+    //         });
+    //     };
+    // }, []);
+
+
     useEffect(() => {
         const tabsContainer = document.querySelector("#tabs");
         const tabTogglers = tabsContainer.querySelectorAll("a");
@@ -105,14 +156,14 @@ export const DetailMyClassComponent = (props) => {
 
                     if (tabId === tabName) {
                         tabContent.style.display = "block"; // Display the selected tab content
+                        tabTogglers[i].classList.add("text-purple-600");
                     } else {
                         tabContent.style.display = "none"; // Hide other tab contents
+                        tabTogglers[i].classList.remove("text-purple-600");
                     }
                 }
 
                 // Rest of your code...
-
-                e.target.classList.add("text-purple-600");
 
                 // Update the URL hash without triggering a full page reload
                 window.history.replaceState(null, null, `#${tabName}`);
@@ -135,46 +186,6 @@ export const DetailMyClassComponent = (props) => {
             });
         };
     }, []);
-
-    // useEffect(() => {
-    //     const tabsContainer = document.querySelector("#tabs");
-    //     const tabTogglers = tabsContainer.querySelectorAll("a");
-    //
-    //     tabTogglers.forEach(function (toggler) {
-    //         toggler.addEventListener("click", function (e) {
-    //             e.preventDefault();
-    //             const tabName = this.getAttribute("href").substring(1); // Remove the '#' symbol
-    //
-    //             let tabContents = document.querySelector("#tab-contents");
-    //
-    //             for (let i = 0; i < tabContents.children.length; i++) {
-    //                 tabTogglers[i].classList.remove("text-purple-600");
-    //                 tabContents.children[i].classList.add("hidden");
-    //
-    //                 if (tabContents.children[i].id === tabName) {
-    //                     tabContents.children[i].classList.remove("hidden");
-    //                 }
-    //             }
-    //
-    //             e.target.classList.add("text-purple-600");
-    //
-    //             // Update the URL hash without triggering a full page reload
-    //             window.history.replaceState(null, null, `#${tabName}`);
-    //         });
-    //     });
-    //
-    //     // Set the active tab based on the URL hash
-    //     const hash = location.hash.substring(1);
-    //     if (hash) {
-    //         handleTabClick(hash);
-    //     }
-    //
-    //     return () => {
-    //         tabTogglers.forEach(function (toggler) {
-    //             toggler.removeEventListener("click", () => {});
-    //         });
-    //     };
-    // }, []);
 
 
     //  =================== update ==================
