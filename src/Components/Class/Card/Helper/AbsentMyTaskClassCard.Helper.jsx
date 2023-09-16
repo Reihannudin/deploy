@@ -127,10 +127,6 @@ export const AbsentMyTaskClassCardHelper = ({
                                                 onClick={() => setShowAlertDelete(true)}
                                                 className="block w-full text-left px-4 py-1.5 lg:py-2  font14-res-300 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600  dark:hover:text-white">Hapus
                                             </button>
-                                            {/*<button onClick={handleDeleteAbsent} */}
-                                            {/*        className="block px-4 py-1.5 lg:py-2  font14-res-300 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600  dark:hover:text-white">Hapus*/}
-                                            {/*</button>*/}
-
                                         </li>
                                         {showAlertDelete && (
                                             <div id="drop-action_absent" className="fixed inset-0 flex items-center justify-center">

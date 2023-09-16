@@ -1,6 +1,6 @@
 import {Link, useNavigate, useParams} from "react-router-dom";
 
-export const NavbarEditAbsentEmptyComponent = () => {
+export const NavbarEditAssignmentEmptyComponent = () => {
 
     const navigate = useNavigate();
 

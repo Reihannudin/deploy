@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.snow.css';
 
@@ -39,6 +39,14 @@ export const MakeTaskAssigmentEssayCardComponent = (props) => {
         setIsRequired(isRequired === 0 ? 1 : 0);
         props.onQuestionChange({ required: isRequired });
     };
+
+    const [errorQuestion, setErrorQuestion] = useState([]);
+
+    // Use useEffect to update the errorQuestion state when props.errorQuestion changes
+    useEffect(() => {
+        setErrorQuestion(props.errorQuestion);
+    }, [props.errorQuestion]);
+
 
     return (
         <>
@@ -90,13 +98,23 @@ export const MakeTaskAssigmentEssayCardComponent = (props) => {
                         <div className="text-gray-650">
                             <textarea required  onChange={handleAnswerChange} className="mt-4 h-20 font16-res-300 px-2 w-full border" placeholder="Buat jawaban" value={answer}></textarea>
                         </div>
-                        {props.errorTrueAnswer === "" ? (
-                            <div className="my-0.5"></div>
-                        ): (
-                            <div className="mt-0.5  border-t text-left">
-                                <span className="text-red-600 font14-res-300">{props.errorTrueAnswer}</span>
-                            </div>
-                        )}
+                        {errorQuestion.map(( itemError , index) => {
+                            console.log("same index?" , index ===  props.index)
+                            console.log("item error?" , index)
+                            console.log("item error essai?" , itemError)
+                            console.log("error true answer essai ?" , itemError.error)
+                            return(
+                                <>
+                                    {itemError && index ===  props.index ? (
+                                        <div className="mt-0 mb-3  text-left">
+                                            <span className="text-red-600 font14-res-300">{itemError.error}</span>
+                                        </div>
+                                    ):(
+                                        <></>
+                                    )}
+                                </>
+                            )
+                        })}
                     </div>
                     <div className="w-full mt-2 mb-3">
                         <div className="flex justify-between" >

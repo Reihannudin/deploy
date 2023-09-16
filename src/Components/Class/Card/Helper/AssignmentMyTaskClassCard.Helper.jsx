@@ -1,6 +1,7 @@
 import React, {useRef, useState} from "react";
 import api from "../../../../Config/api";
 import {Link} from "react-router-dom";
+import {DeleteAlertComponent} from "../../../Helper/DeleteAlert.Component";
 
 export const AssignmentMyTaskClassCardHelper = (
     {
@@ -83,8 +84,8 @@ export const AssignmentMyTaskClassCardHelper = (
           <div>
               <div className="bg-white border  py-3 border-b-0 border-radius-4 px-4">
                   <div className="flex ">
-                      <div className="p-2 border-radius-4 me-2" style={{ background:"#A568E6" , height:"40px" }} >
-                          <div className="my-auto" style={{ height:"24px"}}>
+                      <div className="p-2 border-radius-4 me-2" style={{ background:"#A568E6" , height:"40px" ,   width:"40px"}} >
+                          <div className="my-auto" style={{ height:"24px" ,   width:"40px"}}>
                               <img className="h-full" src="/assets/assigment-sm-icon.svg" />
                           </div>
                       </div>
@@ -104,29 +105,68 @@ export const AssignmentMyTaskClassCardHelper = (
 
                       </div>
                       {isDropdownMenu ? null : (
+                          <div className="relative">
+
                           <div
                               id="dropdown_menu_assignment"
                               className="z-10 fixed inset-0"
                               onClick={handleDropdownMenu}
                           >
                               <div className="bg-white bg-opacity-0 w-full h-full z-40 absolute right-0 bottom-0"></div>
-                              <div className="absolute right-0 md:right-16 xl:right-28 z-50 top-12 font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-36 md:w-44 dark:bg-gray-700 dark:divide-gray-600">
+                          </div>
+                              <div className="absolute right-0 md:right-16 xl:right-28 z-40 top-12 font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-36 md:w-44 dark:bg-gray-700 dark:divide-gray-600">
                                   <ul className="py-2 text-sm text-left text-gray-700 dark:text-gray-400">
-                                      <li className={"py-1"}>
+                                      <li className={"sm:py-1"}>
                                           <input ref={inputRefAssignment} defaultValue={urlAssignment} style={{ position: 'fixed', top: '-9999px' }} />
-                                          <button onClick={copyUrlAssignment} className="block w-full text-left font14-res-300 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600 dark:hover:text-white">
+                                          <button onClick={copyUrlAssignment} className="block w-full font14-res-300 text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600 dark:hover:text-white">
                                               Copy Link
                                           </button>
                                       </li>
-                                      <li className={"py-1"}>
-                                          <Link to={`/class/${slug}/${id}/edit/assignment/${assignmentId}`} className="block px-4 py-1.5 lg:py-2  font14-res-300 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600  dark:hover:text-white">Edit Assignment</Link>
+                                      <li className={"sm:py-1"}>
+                                          <Link to={`/class/${slug}/${id}/edit/assignment/${assignmentId}`} className="block px-4 py-1.5 lg:py-2  font14-res-300 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600  dark:hover:text-white">Edit Tugas</Link>
                                       </li>
-                                      <li className={"py-1"}>
-                                          <button onClick={handleDeleteAssignment} className="block px-4 py-1.5 lg:py-2  font14-res-300 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600  dark:hover:text-white">Hapus</button>
+                                      <li className={"sm:py-1"}>
+                                          <button
+                                              onClick={() => setShowAlertDelete(true)}
+                                              className="block w-full text-left px-4 py-1.5 lg:py-2  font14-res-300 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600  dark:hover:text-white">Hapus
+                                          </button>
+                                      </li>
+                                      {showAlertDelete && (
+                                          <div id="drop-action_absent" className="fixed inset-0 flex items-center justify-center">
+                                              <button
+                                                  onClick={() => setShowAlertDelete(false)} // Close the alert when clicking the backdrop
+                                                  className="bg-gray-500 bg-opacity-30 w-full h-full absolute top-0 left-0"
+                                                  style={{ zIndex: "300" }}
+                                              ></button>
 
-                                      </li>
+                                              <DeleteAlertComponent
+                                                  type={"Tugas"}
+                                                  name={assignmentName}
+                                                  onClose={() => setShowAlertDelete(false)} // Close the alert when using the custom alert's close button
+                                                  onSubmit={(event) => handleDeleteAssignment(event)}
+                                              />
+
+                                          </div>
+                                      )}
                                   </ul>
+
+                                  {/*<ul className="py-2 text-sm text-left text-gray-700 dark:text-gray-400">*/}
+                                  {/*    <li className={"py-1"}>*/}
+                                  {/*        <input ref={inputRefAssignment} defaultValue={urlAssignment} style={{ position: 'fixed', top: '-9999px' }} />*/}
+                                  {/*        <button onClick={copyUrlAssignment} className="block w-full text-left font14-res-300 px-4 py-1.5 lg:py-2  hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600 dark:hover:text-white">*/}
+                                  {/*            Copy Link*/}
+                                  {/*        </button>*/}
+                                  {/*    </li>*/}
+                                  {/*    <li className={"py-1"}>*/}
+                                  {/*        <Link to={`/class/${slug}/${id}/edit/assignment/${assignmentId}`} className="block px-4 py-1.5 lg:py-2  font14-res-300 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600  dark:hover:text-white">Edit Assignment</Link>*/}
+                                  {/*    </li>*/}
+                                  {/*    <li className={"py-1"}>*/}
+                                  {/*        <button onClick={handleDeleteAssignment} className="block px-4 py-1.5 lg:py-2  font14-res-300 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600  dark:hover:text-white">Hapus</button>*/}
+
+                                  {/*    </li>*/}
+                                  {/*</ul>*/}
                               </div>
+
                           </div>
                       )}
                   </div>

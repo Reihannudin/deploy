@@ -10,12 +10,84 @@ import {MakeMyTaskAssigmentLinkCardComponent} from "./Card/MakeMyTaskAssigmentLi
 
 export const EditAssignmentComponent= (props) => {
 
+    const { id, slug , class_id } = useParams();
+
+    const navigate = useNavigate();
+
+    const [name, setName] = useState('');
+    const [outApp, setOutApp] = useState('');
+    const [change, setChange] = useState('');
+    const [startTime, setStartTime] = useState('');
+    const [endTime, setEndTime] = useState('');
+    const [date, setDate] = useState('');
+
+    const [questions, setQuestions] = useState([]);
+    const [question, setQuestion] = useState('');
+    const [inputQuestionPoint, setInputQuestionPoint] = useState(1);
+    const [inputQuestionAnswerA, setInputQuestionAnswerA] = useState('');
+    const [inputQuestionAnswerB, setInputQuestionAnswerB] = useState('');
+    const [inputQuestionAnswerC, setInputQuestionAnswerC] = useState('');
+    const [inputQuestionAnswerD, setInputQuestionAnswerD] = useState('');
+    const [inputQuestionTrueAnswer, setInputQuestionTrueAnswer] = useState('');
+    const [inputQuestionType, setInputQuestionType] = useState('');
+    const [isRequired, setIsRequired] = useState(0);
+
     const [searchParams ] = useSearchParams();
     const [errorName , setErrorName] = useState('');
     const [errorChange , setErrorChange] = useState('');
+    const [errorOutApp, setErrorOutApp] = useState('');
     const [errorStartTime , setErrorStartTime] = useState('');
     const [errorEndTime , setErrorEndTime] = useState('');
     const [errorDate , setErrorDate] = useState('');
+    const [errorQuestions , setErrorQuestions] = useState([]);
+
+    useEffect(() => {
+        setName(props.name);
+    } , [props.name])
+    const onChangeName = (event) => {
+        const name = event.target.value;
+        setName(name);
+    };
+
+    useEffect(() => {
+        setChange(props.change);
+    } , [props.change])
+    const onChangeChange = (event) => {
+        const change = event.target.value;
+        setChange(change);
+    };
+
+    useEffect(() => {
+        setOutApp(props.out_app);
+    } , [props.out_app])
+    const onChangeOutApp = (event) => {
+        const outApp = event.target.value;
+        setOutApp(outApp);
+    };
+
+    useEffect(() => {
+        setDate(props.date);
+    } , [props.date])
+    const onChangeDate = (event) => {
+        const date = event.target.value;
+        setDate(date);
+    };
+
+    useEffect(() => {
+        setStartTime(props.start_time);
+    } , [props.start_time])
+    const onChangeStartTime = (event) => {
+        const startTime = event.target.value;
+        setStartTime(startTime);
+    };
+
+    useEffect(() => {
+        setEndTime(props.end_time);
+    } , [props.end_time])
+    const onChangeEndTime = (event) => {
+        const endTimeValue = event.target.value;
+        setEndTime(endTimeValue);
+    };
 
     useEffect(() => {
         const error = searchParams.get('error_name');
@@ -42,50 +114,7 @@ export const EditAssignmentComponent= (props) => {
         setErrorDate(error)
     } , [searchParams])
 
-    const [name, setName] = useState('');
-    useEffect(() => {
-        setName(props.name);
-    } , [props.name])
-    const onChangeName = (event) => {
-        const name = event.target.value;
-        setName(name);
-    };
-
-    const [change , setChange] = useState('');
-    useEffect(() => {
-        setChange(props.change);
-    } , [props.change])
-    const onChangeChange = (event) => {
-        const change = event.target.value;
-        setChange(change);
-    };
-
-    const [date, setDate] = useState( "");
-    useEffect(() => {
-        setDate(props.date);
-    } , [props.date])
-    const onChangeDate = (event) => {
-        const date = event.target.value;
-        setDate(date);
-    };
-
-    const [startTime, setStartTime] = useState( "");
-    useEffect(() => {
-        setStartTime(props.start_time);
-    } , [props.start_time])
-    const onChangeStartTime = (event) => {
-        const startTime = event.target.value;
-        setStartTime(startTime);
-    };
-
-    const [endTime, setEndTime] = useState("");
-    useEffect(() => {
-        setEndTime(props.end_time);
-    } , [props.end_time])
-    const onChangeEndTime = (event) => {
-        const endTimeValue = event.target.value;
-        setEndTime(endTimeValue);
-    };
+    console.log("question" , props.questions)
 
     const [previousQuestion, setPreviousQuestion] = useState([]);
     const [questionsAlready, setQuestionsAlready] = useState([]);
@@ -94,7 +123,7 @@ export const EditAssignmentComponent= (props) => {
         const fetchData = async () => {
             try {
                 // const response = await axios.get(`https://rest-api.spaceskool.site/public/api/${username}/${slug}/my/assignment/${id}/question`);
-                const response = await axios.get(`http://127.0.0.1:8000/api/${username}/${slug}/my/assignment/${id}/question`);
+                const response = await axios.get(`http://127.0.0.1:8000/api/${slug}/my/assignment/${id}/question`);
                 const data = response.data;
                 setPreviousQuestion(data);
                 setQuestionsAlready(data); // Set questionsAlready with the fetched data
@@ -117,22 +146,7 @@ export const EditAssignmentComponent= (props) => {
     };
     console.log(questionsAlready);
 
-    const { id, slug , class_id } = useParams();
-    const user = JSON.parse(localStorage.getItem('whoLogin'));
-    const username = user.username;
 
-    const navigate = useNavigate();
-
-    const [questions, setQuestions] = useState([]);
-    const [question, setQuestion] = useState('');
-    const [inputQuestionPoint, setInputQuestionPoint] = useState(1);
-    const [inputQuestionAnswerA, setInputQuestionAnswerA] = useState('');
-    const [inputQuestionAnswerB, setInputQuestionAnswerB] = useState('');
-    const [inputQuestionAnswerC, setInputQuestionAnswerC] = useState('');
-    const [inputQuestionAnswerD, setInputQuestionAnswerD] = useState('');
-    const [inputQuestionTrueAnswer, setInputQuestionTrueAnswer] = useState('');
-    const [inputQuestionType, setInputQuestionType] = useState('');
-    const [isRequired, setIsRequired] = useState(0);
 
     const handleDeleteQuestion = (index) => {
         setQuestions((prevQuestions) => {
@@ -272,7 +286,7 @@ export const EditAssignmentComponent= (props) => {
 
         axios
             // .put(`https://rest-api.spaceskool.site/public/api/${username}/${slug}/${class_id}/update/assignment/${id}`, formData)
-            .put(`http://127.0.0.1:8000/api/${username}/${slug}/${class_id}/update/assignment/${id}`, formData)
+            .put(`http://127.0.0.1:8000/api//${slug}/${class_id}/update/assignment/${id}`, formData)
             .then((response) => {
                 console.log(response.data);
                 const { redirectUrl } = response.data;
@@ -334,16 +348,16 @@ export const EditAssignmentComponent= (props) => {
                                     <div className="md:flex block w-full text-left">
                                         <div className="mt-3 w-full mx-auto">
                                             <label className="font14-res-300" style={{ color: "#777575" }}>
-                                                Assignment Name
+                                                Nama Tugas
                                             </label>
                                             <div className="flex md:w-11/12 w-full">
                                                 <input
                                                     id="class"
                                                     type="text"
-                                                    value={name}
                                                     className="md:w-11/12 w-full py-1.5 md:py-2.5 font15-res-300 border-b-gray-300"
                                                     style={{ borderBottom: "1px solid #ebebeb" }}
                                                     onChange={onChangeName}
+                                                    value={name}
                                                     placeholder="Your assignment name"
                                                 />
                                             </div>
@@ -355,9 +369,36 @@ export const EditAssignmentComponent= (props) => {
                                                 </div>
                                             )}
                                         </div>
+                                    </div>
+                                </div>
+                                <div className="flex w-full text-left">
+                                    <div className="md:flex block w-full text-left">
                                         <div className="mt-3 w-full mx-auto">
                                             <label className="font14-res-300" style={{ color: "#777575" }}>
-                                                Work duration
+                                                Kesempatan keluar
+                                            </label>
+                                            <div className="flex md:w-10/12 w-full">
+                                                <input
+                                                    id="class"
+                                                    type="number"
+                                                    className="md:w-11/12 w-full py-1.5 md:py-2.5 font15-res-300 border-b-gray-300"
+                                                    style={{ borderBottom: "1px solid #ebebeb" }}
+                                                    onChange={onChangeOutApp}
+                                                    value={outApp}
+                                                    placeholder="Kesempatan keluar"
+                                                />
+                                            </div>
+                                            {errorOutApp === '' ? (
+                                                <div className="my-1"></div>
+                                            ) : (
+                                                <div className="my-1 text-left">
+                                                    <span className="text-red-600 font14-res-300">{errorOutApp}</span>
+                                                </div>
+                                            )}
+                                        </div>
+                                        <div className="mt-3 w-full mx-auto">
+                                            <label className="font14-res-300" style={{ color: "#777575" }}>
+                                                Banyak durasi pengerjaan
                                             </label>
                                             <div className="flex md:w-11/12 w-full">
                                                 <input
@@ -367,7 +408,7 @@ export const EditAssignmentComponent= (props) => {
                                                     onChange={onChangeChange}
                                                     className="md:w-11/12 w-full py-1.5 md:py-2.5 font15-res-300 border-b-gray-300"
                                                     style={{ borderBottom: "1px solid #ebebeb" }}
-                                                    placeholder="Number of works"
+                                                    placeholder="Durasi pengerjaan"
                                                 />
                                             </div>
                                             {errorChange === '' ? (
@@ -380,68 +421,91 @@ export const EditAssignmentComponent= (props) => {
                                         </div>
                                     </div>
                                 </div>
+
+                                <div className="text-left sm:w-full w-full my-3">
+                                    <label className="font14-res-300" style={{ color: "#777575" }}>
+                                        Rentan Waktu
+                                    </label>
+                                    <div className="flex w-full mb-6 mt-1 justify-between">
+                                        <div className="mt-0 w-6/12 justify-between mx-auto">
+                                            <div className="flex">
+                                                <input
+                                                    id="starttime"
+                                                    type="time"
+                                                    onChange={onChangeStartTime}
+                                                    value={startTime}
+                                                    className="w-11/12  py-1.5 md:py-2.5 font15-res-300 border-b-gray-300"
+                                                    style={{ borderBottom: "1px solid #ebebeb" }}
+                                                    placeholder="Start Time"
+                                                />
+                                                <button>
+                                                    <i className="fa-solid fa-eye-slash" style={{ color: "#777575" }}></i>
+                                                </button>
+
+                                            </div>
+                                        </div>
+                                        <div className="mt-0 w-6/12 mx-auto">
+                                            <div className="flex md:w-11/12 w-full">
+                                                <input
+                                                    id="endtime"
+                                                    type="time"
+                                                    onChange={onChangeEndTime}
+                                                    value={endTime}
+                                                    className="w-11/12 py-1.5 md:py-2.5 font15-res-300 border-b-gray-300"
+                                                    style={{ borderBottom: "1px solid #ebebeb" }}
+                                                    placeholder="End Time"
+                                                />
+                                                <button>
+                                                    <i className="fa-solid fa-eye-slash" style={{ color: "#777575" }}></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {errorStartTime === '' ? (
+                                        <div className="my-1"></div>
+                                    ) : (
+                                        <div className="my-1 text-left">
+                                            <span className="text-red-600 font14-res-300">{errorStartTime}</span>
+                                        </div>
+                                    )}
+                                    {errorEndTime === '' ? (
+                                        <div className="my-1"></div>
+                                    ) : (
+                                        <div className="my-1 text-left">
+                                            <span className="text-red-600 font14-res-300">{errorEndTime}</span>
+                                        </div>
+                                    )}
+                                </div>
                                 <div className="flex w-full text-left">
                                     <div className="sm:flex block w-full text-left">
-                                        <div className="text-left sm:w-6/12 w-full my-3">
-                                            <label className="font14-res-300" style={{ color: "#777575" }}>
-                                                Time Range
-                                            </label>
-                                            <div className="flex w-full mb-6 mt-1 justify-between">
-                                                <div className="mt-0 w-6/12 justify-between mx-auto">
-                                                    <div className="flex">
-                                                        <input
-                                                            id="starttime"
-                                                            type="time"
-                                                            value={startTime}
-                                                            onChange={onChangeStartTime}
-                                                            className="md:w-11/12 w-full py-1.5 md:py-2.5 font15-res-300 border-b-gray-300"
-                                                            style={{ borderBottom: "1px solid #ebebeb" }}
-                                                            placeholder="Start Time"
-                                                        />
-                                                        <button>
-                                                            <i className="fa-solid fa-eye-slash" style={{ color: "#777575" }}></i>
-                                                        </button>
+                                        {/*<div className="mt-2 sm:w-6/12 w-full mx-auto">*/}
+                                        {/*    <label className="font14-res-300" style={{ color: "#777575" }}>*/}
+                                        {/*        Date*/}
+                                        {/*    </label>*/}
+                                        {/*    <div className="flex md:w-11/12 w-full">*/}
+                                        {/*        <input*/}
+                                        {/*            id="subject"*/}
+                                        {/*            type="date"*/}
+                                        {/*            onChange={onChangeDate}*/}
+                                        {/*            className="md:w-11/12 w-full py-1.5 md:py-2.5 font15-res-300 border-b-gray-300"*/}
+                                        {/*            style={{ borderBottom: "1px solid #ebebeb" }}*/}
+                                        {/*            placeholder="Date"*/}
+                                        {/*        />*/}
+                                        {/*    </div>*/}
+                                        {/*    {errorDate === '' ? (*/}
+                                        {/*        <div className="my-1"></div>*/}
+                                        {/*    ) : (*/}
+                                        {/*        <div className="my-1 text-left">*/}
+                                        {/*            <span className="text-red-600 font14-res-300">{errorDate}</span>*/}
+                                        {/*        </div>*/}
+                                        {/*    )}*/}
+                                        {/*</div>*/}
 
-                                                    </div>
-                                                </div>
-                                                <div className="mt-0 w-6/12 mx-auto">
-                                                    <div className="flex md:w-11/12 w-full">
-                                                        <input
-                                                            id="endtime"
-                                                            type="time"
-                                                            value={endTime}
-                                                            onChange={onChangeEndTime}
-                                                            className="md:w-11/12 w-full py-1.5 md:py-2.5 font15-res-300 border-b-gray-300"
-                                                            style={{ borderBottom: "1px solid #ebebeb" }}
-                                                            placeholder="End Time"
-                                                        />
-                                                        <button>
-                                                            <i className="fa-solid fa-eye-slash" style={{ color: "#777575" }}></i>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            {errorStartTime === '' ? (
-                                                <div className="my-1"></div>
-                                            ) : (
-                                                <div className="my-1 text-left">
-                                                    <span className="text-red-600 font14-res-300">{errorStartTime}</span>
-                                                </div>
-                                            )}
-                                            {errorEndTime === '' ? (
-                                                <div className="my-1"></div>
-                                            ) : (
-                                                <div className="my-1 text-left">
-                                                    <span className="text-red-600 font14-res-300">{errorEndTime}</span>
-                                                </div>
-                                            )}
-                                        </div>
-
-                                        <div className="mt-3 sm:w-6/12 w-full mx-auto">
+                                        <div className="mt-2  w-full mx-auto">
                                             <label className="font14-res-300" style={{ color: "#777575" }}>
-                                                Date
+                                                Tanggal
                                             </label>
-                                            <div className="flex md:w-11/12 w-full">
+                                            <div className="flex md:w-8/12 w-full font15-res-300 ">
                                                 <input
                                                     id="subject"
                                                     type="date"
@@ -462,6 +526,7 @@ export const EditAssignmentComponent= (props) => {
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
                             <div className="lg:w-6/12 md:w-10/12 w-full lg:mx-auto mx-auto mt-3">
                                 <div className="xl:w-10/12 lg:w-11/12 md:w-11/12 w-full md:mx-auto">
@@ -479,7 +544,6 @@ export const EditAssignmentComponent= (props) => {
                                                         <div className="py-0 my-0">
                                                             <MakeMyTaskAssigmentPGCardComponent
                                                                 onQuestionChange={(updateQuestionAlready) => handleQuestionsAlreadyChange(index, updateQuestionAlready)}
-                                                                username={username}
                                                                 slug={slug}
                                                                 assignment_id={id}
                                                                 id={item.id}
@@ -497,7 +561,6 @@ export const EditAssignmentComponent= (props) => {
                                                     ) : item.type === "Essay" ? (
                                                         <div className="py-0 my-0">
                                                             <MakeMyTaskAssigmentEssayCardComponent
-                                                                username={username}
                                                                 slug={slug}
                                                                 assignment_id={id}
                                                                 id={item.id}
@@ -510,26 +573,27 @@ export const EditAssignmentComponent= (props) => {
                                                                 onQuestionChange={(updateQuestionAlready) => handleQuestionsAlreadyChange(index, updateQuestionAlready)}
                                                             />
                                                         </div>
-                                                    ) : item.type === "Link" ? (
-                                                        <div className="py-0 my-0">
-                                                            <MakeMyTaskAssigmentLinkCardComponent
-                                                                username={username}
-                                                                slug={slug}
-                                                                class_id={class_id}
-                                                                assignment_id={id}
-                                                                id={item.id}
-                                                                question={item.question}
-                                                                point={item.point}
-                                                                true_answer={item.true_answer}
-                                                                onChange={onChangeType}
-                                                                onQuestionChange={(updateQuestionAlready) => handleQuestionsAlreadyChange(index, updateQuestionAlready)}
-                                                            />
-                                                        </div>
-                                                    ) : (
+                                                    ):(
                                                         <div>
                                                             <h2>Sepertinya ada yang salah</h2>
                                                         </div>
                                                     )}
+                                                    {/*: item.type === "Link" ? (*/}
+                                                    {/*<div className="py-0 my-0">*/}
+                                                    {/*    <MakeMyTaskAssigmentLinkCardComponent*/}
+                                                    {/*        username={username}*/}
+                                                    {/*        slug={slug}*/}
+                                                    {/*        class_id={class_id}*/}
+                                                    {/*        assignment_id={id}*/}
+                                                    {/*        id={item.id}*/}
+                                                    {/*        question={item.question}*/}
+                                                    {/*        point={item.point}*/}
+                                                    {/*        true_answer={item.true_answer}*/}
+                                                    {/*        onChange={onChangeType}*/}
+                                                    {/*        onQuestionChange={(updateQuestionAlready) => handleQuestionsAlreadyChange(index, updateQuestionAlready)}*/}
+                                                    {/*    />*/}
+                                                    {/*</div>*/}
+                                                    {/*) :*/}
                                                 </ul>
                                             </div>
                                         );

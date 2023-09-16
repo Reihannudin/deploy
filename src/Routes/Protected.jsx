@@ -66,6 +66,8 @@ export const Protected = () => {
       <Route path="/class/:slug/:id/create/resource" element={<CreateResource />}/>
       <Route path="/class/:slug/:class_id/edit/resource/:id" element={<EditMyResource />} />
 
+      <Route path="/class/:slug/:id/create/assignment" element={<CreateAssigment />}/>
+      <Route path="/class/:slug/:class_id/edit/assignment/:id" element={<EditAssigment />}/>
 
       <Route path="/" element={<Main />} />
       <Route path="/profile" element={<TestProfille />} />
@@ -133,10 +135,7 @@ export const Protected = () => {
       {/*Beneran Aman*/}
 
       {/*Beneran Aman*/}
-      <Route
-        path="/class/:slug/:id/create/assignment"
-        element={<CreateAssigment />}
-      />{" "}
+
       {/*Beneran Aman*/}
       <Route
         path="/view/:slug/:class_id/my/assignment/:id"
@@ -148,10 +147,7 @@ export const Protected = () => {
         element={<MyDetailAssignmentStudents />}
       />{" "}
       {/*Beneran Aman*/}
-      <Route
-        path="/class/:slug/:class_id/edit/assignment/:id"
-        element={<EditAssigment />}
-      />{" "}
+
       {/*Beneran Aman*/}
 
         <Route path={"/test/component"} element={<Test />}/>
