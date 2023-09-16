@@ -1,9 +1,22 @@
 import {TaskMyClassCardComponent} from "../Card/TaskMyClassCard.Component";
 import React, {useEffect, useState} from "react";
 import api from "../../../Config/api";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 
-export const ResourceDetailMyClassHelper = ({slug , username , userId}) => {
+export const ResourceDetailMyClassHelper = ({slug, username, userId , start_day , month , year}) => {
+
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+
+    const currentDate = new Date();
+
+    const day = searchParams.get("start_day");
+    const queryMonth = searchParams.get("month");
+    const queryYear = searchParams.get("year");
+
+    const currentDay = (day === null || isNaN(day) || day === "" || start_day === "") ? currentDate.getDate() : parseInt(day);
+    const currentMonth = (queryMonth === null || isNaN(queryMonth) || queryMonth === "" ||  month === "") ? (currentDate.getMonth() + 1) : parseInt(queryMonth); // Months are 0-based
+    const currentYear = (queryYear === null || isNaN(queryYear) || queryYear === "" || year === "") ? currentDate.getFullYear() : parseInt(queryYear);
 
     const navigate = useNavigate()
     const [resources , setResources] = useState([]);
@@ -12,46 +25,33 @@ export const ResourceDetailMyClassHelper = ({slug , username , userId}) => {
     const [isDataFetchedResource, setIsDataFetchedResource] = useState(false);
     const [errorResource, setErrorResource] = useState(null);
 
-    useEffect(() => {
-        let isMounted = true;
+    let token = localStorage.getItem("auth_token");
 
+    useEffect(() => {
         const fetchData = async () => {
             try {
-                if (!isDataFetchedResource) {
-                    const response = await api.get(`${slug}/resources?filter=${filterResource}`);
-                    const data = response.data;
+                const token = localStorage.getItem("auth_token");
+                setIsFetchingResource(true); // Set isFetchingAbsent to true before fetching data
+                const response = await api.get(`${slug}/resources?filter=${filterResource}&start_day=${currentDay}&month=${currentMonth}&year=${currentYear}`, {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
 
-                    if (isMounted) {
-                        setResources(data);
-                        setIsDataFetchedResource(true);
-                        setIsFetchingResource(false);
-                    }
-                }
-
+                await new Promise((resolve) => setTimeout(resolve, 1500));
+                const data = response.data;
+                setResources(data);
+                setIsDataFetchedResource(true);
+                setIsFetchingResource(false); // Set isFetchingAbsent to false after data is fetched
             } catch (error) {
-                if (isMounted) {
-                    setErrorResource(error);
-                    setIsFetchingResource(false);
-                }
+                setErrorResource(error);
+                setIsFetchingResource(false); // Set isFetchingAbsent to false in case of an error
             }
         };
-
-        const timeout = setTimeout(() => {
-            if (isFetchingResource) {
-                if (isMounted) {
-                    setErrorResource(new Error("Timeout: Could not fetch data."));
-                    setIsFetchingResource(false);
-                }
-            }
-        }, 20000);
 
         fetchData();
-
-        return () => {
-            isMounted = false;
-            clearTimeout(timeout);
-        };
-    }, [isDataFetchedResource]);
+    }, [ slug, filterResource, currentDay, currentMonth, currentYear]);
 
     const handleFilterClickResource = (filterValue) => {
         setFilterResource(filterValue);
@@ -71,24 +71,25 @@ export const ResourceDetailMyClassHelper = ({slug , username , userId}) => {
 
     return(
         <>
-            <div className="w-full py-5">
-                <div className="mt-8">
+            <div className="w-full pb-5">
+                <div className="mt-2">
                     <div className="flex sm:mx-6 md:mx-0 w-full pb-0  mb-2">
                         <div className="flex w-full justify-between">
                             <div className="my-auto roboto font16-res-400" style={{ color:"#4f4f4f"}}>
                                 <h2 className="" style={{ fontWeight:"500"}}>Resources List</h2>
                             </div>
-                            <div className="relative">
-                                <button className="my-auto"  onClick={toggleDropdowFilterResource}>
+                                <button className="my-auto ms-auto"  onClick={toggleDropdowFilterResource}>
                                     <div  className="px-1 py-2 bg-white hover:px-1 hover:bg-gray-100 radius-100 ">
                                         <div className="my-auto  mx-1 " style={{ height:"20px"}}>
                                             <img className="h-full w-full" src="/assets/filter-icon.svg"/>
                                         </div>
                                     </div>
                                 </button>
+                            <div className="relative">
+
                                 {isDropdownFilterResource ? null : (
                                     <div> <div className="relative ">
-                                        <div className="absolute right-0  z-50 top-0 font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-36 md:w-44 dark:bg-gray-700 dark:divide-gray-600">
+                                        <div className="absolute right-0  z-40 top-7 font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-36 md:w-44 dark:bg-gray-700 dark:divide-gray-600">
                                             <ul className="py-2 text-sm text-left text-gray-700 font14-res-300 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
                                                 <li>
                                                     <button className="block px-4 py-2 w-full text-left hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600 dark:hover:text-white"  onClick={() => handleFilterClickResource('terbaru')}>Terbaru</button>
@@ -113,29 +114,77 @@ export const ResourceDetailMyClassHelper = ({slug , username , userId}) => {
                             </div>
                         </div>
                     </div>
-                    {resources.length === 0 ? (
+
+                    {isFetchingResource &&  (
                         <div className="md:py-8 sm:py-6 py-4">
-                            <div className="mb-0 mt-2">
-                                <div>
-                                    <div className="mx-auto" style={{ height: "150px", width: "270px" }}>
-                                        <img className="w-full mx-auto h-full" src="/assets/icon-not-resource.svg" />
-                                    </div>
-                                </div>
+                            <div className="flex items-center justify-center h-32 mb-2 mt-6 "><div className="animate-spin">
+                                <img src="/assets/planet_gif-1.gif" className="h-20 w-20" alt="Loading" />
+                            </div>
                             </div>
                         </div>
-                    ):(
-                        <ul>
-                            {resources.map((item) => {
-                                return(
-                                    <div key={item.id}>
-                                        <li  key={item.id}>
-                                            <TaskMyClassCardComponent   username={username} id={item.id} name={item.name} status={item.status} deadline_date={item.deadline_date} type={item.task_type} post_time={item.post_time} end_time={item.end_time}  date={item.date}/>
-                                        </li>
-                                    </div>
-                                )
-                            })}
-                        </ul>
                     )}
+                    { !isFetchingResource && (
+                        <>
+                            {resources.length === 0 ? (
+                                <div className="md:py-8 sm:py-6 py-4">
+                                    <div className="mb-0 mt-2">
+                                        <div>
+                                            <div className="mx-auto" style={{ height: "150px", width: "270px" }}>
+                                                <img className="w-full mx-auto h-full" src="/assets/icon-no-absent.svg" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            ):(
+                                <ul>
+                                    {!resources ? (
+                                        <div className="flex items-center justify-center h-96 md:mt-6 mt-20">
+                                            <div className="animate-spin">
+                                                <img src="/assets/planet_gif-1.gif" className="h-20 w-20" alt="Loading" />
+                                            </div>
+                                        </div>
+                                    ): (
+                                        <>
+                                            {resources.map((item) => {
+                                                return(
+                                                    <div key={item.id}>
+                                                        <li  key={item.id}>
+                                                            <TaskMyClassCardComponent username={username} id={item.id} user_id={userId} name={item.name} type={item.type} action={item.action} status={item.status} end_time={item.end_time}  date={item.date} post_time={item.post_time}/>
+                                                        </li>
+                                                    </div>
+                                                )
+                                            })}
+                                        </>
+                                    )}
+
+                                </ul>
+                            )}
+                        </>
+                    )}
+
+                    {/*{resources.length === 0 ? (*/}
+                    {/*    <div className="md:py-8 sm:py-6 py-4">*/}
+                    {/*        <div className="mb-0 mt-2">*/}
+                    {/*            <div>*/}
+                    {/*                <div className="mx-auto" style={{ height: "150px", width: "270px" }}>*/}
+                    {/*                    <img className="w-full mx-auto h-full" src="/assets/icon-not-resource.svg" />*/}
+                    {/*                </div>*/}
+                    {/*            </div>*/}
+                    {/*        </div>*/}
+                    {/*    </div>*/}
+                    {/*):(*/}
+                    {/*    <ul>*/}
+                    {/*        {resources.map((item) => {*/}
+                    {/*            return(*/}
+                    {/*                <div key={item.id}>*/}
+                    {/*                    <li  key={item.id}>*/}
+                    {/*                        <TaskMyClassCardComponent   username={username} id={item.id} name={item.name} status={item.status} deadline_date={item.deadline_date} type={item.task_type} post_time={item.post_time} end_time={item.end_time}  date={item.date}/>*/}
+                    {/*                    </li>*/}
+                    {/*                </div>*/}
+                    {/*            )*/}
+                    {/*        })}*/}
+                    {/*    </ul>*/}
+                    {/*)}*/}
                 </div>
             </div>
         </>

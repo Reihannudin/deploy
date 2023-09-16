@@ -394,21 +394,6 @@ export const DetailMyClassComponent = (props) => {
 
                                 </div>
                                 <div className="grid grid-cols-7 gap-2">
-                                    {/*{weekDays.map((day , index) => {*/}
-
-                                    {/*    return(*/}
-                                    {/*        <div*/}
-                                    {/*            key={index}*/}
-                                    {/*            className={`text-center cursor-pointer ${*/}
-                                    {/*                index === activeIndex ? "bg-purple-600 text-white" : "bg-gray-200 hover:bg-purple-600 hover:text-white"*/}
-                                    {/*            } py-2 px-1.5 rounded`}*/}
-                                    {/*            onClick={() => handleDayClick(day, index)}*/}
-                                    {/*        >*/}
-                                    {/*            <div className=" font15-res-300" style={{ fontWeight:"550"}}>{daysOfWeek[index]}</div>*/}
-                                    {/*            <div className="font14-res-300">{day.getDate()}</div>*/}
-                                    {/*        </div>*/}
-                                    {/*    )*/}
-                                    {/*})}*/}
                                     {weekDays.map((day , index) => {
 
                                         return(
@@ -424,7 +409,6 @@ export const DetailMyClassComponent = (props) => {
                                             </div>
                                         )
                                     })}
-
                                 </div>
                             </div>
 
@@ -439,7 +423,7 @@ export const DetailMyClassComponent = (props) => {
                                                 </a>
                                             </li>
                                             <li className="px-6 w-full text-gray-500 hover:text-purple-600 text-left mx-4 font16-res-400 py-2">
-                                                <a href="#tugas" className="w-full" onClick={() => handleTabClick('tugas')}>
+                                                <a href="#assignment" className="w-full" onClick={() => handleTabClick('assignment')}>
                                                     Tugas
                                                 </a>
                                             </li>
@@ -462,7 +446,14 @@ export const DetailMyClassComponent = (props) => {
                                 <div id="absent" className="py-2 md:px-4 ">
                                     <AbsentDetailMyClassHelper slug={slug} username={username} start_day={selectedDay} month={selectedMonth} year={selectedYear} userId={userId} />
                                 </div>
-
+                                <div id="assignment" className="py-2 md:px-4 ">
+                                    <AssignmentDetailMyClassHelper slug={slug} username={username} start_day={selectedDay} month={selectedMonth} year={selectedYear} userId={userId} />
+                                </div>
+                                <div id="resource" className="py-2 md:px-4 ">
+                                    <ResourceDetailMyClassHelper slug={slug} username={username} start_day={selectedDay} month={selectedMonth} year={selectedYear} userId={userId} />
+                                </div>
+                                <div id="fourth" className="py-2 md:px-4 ">
+                                </div>
                             </div>
                         </div>
                     </div>

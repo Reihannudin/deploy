@@ -28,36 +28,6 @@ const AbsentDetailMyClassHelper = ({ slug, username, userId , start_day , month 
 
     let token = localStorage.getItem("auth_token");
 
-    // console.log(`${slug}/absents?filter=${filterAbsent}&start_day=${currentDay}&month=${currentMonth}&year=${currentYear}`);
-    // console.log(`${slug}/absents?filter=${filterAbsent}&start_day=${start_day}&month=${month}&year=${year}`);
-
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         try {
-    //             const token = localStorage.getItem("auth_token");
-    //             const response = await api.get( `${slug}/absents?filter=${filterAbsent}&start_day=${currentDay}&month=${currentMonth}&year=${currentYear}`, {
-    //                 headers: {
-    //                     "Content-Type": "application/json",
-    //                     Authorization: `Bearer ${token}`,
-    //                 },
-    //             });
-    //
-    //             await new Promise((resolve) => setTimeout(resolve, 1500));
-    //             const data = response.data;
-    //             // setClasses(data);
-    //             // setIsFetching(false);
-    //             setAbsents(data);
-    //             setIsDataFetchedAbsent(true);
-    //             setIsFetchingAbsent(false);
-    //         } catch (error) {
-    //             setErrorAbsent(error);
-    //             setIsFetchingAbsent(false);
-    //         }
-    //     };
-    //
-    //     fetchData();
-    // }, [absents]);
-
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -84,8 +54,6 @@ const AbsentDetailMyClassHelper = ({ slug, username, userId , start_day , month 
         fetchData();
     }, [ slug, filterAbsent, currentDay, currentMonth, currentYear]);
 
-    // console.log("isFetchingAbsent" , isFetchingAbsent)
-    // console.log("isDataFetchedAbsent" , isDataFetchedAbsent)
 
     const handleFilterAbsentClick = (filterValue) => {
         setFilterAbsent(filterValue);
@@ -103,31 +71,6 @@ const AbsentDetailMyClassHelper = ({ slug, username, userId , start_day , month 
         setIsDropdownFilterAbsent(true);
     };
 
-    // console.log("Get from url request")
-    // console.log(day)
-    // console.log(queryMonth)
-    // console.log(queryYear)
-    //
-    // console.log("Get from detail class")
-    // console.log(start_day)
-    // console.log(month)
-    // console.log(year)
-    //
-    // console.log("Get from current day")
-    // console.log(currentDate.getDate())
-    // console.log(currentDate.getMonth() + 1)
-    // console.log(currentDate.getFullYear())
-    //
-    // console.log("day validate"  ,(day === null || isNaN(day) || day === "" || start_day === "") ? currentDate.getDate() : parseInt(day))
-    // console.log("month validate"  ,(queryMonth === null || isNaN(queryMonth) || queryMonth === "" ||  month === "") ? (currentDate.getMonth() + 1) : parseInt(queryMonth));
-    // console.log("years validate"  ,(queryYear === null || isNaN(queryYear) || queryYear === "" || year === "") ? currentDate.getFullYear() : parseInt(queryYear));
-
-    if (absents.length === 0){
-        console.log("Absent tidak ada")
-    } else {
-        console.log(absents)
-    }
-
 
     return(
         <>
@@ -135,7 +78,7 @@ const AbsentDetailMyClassHelper = ({ slug, username, userId , start_day , month 
                 <div className="mt-2">
                     <div className="flex w-full  sm:mx-6  md:mx-0 pb-0  mb-2">
                         <div className="flex w-full justify-between">
-                            <div className="my-auto roboto font16-res-400" style={{  color:"#4f4f4f"}}>
+                            <div className="my-auto roboto font16-res-400" style={{ color:"#4f4f4f"}}>
                                 <h2 className="" style={{ fontWeight:"500"}}>Absent List</h2>
                             </div>
                             <button className="my-auto ms-auto"  onClick={toggleDropdowFilterAbsent}>
@@ -146,7 +89,6 @@ const AbsentDetailMyClassHelper = ({ slug, username, userId , start_day , month 
                                 </div>
                             </button>
                             <div className="relative">
-
                                 {isDropdownFilterAbsent ? null : (
                                     <div> <div className="relative ">
                                         <div className="absolute right-0  z-40 top-7 font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-36 md:w-44 dark:bg-gray-700 dark:divide-gray-600">
