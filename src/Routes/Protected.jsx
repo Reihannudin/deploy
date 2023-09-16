@@ -63,7 +63,8 @@ export const Protected = () => {
       <Route path="/view/:slug/:class_id/my/absent/:id" element={<MyDetailAbsent />}/> {/* Done */}
       <Route path="/view/:slug/:class_id/my/absent/:id/students" element={<MyDetailAbsentStudents />}/> {/* Done */}
 
-
+      <Route path="/class/:slug/:id/create/resource" element={<CreateResource />}/>
+      <Route path="/class/:slug/:class_id/edit/resource/:id" element={<EditMyResource />} />
       <Route path="/" element={<Main />} />
       <Route path="/profile" element={<TestProfille />} />
       <Route path="/view/class/:id/:slug" element={<DetailClass />} />
@@ -121,20 +122,14 @@ export const Protected = () => {
       <Route path="/edit/profile/password" element={<EditProfilePassword />} />
       {/*/!*crud*!/*/}
 
-      <Route
-        path="/class/:slug/:id/create/resource"
-        element={<CreateResource />}
-      />{" "}
+
       {/*Beneran Aman*/}
       <Route
         path="/view/:slug/:class_id/my/resource/:id"
         element={<MyDetailResource />}
       />{" "}
       {/*Beneran Aman*/}
-      <Route
-        path="/class/:slug/:class_id/edit/resource/:id"
-        element={<EditMyResource />}
-      />{" "}
+
       {/*Beneran Aman*/}
       <Route
         path="/class/:slug/:id/create/assignment"

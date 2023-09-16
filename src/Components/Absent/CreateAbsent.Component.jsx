@@ -36,9 +36,6 @@ export const CreateAbsentComponent = ({user}) => {
         setPasswordChecked(!passwordChecked);
     };
 
-    // console.log("face recognation : " , faceRecognitionChecked)
-    // console.log("password : " , passwordChecked)
-
 
     useEffect(() => {
         const errorNameParam = searchParams.get('error_name');

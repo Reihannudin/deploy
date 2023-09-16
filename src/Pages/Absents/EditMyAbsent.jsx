@@ -139,6 +139,8 @@ function EditMyAbsent(){
                     <div className="w-full pb-5 mx-0 px-0 h-full " style={{ background:"#FFFFFF"}}>
                         <div id="absent" className="w-full">
                             <div className="w-full">
+                                <EditEmptyComponent />
+
                                 {/*<EditAbsentComponent name={item.name} date={item.date} start_time={item.start_time} end_time={item.end_time} />*/}
                             </div>
                         </div>

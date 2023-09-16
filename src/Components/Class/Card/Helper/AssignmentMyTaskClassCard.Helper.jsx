@@ -82,7 +82,7 @@ export const AssignmentMyTaskClassCardHelper = (
       <>
           <div>
               <div className="bg-white border  py-3 border-b-0 border-radius-4 px-4">
-                  <div className="flex relative">
+                  <div className="flex ">
                       <div className="p-2 border-radius-4 me-2" style={{ background:"#A568E6" , height:"40px" }} >
                           <div className="my-auto" style={{ height:"24px"}}>
                               <img className="h-full" src="/assets/assigment-sm-icon.svg" />

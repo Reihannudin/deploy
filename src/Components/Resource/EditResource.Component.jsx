@@ -3,16 +3,24 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import {useNavigate, useParams, useSearchParams} from "react-router-dom";
 import axios from "axios";
+import api from "../../Config/api";
 
 
 export const EditResourceComponent = (props) => {
 
+    const { id, slug , class_id } = useParams();
+
+    const [searchParams ] = useSearchParams();
+    const [name, setName] = useState('');
+    const [text, setText] = useState('');
     const [urls, setUrls] = useState([]);
     const [inputValueNAME, setInputValueNAME] = useState('');
     const [inputValueURL, setInputValueURL] = useState('');
 
+    const [errorName , setErrorName] = useState('');
+    const [errorDescription , setErrorDescription] = useState('');
+    const [error , setError] = useState('');
 
-    const [name, setName] = useState('');
 
     useEffect(() => {
         setName(props.name);
@@ -22,7 +30,6 @@ export const EditResourceComponent = (props) => {
         setName(name);
     };
 
-    const [text, setText] = useState('');
 
     useEffect(() => {
         setText(props.description);
@@ -46,14 +53,6 @@ export const EditResourceComponent = (props) => {
         updatedUrls.splice(index, 1);
         setUrls(updatedUrls);
     };
-
-    const user = JSON.parse(localStorage.getItem('whoLogin'));
-    const username = user.username
-
-    const {id , class_id , slug} = useParams();
-    const [searchParams ] = useSearchParams();
-    const [errorName , setErrorName] = useState('');
-    const [errorDescription , setErrorDescription] = useState('');
 
 
     useEffect(() => {
@@ -84,9 +83,52 @@ export const EditResourceComponent = (props) => {
 
     const navigate = useNavigate();
     const [redirectUrl, setRedirectUrl] = useState('');
+    const [redirectPath, setRedirectPath] = useState(`/view/my/class/${slug}/${id}`);
+    const [isLoading, setIsLoading] = useState(false);
+
+    let token = localStorage.getItem('auth_token');
+
+
+    const handleDeleteUrlLink = async (linKId) => {
+
+        api
+            .delete(`${slug}/delete/${id}/url/${linKId}` , {
+                "Content-Type" : "multipart/form-data" ,
+                "Authorization" : "Bearer " + token,
+            })
+            .then((response) => {
+                setIsLoading(false);
+                if (response.data.status === 201) {
+                    let redirectUrl = response.data.redirect_path;
+                    setRedirectPath(redirectUrl);
+                    navigate(`/class/${slug}/${class_id}/edit/resource/${id}`);
+                    window.location.reload(); // Refresh the page
+                }
+                else if (response.data.status === 406) {
+                    if (response.data.message === "An unexpected error occurred") {
+                        let redirectUrl = response.data.redirect_path;
+                        setRedirectPath(redirectUrl);
+                        setError(response.data.errors.message);
+                        navigate(redirectUrl);
+                    }
+                }
+
+            })
+            .catch((error) => {
+                const { errors } = error.response.data;
+                setError(errors?.errors?.[0] || '');
+            });
+
+    };
+
+
+
+    // {slug}/delete/{resourceId}/url/{id}
+
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        setIsLoading(true);
 
         const formData = {
             name: name,
@@ -97,21 +139,95 @@ export const EditResourceComponent = (props) => {
             })),
         };
 
-        axios
-            // .put(`https://rest-api.spaceskool.site/public/api/${username}/${slug}/update/resource/${id}`, formData)
-            .put(`http://127.0.0.1:8000/api/${username}/${slug}/update/resource/${id}`, formData)
+        api
+            .put(`${slug}/update/resource/${id}`, formData , {
+                "Content-Type" : "multipart/form-data" ,
+                "Authorization" : "Bearer " + token,
+            })
             .then((response) => {
-                console.log(response.data)
-                const { redirectUrl } = response.data;
-                setRedirectUrl(redirectUrl);
+                console.log("response data" , response)
+                console.log(response.data);
+                console.log("its 201 :"  ,response.data.status === 201);
+                console.log("response redirect"  ,response.data.redirect_path)
+                setIsLoading(false); // Stop loading indicator
+                if (response.data.status === 201) {
+                    let redirectUrl = response.data.redirect_path;
+                    setErrorName('');
+                    setErrorDescription('');
+                    setError(''); // Clear any general error message
+
+                    setRedirectPath(redirectUrl);
+                    navigate(redirectUrl);
+                    // navigate(`/view/my/class/${slug}/${id}`);
+
+                }
+                else if (response.data.status === 406) {
+                    if (response.data.errors.message === "Nama Absent tidak boleh kosong") {
+                        let redirectUrl = response.data.redirect_path;
+                        setErrorName('');
+                        setErrorDescription('');
+                        setError(''); // Clear any general error message
+                        setRedirectPath(redirectUrl);
+                        setErrorName(response.data.errors.message);
+                        navigate(redirectUrl);
+                    } else if (response.data.errors.message === "Isi dengan tanggal yang kamu tentukan") {
+                        let redirectUrl = response.data.redirect_path;
+                        setErrorName('');
+                        setErrorDescription('');
+                        setError(''); // Clear any general error message
+                        setErrorDescription(response.data.errors.message);
+                        setRedirectPath(redirectUrl);
+                        navigate(redirectUrl);
+                    }
+                    else if (response.data.errors.message === "Tolong isi waktu dimulainya Absent") {
+                        let redirectUrl = response.data.redirect_path;
+                        setErrorName('');
+                        setErrorDescription('');
+                        setError(''); // Clear any general error message
+                        setError(response.data.errors.message);
+                        setRedirectPath(redirectUrl);
+                        navigate(redirectUrl);
+                    }
+
+                }
+
+
             })
             .catch((error) => {
+                console.log("error" , error)
+                setIsLoading(false); // Stop loading indicator
                 const { errors } = error.response.data;
-
                 setErrorName(errors?.name?.[0] || '');
                 setErrorDescription(errors?.description?.[0] || '');
             });
     };
+
+
+    // const handleSubmit = (event) => {
+    //     event.preventDefault();
+    //
+    //     const formData = {
+    //         name: name,
+    //         description: text,
+    //         url_resources: urls.map((url) => ({
+    //             name: url.name,
+    //             link: url.url,
+    //         })),
+    //     };
+    //
+    //     axios
+    //         // .put(`https://rest-api.spaceskool.site/public/api/${username}/${slug}/update/resource/${id}`, formData)
+    //         .put(`http://127.0.0.1:8000/api/${username}`, formData)
+    //         .then((response) => {
+    //             console.log(response.data)
+    //             const { redirectUrl } = response.data;
+    //             setRedirectUrl(redirectUrl);
+    //         })
+    //         .catch((error) => {
+    //             const { errors } = error.response.data;
+    //
+    //             });
+    // };
 
     const handleAddUrl = () => {
         if (inputValueNAME.trim() !== '' && inputValueURL.trim() !== '') {
@@ -121,48 +237,37 @@ export const EditResourceComponent = (props) => {
         }
     };
 
-    useEffect(() => {
-        if (redirectUrl) {
-            const url = new URL(redirectUrl);
-            const searchParams = new URLSearchParams(url.search);
+    // useEffect(() => {
+    //     if (redirectUrl) {
+    //         const url = new URL(redirectUrl);
+    //         const searchParams = new URLSearchParams(url.search);
+    //
+    //         setErrorName(searchParams.get('error_name') || '');
+    //         setErrorDescription(searchParams.get('error_description') || '');
+    //
+    //         setName(searchParams.get('name') || '');
+    //         setText(searchParams.get('description') || '');
+    //
+    //         searchParams.delete('error_name');
+    //         searchParams.delete('name');
+    //         searchParams.delete('error_description');
+    //         searchParams.delete('description');
+    //
+    //         url.search = searchParams.toString();
+    //         window.history.replaceState({}, '', url.href);
+    //
+    //         const statusParam = searchParams.get('status');
+    //
+    //         if (statusParam === '201') {
+    //             navigate(`/view/my/class/${id}/${slug}`);
+    //         }
+    //
+    //         setRedirectUrl('');
+    //     }
+    // }, [redirectUrl]);
 
-            setErrorName(searchParams.get('error_name') || '');
-            setErrorDescription(searchParams.get('error_description') || '');
-
-            setName(searchParams.get('name') || '');
-            setText(searchParams.get('description') || '');
-
-            searchParams.delete('error_name');
-            searchParams.delete('name');
-            searchParams.delete('error_description');
-            searchParams.delete('description');
-
-            url.search = searchParams.toString();
-            window.history.replaceState({}, '', url.href);
-
-            const statusParam = searchParams.get('status');
-
-            if (statusParam === '201') {
-                navigate(`/view/my/class/${id}/${slug}`);
-            }
-
-            setRedirectUrl('');
-        }
-    }, [redirectUrl]);
 
 
-    const [error, setError] = useState("");
-    const handleDeleteUrlLink = async (linKId) => {
-        try {
-            const response = await axios.delete(`http://127.0.0.1:8000/api/${username}/${slug}/delete/${id}/url/${linKId}`
-            );
-            const { redirectUrl } = response.data;
-            window.location.href = redirectUrl;
-        } catch (error) {
-            const { errors } = error.response.data;
-            setError(errors?.classname?.[0] || "");
-        }
-    };
 
     return (
         <div className="h-full mx-auto md:pt-16 pt-14 px-0" style={{ minWidth: '300px' }}>
