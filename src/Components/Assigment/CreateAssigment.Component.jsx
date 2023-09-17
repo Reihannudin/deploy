@@ -393,10 +393,7 @@ export const CreateAssigmentComponent = ({user}) => {
                         setRedirectPath(redirectUrl);
                         navigate(redirectUrl);
                     }
-
                 }
-
-
             })
             .catch((error) => {
                 // console.log("error" , error)
@@ -409,6 +406,7 @@ export const CreateAssigmentComponent = ({user}) => {
                 setErrorEndTime(errors?.message?.[0] || '');
                 setErrorDate(errors?.message?.[0] || '');
                 setErrorTrueAnswer(errors?.message?.[0] || '');
+                setErrorQuestions(errors?.message?.[0] || '');
             });
     };
 

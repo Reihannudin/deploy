@@ -77,7 +77,7 @@ function EditAssigment (){
         const fetchData = async () => {
             try {
                 if (!isDataFetchedAssignments) {
-                    const response = await api.get(`${slug}/assignment/${id}` , {
+                    const response = await api.get(`/${slug}/assignment/${id}` , {
                         "Content-Type" : "multipart/form-data" ,
                         "Authorization" : "Bearer " + token,
                     });

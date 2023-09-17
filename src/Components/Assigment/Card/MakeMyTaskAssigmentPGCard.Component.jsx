@@ -46,21 +46,26 @@ export const MakeMyTaskAssigmentPGCardComponent = (props) => {
         answerD: props.answer_d || "",
     });
 
+    // console.log("Task item " , props.item)
+
     const handleAnswerChange = (event, key) => {
         const value = event.target.value;
         setAnswers((prevAnswers) => ({
             ...prevAnswers,
             [key]: value,
         }));
+
         props.onQuestionChange({ [key]: value });
     };
 
+    // console.log("props.onQuestionChange" , props.onQuestionChange)
+    //
     const [trueAnswer, setTrueAnswer] = useState("");
     useEffect(() => {
         setTrueAnswer(props.true_answer);
     }, [props.true_answer]);
 
-    console.log(trueAnswer);
+    // console.log(trueAnswer);
     const handleTrueAnswerChange = (key) => {
         setTrueAnswer(key);
         props.onQuestionChange({ trueAnswer: key });
