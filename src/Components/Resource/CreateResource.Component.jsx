@@ -3,13 +3,28 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import axios from "axios";
+import api from "../../Config/api";
 
-export const CreateResourceComponent = () => {
+export const CreateResourceComponent = ({user}) => {
+
+    const { id, slug } = useParams();
+    const navigate = useNavigate();
+
     const [name, setName] = useState('');
     const [text, setText] = useState('Berikan deskripsi resource');
     const [urls, setUrls] = useState([]);
     const [inputValueNAME, setInputValueNAME] = useState('');
     const [inputValueURL, setInputValueURL] = useState('');
+
+    const [searchParams] = useSearchParams();
+    const [errorName, setErrorName] = useState('');
+    const [errorDescription, setErrorDescription] = useState('');
+    const [error, setError] = useState('');
+
+    const [redirectUrl, setRedirectUrl] = useState('');
+    const [redirectPath, setRedirectPath] = useState(`/view/my/class/${slug}/${id}`);
+    const [isLoading, setIsLoading] = useState(false);
+
 
     const onChangeName = (event) => {
         const name = event.target.value;
@@ -35,8 +50,6 @@ export const CreateResourceComponent = () => {
         setUrls(updatedUrls);
     };
 
-    const user = JSON.parse(localStorage.getItem('whoLogin'));
-    const username = user.username;
 
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
@@ -54,12 +67,6 @@ export const CreateResourceComponent = () => {
 
     console.log(urls)
 
-    const { id, slug } = useParams();
-
-    const [searchParams] = useSearchParams();
-    const [errorName, setErrorName] = useState('');
-    const [errorDescription, setErrorDescription] = useState('');
-
     useEffect(() => {
         const error = searchParams.get('error_name');
         setErrorName(error)
@@ -70,40 +77,6 @@ export const CreateResourceComponent = () => {
         setErrorDescription(error)
     }, [searchParams])
 
-    const navigate = useNavigate();
-    const [redirectUrl, setRedirectUrl] = useState('');
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-
-        const formData = {
-            name: name,
-            description: text,
-            url_resources: urls.map((url) => ({
-                name: url.name,
-                link: url.url,
-            })),
-        };
-
-        console.log(formData)
-
-
-        axios
-            // .post(`https://rest-api.spaceskool.site/public/api/${username}/${slug}/${id}/create/resource`, formData)
-            .post(`http://127.0.0.1:8000/api/${username}/${slug}/${id}/create/resource`, formData)
-            .then((response) => {
-                console.log(response.data)
-                const { redirectUrl } = response.data;
-                setRedirectUrl(redirectUrl);
-            })
-            .catch((error) => {
-                const { errors } = error.response.data;
-                console.log(errors)
-                setErrorName(errors?.name?.[0] || '');
-                setErrorDescription(errors?.description?.[0] || '');
-            });
-    };
-
     const handleAddUrl = () => {
         if (inputValueNAME.trim() !== '' && inputValueURL.trim() !== '') {
             setUrls([...urls, { name: inputValueNAME, url: inputValueURL }]);
@@ -112,34 +85,149 @@ export const CreateResourceComponent = () => {
         }
     };
 
-    useEffect(() => {
-        if (redirectUrl) {
-            const url = new URL(redirectUrl);
-            const searchParams = new URLSearchParams(url.search);
+    let token = localStorage.getItem('auth_token');
 
-            setErrorName(searchParams.get('error_name') || '');
-            setErrorDescription(searchParams.get('error_description') || '');
 
-            setName(searchParams.get('name') || '');
-            setText(searchParams.get('description') || '');
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        setIsLoading(true);
 
-            searchParams.delete('error_name');
-            searchParams.delete('name');
-            searchParams.delete('error_description');
-            searchParams.delete('description');
+        const formData = {
+            name: name,
+            description: text,
+            url_resources: urls.map((url) => ({
+            name: url.name,
+            link: url.url,
+            })),
+        };
 
-            url.search = searchParams.toString();
-            window.history.replaceState({}, '', url.href);
+        api
+            .post(`/${slug}/${id}/create/resource`, formData , {
+                "Content-Type" : "multipart/form-data" ,
+                "Authorization" : "Bearer " + token,
+            })
+            .then((response) => {
+                console.log("response data" , response)
+                console.log(response.data);
+                console.log("its 201 :"  ,response.data.status === 201);
+                console.log("response redirect"  ,response.data.redirect_path)
+                setIsLoading(false); // Stop loading indicator
+                if (response.data.status === 201) {
+                    let redirectUrl = response.data.redirect_path;
+                    setErrorName('');
+                    setErrorDescription('');
+                    setError('');
 
-            const statusParam = searchParams.get('status');
+                    setRedirectPath(redirectUrl);
+                    navigate(redirectUrl);
 
-            if (statusParam === '201') {
-                navigate(`/view/my/class/${id}/${slug}`);
-            }
+                }
+                else if (response.data.status === 406) {
+                    console.log("response error" , response.data.errors.message)
 
-            setRedirectUrl('');
-        }
-    }, [redirectUrl]);
+                    if (response.data.errors.message === "Nama resource tidak boleh kosong") {
+                        let redirectUrl = response.data.redirect_path;
+                        setErrorName('');
+                        setErrorDescription('');
+                        setError('');
+                        setRedirectPath(redirectUrl);
+                        setErrorName(response.data.errors.message);
+                        navigate(redirectUrl);
+                    } else if (response.data.errors.message === "Deskripsi resource tidak boleh kosong") {
+                        let redirectUrl = response.data.redirect_path;
+                        setErrorName('');
+                        setErrorDescription('');
+                        setError(''); // Clear any general error message
+                        setErrorDescription(response.data.errors.message);
+                        setRedirectPath(redirectUrl);
+                        navigate(redirectUrl);
+                    }
+                    else if (response.data.errors.message === "Tolong isi waktu dimulainya Absent") {
+                        let redirectUrl = response.data.redirect_path;
+                        setErrorName('');
+                        setErrorDescription('');
+                        setError(''); // Clear any general error message
+
+                        setError(response.data.errors.message);
+                        setRedirectPath(redirectUrl);
+                        navigate(redirectUrl);
+                    }
+                }
+
+
+            })
+            .catch((error) => {
+                // console.log("error" , error)
+                setIsLoading(false); // Stop loading indicator
+                const { errors } = error.response.data;
+                setErrorName(errors?.name?.[0] || '');
+                setErrorDescription(errors?.descritption?.[0] || '');
+                setError(errors?.message?.[0] || '');
+            });
+    };
+
+
+    // const handleSubmit = (event) => {
+    //     event.preventDefault();
+    //
+    //     const formData = {
+    //         name: name,
+    //         description: text,
+    //         url_resources: urls.map((url) => ({
+    //             name: url.name,
+    //             link: url.url,
+    //         })),
+    //     };
+    //
+    //     console.log(formData)
+    //
+    //
+    //     axios
+    //         // .post(`https://rest-api.spaceskool.site/public/api/${username}/${slug}/${id}/create/resource`, formData)
+    //         .post(`http://127.0.0.1:8000/api/${username}/${slug}/${id}/create/resource`, formData)
+    //         .then((response) => {
+    //             console.log(response.data)
+    //             const { redirectUrl } = response.data;
+    //             setRedirectUrl(redirectUrl);
+    //         })
+    //         .catch((error) => {
+    //             const { errors } = error.response.data;
+    //             console.log(errors)
+    //             setErrorName(errors?.name?.[0] || '');
+    //             setErrorDescription(errors?.description?.[0] || '');
+    //         });
+    // };
+
+
+
+    // useEffect(() => {
+    //     if (redirectUrl) {
+    //         const url = new URL(redirectUrl);
+    //         const searchParams = new URLSearchParams(url.search);
+    //
+    //         setErrorName(searchParams.get('error_name') || '');
+    //         setErrorDescription(searchParams.get('error_description') || '');
+    //
+    //         setName(searchParams.get('name') || '');
+    //         setText(searchParams.get('description') || '');
+    //
+    //         searchParams.delete('error_name');
+    //         searchParams.delete('name');
+    //         searchParams.delete('error_description');
+    //         searchParams.delete('description');
+    //
+    //         url.search = searchParams.toString();
+    //         window.history.replaceState({}, '', url.href);
+    //
+    //         const statusParam = searchParams.get('status');
+    //
+    //         if (statusParam === '201') {
+    //             navigate(`/view/my/class/${id}/${slug}`);
+    //         }
+    //
+    //         setRedirectUrl('');
+    //     }
+    // }, [redirectUrl]);
 
     return (
         <div className="h-full mx-auto md:pt-16 pt-16 px-0" style={{ minWidth: '300px' }}>

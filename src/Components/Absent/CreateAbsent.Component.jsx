@@ -36,9 +36,6 @@ export const CreateAbsentComponent = ({user}) => {
         setPasswordChecked(!passwordChecked);
     };
 
-    console.log("face recognation : " , faceRecognitionChecked)
-    console.log("password : " , passwordChecked)
-
 
     useEffect(() => {
         const errorNameParam = searchParams.get('error_name');
@@ -74,8 +71,8 @@ export const CreateAbsentComponent = ({user}) => {
         setEndTime(endTimeValue);
     };
 
-    console.log("id" , id)
-    console.log("slug" , slug)
+    // console.log("id" , id)
+    // console.log("slug" , slug)
 
     let token = localStorage.getItem('auth_token');
 
@@ -101,10 +98,10 @@ export const CreateAbsentComponent = ({user}) => {
                 "Authorization" : "Bearer " + token,
             })
             .then((response) => {
-                console.log("response data" , response)
-                console.log(response.data);
-                console.log("its 201 :"  ,response.data.status === 201);
-                console.log("response redirect"  ,response.data.redirect_path)
+                // console.log("response data" , response)
+                // console.log(response.data);
+                // console.log("its 201 :"  ,response.data.status === 201);
+                // console.log("response redirect"  ,response.data.redirect_path)
                 setIsLoading(false); // Stop loading indicator
                 if (response.data.status === 201) {
                         let redirectUrl = response.data.redirect_path;
@@ -191,7 +188,7 @@ export const CreateAbsentComponent = ({user}) => {
 
             })
             .catch((error) => {
-                console.log("error" , error)
+                // console.log("error" , error)
                 setIsLoading(false); // Stop loading indicator
                 const { errors } = error.response.data;
                 setErrorName(errors?.name?.[0] || '');
@@ -204,7 +201,7 @@ export const CreateAbsentComponent = ({user}) => {
 
     return (
         <>
-            <div className="h-full mx-auto md:pt-20 pt-16 px-0" style={{ minWidth: '300px' }}>
+            <div className="h-full mx-auto md:pt-20 pt-16 px-0" style={{ minWidth: '333px' }}>
                 <div className="lg:flex lg:w-9/12 md:w-10/12 sm:w-10/12 w-11/12 mx-auto">
                     <div className="w-full" style={{ background: '#ffffff' }}>
                         <div className="w-full mx-auto">

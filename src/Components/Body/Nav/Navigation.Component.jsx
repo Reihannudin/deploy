@@ -16,7 +16,6 @@ export const NavigationComponent = () => {
     }
 
 
-    const user = JSON.parse(localStorage.getItem('whoLogin'));
     const logged = JSON.parse(localStorage.getItem('isLogin'));
 
     return(
@@ -76,12 +75,10 @@ export const NavigationComponent = () => {
                                             <div  style={{ fontSize:"16px"}} className="font-medium mt-1.5">
                                                 <ul className="list-none gap-6 flex" style={{ fontWeight :"500"}}>
                                                     <li className="pe-6 my-auto text-purple-500" style={{ borderRight:"1px solid #ebebeb"}}>
-                                                        <li>
                                                             <Link  to={"/"} style={{ fontWeight:"500"}} className=" text-gray-400 my-0 relative cursor-pointer hover:text-purple-600 font" >Beranda
                                                                 <div className="w-full mx-auto  absolute top-2 my-3  h-1 cursor-pointer hover:bg-purple-400  block hover:scale-x-50 transform origin-center  transition-transform duration-300">
                                                                 </div>
                                                             </Link>
-                                                        </li>
                                                     </li>
                                                     <li className="pe-6 my-auto" style={{ borderRight:"1px solid #ebebeb"}}>
                                                         <Link to={'/learning'} style={{ fontWeight:"500"}} className=" text-gray-400 my-0 relative cursor-pointer hover:text-purple-600 font">Learning
