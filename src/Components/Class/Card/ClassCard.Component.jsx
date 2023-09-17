@@ -5,7 +5,7 @@ import axios from "axios";
 export const ClassCardComponent = ( props ) => {
 
     const user = JSON.parse(localStorage.getItem('whoLogin'));
-    const username = user.username;
+    const username = user?.username;
 
     const [classes, setClasses] = useState([]);
 
