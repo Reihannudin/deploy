@@ -1,6 +1,4 @@
-import {Link} from "react-router-dom";
 import {FeedBarComponent} from "./FeedBar.Component";
-import {FeedCardComponent} from "../Card/FeedCard.Component";
 
 export const FeedSearchComponent = () => {
     return(

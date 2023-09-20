@@ -61,20 +61,20 @@ export const MyClassComponent = ({user}) => {
                 <div className="block w-full md:hidden">
                     <MainNavComponent user={user} />
                 </div>
-                <div className="md:w-full w-11/12 py-3  mx-auto  lg:mb-10 md:mb-2 bg-white">
+                <div className="md:w-full w-11/12 md:py-3 py-1  mx-auto  lg:mb-10 md:mb-2 bg-white">
                     <div className="bg-white">
                         <div className="me-auto ms- relative  w-full mx-auto">
-                                <div className="bg-white md:mx-5  mx-0 mt-3 text-left">
-                                    <div className="me-auto relative xl:w-10/12 sm:w-11/12 w-11/12 roboto  text-purple-700 mx-auto">
-                                        <h2 className="font16-res-400-res-300" style={{ fontWeight:"500" }}>Kelas Ku</h2>
+                                <div className="bg-white md:mx-5  mx-1 mt-3 text-left">
+                                    <div className="me-auto relative xl:w-10/12 sm:w-11/12 w-full  text-purple-500 mx-auto">
+                                        <h2 className="font16-res-400" style={{ fontWeight:"500" }}>Kelas Ku</h2>
                                     </div>
                             </div>
                         </div>
                     </div>
-                    <div id="tab-contents" className="xl:w-10/12 lg:w-11/12 md:w-11/12 sm:w-11/12 w-11/12 mx-auto">
-                        <div id="kelas" className="md:py-0 py-0 md:px-4 px-0">
+                    <div id="tab-contents" className="xl:w-10/12 lg:w-11/12 md:w-11/12 sm:w-11/12 w-full mx-auto">
+                        <div id="kelas" className="md:py-0 py-0 md:px-4 px-1">
                             <div className="w-full py-0">
-                                <div className=" mt-3 border-t border-purple-700">
+                                <div className=" md:mt-3 mt-2 border-t border-purple-700">
                                     {classes.length === 0 && !isFetching ? (
                                         <div className="md:py-8 py-6">
                                             <div className="mb-8 mt-12">

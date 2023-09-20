@@ -1,10 +1,8 @@
-import {FeedBarComponent} from "./FeedBar.Component";
-import {FeedCardComponent} from "../Card/FeedCard.Component";
 import {useNavigate} from "react-router-dom";
+import {FeedBarComponent} from "./FeedBar.Component";
 import {useEffect} from "react";
-import {TweetNotificationCardComponent} from "../Card/TweetNotificationCard.Component";
-import {FeedRepliedNotificationComponent} from "../Card/FeedRepliedNotification.Component";
-import {FeedLikedNotificationComponent} from "../Card/FeedLikedNotification.Component";
+import {FeedLikedNotificationComponent} from "./Card/FeedLikedNotification.Component";
+import {FeedRepliedNotificationComponent} from "./Card/FeedRepliedNotification.Component";
 
 export const FeedNotificationComponent = () => {
 

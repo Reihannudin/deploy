@@ -1,10 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
+import api from "../../Config/api";
 
 export const JoinClassComponent = () => {
 
+    const navigate = useNavigate();
+
+    const [classname , setClassname] = useState('');
+    const [code, setCode] = useState("");
+    const [errorClassname, setErrorClassname] = useState('');
+    const [errorCode, setErrorCode] = useState('');
+
+    const [redirectUrl, setRedirectUrl] = useState('');
+    const [redirectPath, setRedirectPath] = useState("/create/class");
+    const [isLoading, setIsLoading] = useState(false);
+
     const [searchParams] = useSearchParams();
+
     const [error, setError] = useState("");
 
     useEffect(() => {
@@ -12,8 +25,6 @@ export const JoinClassComponent = () => {
         setError(error);
     }, [searchParams]);
 
-    const [classname , setClassname] = useState('');
-    const [code, setCode] = useState("");
 
     const onChangeClassname = (event) => {
         const classname = event.target.value;
@@ -25,51 +36,99 @@ export const JoinClassComponent = () => {
         setCode(code);
     };
 
-    const user = JSON.parse(localStorage.getItem('whoLogin'));
-    const username = user.username;
-    const [redirectUrl, setRedirectUrl] = useState('');
-    const navigate = useNavigate();
-
     useEffect(() => {
         const error = searchParams.get("error");
         setError(error);
     }, [searchParams]);
 
+
     const handleSubmit = (event) => {
         event.preventDefault();
+
+        setIsLoading(true); // Start loading indicator
 
         const formData = {
             classname,
             code
         };
 
-        axios
-            // .post(`https://rest-api.spaceskool.site/public/api/${username}/join/classes`, formData)
-            .post(`http://127.0.0.1:8000/api/${username}/join/classes`, formData)
+        api
+            .post(`/join/classes`, formData)
             .then((response) => {
-                const { redirectUrl } = response.data;
-                setRedirectUrl(redirectUrl);
+                setIsLoading(false); // Stop loading indicator
+                if (response.data.status === 201) {
+                    if (response.data.message === "Berhasil bergabung kedalam kelas!") {
+                        let redirectUrl = response.data.redirect_path;
+                        setRedirectPath(redirectUrl);
+                        navigate(redirectUrl);
+                    }
+                }
+                else if (response.data.status === 406) {
+                    console.log(response.data.errors);
+                    if (response.data.errors === "Nama kelas dan kode kelas tidak boleh kosong") {
+                        let redirectUrl = response.data.redirect_path;
+                        setRedirectPath(redirectUrl);
+                        setErrorClassname('');
+                        setErrorCode('');
+                        setErrorClassname(response.data.errors);
+                        setErrorCode(response.data.errors);
+                        navigate(redirectUrl);
+                    } else if (response.data.errors === "Nama kelas tidak boleh kosong") {
+                        let redirectUrl = response.data.redirect_path;
+                        setRedirectPath(redirectUrl);
+                        setErrorClassname('');
+                        setErrorCode('');
+                        setErrorClassname(response.data.errors);
+                        // setErrorCode(response.data.errors);
+                        navigate(redirectUrl);
+                    }
+                    else if (response.data.errors === "Kode kelas tidak boleh kosong") {
+                        let redirectUrl = response.data.redirect_path;
+                        setRedirectPath(redirectUrl);
+                        setErrorClassname('');
+                        setErrorCode('');
+                        // setErrorClassname(response.data.errors);
+                        setErrorCode(response.data.errors);
+                        navigate(redirectUrl);
+                    }
+                    else if (response.data.errors === "Mungkin Tidak ada kelas yang menggunakan Nama dan Kode ini") {
+                        let redirectUrl = response.data.redirect_path;
+                        setRedirectPath(redirectUrl);
+                        setErrorClassname('');
+                        setErrorCode('');
+                        // setErrorClassname(response.data.errors);
+                        setErrorCode(response.data.errors);
+                        navigate(redirectUrl);
+                    }
+                    else if (response.data.errors === "Anda merupakan pemilik kelas.") {
+                        let redirectUrl = response.data.redirect_path;
+                        setRedirectPath(redirectUrl);
+                        setErrorClassname('');
+                        setErrorCode('');
+                        // setErrorClassname(response.data.errors);
+                        setErrorCode(response.data.errors);
+                        navigate(redirectUrl);
+                    } else if (response.data.errors === "Siswa telah berada dalam kelas tersebut") {
+                        let redirectUrl = response.data.redirect_path;
+                        setRedirectPath(redirectUrl);
+                        setErrorClassname('');
+                        setErrorCode('');
+                        // setErrorClassname(response.data.errors);
+                        setErrorCode(response.data.errors);
+                        navigate(redirectUrl);
+                    }
+                }
+
+
             })
             .catch((error) => {
+                setIsLoading(false); // Stop loading indicator
                 const { errors } = error.response.data;
-                setError(errors?.classname?.[0] || '');
+                setErrorClassname(errors?.classname?.[0] || '');
+                setErrorCode(errors?.code?.[0] || '');
             });
-    }
+    };
 
-    useEffect(() => {
-        if (redirectUrl) {
-            const url = new URL(redirectUrl);
-            const errorParam = url.searchParams.get('error');
-            setError(errorParam);
-            url.searchParams.delete('error');
-            window.history.replaceState({}, '', url.href);
-            setRedirectUrl('');
-            if (errorParam) {
-                return; // Skip navigation if there's an error
-            }
-            navigate('/');
-        }
-    }, [redirectUrl, navigate]);
 
 
     return (
@@ -120,6 +179,15 @@ export const JoinClassComponent = () => {
                                                         />
                                                     </div>
                                                 </div>
+                                                {errorClassname === "" ? (
+                                                    <div className="my-2"></div>
+                                                ) : (
+                                                    <div className="my-2">
+                          <span style={{ fontSize: "14px" }} className={"text-red-600 "}>
+                            {errorClassname}
+                          </span>
+                                                    </div>
+                                                )}
                                                 <div>
                                                     <div className="flex mt-2">
                                                         <input
@@ -132,12 +200,12 @@ export const JoinClassComponent = () => {
                                                         />
                                                     </div>
                                                 </div>
-                                                {error === "" ? (
+                                                {errorCode === "" ? (
                                                     <div className="my-2"></div>
                                                 ) : (
                                                     <div className="my-2">
                           <span style={{ fontSize: "14px" }} className={"text-red-600 "}>
-                            {error}
+                            {errorCode}
                           </span>
                                                     </div>
                                                 )}

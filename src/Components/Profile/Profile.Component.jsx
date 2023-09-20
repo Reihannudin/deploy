@@ -1,10 +1,7 @@
 import {useEffect} from "react";
 import {Link, useNavigate} from "react-router-dom";
-import {ClassCardComponent} from "../Card/ClassCard.Component";
-import {TaskCardComponent} from "../Card/Task/TaskCard.Component";
-import {FeedCardComponent} from "../Card/FeedCard.Component";
-import {ClassmateCardComponent} from "../Card/ClassmateCard.Component";
-import {TaskClassCardComponent} from "../Card/Task/TaskClassCard.Component";
+import {FeedCardComponent} from "../Feed/Card/FeedCard.Component";
+import {TaskCardComponent} from "../Class/Card/TaskCard.Component";
 
 export const ProfileComponent = () => {
 
