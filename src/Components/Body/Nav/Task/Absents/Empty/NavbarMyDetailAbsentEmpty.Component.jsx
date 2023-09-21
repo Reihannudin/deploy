@@ -25,11 +25,11 @@ export const NavbarMyDetailAbsentComponentEmpty = () => {
                 <header className="sm:w-10/12 w-11/12 py-2  mx-auto">
             <div className="flex  justify-between gap-4">
                 <div className="flex gap-4">
-                    <Link className="my-auto" to={`/view/my/class/${id}/${slug}`}>
+                    <button onClick={navigateBack}  className="my-auto" >
                         <div style={{ height:"24px"}}>
                             <img className="h-full" src="/assets/arrow-back.svg"/>
                         </div>
-                    </Link>
+                    </button>
 
                     <div className="my-2 text-left" >
                         

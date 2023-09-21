@@ -112,11 +112,11 @@ export const MyClassComponent = ({user}) => {
                                         <>
                                             {isFetching && (
                                                 // Display loading state with animate pulse
-                                                <div className="flex items-center justify-center h-96 md:mt-6 mt-20">
-                                                    <div className="animate-spin">
-                                                        <img src="/assets/planet_gif-1.gif" className="h-20 w-20" alt="Loading" />
-                                                    </div>
+                                                <div className="flex items-center justify-center  h-96 md:mt-6 mt-20">
+                                                    <div
+                                                        className="animate-spin rounded-full border-r-gray-50 border-l-gray-50  border-b-gray-50  w-8 h-8 md:h-10 md:w-10 border-t-4 border-purple-700"></div>
                                                 </div>
+
                                             )}
 
                                             {!isFetching && (

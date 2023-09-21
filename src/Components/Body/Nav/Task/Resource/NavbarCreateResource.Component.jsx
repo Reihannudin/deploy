@@ -21,11 +21,11 @@ export const NavbarCreateResourceComponent= () => {
                 <header className="sm:w-10/12 w-11/12  mx-auto">
                 <div className="flex py-0 justify-between gap-4">
                         <div className="flex gap-4">
-                            <Link className="my-auto" to={`/view/my/class/${id}/${slug}`}>
+                            <button onClick={navigateBack} className="my-auto">
                                 <div style={{ height:"24px"}}>
                                     <img className="h-full" src="/assets/arrow-back.svg"/>
                                 </div>
-                            </Link>
+                            </button>
                             <div className="mb-2 mt-3 text-left" >
                                 <h4 className=" font16-res-400">Membuat Resource</h4>
                                 <p  className=" font14-res-300 text-purple-500">{classname}</p>

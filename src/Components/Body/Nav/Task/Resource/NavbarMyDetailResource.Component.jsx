@@ -6,6 +6,11 @@ export const NavbarMyDetailResourceComponent = (props) => {
 
     const classname = slug.replace(/_/g, ' ');
 
+    const navigate = useNavigate();
+
+    const navigateBack = () => {
+        navigate(-1);
+    };
     return(
         <>
             <>
@@ -13,11 +18,11 @@ export const NavbarMyDetailResourceComponent = (props) => {
                     <header className="md:w-10/12 w-11/12  mx-auto">
                         <div className="flex  gap-4">
                             <div className="flex gap-4">
-                                <Link className="my-auto" to={`/view/my/class/${class_id}/${slug}`}>
+                                <button className="my-auto" onClick={navigateBack}>
                                     <div style={{ height:"24px"}}>
                                         <img className="h-full" src="/assets/arrow-back.svg"/>
                                     </div>
-                                </Link>
+                                </button>
                                 <div className="my-2 text-left" >
                                     <h4 className="font16-res-400">{props.name}</h4>
                                     <p className="font14-res-300">{classname}</p>

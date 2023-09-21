@@ -120,31 +120,33 @@ const AbsentDetailMyClassHelper = ({ slug, username, userId , start_day , month 
                     </div>
                     {isFetchingAbsent &&  (
                         <div className="md:py-8 sm:py-6 py-4">
-                            <div className="flex items-center justify-center h-32 mb-2 mt-6 "><div className="animate-spin">
-                                <img src="/assets/planet_gif-1.gif" className="h-20 w-20" alt="Loading" />
-                            </div>
+                            <div className="flex items-center justify-center h-32 mb-2 mt-6 ">
+
+                                <div
+                                    className="animate-spin rounded-full border-r-gray-50 border-l-gray-50  border-b-gray-50  w-8 h-8 md:h-10 md:w-10 border-t-4 border-purple-700"></div>
+
                             </div>
                         </div>
                     )}
                     { !isFetchingAbsent && (
                       <>
                           {absents.length === 0 ? (
-                              <div className="md:py-8 sm:py-6 py-4">
-                                  <div className="mb-0 mt-2">
-                                      <div>
-                                          <div className="mx-auto" style={{ height: "150px", width: "270px" }}>
-                                              <img className="w-full mx-auto h-full" src="/assets/icon-no-absent.svg" />
-                                          </div>
+                              <div className="md:py-8 sm:py-6 py-6">
+                                  <div className="mb-0 text-center mt-2">
+                                      <div className="mx-auto my-5" style={{ height:"30px"}}>
+                                          <img className="h-full mx-auto" src="/assets/icon-tidak-ada.svg" />
                                       </div>
+                                      <h2 className="font16-res-300 my-3 text-gray-500">Tidak ada absensi</h2>
+
                                   </div>
                               </div>
                           ):(
                               <ul>
                                   {!absents ? (
-                                      <div className="flex items-center justify-center h-96 md:mt-6 mt-20">
-                                          <div className="animate-spin">
-                                              <img src="/assets/planet_gif-1.gif" className="h-20 w-20" alt="Loading" />
-                                          </div>
+                                      <div className="flex items-center justify-center  h-96 md:mt-6 mt-20">
+                                          <div
+                                              className="animate-spin rounded-full border-r-gray-50 border-l-gray-50  border-b-gray-50  w-8 h-8 md:h-10 md:w-10 border-t-4 border-purple-700"></div>
+
                                       </div>
                                   ): (
                                       <>

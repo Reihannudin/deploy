@@ -25,7 +25,7 @@ function App() {
   // console.log("is logged?" ,isLogged)
 
   return (
-    <div className="App">
+    <div className="App mx-auto" style={{ maxWidth:"1500px" }}>
       {isLoading ? (
         <LoadingComponent />
       ) : (

@@ -219,11 +219,16 @@ export const MainComponent = ({user}) => {
                                         <>
                                             {isFetching && (
                                                 // Display loading state with animate pulse
-                                                <div className="flex items-center justify-center h-96 md:mt-6 mt-20">
-                                                    <div className="animate-spin">
-                                                        <img src="/assets/planet_gif-1.gif" className="h-20 w-20" alt="Loading" />
-                                                    </div>
+                                                // <div className="flex items-center justify-center h-96 md:mt-6 mt-20">
+                                                //     <div className="animate-spin">
+                                                //         <img src="/assets/planet_gif-1.gif" className="h-20 w-20" alt="Loading" />
+                                                //     </div>
+                                                // </div>
+                                                <div className="flex items-center justify-center  h-96 md:mt-6 mt-20">
+                                                    <div
+                                                        className="animate-spin rounded-full border-r-gray-50 border-l-gray-50  border-b-gray-50  w-8 h-8 md:h-10 md:w-10 border-t-4 border-purple-700"></div>
                                                 </div>
+
                                             )}
                                             {!isFetching && (
                                                 // Display the list of classes
@@ -258,11 +263,11 @@ export const MainComponent = ({user}) => {
                                     ) : (
                                         <>
                                             {isFetchingTask && !isDataTaskFetched && (
-                                                <div className="flex items-center justify-center h-96 md:mt-6 mt-20">
-                                                    <div className="animate-spin">
-                                                        <img src="/assets/planet_gif-1.gif" className="h-20 w-20" alt="Loading" />
-                                                    </div>
+                                                <div className="flex items-center justify-center  h-96 md:mt-6 mt-20">
+                                                    <div
+                                                        className="animate-spin rounded-full border-r-gray-50 border-l-gray-50  border-b-gray-50  w-8 h-8 md:h-16 md:w-16 border-t-4 border-purple-700"></div>
                                                 </div>
+
                                             )}
 
                                             {!isFetchingTask && isDataTaskFetched && (
@@ -270,7 +275,6 @@ export const MainComponent = ({user}) => {
                                                 <ul className="sm:gap-3  md:gap-6 lg:gap-3 gap-2 md:my-6 my-4 flex flex-wrap">
                                                     {liveTask.map((item) => {
                                                         console.log("task item " , item)
-
                                                         return(
                                                             <>
                                                                 {item.absent.length === 0 && item.assignment.length === 0 ? (

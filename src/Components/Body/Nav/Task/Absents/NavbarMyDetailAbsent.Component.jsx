@@ -26,7 +26,7 @@ export const NavbarMyDetailAbsentComponent = (props) => {
                 <header className="sm:w-10/12 w-11/12 py-1  mx-auto">
             <div className="flex  justify-between gap-4">
                 <div className="flex gap-4">
-                    <Link className="my-auto" to={`/view/my/class/${id}/${slug}`}>
+                    <Link onClick={navigateBack} className="my-auto" >
                         <div style={{ height:"24px"}}>
                             <img className="h-full" src="/assets/arrow-back.svg"/>
                         </div>

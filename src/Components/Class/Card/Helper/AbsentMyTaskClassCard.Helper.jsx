@@ -129,10 +129,10 @@ export const AbsentMyTaskClassCardHelper = ({
                                             </button>
                                         </li>
                                         {showAlertDelete && (
-                                            <div id="drop-action_absent" className="fixed inset-0 flex items-center justify-center">
+                                            <div id="drop-action_absent" className="fixed inset-0 z-50 flex items-center justify-center">
                                                 <button
                                                     onClick={() => setShowAlertDelete(false)} // Close the alert when clicking the backdrop
-                                                    className="bg-gray-500 bg-opacity-30 w-full h-full absolute top-0 left-0"
+                                                    className="bg-gray-500 bg-opacity-30 w-full h-full z-50 f absolute top-0 left-0"
                                                     style={{ zIndex: "300" }}
                                                 ></button>
 

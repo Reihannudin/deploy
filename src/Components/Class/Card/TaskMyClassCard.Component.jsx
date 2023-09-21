@@ -46,16 +46,6 @@ export const TaskMyClassCardComponent = (props) => {
     const [isDropdownMenu , setIsDropdownMenu] = useState(true);
     const [error, setError] = useState("");
 
-    const toggleDropdownMenu = () => {
-        setIsDropdownMenu((prevHidden) => ! prevHidden);
-    }
-
-    const handleDropdownMenu = () => {
-        setIsDropdownMenu(true)
-    }
-
-
-    const username = props.username;
 
 
     const navigate = useNavigate();
@@ -96,44 +86,6 @@ export const TaskMyClassCardComponent = (props) => {
         }
     }
 
-    // const handleDeleteAbsent = async () => {
-    //     try {
-    //         const response = await axios.delete(
-    //             `https://rest-api.spaceskool.site/public/api/${username}/${props.slug}/${props.class_id}/delete/absent/${props.id}`
-    //         );
-    //         const { redirectUrl } = response.data;
-    //         window.location.href = redirectUrl;
-    //     } catch (error) {
-    //         const { errors } = error.response.data;
-    //         setError(errors?.classname?.[0] || "");
-    //     }
-    // };
-
-    const handleDeleteAssignment = async () => {
-        try {
-            const response = await axios.delete(
-                `https://rest-api.spaceskool.site/public/api/${username}/${props.slug}/delete/assignment/${props.id}`
-            );
-            const { redirectUrl } = response.data;
-            window.location.href = redirectUrl;
-        } catch (error) {
-            const { errors } = error.response.data;
-            setError(errors?.classname?.[0] || "");
-        }
-    };
-
-    const handleDeleteResource = async () => {
-        try {
-            const response = await axios.delete(
-                `https://rest-api.spaceskool.site/public/api/${username}/${props.slug}/delete/resource/${props.id}`
-            );
-            const { redirectUrl } = response.data;
-            window.location.href = redirectUrl;
-        } catch (error) {
-            const { errors } = error.response.data;
-            setError(errors?.classname?.[0] || "");
-        }
-    };
 
     useEffect(() => {
         if (error) {

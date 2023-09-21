@@ -201,16 +201,18 @@ export const DetailMyClassStudentsComponent = (props) => {
                                 <h2 className="my-3 font16-res-300" style={{  color:"#8D2EF4"}} >Jumlah siswa</h2>
                                 <p className="my-auto font16-res-300" style={{  color:"#8D2EF4"}} >{studentLength} Siswa</p>
                             </div>
-                            <ul  className="my-2 h-full scrollbar-hide" >
+                            <ul  className="my-2 scrollbar-hide" >
                                 {props.students.length === 0 ? (
-                                    <div className="my-8">
-                                        <div className="mx-auto my-5" style={{ minHeight: "140px", minWidth: "200px"  , maxHeight:"150px" , maxWidth:"280px"}}>
-                                            <img className="h-full mx-auto" src="/assets/tidak-ada-siswa.svg" />
+                                    <div className="mt-40 mb-8">
+                                        <div className="mx-auto my-5" style={{ height:"30px"}}>
+                                            <img className="h-full mx-auto" src="/assets/icon-tidak-ada.svg" />
                                         </div>
+                                        <h2 className="font16-res-300 my-3 text-gray-500">Belum ada murid di kelas ini</h2>
+
                                         {/*<h2 className="font16-res-300 my-3 text-gray-500">Anda tidak memiliki siswa</h2>*/}
                                     </div>
                                 ): (
-                                    <div className="h-full">
+                                    <div className="">
                                         {props.students.map((item) => {
                                             return(
                                                 <li className="my-2" key={item.id}>
