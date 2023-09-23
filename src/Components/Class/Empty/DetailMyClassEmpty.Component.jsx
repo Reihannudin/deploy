@@ -9,13 +9,14 @@ const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 export const DetailMyClassEmptyComponent = (props) => {
 
     const navigate = useNavigate();
-
+    const location = useLocation();
     const { id, slug } = useParams();
 
+    const [selectedDay, setSelectedDay] = useState('');
+    const [selectedMonth, setSelectedMonth] = useState('');
+    const [selectedYear, setSelectedYear] = useState('');
 
-    //  =================== update ==================
 
-    const location = useLocation(); // React Router's location object
     const [searchParams] = useSearchParams();
     const params = useParams();
     // const navigate = useNavigate();
@@ -25,8 +26,18 @@ export const DetailMyClassEmptyComponent = (props) => {
     ];
 
     const today = new Date();
-    const currentDay = today.getDay(); // Index of the current day (0 - 6)
+    const currentDay = today.getDay();
+    const currentDate = today.getDate();
+    const currentDateMin7 = currentDate  / 2;
 
+    useEffect(() => {
+        // Check if selectedDay is empty or undefined
+        if (!selectedDay) {
+
+            // Format the currentDate as needed
+            setSelectedDay(currentDate);
+        }
+    }, [selectedDay]); //
     const queryParams = new URLSearchParams(location.search);
     const startDay = queryParams.get('start_day');
     const month = queryParams.get('month');
@@ -36,10 +47,19 @@ export const DetailMyClassEmptyComponent = (props) => {
     const startOfWeek = new Date(startDate);
     startOfWeek.setDate(startDate.getDate() - startDate.getDay() + (startDate.getDay() === 0 ? 7 : 0));
 
+    // Assuming startOfWeek is a Date object representing the desired start date
     const weekDays = [];
     for (let i = 0; i < 7; i++) {
         const day = new Date(startOfWeek);
         day.setDate(startOfWeek.getDate() + i);
+        if (selectedDay >= startOfWeek.getDate()) {
+            day.setDate(day.getDate());
+
+        }else if (selectedDay <= startOfWeek.getDate()){
+            day.setDate(day.getDate() - 7);
+
+        }
+
         weekDays.push(day);
     }
 
@@ -61,32 +81,51 @@ export const DetailMyClassEmptyComponent = (props) => {
         setSelectedDate(clickedDay);
         setActiveIndex(index); // Set the active index
 
-        // Update URL parameters
-        const clickedYear = clickedDay.getFullYear();
-        const clickedMonth = clickedDay.getMonth() + 1; // Months are 0-based
+        const startOfWeekContainingClickedDay = new Date(clickedDay);
+        startOfWeekContainingClickedDay.setDate(
+            clickedDay.getDate() - clickedDay.getDay() + (clickedDay.getDay() === 0 ? 7 : 0)
+        );
+
         const clickedDayOfMonth = clickedDay.getDate();
+        const clickedMonth = clickedDay.getMonth() + 1; // Months are 0-based
+        const clickedYear = clickedDay.getFullYear();
 
         const newSearchParams = new URLSearchParams({
             start_day: clickedDayOfMonth.toString(),
-            month: clickedMonth.toString(),
-            year: clickedYear.toString(),
+            month: clickedMonth,
+            year: clickedYear,
         });
 
-        // Use the navigate function to update the URL
+        setSelectedDay(clickedDayOfMonth);
+        setSelectedMonth(clickedMonth);
+        setSelectedYear(clickedYear)
+
         newSearchParams.set('start_day', clickedDayOfMonth.toString());
         newSearchParams.set('month', clickedMonth.toString());
         newSearchParams.set('year', clickedYear.toString());
 
-        // Navigate to the updated URL
         navigate({
             search: newSearchParams.toString(),
         });
     };
 
 
-    const [selectedDay, setSelectedDay] = useState('');
-    const [selectedMonth, setSelectedMonth] = useState('');
-    const [selectedYear, setSelectedYear] = useState('');
+    const handleSaveButtonClick = () => {
+        const newSearchParams = new URLSearchParams({
+            start_day: selectedDay,
+            month: selectedMonth,
+            year: selectedYear,
+        });
+
+
+        newSearchParams.set('start_day', selectedDay.toString());
+        newSearchParams.set('month', selectedMonth.toString());
+        newSearchParams.set('year', selectedYear.toString());
+
+        navigate({
+            search: newSearchParams.toString(),
+        });
+    }
 
     const handleMonthChange = (event) => {
         const newSelectMonth = event.target.value;
@@ -97,14 +136,9 @@ export const DetailMyClassEmptyComponent = (props) => {
         window.history.pushState({} , '' ,url)
     };
 
-    // const currentMonth = today.toLocaleString('default', { month: 'short' }) // Index of the current day (0 - 6)
-    const currentDays = today.getDate() // Index of the current day (0 - 6)
-    const currentMonth = today.getMonth() + 1 // Index of the current day (0 - 6)
-    const currentYears = today.getFullYear(); // Index of the current day (0 - 6)
-
-    // useEffect(() => {
-    //     setSelectedMonth(currentMonth);
-    // } , [currentMonth])
+    const currentDays = today.getDate()
+    const currentMonth = today.getMonth() + 1
+    const currentYears = today.getFullYear();
 
     const handleYearChange = (event) => {
         const newSelectYear = event.target.value;
@@ -159,7 +193,6 @@ export const DetailMyClassEmptyComponent = (props) => {
 
                 e.target.classList.add("text-purple-600");
 
-                // Update the URL hash without triggering a full page reload
                 window.history.replaceState(null, null, `#${tabName}`);
             });
         });
@@ -203,9 +236,9 @@ export const DetailMyClassEmptyComponent = (props) => {
                                 <button className="w-2/12 bg-purple-500 hover:bg-purple-700 cursor-pointer" >
                                     <img className="my-auto w-full" style={{ height: "20px" }} src="/assets/copy-icon.svg" alt="Copy" />
                                 </button>
-                                <Link className="w-2/12 bg-white hover:bg-gray-50 cursor-pointer border border-purple-600">
+                                <button disabled className="w-2/12 bg-gray-100  cursor-pointer border border-purple-600">
                                     <img className="my-2 w-full" style={{ height: "20px" }} src="/assets/change-code.svg" alt="Change Code" />
-                                </Link>
+                                </button>
 
                             </div>
                             <div className="lg:w-10/12 w-11/12 lg:hidden block lg:shadow border-t border-b mx-auto my-6">
@@ -221,13 +254,13 @@ export const DetailMyClassEmptyComponent = (props) => {
                                     </div>
                                     <div className="flex gap-5  justify-between px-6 my-5">
                                         <label htmlFor="month_empty_l">Pilih Bulan : </label>
-                                        <select id="day_empty_l"  className="w-2/5" onChange={handleDayChange} value={selectedDay}>
+                                        <select id="month_empty_l"  className="w-2/5" onChange={handleDayChange} value={selectedDay}>
                                             <option value="" className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700" >Select</option>
                                         </select>
                                     </div>
                                     <div className="flex gap-5 justify-between  px-6 mb-6">
                                         <label htmlFor="year_empty_l">Pilih Tahun:</label>
-                                        <select id="day_empty_l"  className="w-2/5" onChange={handleDayChange} value={selectedDay}>
+                                        <select id="year_empty_l"  className="w-2/5" onChange={handleDayChange} value={selectedDay}>
                                             <option value="" className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700" >Select</option>
                                         </select>
                                     </div>
@@ -328,14 +361,63 @@ export const DetailMyClassEmptyComponent = (props) => {
                                             </div>
                                         </div>
                                     </div>
-                                    {/*<AbsentDetailMyClassHelper slug={slug} username={username} start_day={selectedDay} month={selectedMonth} year={selectedYear} userId={userId} />*/}
                                 </div>
-                                {/*<div id="tugas" className="hidden py-2 md:px-4 ">*/}
-                                {/*    <AssignmentDetailMyClassHelper slug={slug} username={username} userId={userId}  />*/}
-                                {/*</div>*/}
-                                {/*<div id="resource" className="hidden py-2 md:px-4 ">*/}
-                                {/*    <ResourceDetailMyClassHelper slug={slug} username={username} userId={userId}  />*/}
-                                {/*</div>*/}
+                                <div id="tugas" className="hidden py-2 md:px-4 ">
+                                    <div className="w-full pb-5">
+                                        <div className="mt-2">
+                                            <div className="flex sm:mx-6 md:mx-0 w-full pb-0  mb-2">
+                                                <div className="flex w-full justify-between">
+                                                    <div className="my-auto roboto font16-res-400" style={{ color:"#4f4f4f"}}>
+                                                        <h2 className="" style={{ fontWeight:"500"}}>List Tugas</h2>
+                                                    </div>
+                                                    <div className="relative">
+                                                        <button className="my-auto" >
+                                                            <div  className="px-1 py-2 bg-white hover:px-1 hover:bg-gray-100 radius-100 ">
+                                                                <div className="my-auto  mx-1 " style={{ height:"20px"}}>
+                                                                    <img className="h-full w-full" src="/assets/filter-icon.svg"/>
+                                                                </div>
+                                                            </div>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="md:py-8 sm:py-6 py-4">
+                                                <div className="flex items-center justify-center h-32 mb-2 mt-6 ">
+                                                    <div className="animate-spin rounded-full border-r-gray-50 border-l-gray-50  border-b-gray-50 w-8 h-8 md:h-10 md:w-10  border-t-4 border-purple-700"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="resource" className="hidden py-2 md:px-4 ">
+                                    <div className="w-full pb-5">
+                                        <div className="mt-2">
+                                            <div className="flex sm:mx-6 md:mx-0 w-full pb-0  mb-2">
+                                                <div className="flex w-full justify-between">
+                                                    <div className="my-auto roboto font16-res-400" style={{ color:"#4f4f4f"}}>
+                                                        <h2 className="" style={{ fontWeight:"500"}}>Resources List</h2>
+                                                    </div>
+                                                    <div className="relative">
+                                                        <button className="my-auto" >
+                                                            <div  className="px-1 py-2 bg-white hover:px-1 hover:bg-gray-100 radius-100 ">
+                                                                <div className="my-auto  mx-1 " style={{ height:"20px"}}>
+                                                                    <img className="h-full w-full" src="/assets/filter-icon.svg"/>
+                                                                </div>
+                                                            </div>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="md:py-8 sm:py-6 py-4">
+                                                <div className="flex items-center justify-center h-32 mb-2 mt-6 ">
+                                                    <div className="animate-spin rounded-full border-r-gray-50 border-l-gray-50  border-b-gray-50 w-8 h-8 md:h-10 md:w-10  border-t-4 border-purple-700"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/*<ResourceDetailMyClassHelper slug={slug} username={username} userId={userId}  />*/}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -354,9 +436,9 @@ export const DetailMyClassEmptyComponent = (props) => {
                                     <button className="w-2/12 bg-purple-500 hover:bg-purple-700 " >
                                         <img className="my-auto w-full" style={{ height: "20px" }} src="/assets/copy-icon.svg" alt="Copy" />
                                     </button>
-                                    <Link className="w-2/12 bg-white hover:bg-gray-50 border border-purple-600">
+                                    <button disabled className="w-2/12 bg-gray-100 border border-purple-600">
                                         <img className="my-2 w-full" style={{ height: "20px" }} src="/assets/change-code.svg" alt="Change Code" />
-                                    </Link>
+                                    </button>
 
 
                                 </div>

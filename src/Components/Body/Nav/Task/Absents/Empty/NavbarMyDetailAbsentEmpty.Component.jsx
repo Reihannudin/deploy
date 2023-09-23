@@ -1,13 +1,18 @@
-import {Link, useNavigate, useParams} from "react-router-dom";
+import {Link, useLocation, useNavigate, useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 
 export const NavbarMyDetailAbsentComponentEmpty = () => {
 
     const navigate = useNavigate();
+    const location = useLocation();
+    const { slug , class_id , id } = useParams();
+
+    const isDetailClassActive = location.pathname === `/view/${slug}/${class_id}/my/absent/${id}`
+    const isStudentActive = location.pathname === `/view/${slug}/${class_id}/my/absent/${id}/students`
+    const [dropAction , setDropAction] = useState(false);
 
     const [isMenuHidden , setIsMenuHidden] = useState(true);
 
-    const { id , class_id, slug } = useParams();
 
     const navigateBack = () => {
         navigate(-1)
@@ -44,13 +49,13 @@ export const NavbarMyDetailAbsentComponentEmpty = () => {
                             <div style={{ fontSize:"16px"}} className="font-medium font16-res-300 mt-1">
                                 <ul className="list-none gap-6 flex" style={{ fontWeight :"500"}}>
                                     <li className="pe-6 my-auto" style={{ borderRight:"1px solid #ebebeb"}}>
-                                        <Link  style={{ fontWeight:"500"}} className="roboto text-purple-400 my-0 relative cursor-pointer hover:text-purple-600 font" to={`/view/${slug}/${class_id}/my/absent/${id}`}>Absent
+                                        <Link  style={{ fontWeight:"500"}} className={` ${isDetailClassActive ? 'text-purple-600' : 'text-gray-400'}  my-0 relative cursor-pointer hover:text-purple-600 font`} to={`/view/${slug}/${class_id}/my/absent/${id}`}>Absent
                                             <div className="w-full mx-auto  absolute top-2 my-3  h-1 cursor-pointer hover:bg-purple-400  block hover:scale-x-50 transform origin-center  transition-transform duration-300">
                                             </div>
                                         </Link>
                                     </li>
                                     <li className="pe-6 my-auto" style={{ borderRight:"1px solid #ebebeb"}}>
-                                        <Link style={{ fontWeight:"500"}}  className="roboto text-purple-400 my-0 relative cursor-pointer hover:text-purple-600 font" to={`/view/${slug}/${class_id}/my/absent/${id}/students`}>Student
+                                        <Link style={{ fontWeight:"500"}}   className={` ${isStudentActive ? 'text-purple-600' : 'text-gray-400'}  my-0 relative cursor-pointer hover:text-purple-600 font`}  to={`/view/${slug}/${class_id}/my/absent/${id}/students`}>Student
                                             <div className="w-full mx-auto  absolute top-2 my-3  h-1 cursor-pointer hover:bg-purple-400  block hover:scale-x-50 transform origin-center  transition-transform duration-300">
                                             </div>
                                         </Link>
@@ -102,13 +107,13 @@ export const NavbarMyDetailAbsentComponentEmpty = () => {
                                           lg:pt-0"
                             >
                                 <li className="pt-8 pb-4">
-                                    <Link  className=" roboto text-purple-400  cursor-pointer hover:text-purple-600" to={`/view/${slug}/${class_id}/my/absent/${id}`}>Absent
+                                    <Link  className={` ${isDetailClassActive ? 'text-purple-600' : 'text-gray-400'}   text-purple-400  cursor-pointer hover:text-purple-600`} to={`/view/${slug}/${class_id}/my/absent/${id}`}>Absent
                                         <div className="w-1/12 mx-auto h-1 cursor-pointer hover:bg-purple-400  block hover:scale-x-50 transform origin-center  transition-transform duration-300">
                                         </div>
                                     </Link>
                                 </li>
                                 <li className="py-4">
-                                    <Link  className=" roboto text-purple-400  cursor-pointer hover:text-purple-600" to={`/view/${slug}/${class_id}/my/absent/${id}/students`}>Student
+                                    <Link   className={`   ${isStudentActive ? 'text-purple-600' : 'text-gray-400'}  cursor-pointer hover:text-purple-600`} to={`/view/${slug}/${class_id}/my/absent/${id}/students`}>Student
                                         <div className="w-1/12 mx-auto h-1 cursor-pointer hover:bg-purple-400  block hover:scale-x-50 transform origin-center  transition-transform duration-300">
                                         </div>
                                     </Link>

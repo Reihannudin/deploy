@@ -149,7 +149,6 @@ export const ClassCardComponent = ( props ) => {
 
     };
 
-
     return(
         <>
             <div key={props.id} className="bg-white shadow mx-auto border-radius-8"   style={{ maxWidth:"320px" }}>
@@ -238,7 +237,8 @@ export const ClassCardComponent = ( props ) => {
                                                                         ></button>
 
                                                                         <OutAlertComponent
-                                                                            type={"Kelas"}
+                                                                            type={"Keluar dari kelas "}
+                                                                            message={"Apakah anda yakin ingin keluar dari kelas ini"}
                                                                             name={props.name}
                                                                             onClose={() => setShowAlertDelete(false)} // Close the alert when using the custom alert's close button
                                                                             onSubmit={(event) => handleOutClass(event)}

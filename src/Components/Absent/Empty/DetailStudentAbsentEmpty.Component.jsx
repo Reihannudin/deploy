@@ -111,7 +111,7 @@ export const DetailStudentAbsentEmptyComponent = (props) => {
                             <div className="my-2 text-center py-1 border-none md:border-t">
                                 <p className="my-2 font16-res-400">URL Absensi</p>
                                 <div className="lg:w-10/12 md:w-8/12 w-10/12  bg-white flex  mx-auto border-radius-4" >
-                                    <input   className=" font16-res-400 py-2 px-3 bg-gray-100 w-10/12 animate-pulse " value={"/"}  onChange={() => {}} />
+                                    <input  disabled className=" font16-res-400 py-2 px-3 bg-gray-100 w-10/12 animate-pulse " value={""}  onChange={() => {}} />
                                     <button className="w-2/12 bg-purple-500 " >
                                         <img className="my-auto w-full " style={{ height:"20px"}} src="/assets/copy-icon.svg" />
                                     </button>
@@ -175,9 +175,9 @@ export const DetailStudentAbsentEmptyComponent = (props) => {
                         <ul className="pt-1 w-full block">
                                 <div className="my-20">
                                     <div className="flex items-center justify-center h-32 mb-2 mt-6 ">
-                                        <div className="animate-spin">
-                                            <img src="/assets/planet_gif-1.gif" className="h-20 w-20" alt="Loading" />
-                                        </div>
+                                        <div
+                                            className="animate-spin rounded-full border-r-gray-50 border-l-gray-50  border-b-gray-50  w-8 h-8 md:h-10 md:w-10 border-t-4 border-purple-700"></div>
+
                                     </div>
                                 </div>
 

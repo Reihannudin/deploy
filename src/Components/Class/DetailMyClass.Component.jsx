@@ -5,6 +5,7 @@ import CustomAlert from "../Helper/CustomAlert.Component";
 import {AssignmentDetailMyClassHelper} from "./Comps/AssignmentDetailMyClass.Helper";
 import {ResourceDetailMyClassHelper} from "./Comps/ResourceDetailMyClass.Helper";
 import AbsentDetailMyClassHelper from "./Comps/AbsentDetailMyClass.Helper";
+import api from "../../Config/api";
 
 const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
@@ -111,8 +112,6 @@ export const DetailMyClassComponent = (props) => {
     const currentDate = today.getDate();
     const currentDateMin7 = currentDate  / 2;
 
-    console.log("currentDay" , currentDay)
-    console.log("currentDate"  ,currentDate)
     useEffect(() => {
         // Check if selectedDay is empty or undefined
         if (!selectedDay) {
@@ -130,25 +129,11 @@ export const DetailMyClassComponent = (props) => {
     const startOfWeek = new Date(startDate);
     startOfWeek.setDate(startDate.getDate() - startDate.getDay() + (startDate.getDay() === 0 ? 7 : 0));
 
-    console.log("currentDate: " ,currentDateMin7)
     // Assuming startOfWeek is a Date object representing the desired start date
     const weekDays = [];
     for (let i = 0; i < 7; i++) {
         const day = new Date(startOfWeek);
         day.setDate(startOfWeek.getDate() + i);
-        // i = 0
-        console.log("i = " , i)
-
-        console.log("day : " , day)
-
-        console.log("startOfWeek + i = ", startOfWeek.getDate() + i * 2);
-        console.log("startOfWeek = ", startOfWeek.getDate());
-        console.log("selected day = ", selectedDay);
-
-        // console.log("is === " , selectedDay startOfWeek.getDate())
-        console.log("is < " , selectedDay  <= startOfWeek.getDate())
-        console.log("is > " , selectedDay >= startOfWeek.getDate())
-
         if (selectedDay >= startOfWeek.getDate()) {
             day.setDate(day.getDate());
 
@@ -224,8 +209,6 @@ export const DetailMyClassComponent = (props) => {
     }
 
 
-    console.log("this active : " , activeIndex);
-
     const handleMonthChange = (event) => {
         const newSelectMonth = event.target.value;
         setSelectedMonth(newSelectMonth)
@@ -266,6 +249,34 @@ export const DetailMyClassComponent = (props) => {
     };
 
 
+    let token = localStorage.getItem('auth_token');
+    const [redirectPath, setRedirectPath] = useState("/");
+    const [isLoading, setIsLoading] = useState(false);
+    const [error , setError] = useState('');
+
+    const handleUpdateClassCode = async (event) => {
+        event.preventDefault();
+
+        api
+            .post(`${slug}/update/classes/code/${id}` , {
+                "Content-Type" : "multipart/form-data" ,
+                "Authorization" : "Bearer " + token,
+            })
+            .then((response) => {
+                setIsLoading(false);
+                if (response.data.status === 201) {
+                    let redirectUrl = response.data.redirect_path;
+                    setRedirectPath(redirectUrl);
+                    navigate(`/view/my/class/${id}/${slug}`);
+                    window.location.reload(); // Refresh the page
+                }
+            })
+            .catch((error) => {
+                const { errors } = error.response.data;
+                setError(errors?.errors?.[0] || '');
+            });
+
+    };
 
 
     return(
@@ -298,10 +309,9 @@ export const DetailMyClassComponent = (props) => {
                                 <button className="w-2/12 bg-purple-500 hover:bg-purple-700 cursor-pointer" onClick={copyText}>
                                     <img className="my-auto w-full" style={{ height: "20px" }} src="/assets/copy-icon.svg" alt="Copy" />
                                 </button>
-                                <Link className="w-2/12 bg-white hover:bg-gray-50 cursor-pointer border border-purple-600">
+                                <button onClick={handleUpdateClassCode} className="w-2/12 bg-white hover:bg-gray-50 cursor-pointer border border-purple-600">
                                     <img className="my-2 w-full" style={{ height: "20px" }} src="/assets/change-code.svg" alt="Change Code" />
-                                </Link>
-
+                                </button>
                             </div>
                             <div className="lg:w-10/12 w-11/12 lg:hidden block lg:shadow border-t border-b mx-auto my-6">
                                 <div className="pt-5  font16-res-400 text-left mx-5">
@@ -439,11 +449,9 @@ export const DetailMyClassComponent = (props) => {
                                     <button className="w-2/12 bg-purple-500 hover:bg-purple-700 " onClick={copyText}>
                                         <img className="my-auto w-full" style={{ height: "20px" }} src="/assets/copy-icon.svg" alt="Copy" />
                                     </button>
-                                    <Link className="w-2/12 bg-white hover:bg-gray-50 border border-purple-600">
+                                    <button onClick={handleUpdateClassCode} className="w-2/12 bg-white hover:bg-gray-50 border border-purple-600">
                                         <img className="my-2 w-full" style={{ height: "20px" }} src="/assets/change-code.svg" alt="Change Code" />
-                                    </Link>
-
-
+                                    </button>
                                 </div>
                             </div>
 

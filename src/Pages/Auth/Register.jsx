@@ -2,6 +2,7 @@ import { RegisterCardComponent } from "../../Components/Auth/Card/RegisterCard.C
 import React, { useEffect, useState } from "react";
 import { redirect, useNavigate, useSearchParams } from "react-router-dom";
 import api from "../../Config/api";
+import LoadingComponent from "../../Components/Helper/Loading.Component";
 
 function Register() {
     const navigate = useNavigate();
@@ -92,14 +93,10 @@ function Register() {
             {isLoading && (
                 <div className="fixed gap-2 inset-0 flex items-center justify-center bg-white opacity-100">
                 {/*<div className="absolute gap-2 inset-0 flex items-center h-full justify-center bg-white opacity-100">*/}
-                    <div className="bg-white py-2 ">
-                        <div className="spinner">
-                            <img src="/assets/planet.svg" style={{ height:"30px"}} alt="Loading..." />
-                        </div>
-                    </div>
-                    <div className="py-3">
-                        <p className="text-purple-600 font16-res-400"> Loading...</p>
-                    </div>
+
+                    <div
+                        className="animate-spin rounded-full border-r-gray-50 border-l-gray-50  border-b-gray-50  w-8 h-8 md:h-10 md:w-10 border-t-4 border-purple-700"></div>
+
                 </div>
             )}
 

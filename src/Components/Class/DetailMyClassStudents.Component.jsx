@@ -4,6 +4,7 @@ import {StudentCardComponent} from "../Classmate/Card/StudentCard.Component";
 import {TaskClassCardComponent} from "./Card/TaskClassCard.Component";
 import {MyDetailClassNavComponent} from "../Body/MainNav/MyDetailClassNav.Component";
 import CustomAlert from "../Helper/CustomAlert.Component";
+import api from "../../Config/api";
 
 const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
@@ -64,7 +65,6 @@ export const DetailMyClassStudentsComponent = (props) => {
     const [selectedDate, setSelectedDate] = useState(startDate);
     const [activeIndex, setActiveIndex] = useState(0);
 
-    console.log("current day : " , currentDay)
 
     useEffect(() => {
         if (startDay && month && year) {
@@ -76,83 +76,54 @@ export const DetailMyClassStudentsComponent = (props) => {
         }
     }, [queryParams]);
 
-    console.log(activeIndex)
-
-    const handleDayClick = (clickedDay, index) => {
-        setSelectedDate(clickedDay);
-        setActiveIndex(index); // Set the active index
-
-        // Update URL parameters
-        const clickedYear = clickedDay.getFullYear();
-        const clickedMonth = clickedDay.getMonth() + 1; // Months are 0-based
-        const clickedDayOfMonth = clickedDay.getDate();
-
-        const newSearchParams = new URLSearchParams({
-            start_day: clickedDayOfMonth.toString(),
-            month: clickedMonth.toString(),
-            year: clickedYear.toString(),
-        });
-
-        // Use the navigate function to update the URL
-        newSearchParams.set('start_day', clickedDayOfMonth.toString());
-        newSearchParams.set('month', clickedMonth.toString());
-        newSearchParams.set('year', clickedYear.toString());
-
-        // Navigate to the updated URL
-        navigate({
-            search: newSearchParams.toString(),
-        });
-    };
 
 
-    const [selectedDay, setSelectedDay] = useState('');
-    const [selectedMonth, setSelectedMonth] = useState('');
-    const [selectedYear, setSelectedYear] = useState('');
+    let token = localStorage.getItem('auth_token');
+    const [redirectPath, setRedirectPath] = useState("/");
+    const [isLoading, setIsLoading] = useState(false);
+    const [error , setError] = useState('');
 
-    const handleMonthChange = (event) => {
-        const newSelectMonth = event.target.value;
-        setSelectedMonth(newSelectMonth)
+    const handleUpdateClassCode = async (event) => {
+        event.preventDefault();
 
-        const url = new URL(window.location);
-        url.searchParams.set('month' , newSelectMonth);
-        window.history.pushState({} , '' ,url)
-    };
+        api
+            .post(`${slug}/update/classes/code/${id}` , {
+                "Content-Type" : "multipart/form-data" ,
+                "Authorization" : "Bearer " + token,
+            })
+            .then((response) => {
+                setIsLoading(false);
+                if (response.data.status === 201) {
+                    let redirectUrl = response.data.redirect_path;
+                    setRedirectPath(redirectUrl);
+                    navigate(`/view/my/class/${id}/${slug}`);
+                    window.location.reload(); // Refresh the page
+                }
+                // else if (response.data.status === 406) {
+                //     if (response.data.errors.message === "Absent tidak ditemukan") {
+                //         let redirectUrl = response.data.redirect_path;
+                //         setRedirectPath(redirectUrl);
+                //         setError(response.data.errors.message);
+                //         navigate(redirectUrl);
+                //     } else  if (response.data.errors.message === "Anda Bukan Pengajar di kelas ini") {
+                //         let redirectUrl = response.data.redirect_path;
+                //         setRedirectPath(redirectUrl);
+                //         setError(response.data.errors.message);
+                //         navigate(redirectUrl);
+                //     } else  if (response.data.errors.message === "Pengguna tidak ditemukan") {
+                //         let redirectUrl = response.data.redirect_path;
+                //         setRedirectPath(redirectUrl);
+                //         setError(response.data.errors.message);
+                //         navigate(redirectUrl);
+                //     }
+                // }
 
-    // const currentMonth = today.toLocaleString('default', { month: 'short' }) // Index of the current day (0 - 6)
-    const currentDays = today.getDate() // Index of the current day (0 - 6)
-    const currentMonth = today.getMonth() + 1 // Index of the current day (0 - 6)
-    const currentYears = today.getFullYear(); // Index of the current day (0 - 6)
-    console.log( "current month : " ,currentMonth)
-    console.log( "current years : " ,currentYears)
-    //
-    // useEffect(() => {
-    //     setSelectedMonth(currentMonth);
-    // } , [currentMonth])
+            })
+            .catch((error) => {
+                const { errors } = error.response.data;
+                setError(errors?.errors?.[0] || '');
+            });
 
-    const handleYearChange = (event) => {
-        const newSelectYear = event.target.value;
-        setSelectedYear(newSelectYear)
-
-        const url = new URL(window.location);
-        url.searchParams.set('year' , newSelectYear);
-        window.history.pushState({} , '' ,url)
-    };
-
-    const handleDayChange = (event) => {
-        const newSelectDay = event.target.value;
-        setSelectedDay(newSelectDay)
-
-        const url = new URL(window.location);
-        url.searchParams.set('start_day' , newSelectDay);
-        window.history.pushState({} , '' ,url)
-    };
-
-    const generateDaysOptions = () => {
-        const daysOptions = [];
-        for (let day = 1; day <= 31; day++) {
-            daysOptions.push(<option key={day} value={day}>{day}</option>);
-        }
-        return daysOptions;
     };
 
 
@@ -189,9 +160,9 @@ export const DetailMyClassStudentsComponent = (props) => {
                                     <button className="w-2/12 bg-purple-500" onClick={copyText}>
                                         <img className="my-auto w-full" style={{ height: "20px" }} src="/assets/copy-icon.svg" alt="Copy" />
                                     </button>
-                                    <Link className="w-2/12 bg-white border border-purple-600">
+                                    <button onClick={handleUpdateClassCode} className="w-2/12 bg-white hover:bg-gray-50 cursor-pointer border border-purple-600">
                                         <img className="my-2 w-full" style={{ height: "20px" }} src="/assets/change-code.svg" alt="Change Code" />
-                                    </Link>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -214,9 +185,10 @@ export const DetailMyClassStudentsComponent = (props) => {
                                 ): (
                                     <div className="">
                                         {props.students.map((item) => {
+                                            console.log(students)
                                             return(
                                                 <li className="my-2" key={item.id}>
-                                                    <StudentCardComponent name={item.name} username={item.username} />
+                                                    <StudentCardComponent name={item.name} image={item.image} username={item.username} />
                                                 </li>
                                             )
                                         })}
@@ -239,9 +211,9 @@ export const DetailMyClassStudentsComponent = (props) => {
                                     <button className="w-2/12 bg-purple-500" onClick={copyText}>
                                         <img className="my-auto w-full" style={{ height: "20px" }} src="/assets/copy-icon.svg" alt="Copy" />
                                     </button>
-                                    <Link className="w-2/12 bg-white border border-purple-600">
+                                    <button onClick={handleUpdateClassCode} className="w-2/12 bg-white hover:bg-gray-50 border border-purple-600">
                                         <img className="my-2 w-full" style={{ height: "20px" }} src="/assets/change-code.svg" alt="Change Code" />
-                                    </Link>
+                                    </button>
                                 </div>
                             </div>
 

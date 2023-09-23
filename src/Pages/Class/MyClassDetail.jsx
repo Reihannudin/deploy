@@ -7,6 +7,7 @@ import { DetailMyClassEmptyComponent } from "../../Components/Class/Empty/Detail
 import { DetailMyClassComponent } from "../../Components/Class/DetailMyClass.Component";
 
 function MyClassDetail() {
+
     const [user, setUser] = useState([]);
     const [isFetching, setIsFetching] = useState(true);
     const [classes, setClasses] = useState([]);

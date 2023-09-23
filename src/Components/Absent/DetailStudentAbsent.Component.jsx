@@ -72,31 +72,27 @@ export const DetailStudentAbsentComponent = (props) => {
 
     const token = localStorage.getItem('auth_token');
 
+    console.log(`/${slug}/absent/${id}/show/action/user?filter=${filterStudent}`);
+    console.log(`/${filterStudent}`);
+
     useEffect(() => {
         let isMounted = true;
-
         const fetchData = async () => {
             try {
                 if (!isDataFetchedStudent) {
-                    const response = await axios.get(
-                        `http://127.0.0.1:8000/api/${slug}/absent/${id}/show/action/user?filter=${filterStudent}`,
-                        {
-                            headers: {
-                                'Authorization': `Bearer ${token}`,
-                            },
-                        }
-                    );
-                    const data = response.data;
+                    const response = await api.get(`/${slug}/absent/${id}/show/action/user?filter=${filterStudent}`);
+                    await new Promise((resolve) => setTimeout(resolve, 1500));
 
+                    const data = response.data;
                     if (isMounted) {
                         setStudent(data);
                         setIsDataFetchedStudent(true);
-                        setIsFetchingStudent(false);
                     }
                 }
+                setIsFetchingStudent(false);
             } catch (error) {
                 if (isMounted) {
-                    setErrorStudent(error);
+                    setErrorStudent(error); // Update the errorStudent state variable
                     setIsFetchingStudent(false);
                 }
             }
@@ -105,20 +101,20 @@ export const DetailStudentAbsentComponent = (props) => {
         const timeout = setTimeout(() => {
             if (isFetchingStudent) {
                 if (isMounted) {
-                    setErrorStudent(new Error("Timeout: Could not fetch data."));
+                    setErrorStudent(new Error("Timeout: Could not fetch data.")); // Update the errorStudent state variable
                     setIsFetchingStudent(false);
                 }
             }
         }, 20000);
 
-        fetchData();
+        fetchData(); // Fetch data when the component mounts or when filterStudent changes
 
         return () => {
             isMounted = false;
             clearTimeout(timeout);
         };
-    },
-        [slug, id, filterStudent, token, isDataFetchedStudent]);
+    }, [slug, student , id, filterStudent, isDataFetchedStudent]); // Include filterStudent in the dependency array
+
 
     const [isDropdownFilterStudent, setIsDropdownFilterStudent] = useState(true);
 
@@ -432,7 +428,6 @@ export const DetailStudentAbsentComponent = (props) => {
                                         </div>
 
                                     </div>
-
                                 )}
 
                             </div>
@@ -448,6 +443,7 @@ export const DetailStudentAbsentComponent = (props) => {
                             ):(
                                 <div>
                                     {student.map((item) => {
+                                        console.log(item)
                                         return(
                                             <li key={item.id} className="">
                                                 {item.action === 0 ? (
@@ -459,7 +455,7 @@ export const DetailStudentAbsentComponent = (props) => {
                                                     </div>
                                                 ) : (
                                                     <div>
-                                                        <DetailStudentAbsentCardComponent id={item.id} confirmation_status={item.absent_confirmation} student={item.name} status={item.status} absent_time={item.absent_time} />
+                                                        <DetailStudentAbsentCardComponent id={item.id} image={item.image} name={item.name} absent_date={item.absent_date} absent_name={item.absent_name} status_absent={item.absent_status}  action={item.action} reason={item.reason} absent_time={item.absent_time} absent_deadline={item.absent_deadline}   confirmation_status={item.absent_confirmation} student={item.name} status={item.status} />
                                                     </div>
                                                 )}
                                             </li>

@@ -72,12 +72,6 @@ export const EditAbsentComponent = (props) => {
         setPasswordChecked(!passwordChecked);
     };
 
-    // console.log("face recognation : " , faceRecognitionChecked)
-    // console.log("password : " , passwordChecked)
-    // console.log("face recognation props : " , props.use_face_recog )
-    // console.log("password props : " ,props.use_password)
-
-
 
     const navigate = useNavigate();
     const [redirectUrl, setRedirectUrl] = useState('');
@@ -107,11 +101,7 @@ export const EditAbsentComponent = (props) => {
                 "Authorization" : "Bearer " + token,
             })
             .then((response) => {
-                console.log("response data" , response)
-                console.log(response.data);
-                console.log("its 201 :"  ,response.data.status === 201);
-                console.log("response redirect"  ,response.data.redirect_path)
-                setIsLoading(false); // Stop loading indicator
+               setIsLoading(false); // Stop loading indicator
                 if (response.data.status === 201) {
                     let redirectUrl = response.data.redirect_path;
                     setErrorName('');
@@ -207,7 +197,6 @@ export const EditAbsentComponent = (props) => {
 
             })
             .catch((error) => {
-                console.log("error" , error)
                 setIsLoading(false); // Stop loading indicator
                 const { errors } = error.response.data;
                 setErrorName(errors?.name?.[0] || '');

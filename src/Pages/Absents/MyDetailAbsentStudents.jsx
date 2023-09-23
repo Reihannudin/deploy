@@ -148,7 +148,6 @@ function MyDetailAbsentStudents () {
                                 <div id="student" className=" p-4">
                                     <div className="xl:w-10/12 lg:w-11/12 md:w-10/12 w-full mx-auto  md:pt-16  pt-16">
                                         <DetailStudentAbsentEmptyComponent />
-
                                     </div>
                                 </div>
 

@@ -50,10 +50,6 @@ export const TaskMyClassCardComponent = (props) => {
 
     const navigate = useNavigate();
 
-
-    console.log(isDropdownMenu)
-
-
     // Copy Assignment
     const urlAssignment = window.location.href;
 
@@ -93,7 +89,6 @@ export const TaskMyClassCardComponent = (props) => {
         }
     }, [error, navigate]);
 
-    console.log("type = " , props.type)
 
     return(
         <>

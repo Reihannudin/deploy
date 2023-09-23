@@ -57,6 +57,7 @@ export const Protected = () => {
 
 
       {/*class Page*/}
+        <Route path="/" element={<Main />} />
       <Route path="/join/class" element={<JoinClass />} /> {/* Done */}
       <Route path="/create/class" element={<CreateClass />} /> {/* Done */}
       <Route path="/edit/my/class/:id/:slug" element={<EditMyClass />} /> {/* Done */}
@@ -84,7 +85,6 @@ export const Protected = () => {
       <Route path="/feed/notification" element={<FeedNotification />} />
       <Route path="/feed/search" element={<FeedSearch />} />
 
-      <Route path="/" element={<Main />} />
       <Route path="/profile" element={<MyProfile />} />
 
 
