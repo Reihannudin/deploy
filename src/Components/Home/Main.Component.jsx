@@ -78,7 +78,7 @@ export const MainComponent = ({user}) => {
     const hashFragment = window.location.hash;
     const hashWithoutHash = hashFragment ? hashFragment.substring(1) : "kelas";
 
-    console.log(liveTask.length);
+    // console.log(liveTask.length);
 
     const handleTabClick = (e, tabName) => {
         e.preventDefault();
@@ -131,7 +131,7 @@ export const MainComponent = ({user}) => {
         };
     }, []);
 
-    console.log("lenght" ,liveTask.length)
+    // console.log("lenght" ,liveTask.length)
 
     return(
         <>
@@ -219,17 +219,22 @@ export const MainComponent = ({user}) => {
                                         <>
                                             {isFetching && (
                                                 // Display loading state with animate pulse
-                                                <div className="flex items-center justify-center h-96 md:mt-6 mt-20">
-                                                    <div className="animate-spin">
-                                                        <img src="/assets/planet_gif-1.gif" className="h-20 w-20" alt="Loading" />
-                                                    </div>
+                                                // <div className="flex items-center justify-center h-96 md:mt-6 mt-20">
+                                                //     <div className="animate-spin">
+                                                //         <img src="/assets/planet_gif-1.gif" className="h-20 w-20" alt="Loading" />
+                                                //     </div>
+                                                // </div>
+                                                <div className="flex items-center justify-center  h-96 md:mt-6 mt-20">
+                                                    <div
+                                                        className="animate-spin rounded-full border-r-gray-50 border-l-gray-50  border-b-gray-50  w-8 h-8 md:h-10 md:w-10 border-t-4 border-purple-700"></div>
                                                 </div>
+
                                             )}
                                             {!isFetching && (
                                                 // Display the list of classes
                                                 <ul className="sm:gap-3  md:gap-6 lg:gap-3 gap-2 md:my-6 my-4 flex flex-wrap">
-                                                    {classes.map((item) => (
-                                                        <li key={item.id} className="grid-class-card-flex sm:w-1/2 md:w-1/2 lg:w-1/3 xl:w-1/5">
+                                                    {classes.map((item , index) => (
+                                                        <li key={index} className="grid-class-card-flex sm:w-1/2 md:w-1/2 lg:w-1/3 xl:w-1/5">
                                                             <ClassCardComponent id={item.id} name={item.name} slug={item.slug} teacher={item.teacher} />
                                                         </li>
                                                     ))}
@@ -258,21 +263,20 @@ export const MainComponent = ({user}) => {
                                     ) : (
                                         <>
                                             {isFetchingTask && !isDataTaskFetched && (
-                                                <div className="flex items-center justify-center h-96 md:mt-6 mt-20">
-                                                    <div className="animate-spin">
-                                                        <img src="/assets/planet_gif-1.gif" className="h-20 w-20" alt="Loading" />
-                                                    </div>
+                                                <div className="flex items-center justify-center  h-96 md:mt-6 mt-20">
+                                                    <div
+                                                        className="animate-spin rounded-full border-r-gray-50 border-l-gray-50  border-b-gray-50  w-8 h-8 md:h-16 md:w-16 border-t-4 border-purple-700"></div>
                                                 </div>
+
                                             )}
 
                                             {!isFetchingTask && isDataTaskFetched && (
                                                 // Render your live task items here
                                                 <ul className="sm:gap-3  md:gap-6 lg:gap-3 gap-2 md:my-6 my-4 flex flex-wrap">
-                                                    {liveTask.map((item) => {
-                                                        console.log("task item " , item)
-
+                                                    {liveTask.map((item , index) => {
+                                                        // console.log("task item " , item)
                                                         return(
-                                                            <>
+                                                            <div key={index}>
                                                                 {item.absent.length === 0 && item.assignment.length === 0 ? (
                                                                     <div key={item.id} className="absolute lg:top-2/4 top-1/3  left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                                                                         <div className="md:py-8 py-2">
@@ -299,7 +303,7 @@ export const MainComponent = ({user}) => {
                                                                 )
                                                                 }
 
-                                                            </>
+                                                            </div>
 
                                                         )
                                                     }

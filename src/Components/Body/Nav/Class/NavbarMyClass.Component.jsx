@@ -1,4 +1,4 @@
-import {Link, useNavigate, useParams} from "react-router-dom";
+import {Link, useLocation, useNavigate, useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 
 
@@ -6,28 +6,37 @@ export const NavbarMyClassComponent = (props) => {
 
     const { id, slug } = useParams();
 
-    const [isMenuHidden , setIsMenuHidden] = useState(true);
-    const [isDropdownHidden  , setIsDropdownHidden] = useState(true);
-    const [isDropdownHiddenCreate , setIsDropdownHiddenCreate] = useState(true);
+    const [isMenuHidden, setIsMenuHidden] = useState(true);
+    const [isDropdownHidden, setIsDropdownHidden] = useState(true);
+    const [isDropdownHiddenCreate, setIsDropdownHiddenCreate] = useState(true);
+
+    const location = useLocation();
+
+    const isDetailClassActive = location.pathname === `/view/my/class/${id}/${slug}`
+    const isStudentActive = location.pathname === `/view/my/class/${id}/${slug}/students`
+    const [dropAction , setDropAction] = useState(false);
 
     const toggleMenu = () => {
         setIsMenuHidden((prevHidden) => !prevHidden);
-    }
+    };
 
     const toggleDropdown = () => {
-        setIsDropdownHidden((prevHidden) => ! prevHidden);
-    }
+        setIsDropdownHidden((prevHidden) => !prevHidden);
+    };
+
     const handleDropdownProfile = () => {
         // Close the dropdown when an item is clicked
         setIsDropdownHidden(true);
     };
 
     const toggleDropdownCreate = () => {
-        setIsDropdownHiddenCreate((prevHidden) => ! prevHidden);
-    }
-    const handleDropdownCreate = () => [
-        setIsDropdownHiddenCreate(true)
-    ]
+        setIsDropdownHiddenCreate((prevHidden) => !prevHidden);
+    };
+
+    const handleDropdownCreate = () => {
+        setIsDropdownHiddenCreate(true);
+    };
+
 
     const classname = slug.replace(/_/g, ' ').toUpperCase();
 
@@ -50,6 +59,11 @@ export const NavbarMyClassComponent = (props) => {
     const propsName = props.name.length;
     const truncatedName = propsName > 12 ? `${props.name.slice(0, 20)}...` : props.name;
 
+    const navigate = useNavigate();
+
+    const navigateBack = () => {
+        navigate(-1);
+    };
 
     return(
         <>
@@ -73,11 +87,11 @@ export const NavbarMyClassComponent = (props) => {
                         >
                             <div className="w-full justify-between flex">
                                 <div className="flex my-auto mt-1 gap-4">
-                                    <Link to={`/my/class`}>
+                                    <button onClick={navigateBack}>
                                         <div className="my-3" style={{ height:"24px"}}>
                                             <img className="h-full" src="/assets/arrow-back.svg"/>
                                         </div>
-                                    </Link>
+                                    </button>
                                     <div className="my-0.5 text-left  text-purple-700" >
                                         <h4 className="my-2 font16-res-400" >{window.innerWidth > 465 ? props.name : truncatedName}</h4>
                                     </div>
@@ -89,13 +103,13 @@ export const NavbarMyClassComponent = (props) => {
                                             <div  className="font-medium mt-1">
                                                 <ul className="list-none gap-6 font16-res-300 flex" style={{ fontWeight :"500"}}>
                                                     <li className="pe-6 my-auto" style={{ borderRight:"1px solid #ebebeb"}}>
-                                                        <Link  style={{ fontWeight:"500"}} className=" text-gray-400 my-0 relative cursor-pointer hover:text-purple-600 font" to={`/view/my/class/${id}/${slug}`}>Kelas
+                                                        <Link  style={{ fontWeight:"500"}} className={` text-gray-400 my-0 relative cursor-pointer ${isDetailClassActive ? 'text-purple-600' : 'text-gray-400'} hover:text-purple-600 font`} to={`/view/my/class/${id}/${slug}`}>Kelas
                                                             <div className="w-full mx-auto  absolute top-2 my-3  h-1 cursor-pointer hover:bg-purple-400  block hover:scale-x-50 transform origin-center  transition-transform duration-300">
                                                             </div>
                                                         </Link>
                                                     </li>
                                                     <li className="pe-6 my-auto" style={{ borderRight:"1px solid #ebebeb"}}>
-                                                        <Link style={{ fontWeight:"500"}}  className=" text-gray-400 my-0 relative cursor-pointer hover:text-purple-600 font"  to={`/view/my/class/${id}/${slug}/students`} >Students
+                                                        <Link style={{ fontWeight:"500"}}   className={` text-gray-400 my-0 relative cursor-pointer ${isStudentActive ? 'text-purple-600' : 'text-gray-400'} hover:text-purple-600 font`} to={`/view/my/class/${id}/${slug}/students`} >Murid
                                                             <div className="w-full mx-auto  absolute top-2 my-3  h-1 cursor-pointer hover:bg-purple-400  block hover:scale-x-50 transform origin-center  transition-transform duration-300">
                                                             </div>
                                                         </Link>
@@ -231,8 +245,9 @@ export const NavbarMyClassComponent = (props) => {
                         </nav>
                     </header>
                 </div>
-                <div  id="menu" className={`h-full md:block hidden menu ${isMenuHidden ? 'hidden' : ''}`} >
-                    <div className=" h-full w-full bg-white border-b ">
+                <div  id="menu" className="h-full md:block hidden " >
+                {/*<div id="menu" className={`h-full md:block  menu ${isMenuHidden ? 'hidden' : ''}`}>*/}
+                    <div className={`h-full w-full  ${isMenuHidden ? 'hidden': 'block'} bg-white border-b `}>
                         <div className="lg:hidden lg:w-full relative flex items-center w-auto sm:flex sm:items-center sm:w-auto md:flex md:items-center md:w-auto">
                             <ul
                                 className="
@@ -246,13 +261,13 @@ export const NavbarMyClassComponent = (props) => {
                                           lg:pt-0"
                             >
                                 <li className="pt-8 pb-4">
-                                    <Link to={`/view/my/class/${id}/${slug}`} className=" text-purple-400  cursor-pointer hover:text-purple-600" href="#">Kelas
+                                    <Link to={`/view/my/class/${id}/${slug}`} className={ ` cursor-pointer hover:text-purple-600  ${isDetailClassActive? 'text-purple-600' : 'text-gray-400'}`} href="#">Kelas
                                         <div className="w-1/12 mx-auto h-1 cursor-pointer hover:bg-purple-400  block hover:scale-x-50 transform origin-center  transition-transform duration-300">
                                         </div>
                                     </Link>
                                 </li>
                                 <li className="pb-6 pt-4">
-                                    <Link to={`/view/my/class/${id}/${slug}/students`} className="  text-purple-400  cursor-pointer hover:text-purple-600 " href="#">Students
+                                    <Link to={`/view/my/class/${id}/${slug}/students`} className={ `  cursor-pointer hover:text-purple-600  ${isStudentActive? 'text-purple-600' : 'text-gray-400'}`} href="#">Murid
                                         <div className="w-1/12 mx-auto h-1 cursor-pointer hover:bg-purple-400  block hover:scale-x-50 transform origin-center  transition-transform duration-300">
                                         </div>
                                     </Link>

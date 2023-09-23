@@ -116,10 +116,6 @@ function EditMyAbsent(){
         };
     }, [absents]);
 
-    console.log(isFetchingAbsent);
-    console.log(isDataFetchedAbsent);
-
-
     return(
         <>
             {isFetchingAbsent ? (

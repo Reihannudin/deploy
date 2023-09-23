@@ -18,11 +18,11 @@ export const NavbarEditResourceEmptyComponent = () => {
                 <header className="sm:w-10/12 w-11/12 py-1  mx-auto">
                     <div className="flex justify-between gap-4">
                         <div className="flex gap-4">
-                            <Link className="my-auto" to={`http://localhost:3000/view/my/class/${class_id}/${slug}`}>
+                            <button className="my-auto" onClick={navigateBack}>
                                 <div style={{ height:"24px"}}>
                                     <img className="h-full" src="/assets/arrow-back.svg"/>
                                 </div>
-                            </Link>
+                            </button>
                             <div className="my-2 text-left" >
                                 <h4 className="font16-res-400 bg-gray-200 py-2 mb-2 w-40 animate-pulse"></h4>
                                 <p className="font14-res-300 text-purple-700 bg-gray-200 w-36 py-1 mt-3 mb-1 animate-pulse" ></p>

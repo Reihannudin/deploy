@@ -19,19 +19,18 @@ export  const DeleteAlertComponent = ({ type ,  name , onClose , onSubmit}) => {
                     ref={alertContentRef}
                     style={{ maxHeight: '80vh', overflowY: 'auto' }}
                 >
-                    <p className="font15-res-300">Apakah anda yakin akan ingin menghapus {type} : {name}?</p>
-                    <p className="font13-res-300 border-t border-gray-50 text-gray-500 mt-2 ">Perhatikan : Anda tidak bisa mengembalikan {type}, sesaat setelah menghapus!</p>
+                    <p className="font15-res-300 mb-6">Apakah anda yakin akan ingin menghapus {type} : {name}?</p>
                 </div>
                 <div className="flex mt-3 mb-1 lg:pt-6 mx-auto font14-res-300 justify-between">
                     <button
                         onClick={onClose}
-                        className="block mt-2 px-3 me-auto w-5/12  bg-purple-500 py-2 text-white   hover:bg-purple-700 dark:hover:bg-gray-700 hover:text-white dark:hover:text-white rounded-md"
+                        className="block mt-2 px-3 me-auto w-5/12  bg-purple-500 py-2 text-white   hover:bg-purple-700 dark:hover:bg-gray-700 hover:text-white dark:hover:text-white border-radius-4"
                     >
                         Kembali
                     </button>
                     <button
                         onClick={onSubmit}
-                        className="block mt-2  border border-gray-200  w-5/12 ms-auto px-3 py-2 text-purple-700 bg-white dark:bg-gray-600 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-purple-800 dark:hover:text-white rounded-md"
+                        className="block mt-2  border border-gray-200  w-5/12 ms-auto px-3 py-2 text-purple-700 bg-white dark:bg-gray-600 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-purple-800 dark:hover:text-white border-radius-4"
                     >
                         Hapus
                     </button>

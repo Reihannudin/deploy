@@ -57,11 +57,16 @@ export const Protected = () => {
 
 
       {/*class Page*/}
+        <Route path="/" element={<Main />} />
       <Route path="/join/class" element={<JoinClass />} /> {/* Done */}
       <Route path="/create/class" element={<CreateClass />} /> {/* Done */}
       <Route path="/edit/my/class/:id/:slug" element={<EditMyClass />} /> {/* Done */}
+        <Route path="/my/class" element={<MyClass />} /> {/* Done */}
       <Route path="/view/my/class/:id/:slug" element={<MyClassDetail />} /> {/* Done */}
       <Route path="/view/my/class/:id/:slug/students" element={<MyClassStudent />}/> {/* Done */}
+
+      <Route path="/view/class/:id/:slug" element={<DetailClass />} />
+
 
       <Route path="/class/:id/:slug/create/absent" element={<CreateAbsent />} /> {/* Done */}
       <Route path="/class/:slug/:class_id/edit/absent/:id" element={<EditMyAbsent />}/> {/* Done */}
@@ -80,11 +85,8 @@ export const Protected = () => {
       <Route path="/feed/notification" element={<FeedNotification />} />
       <Route path="/feed/search" element={<FeedSearch />} />
 
-      <Route path="/" element={<Main />} />
-      <Route path="/my/class" element={<MyClass />} /> {/* Done */}
       <Route path="/profile" element={<MyProfile />} />
 
-      <Route path="/view/class/:id/:slug" element={<DetailClass />} />
 
 
       {/*absent Page*/}

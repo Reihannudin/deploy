@@ -1,16 +1,11 @@
 import React, {useEffect, useRef, useState} from "react";
 import {Link, useLocation, useNavigate, useParams, useSearchParams} from "react-router-dom";
-import axios from "axios";
-import {TaskMyClassCardComponent} from "./Card/TaskMyClassCard.Component";
-import {TaskClassCardComponent} from "./Card/TaskClassCard.Component";
-import {ClassmateCardComponent} from "../Classmate/Card/ClassmateCard.Component";
-import {MainNavComponent} from "../Body/MainNav/MainNav.Component";
 import {MyDetailClassNavComponent} from "../Body/MainNav/MyDetailClassNav.Component";
-import api from "../../Config/api";
 import CustomAlert from "../Helper/CustomAlert.Component";
 import {AssignmentDetailMyClassHelper} from "./Comps/AssignmentDetailMyClass.Helper";
 import {ResourceDetailMyClassHelper} from "./Comps/ResourceDetailMyClass.Helper";
 import AbsentDetailMyClassHelper from "./Comps/AbsentDetailMyClass.Helper";
+import api from "../../Config/api";
 
 const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
@@ -113,12 +108,10 @@ export const DetailMyClassComponent = (props) => {
     ];
 
     const today = new Date();
-    const currentDay = today.getDay(); // Index of the current day (0 - 6)
-    const currentDate = today.getDate(); // Index of the current day (0 - 6)
-    const currentDateMin7 = currentDate  / 2; // Index of the current day (0 - 6)
+    const currentDay = today.getDay();
+    const currentDate = today.getDate();
+    const currentDateMin7 = currentDate  / 2;
 
-    console.log("currentDay" , currentDay)
-    console.log("currentDate"  ,currentDate)
     useEffect(() => {
         // Check if selectedDay is empty or undefined
         if (!selectedDay) {
@@ -136,52 +129,21 @@ export const DetailMyClassComponent = (props) => {
     const startOfWeek = new Date(startDate);
     startOfWeek.setDate(startDate.getDate() - startDate.getDay() + (startDate.getDay() === 0 ? 7 : 0));
 
-    console.log("currentDate: " ,currentDateMin7)
     // Assuming startOfWeek is a Date object representing the desired start date
     const weekDays = [];
     for (let i = 0; i < 7; i++) {
         const day = new Date(startOfWeek);
         day.setDate(startOfWeek.getDate() + i);
-        // i = 0
-        console.log("i = " , i)
-
-        console.log("day : " , day)
-
-        console.log("startOfWeek + i = ", startOfWeek.getDate() + i * 2);
-        console.log("startOfWeek = ", startOfWeek.getDate());
-        console.log("selected day = ", selectedDay);
-
-        // console.log("is === " , selectedDay startOfWeek.getDate())
-        console.log("is < " , selectedDay  <= startOfWeek.getDate())
-        console.log("is > " , selectedDay >= startOfWeek.getDate())
-
         if (selectedDay >= startOfWeek.getDate()) {
             day.setDate(day.getDate());
 
         }else if (selectedDay <= startOfWeek.getDate()){
-            console.log("i > 0",  i > 0)
-            // day.setDate(startOfWeek.getDate() + i * 2);
             day.setDate(day.getDate() - 7);
-            // if (selectedDay === startOfWeek.getDate()){
-            //     day.setDate(day.getDate()- 7);
-            //     console.log("select day same as start of week")
-            //     // day.setDate(day.getDate() - 7);
-            // }
+
         }
 
         weekDays.push(day);
     }
-
-    console.log("week day  : " , weekDays)
-
-    // console.log("startOfWeek = ", startOfWeek);
-    // console.log("is same? " ,selectedDay <= startOfWeek.getDate())
-    // console.log("is true? " ,startOfWeek.getDate() === "Sun")
-
-
-    // console.log(weekDays[0])
-    // console.log(startOfWeek.getDate())
-    // console.log("is true? " ,startOfWeek.getDate() === "Sun")
 
     const [selectedDate, setSelectedDate] = useState(startDate);
     const [activeIndex, setActiveIndex] = useState(0);
@@ -210,11 +172,6 @@ export const DetailMyClassComponent = (props) => {
         const clickedMonth = clickedDay.getMonth() + 1; // Months are 0-based
         const clickedYear = clickedDay.getFullYear();
 
-        // console.log(clickedDayOfMonth)
-        // console.log(clickedMonth)
-        // console.log(clickedYear)
-
-
             const newSearchParams = new URLSearchParams({
                 start_day: clickedDayOfMonth.toString(),
                 month: clickedMonth,
@@ -232,10 +189,6 @@ export const DetailMyClassComponent = (props) => {
             navigate({
                 search: newSearchParams.toString(),
             });
-        // const url = `http://localhost:3000/view/my/class/${id}/${slug}?day=${selectedDay}&month=${selectedMonth}&year=${selectedYear}`;
-
-        // Use window.location.href to navigate to the URL
-        // window.location.href = url;
     };
 
     const handleSaveButtonClick = () => {
@@ -256,11 +209,6 @@ export const DetailMyClassComponent = (props) => {
     }
 
 
-    console.log("this active : " , activeIndex);
-    // console.log(selectedDay);
-    // console.log(selectedMonth);
-    // console.log(selectedYear);
-
     const handleMonthChange = (event) => {
         const newSelectMonth = event.target.value;
         setSelectedMonth(newSelectMonth)
@@ -270,10 +218,9 @@ export const DetailMyClassComponent = (props) => {
         window.history.pushState({} , '' ,url)
     };
 
-    // const currentMonth = today.toLocaleString('default', { month: 'short' }) // Index of the current day (0 - 6)
-    const currentDays = today.getDate() // Index of the current day (0 - 6)
-    const currentMonth = today.getMonth() + 1 // Index of the current day (0 - 6)
-    const currentYears = today.getFullYear(); // Index of the current day (0 - 6)
+    const currentDays = today.getDate()
+    const currentMonth = today.getMonth() + 1
+    const currentYears = today.getFullYear();
 
     const handleYearChange = (event) => {
         const newSelectYear = event.target.value;
@@ -302,10 +249,35 @@ export const DetailMyClassComponent = (props) => {
     };
 
 
+    let token = localStorage.getItem('auth_token');
+    const [redirectPath, setRedirectPath] = useState("/");
+    const [isLoading, setIsLoading] = useState(false);
+    const [error , setError] = useState('');
 
-    // console.log("My detail class Day : " , selectedDay)
-    // console.log("My detail class Month : " ,selectedMonth)
-    // console.log("My detail class Year : " ,selectedYear)
+    const handleUpdateClassCode = async (event) => {
+        event.preventDefault();
+
+        api
+            .post(`${slug}/update/classes/code/${id}` , {
+                "Content-Type" : "multipart/form-data" ,
+                "Authorization" : "Bearer " + token,
+            })
+            .then((response) => {
+                setIsLoading(false);
+                if (response.data.status === 201) {
+                    let redirectUrl = response.data.redirect_path;
+                    setRedirectPath(redirectUrl);
+                    navigate(`/view/my/class/${id}/${slug}`);
+                    window.location.reload(); // Refresh the page
+                }
+            })
+            .catch((error) => {
+                const { errors } = error.response.data;
+                setError(errors?.errors?.[0] || '');
+            });
+
+    };
+
 
     return(
         <>
@@ -314,7 +286,7 @@ export const DetailMyClassComponent = (props) => {
                     <MyDetailClassNavComponent />
                 </div>
                 <div className="lg:flex lg:py-0 md:py-8 py-5 md:block xl:w-10/12 lg:w-11/12 w-full mx-auto lg:justify-between">
-                    <div className="xl:w-10/12 w-full sm:w-11/12 md:w-10/12 mx-auto lg:my-0 my-5 lg:w-9/12">
+                    <div className="xl:w-10/12 w-full sm:w-11/12 mx-auto lg:my-0 my-5 lg:w-9/12">
                         <div className="w-full lg:py-6 py-3 text-left  lg:mb-10 md:mb-5 bg-white">
                             <h2 className="font30-res-300 mx-5">{props.name}</h2>
                             <div className="text-left flex border-b mb-4 border-gray-200 pb-5 justify-between mx-5">
@@ -337,10 +309,9 @@ export const DetailMyClassComponent = (props) => {
                                 <button className="w-2/12 bg-purple-500 hover:bg-purple-700 cursor-pointer" onClick={copyText}>
                                     <img className="my-auto w-full" style={{ height: "20px" }} src="/assets/copy-icon.svg" alt="Copy" />
                                 </button>
-                                <Link className="w-2/12 bg-white hover:bg-gray-50 cursor-pointer border border-purple-600">
+                                <button onClick={handleUpdateClassCode} className="w-2/12 bg-white hover:bg-gray-50 cursor-pointer border border-purple-600">
                                     <img className="my-2 w-full" style={{ height: "20px" }} src="/assets/change-code.svg" alt="Change Code" />
-                                </Link>
-
+                                </button>
                             </div>
                             <div className="lg:w-10/12 w-11/12 lg:hidden block lg:shadow border-t border-b mx-auto my-6">
                                 <div className="pt-5  font16-res-400 text-left mx-5">
@@ -385,11 +356,6 @@ export const DetailMyClassComponent = (props) => {
                                 </div>
                                 <div className="w-full mx-auto pb-4">
                                     <div className="w-11/12 mx-auto">
-                                        {/*<button*/}
-                                        {/*    onClick={handleSaveButtonClick}*/}
-                                        {/*    className=" w-full py-1.5 bg-purple-600 hover:bg-purple-700 cursor-pointer border-radius-4 text-white hover:text-gray-50  font14-res-300 mx-auto ">*/}
-                                        {/*    Save*/}
-                                        {/*</button>*/}
                                         <button
                                             onClick={handleSaveButtonClick}
                                             type="button" // Add this line to specify the button type
@@ -455,35 +421,20 @@ export const DetailMyClassComponent = (props) => {
                             </div>
 
                             <div id="tab-contents" className="w-11/12 lg:w-full lg:mx-3 mx-auto">
-                                <div id="absent" className="py-2 md:px-4">
+                                <div id="absent" className="py-2 lg:px-4">
                                     <AbsentDetailMyClassHelper slug={slug} username={username} start_day={selectedDay} month={selectedMonth} year={selectedYear} userId={userId} />
                                 </div>
-                                <div id="assignment" className="py-2 md:px-4" style={{ display: 'none' }}>
+                                <div id="assignment" className="py-2 lg:px-4" style={{ display: 'none' }}>
                                     <AssignmentDetailMyClassHelper slug={slug} username={username} start_day={selectedDay} month={selectedMonth} year={selectedYear} userId={userId} />
                                 </div>
-                                <div id="resource" className="py-2 md:px-4" style={{ display: 'none' }}>
+                                <div id="resource" className="py-2 lg:px-4" style={{ display: 'none' }}>
                                     <ResourceDetailMyClassHelper slug={slug} username={username} start_day={selectedDay} month={selectedMonth} year={selectedYear} userId={userId} />
                                 </div>
                                 <div id="fourth" className="py-2 md:px-4" style={{ display: 'none' }}>
                                 </div>
                             </div>
-
-                            {/*<div id="tab-contents" className=" w-11/12  lg:w-full lg:mx-3  mx-auto">*/}
-                            {/*    <div id="absent" className="py-2 md:px-4 ">*/}
-                            {/*        <AbsentDetailMyClassHelper slug={slug} username={username} start_day={selectedDay} month={selectedMonth} year={selectedYear} userId={userId} />*/}
-                            {/*    </div>*/}
-                            {/*    <div id="assignment" className="py-2 md:px-4 ">*/}
-                            {/*        <AssignmentDetailMyClassHelper slug={slug} username={username} start_day={selectedDay} month={selectedMonth} year={selectedYear} userId={userId} />*/}
-                            {/*    </div>*/}
-                            {/*    <div id="resource" className="py-2 md:px-4 ">*/}
-                            {/*        <ResourceDetailMyClassHelper slug={slug} username={username} start_day={selectedDay} month={selectedMonth} year={selectedYear} userId={userId} />*/}
-                            {/*    </div>*/}
-                            {/*    <div id="fourth" className="py-2 md:px-4 ">*/}
-                            {/*    </div>*/}
-                            {/*</div>*/}
                         </div>
                     </div>
-                    {/*2*/}
                     <div className="xl:w-4/12 lg:w-5/12 mx-auto lg:mx-0 sm:w-full w-full md:w-full">
                         <div className="md:w-10/12 hidden lg:block w-11/12 mx-auto my-6">
                             <div className="my-2 pt-3 border-t">
@@ -498,11 +449,9 @@ export const DetailMyClassComponent = (props) => {
                                     <button className="w-2/12 bg-purple-500 hover:bg-purple-700 " onClick={copyText}>
                                         <img className="my-auto w-full" style={{ height: "20px" }} src="/assets/copy-icon.svg" alt="Copy" />
                                     </button>
-                                    <Link className="w-2/12 bg-white hover:bg-gray-50 border border-purple-600">
+                                    <button onClick={handleUpdateClassCode} className="w-2/12 bg-white hover:bg-gray-50 border border-purple-600">
                                         <img className="my-2 w-full" style={{ height: "20px" }} src="/assets/change-code.svg" alt="Change Code" />
-                                    </Link>
-
-
+                                    </button>
                                 </div>
                             </div>
 
@@ -561,7 +510,6 @@ export const DetailMyClassComponent = (props) => {
                    </div>
                 {showAlert && (
                     <div id="drop-action" className="fixed inset-0 flex items-center justify-center"  style={{ zIndex: "10000" }}>
-                        {/* This div serves as a backdrop and should cover the entire screen */}
                         <button
                             onClick={() => setShowAlert(false)} // Close the alert when clicking the backdrop
                             className="bg-gray-500 bg-opacity-30 w-full h-full fixed top-0 left-0"

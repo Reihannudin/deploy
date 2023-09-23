@@ -6,6 +6,12 @@ export const NavbarMyClassEmptyComponent = (props) => {
 
     const { id, slug } = useParams();
 
+    const navigate = useNavigate();
+
+    const navigateBack = () => {
+        navigate(-1);
+    };
+
     return(
         <>
             <div className="w-full fixed md:py-0.5 py-0 bg-white" style={{  zIndex:"39" , minWidth:"300px"}}>
@@ -28,11 +34,11 @@ export const NavbarMyClassEmptyComponent = (props) => {
                         >
                             <div className="w-full justify-between flex">
                                 <div className="flex my-auto mt-1 gap-4">
-                                    <Link to={`/my/class`}>
+                                    <button onClick={navigateBack}>
                                         <div className="my-3" style={{ height:"24px"}}>
                                             <img className="h-full" src="/assets/arrow-back.svg"/>
                                         </div>
-                                    </Link>
+                                    </button>
                                     <div className="mb-0.5 mt-2  text-left text-purple-700" >
                                         <h4 className="my-2 font16-res-400 w-44 border-radius-4 bg-gray-200 py-2 animate-pulse">
                                         </h4>
