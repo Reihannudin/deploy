@@ -41,6 +41,11 @@ import { Route, Routes } from "react-router-dom";
 import Feed from "../Pages/Feed/Feed";
 import TestProfille from "../Pages/Helper/TestProfille";
 import Test from "../Pages/Test";
+import FeedForm from "../Pages/Feed/FeedForm";
+import FeedLiked from "../Pages/Feed/FeedLiked";
+import FeedNotification from "../Pages/Feed/FeedNotification";
+import FeedSearch from "../Pages/Feed/FeedSearch";
+import Profile from "../Pages/Profile/Profile";
 
 export const Protected = () => {
 
@@ -52,7 +57,7 @@ export const Protected = () => {
 
 
       {/*class Page*/}
-      <Route path="/my/class" element={<MyClass />} /> {/* Done */}
+      <Route path="/join/class" element={<JoinClass />} /> {/* Done */}
       <Route path="/create/class" element={<CreateClass />} /> {/* Done */}
       <Route path="/edit/my/class/:id/:slug" element={<EditMyClass />} /> {/* Done */}
       <Route path="/view/my/class/:id/:slug" element={<MyClassDetail />} /> {/* Done */}
@@ -63,17 +68,24 @@ export const Protected = () => {
       <Route path="/view/:slug/:class_id/my/absent/:id" element={<MyDetailAbsent />}/> {/* Done */}
       <Route path="/view/:slug/:class_id/my/absent/:id/students" element={<MyDetailAbsentStudents />}/> {/* Done */}
 
-      <Route path="/class/:slug/:id/create/resource" element={<CreateResource />}/>
-      <Route path="/class/:slug/:class_id/edit/resource/:id" element={<EditMyResource />} />
+      <Route path="/class/:slug/:id/create/resource" element={<CreateResource />}/> {/* Done */}
+      <Route path="/class/:slug/:class_id/edit/resource/:id" element={<EditMyResource />} /> {/* Done */}
 
-      <Route path="/class/:slug/:id/create/assignment" element={<CreateAssigment />}/>
-      <Route path="/class/:slug/:class_id/edit/assignment/:id" element={<EditAssigment />}/>
+      <Route path="/class/:slug/:id/create/assignment" element={<CreateAssigment />}/> {/* Done */}
+      <Route path="/class/:slug/:class_id/edit/assignment/:id" element={<EditAssigment />}/> {/* Done */}
+
+      <Route path="/feed" element={<Feed />} />
+      <Route path="/feed/form" element={<FeedForm />} />
+      <Route path="/feed/liked" element={<FeedLiked />} />
+      <Route path="/feed/notification" element={<FeedNotification />} />
+      <Route path="/feed/search" element={<FeedSearch />} />
 
       <Route path="/" element={<Main />} />
-      <Route path="/profile" element={<TestProfille />} />
+      <Route path="/my/class" element={<MyClass />} /> {/* Done */}
+      <Route path="/profile" element={<MyProfile />} />
+
       <Route path="/view/class/:id/:slug" element={<DetailClass />} />
 
-      <Route path="/join/class" element={<JoinClass />} /> {/* Done */}
 
       {/*absent Page*/}
         <Route path="/view/:slug/detail/absent/:id" element={<DetailAbsent />} />
@@ -120,7 +132,6 @@ export const Protected = () => {
         path="/view/:slug/detail/resource/:id"
         element={<DetailResource />}
       />
-      <Route path="/feed" element={<Feed />} />
       <Route path="/profile" element={<MyProfile />} />
       <Route path="/edit/profile" element={<EditProfile />} />
       <Route path="/edit/profile/password" element={<EditProfilePassword />} />

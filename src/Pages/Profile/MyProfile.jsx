@@ -1,104 +1,72 @@
 
 import React, {useEffect, useState} from "react";
-import axios from "axios";
 import {NavbarProfileComponent} from "../../Components/Body/Nav/NavbarProfile.Component";
+import {TestProfileComponent} from "../Helper/TestProfile.Component";
+import api from "../../Config/api";
 import {MyProfileComponent} from "../../Components/Profile/MyProfile.Component";
-import {MyClassCardComponent} from "../../Components/Class/Card/MyClassCard.Component";
 
 
 function MyProfile(){
 
-    const user = JSON.parse(localStorage.getItem("whoLogin"));
-    const username = user.username;
-    const image = user.image;
-    const banner = user.banner;
-
-    const [profile, setProfile] = useState(null); // Initialize as null for better handling
-    const [isLoading, setIsLoading] = useState(true);
+    const [user , setUser] = useState([]);
+    const [isFetching, setIsFetching] = useState(true);
+    const [isDataFetched, setIsDataFetched] = useState(false);
     const [error, setError] = useState(null);
 
-    useEffect(() => {
-        const source = axios.CancelToken.source();
-
+    useEffect(()=> {
+        let isMounted = true;
         const fetchData = async () => {
             try {
-                const response = await axios.get(
-                    `http://127.0.0.1:8000/api/profile/${username}`,
-                    {
-                        cancelToken: source.token,
-                    }
-                );
+                if (!isDataFetched) {
+                    const response = await api.get(`/user`);
+                    await new Promise((resolve) => setTimeout(resolve, 1500));
 
-                const data = response.data;
-                setProfile(data);
-                setIsLoading(false);
+                    const data = response.data;
+                    if (isMounted) {
+                        setUser(data);
+                        setIsDataFetched(true);
+                    }
+                }
+                setIsFetching(false);
             } catch (error) {
-                if (!axios.isCancel(error)) {
+                if (isMounted) {
                     setError(error);
-                    setIsLoading(false);
+                    setIsFetching(false);
                 }
             }
-        };
+        }
+
+        const timeout = setTimeout(() => {
+            if (isFetching) {
+                if (isMounted) {
+                    setError(new Error("Timeout: Could not fetch data."));
+                    setIsFetching(false);
+                }
+            }
+        }, 20000);
 
         fetchData();
 
         return () => {
-            source.cancel("Component unmounted");
+            isMounted = false;
+            clearTimeout(timeout);
         };
-    }, [username]);
+    } , [user])
 
-    const usernameJson = user.username;
+    console.log(user)
 
-
-    if (isLoading) {
-        return (
-            <div className="w-full bg-white"  >
-                <div className="flex items-center  justify-center h-96 xl:mt-52 lg:mt-56 md:mt-52 mt-60">
-                    <div className="animate-spin">
-                        <img
-                            src="/assets/planet_gif-1.gif"
-                            className="h-20 w-20"
-                            alt="Loading"
-                        />
+    return(
+        <>
+            <div>
+                <div className="w-full bg-white"  >
+                    <NavbarProfileComponent name={user.username}  />
+                    <div className="w-full mx-0 px-0 h-full " style={{ background:"#e0e0e0"}}>
+                        <MyProfileComponent name={user.name} school={user.school} username={user.username} bio={user.bio} address={user.address} join_date={user.join_date}/>
                     </div>
                 </div>
             </div>
-
-        );
-    }
-
-        return(
-            <>
-                {profile && (
-                    <>
-                        {profile.map((item , index) => {
-                            return(
-                                <div className="w-full bg-white" key={index} >
-                                    <NavbarProfileComponent name={item.username}  />
-                                        <div className="w-full mx-0 px-0 h-full " style={{ background:"#fcfcfc"}}>
-                                            <MyProfileComponent name={item.name} photoProfile={image} banner={banner} username={item.username} bio={item.bio} address={item.address} join_date={item.join_date}/>
-                                        </div>
-                                </div>
-                            )
-                        })}
-                    </>
-                )}
-             </>
-        )
+        </>
+    )
 };
 
 export default MyProfile
-
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         try {
-    //             // const response = await axios.get(`https://rest-api.spaceskool.site/public/api/profile/${username}`);
-    //             const response = await axios.get(`http://127.0.0.1:8000/api/profile/${username}`);
-    //             const data = response.data;
-    //             setProfile(data);
-    //         } catch (error){
-    //             console.log("Error Fetching profile data:" , error)
-    //         }
-    //     }
-    //     fetchData()
-    // }, [])

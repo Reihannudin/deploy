@@ -321,7 +321,7 @@
 }
 
 .h-profile-banner-new{
-  height: 320px;
+  height: 300px;
 }
 
 .h-profile-banner{
@@ -351,8 +351,8 @@
 }
 
 .h-profile-round-new{
-  width: 220px;
-  height: 220px;
+  width: 200px;
+  height: 200px;
 }
 
 .h-profile-round{
@@ -417,13 +417,13 @@ body{
   }
 
   .h-profile-round-new{
-    width: 180px;
-    height: 180px;
+    width: 170px;
+    height: 170px;
   }
 
 
   .h-profile-banner-new{
-    height: 280px;
+    height: 260px;
   }
 
   .h-profile-banner{
@@ -579,7 +579,7 @@ body{
   }
 
   .h-profile-banner{
-    height: 170px;
+    height: 220px;
   }
 
   .font16-res-400{
@@ -642,7 +642,7 @@ body{
 
 
   .h-profile-banner-new{
-    height: 180px;
+    height: 160px;
   }
 
   .h-profile-banner{
@@ -774,6 +774,10 @@ body{
     font-size: 18px;
   }
 
+  .h-profile-banner-new{
+    height: 170px;
+  }
+
   .h-profile-round-new{
     width: 130px;
     height: 130px;
@@ -799,7 +803,7 @@ body{
     width: 19px;
   }
   .h-profile-banner-new{
-    height: 160px;
+    height: 140px;
   }
   .h-profile-banner{
     height: 160px;
@@ -811,8 +815,8 @@ body{
   }
 
   .h-profile-round-new{
-    width: 110px;
-    height: 110px;
+    width: 100px;
+    height: 100px;
   }
 
   .h-profile-feed{
@@ -832,7 +836,7 @@ body{
   }
 
   .h-profile-banner-new {
-    height: 120px;
+    height: 130px;
   }
 
 }
