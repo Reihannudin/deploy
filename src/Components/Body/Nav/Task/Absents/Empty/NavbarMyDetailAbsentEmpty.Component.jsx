@@ -44,7 +44,7 @@ export const NavbarMyDetailAbsentComponentEmpty = () => {
                     </div>
                 </div>
                 <div className="flex justify-between">
-                    <div className="   w-full lg:flex hidden my-auto  lg:items-center lg:w-auto" id="menu">
+                    <div className="   w-full md:flex hidden my-auto  lg:items-center lg:w-auto" id="menu">
                         <div className="flex gap-4 my-auto ">
                             <div style={{ fontSize:"16px"}} className="font-medium font16-res-300 mt-1">
                                 <ul className="list-none gap-6 flex" style={{ fontWeight :"500"}}>

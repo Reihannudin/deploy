@@ -28,7 +28,7 @@ export const  DetailMyAbsentComponent = (props) => {
 
     return(
         <>
-            <div className=' h-full mx-auto md:pt-16  pt-14 px-0' style={{ minWidth:"300px"}} key={props.id} >
+            <div className=' h-full mx-auto md:pt-16  pt-14 px-0' style={{ minWidth:"333px"}} key={props.id} >
                 <div className="block w-full md:hidden">
                     <AbsentNavComponent />
                 </div>
@@ -44,7 +44,13 @@ export const  DetailMyAbsentComponent = (props) => {
                                             </div>
                                             <div className="text-left my-auto">
                                                 <p className="font14-res-300" style={{ color:"#5d5c5c"}}>Absent</p>
-                                                <h1 className="font18-res-300">{props.name}</h1>
+                                                <h1 className="font18-res-300">
+                                                    {window.innerWidth >= 992 ? (
+                                                        props.name
+                                                    ) : (
+                                                        props.name.length > 20 ? props.name.slice(0, 17) + '...' : props.name
+                                                    )}
+                                                </h1>
                                             </div>
                                         </div>
                                         <div className="w-2/12  me-auto">
@@ -64,11 +70,23 @@ export const  DetailMyAbsentComponent = (props) => {
                                             <div className="flex mx-1 justify-between">
                                                 <div className="my-1 w-6/12">
                                                     <label className="my-0 py-0 font14-res-300"  >Kelas</label>
-                                                    <p className="my-0 py-0 font16-res-300" >{classname}</p>
+                                                    <p className="my-0 py-0 font16-res-300" >
+                                                        {window.innerWidth >= 682 ? (
+                                                            classname
+                                                        ) : (
+                                                            classname.length > 20 ? classname.slice(0, 17) + '...' : classname
+                                                        )}
+                                                    </p>
                                                 </div>
                                                 <div className="my-1 mx-1  w-6/12">
                                                     <label className="my-0 py-0 font14-res-300"  >Guru</label>
-                                                    <p className="my-0 py-0  font16-res-300" >{props.teacher}</p>
+                                                    <p className="my-0 py-0  font16-res-300" >
+                                                        {window.innerWidth >= 682 ? (
+                                                            props.teacher
+                                                        ) : (
+                                                            props.teacher.length > 20 ? props.teacher.slice(0, 17) + '...' : props.teacher
+                                                        )}
+                                                    </p>
                                                 </div>
                                             </div>
                                             <div className="flex justify-between">

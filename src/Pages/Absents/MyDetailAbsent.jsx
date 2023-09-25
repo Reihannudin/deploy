@@ -137,11 +137,9 @@ function MyDetailAbsent () {
                         <NavbarMyDetailAbsentComponentEmpty />
                         <div className="w-full pb-5 mx-0 px-0 h-full " style={{ background:"#FFFFFF"}}>
                             <DetailMyAbsentComponentEmpty />
-                            {/*<DetailMyClassEmptyComponent code={item.code} user={user} name={item.name} teacher={item.teacher} students={item.students} subjects={item.subject} section={item.section} room={item.room} />*/}
                         </div>
                     </div>
                     <div className="lg:hidden block mx-0 px-0">
-                        {/* FooterComponent */}
                     </div>
                 </div>
             ): (

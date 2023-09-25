@@ -99,24 +99,6 @@ export const DetailMyClassStudentsComponent = (props) => {
                     navigate(`/view/my/class/${id}/${slug}`);
                     window.location.reload(); // Refresh the page
                 }
-                // else if (response.data.status === 406) {
-                //     if (response.data.errors.message === "Absent tidak ditemukan") {
-                //         let redirectUrl = response.data.redirect_path;
-                //         setRedirectPath(redirectUrl);
-                //         setError(response.data.errors.message);
-                //         navigate(redirectUrl);
-                //     } else  if (response.data.errors.message === "Anda Bukan Pengajar di kelas ini") {
-                //         let redirectUrl = response.data.redirect_path;
-                //         setRedirectPath(redirectUrl);
-                //         setError(response.data.errors.message);
-                //         navigate(redirectUrl);
-                //     } else  if (response.data.errors.message === "Pengguna tidak ditemukan") {
-                //         let redirectUrl = response.data.redirect_path;
-                //         setRedirectPath(redirectUrl);
-                //         setError(response.data.errors.message);
-                //         navigate(redirectUrl);
-                //     }
-                // }
 
             })
             .catch((error) => {

@@ -26,10 +26,17 @@ export const CreateResourceComponent = ({user}) => {
     const [isLoading, setIsLoading] = useState(false);
 
 
-    const onChangeName = (event) => {
-        const name = event.target.value;
-        setName(name);
+
+    const onChangeName = (e) => {
+        const inputName = e.target.value;
+        if (inputName.length <= 30) {
+            setName(inputName);
+            setErrorName("");
+        } else {
+            setErrorName("Nama harus terdiri dari 30 karakter atau kurang");
+        }
     };
+
 
     const handleTextChange = (value) => {
         setText(value);

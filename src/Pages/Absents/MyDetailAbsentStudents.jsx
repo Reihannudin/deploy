@@ -124,7 +124,7 @@ function MyDetailAbsentStudents () {
                         <div className="w-full pb-5 mx-0 px-0 h-full " style={{ background:"#FFFFFF"}}>
                             {/* Tab Contents */}
                             <div id="tab-contents" className=" w-full mx-auto">
-                                <div id="student" className=" p-4">
+                                <div id="student" className=" py-4">
                                     <div className="xl:w-10/12 lg:w-11/12 md:w-10/12 w-full mx-auto  md:pt-16  pt-16">
                                         <DetailStudentAbsentEmptyComponent />
 
@@ -145,7 +145,7 @@ function MyDetailAbsentStudents () {
                         <div className="w-full pb-5 mx-0 px-0 h-full " style={{ background:"#FFFFFF"}}>
                             {/* Tab Contents */}
                             <div id="tab-contents" className=" w-full mx-auto">
-                                <div id="student" className=" p-4">
+                                <div id="student" className=" py-4">
                                     <div className="xl:w-10/12 lg:w-11/12 md:w-10/12 w-full mx-auto  md:pt-16  pt-16">
                                         <DetailStudentAbsentEmptyComponent />
                                     </div>
@@ -167,7 +167,7 @@ function MyDetailAbsentStudents () {
                                 <div className="w-full pb-5 mx-0 px-0 h-full " style={{ background:"#FFFFFF"}}>
                                     {/* Tab Contents */}
                                     <div id="tab-contents" className=" w-full mx-auto">
-                                        <div id="student" className=" p-4">
+                                        <div id="student" className="py-4 ">
                                             <div className="xl:w-10/12 lg:w-11/12 md:w-10/12 w-full mx-auto  md:pt-16  pt-16">
                                                 <DetailStudentAbsentComponent status={item.status}  post_time={item.post_time}  start_time={item.start_time} end_time={item.end_time}  date={item.date} />
                                             </div>

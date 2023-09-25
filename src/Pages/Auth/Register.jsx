@@ -77,7 +77,7 @@ function Register() {
         <>
             <div
                 className="w-full md:py-6 py-0"
-                style={{ background: "#FAFBFC", minWidth: "300px" }}
+                style={{ background: "#FAFBFC", minWidth: "280px" }}
             >
                 <div className="xl:w-6/12 lg:w-7/12 md:w-9/12  mx-auto">
                     <div className="lg:w-8/12 md:w-9/12 sm:w-10/12   w-full mx-auto">

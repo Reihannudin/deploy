@@ -128,7 +128,7 @@ function CreateActivities({user}){
 
     return(
         <>
-            <div className=' h-full mx-auto md:pt-20  pt-16 px-0' style={{ minWidth:"300px"}}>
+            <div className=' h-full mx-auto p-nav-content-crud px-0' style={{ minWidth:"280px"}}>
                 <div className="lg:flex lg:w-9/12 sm:w-10/12 w-11/12 mx-auto">
                     <div  className="w-full" style={{ background:"#ffffff"}}>
                         <div className=" sm:w-full w-full ">
@@ -138,7 +138,7 @@ function CreateActivities({user}){
                                         <div className="sm:flex block w-full text-left">
                                             <div className="sm:flex block w-full text-left">
                                                 <div className="mt-3 w-full mx-auto">
-                                                    <label className="font14-res-300" style={{ color: "#777575" }} htmlFor="class">
+                                                    <label className="font14-label-res-300" style={{ color: "#777575" }} htmlFor="class">
                                                         Nama Kelas
                                                     </label>
                                                     <div className="flex md:w-11/12 w-full">
@@ -148,7 +148,7 @@ function CreateActivities({user}){
                                                             onChange={onChangeName}
                                                             required
                                                             type="text"
-                                                            className="md:w-11/12 w-full py-1.5 md:py-2.5 font15-res-300 border-b-gray-300"
+                                                            className="md:w-11/12 w-full py-1.5 md:py-2.5 font15-input-res-300 border-b-gray-300"
                                                             style={{ borderBottom: "1px solid #ebebeb" }}
                                                             placeholder="Nama Kelas"
                                                         />
@@ -157,12 +157,12 @@ function CreateActivities({user}){
                                                         <div className="my-2"></div>
                                                     ) : (
                                                         <div className="my-2">
-                                                            <span className={"text-red-600 font14-res-300"}>{errorName}</span>
+                                                            <span className={"text-red-600 font14-label-res-300"}>{errorName}</span>
                                                         </div>
                                                     )}
                                                 </div>
                                                 <div className="mt-3 w-full mx-auto">
-                                                    <label className="font14-res-300" style={{ color: "#777575" }} htmlFor="room">
+                                                    <label className="font14-label-res-300" style={{ color: "#777575" }} htmlFor="room">
                                                         Ruang
                                                     </label>
                                                     <div className="flex md:w-11/12 w-full">
@@ -172,7 +172,7 @@ function CreateActivities({user}){
                                                             onChange={onChangeRoom}
                                                             required
                                                             type="text"
-                                                            className="md:w-11/12 w-full py-1.5 md:py-2.5 font15-res-300 border-b-gray-300"
+                                                            className="md:w-11/12 w-full py-1.5 md:py-2.5 font15-input-res-300 border-b-gray-300"
                                                             style={{ borderBottom: "1px solid #ebebeb" }}
                                                             placeholder="Nama Ruang"
                                                         />
@@ -181,7 +181,7 @@ function CreateActivities({user}){
                                                         <div className="my-2"></div>
                                                     ) : (
                                                         <div className="my-2">
-                                                            <span className={"text-red-600 font14-res-300"}>{errorRoom}</span>
+                                                            <span className={"text-red-600 font14-label-res-300"}>{errorRoom}</span>
                                                         </div>
                                                     )}
                                                 </div>
@@ -190,7 +190,7 @@ function CreateActivities({user}){
                                         <div className="sm:flex block w-full text-left">
                                             <div className="sm:flex block w-full text-left">
                                                 <div className="mt-3 w-full mx-auto">
-                                                    <label className="font14-res-300" style={{ color: "#777575" }} htmlFor="section">
+                                                    <label className="font14-label-res-300" style={{ color: "#777575" }} htmlFor="section">
                                                         Jurusan
                                                     </label>
                                                     <div className="flex md:w-11/12 w-full">
@@ -200,7 +200,7 @@ function CreateActivities({user}){
                                                             required
                                                             onChange={onChangeSection}
                                                             type="text"
-                                                            className="md:w-11/12 w-full py-1.5 md:py-2.5 font15-res-300 border-b-gray-300"
+                                                            className="md:w-11/12 w-full py-1.5 md:py-2.5 font15-input-res-300 border-b-gray-300"
                                                             style={{ borderBottom: "1px solid #ebebeb" }}
                                                             placeholder="Nama Jurusan"
                                                         />
@@ -209,12 +209,12 @@ function CreateActivities({user}){
                                                         <div className="my-2"></div>
                                                     ) : (
                                                         <div className="my-2">
-                                                            <span className={"text-red-600 font14-res-300"}>{errorSection}</span>
+                                                            <span className={"text-red-600 font14-label-res-300"}>{errorSection}</span>
                                                         </div>
                                                     )}
                                                 </div>
                                                 <div className="mt-3 w-full mx-auto">
-                                                    <label className="font14-res-300" style={{ color: "#777575" }} htmlFor="subject">
+                                                    <label className="font14-label-res-300" style={{ color: "#777575" }} htmlFor="subject">
                                                         Mata Pelajaran
                                                     </label>
                                                     <div className="flex md:w-11/12 w-full">
@@ -224,7 +224,7 @@ function CreateActivities({user}){
                                                             required
                                                             onChange={onChangeSubject}
                                                             type="text"
-                                                            className="md:w-11/12 w-full py-1.5 md:py-2.5 font15-res-300 border-b-gray-300"
+                                                            className="md:w-11/12 w-full py-1.5 md:py-2.5 font15-input-res-300 border-b-gray-300"
                                                             style={{ borderBottom: "1px solid #ebebeb" }}
                                                             placeholder="Nama Mata Pelajaran"
                                                         />
@@ -233,14 +233,14 @@ function CreateActivities({user}){
                                                         <div className="my-2"></div>
                                                     ) : (
                                                         <div className="my-2">
-                                                            <span className={"text-red-600 font14-res-300"}>{errorSubject}</span>
+                                                            <span className={"text-red-600 font14-label-res-300"}>{errorSubject}</span>
                                                         </div>
                                                     )}
                                                 </div>
                                             </div>
                                         </div>
                                         <div className="mt-3 xl:w-7/12 lg:w-8/12 md:w-9/12 sm:10/12 w-full text-left">
-                                            <label className="font14-res-300" style={{ color: "#777575" }} htmlFor="max_students">
+                                            <label className="font14-label-res-300" style={{ color: "#777575" }} htmlFor="max_students">
                                                 Maximal jumlah Siswa
                                             </label>
                                             <div className="flex w-full">
@@ -253,7 +253,7 @@ function CreateActivities({user}){
                                                         max="30"
                                                         value={rangeStudent}
                                                         onChange={handleChangeRangeStudent}
-                                                        className="w-full h-2 font16-res-300 cursor-pointer appearance-none bg-gray-300 rounded-md outline-none"
+                                                        className="w-full h-2 font16-input-res-300 cursor-pointer appearance-none bg-gray-300 rounded-md outline-none"
                                                     />
                                                     <span className="font15-res-300 ml-4" style={{ color: "#777575" }}>
             {rangeStudent}
@@ -264,7 +264,7 @@ function CreateActivities({user}){
                                                 <div className="my-2"></div>
                                             ) : (
                                                 <div className="my-2">
-                                                    <span className={"text-red-600 font14-res-300"}>{errorMaxStudent}</span>
+                                                    <span className={"text-red-600 font14-label-res-300"}>{errorMaxStudent}</span>
                                                 </div>
                                             )}
                                         </div>
@@ -272,7 +272,7 @@ function CreateActivities({user}){
                                             <div></div>
                                             <button
                                                 type="submit"
-                                                className="shadow weverse-background-btn py-2 lg:px-4 font15-res-300 md:px-6 px-8 text-white"
+                                                className="shadow weverse-background-btn py-2-c  md:px-6 px-6 lg:px-4 font15-input-res-300 text-white"
                                                 style={{ borderRadius: "4px" }}
                                             >
                                                 Buat Kelas

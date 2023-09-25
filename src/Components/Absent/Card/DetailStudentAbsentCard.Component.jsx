@@ -88,7 +88,7 @@ export const DetailStudentAbsentCardComponent = (props) => {
                     {/* This div serves as a backdrop and should cover the entire screen */}
                     <div onClick={handleDropdownItemClick} className="bg-gray-300 bg-opacity-30 fixed inset-0"></div>
                     {/* Centered dropdown content */}
-                    <div className="bg-white w-10/12 md:w-6/12 xl:w-4/12  pt-4 pb-2 border-radius-8 fixed  z-50 left-1/2 transform -translate-x-1/2">
+                    <div className="bg-white w-10/12 md:w-6/12 xl:w-4/12 pt-4 pb-2 border-radius-8 fixed  z-50 left-1/2 transform -translate-x-1/2">
                         <div className="w-10/12 mx-auto">
                             <div>
                                 <div className="flex justify-between">
@@ -223,8 +223,8 @@ export const DetailStudentAbsentCardComponent = (props) => {
                     <div className="mx-3" style={{ height: "45px" }}>
                         <img className="h-full radius-100" src={`${props.image ? props.image : "/assets/default-profile.svg"}`} alt="Profile" />
                     </div>
-                    <div className="block w-full">
-                        <div className="flex justify-between">
+                    <div className="block w-11/12">
+                        <div className="flex me-2 md:me-5 justify-between">
                             <div className="block">
                                 <div className="w-6/12 mx-1 mt-0 md:mt-0.5 text-left">
                                     <h3 className="font16-res-300" style={{color:"#646464"}}>
@@ -256,13 +256,13 @@ export const DetailStudentAbsentCardComponent = (props) => {
 
                             </div>
                             <div className="block gap-2">
-                                <div className=" w-full  mb-1 text-right sm:mx-3 block">
+                                <div className=" w-full  mb-1 text-right  block">
                                     <button onClick={toggleDropAction}  className=" font13-res-300 hover:bg-purple-700 hover:text-white cursor-pointer border-gray-300 text-gray-500 px-2 py-1 rounded-md border">
                                         Lihat Absensi
                                     </button>
                                 </div>
                                 {props.status_absent === "selesai" || props.status === "hadir" || props.status === "izin" || props.status === "melewatkan" ? (
-                                    <div className="w-full text-right sm:mx-3 block">
+                                    <div className="w-full text-right  block">
                                         <button onClick={toggleDropActionConfirm}  className=" font13-res-300 w-full bg-purple-600 hover:bg-purple-700 hover:text-white cursor-pointer border-gray-300 text-gray-200 px-2 py-1 rounded-md border">
                                             Konfirmasi
                                         </button>

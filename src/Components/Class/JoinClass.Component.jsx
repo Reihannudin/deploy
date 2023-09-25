@@ -133,7 +133,7 @@ export const JoinClassComponent = () => {
 
     return (
         <>
-            <div className="h-full mx-auto sm:pt-15  pt-16 px-0" style={{ minWidth: "300px" }}>
+            <div className="h-full mx-auto p-nav-content-crud px-0" style={{ minWidth: "280px" }}>
                 <div className="lg:flex xl:w-9/12 sm:w-10/12 w-11/12 mx-auto">
                     <div className="w-full " style={{ background: "#ffffff" }}>
                         <div className="w-full mx-auto">
@@ -144,7 +144,7 @@ export const JoinClassComponent = () => {
                                             <h4 className="font16-res-400" style={{ color: "#505050" ,  fontWeight: "550" }}>
                                                 Untuk masuk dengan kode kelas
                                             </h4>
-                                            <ul  className="font14-res-300" style={{ color: "#6c6c6c" }}>
+                                            <ul  className="font13-label-res-300" style={{ color: "#6c6c6c" }}>
                                                 <li className="my-3 list-disc">Gunakan akun resmi yang terauthentikasi</li>
                                                 <li className="my-3 list-disc">
                                                     Gunakan kode kelas dengan 7 huruf atau angka, dan tanpa spasi dan dengan tiga huruf depan Spc
@@ -153,7 +153,7 @@ export const JoinClassComponent = () => {
                                                     Gunakan kode kelas dengan 7 huruf atau angka, dan tanpa spasi dan dengan tiga huruf depan Spc
                                                 </li>
                                             </ul>
-                                            <p className="font13-res-300" style={{ color: "#777676" }}>
+                                            <p className="font13-label-res-300" style={{ color: "#777676" }}>
                                                 Jika Anda kesulitan bergabung dengan kelas, buka artikel Pusat Bantuan
                                             </p>
                                         </div>
@@ -161,10 +161,10 @@ export const JoinClassComponent = () => {
                                     <form onSubmit={handleSubmit}>
                                         <div className="md:border  border-radius-8 border-gray-100 md:px-6 md:pt-6 px-4 ">
                                             <div className="text-left">
-                                                <p className="font16-res-400" style={{  color: "#595959", fontWeight: "500" }}>
+                                                <p className="font16-label-res-400" style={{  color: "#595959", fontWeight: "500" }}>
                                                     Bergabung ke dalam kelas
                                                 </p>
-                                                <p className="font14-res-300" style={{ color: "#737373" }}>
+                                                <p className="font14-label-res-300" style={{ color: "#737373" }}>
                                                     Tanyakan kode kelas kepada guru Anda, lalu masukkan di sini.
                                                 </p>
                                                 <div>
@@ -173,7 +173,7 @@ export const JoinClassComponent = () => {
                                                             id="classname"
                                                             onChange={onChangeClassname}
                                                             placeholder="Nama kelas"
-                                                            className="md:w-10/12 w-full py-2.5 px-4 font15-res-300"
+                                                            className="md:w-10/12 w-full py-2 sm:py-2.5  px-4 font15-input-res-300"
                                                             style={{ border: "1px solid #C9C5C5", borderRadius: "4px 0px 0px 4px" }}
                                                             type="text"
                                                         />
@@ -183,7 +183,7 @@ export const JoinClassComponent = () => {
                                                     <div className="my-2"></div>
                                                 ) : (
                                                     <div className="my-2">
-                          <span style={{ fontSize: "14px" }} className={"text-red-600 "}>
+                          <span  className={"text-red-600 font14-label-res-300 "}>
                             {errorClassname}
                           </span>
                                                     </div>
@@ -194,7 +194,7 @@ export const JoinClassComponent = () => {
                                                             id="code"
                                                             onChange={onChangeCode}
                                                             placeholder="Kode Kelas"
-                                                            className="md:w-10/12 w-full py-2.5 px-4 font15-res-300"
+                                                            className="md:w-10/12 w-full py-2 sm:py-2.5 px-4 font15-input-res-300"
                                                             style={{ border: "1px solid #C9C5C5", borderRadius: "4px 0px 0px 4px" }}
                                                             type="text"
                                                         />
@@ -204,7 +204,7 @@ export const JoinClassComponent = () => {
                                                     <div className="my-2"></div>
                                                 ) : (
                                                     <div className="my-2">
-                          <span style={{ fontSize: "14px" }} className={"text-red-600 "}>
+                          <span className={"text-red-600 font14-label-res-300"}>
                             {errorCode}
                           </span>
                                                     </div>
@@ -213,7 +213,7 @@ export const JoinClassComponent = () => {
                                                         <button
                                                             type="submit"
                                                             onClick={handleSubmit}
-                                                            className="shadow font15-res-300 weverse-background-btn py-2 lg:px-4 md:px-6 px-8 text-white "
+                                                            className="shadow font15-input-res-300 weverse-background-btn py-2-c lg:px-4 md:px-6 px-6 text-white "
                                                             style={{ borderRadius: "4px"}}
                                                         >
                                                             Bergabung
