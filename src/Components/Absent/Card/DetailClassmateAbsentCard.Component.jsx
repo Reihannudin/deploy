@@ -1,22 +1,49 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
+import {useNavigate, useParams, useSearchParams} from "react-router-dom";
 
 export const DetailClassmateAbsentCardComponent = (props) => {
 
-    const [windowWidth , setWindowWidth] = useState(window.innerWidth);
+    const {id, class_id , slug} = useParams();
+
+    const [confirmation , setConfirmation] = useState('terkonfirmasi');
+    const [action, setAction] = useState("hadir");
+    const [reason, setReason] = useState("");
+
+
+    const [searchParams] = useSearchParams();
+    const [errorAction, setErrorAction] = useState("");
+    const [errorReason, setErrorReason] = useState("");
 
     useEffect(() => {
-        const handleResize = () => {
-            setWindowWidth(window.innerWidth);
-        };
+        const errorActionParam = searchParams.get("error_action");
+        setErrorAction(errorActionParam || "");
 
-        window.addEventListener('resize' , handleResize);
+        const errorReasonParam = searchParams.get("error_reason");
+        setErrorReason(errorReasonParam || "");
+    }, [searchParams]);
 
-        return () => {
-            window.removeEventListener('resize' , handleResize);
+    const onChangeAction = (event) => {
+        const action = event.target.value;
+        setAction(action);
+    };
+
+    const onChangeReason = (event) => {
+        const reason = event.target.value;
+        setReason(reason);
+    };
+
+    const [redirectUrl , setRedirectUrl] = useState('');
+
+    const navigate = useNavigate();
+
+    const popUpDenied = () => {
+        const popUp = document.getElementById('pop_up_detail');
+        if (popUp.style.display === 'none'){
+            popUp.style.display = 'block'
+        } else if(popUp.style.display === 'block'){
+            popUp.style.display = 'none'
         }
-    } , []);
-
-    const truncatedName = props.classmate.length > 16 ? `${props.classmate.slice(0, 14)}...` : props.classmate;
+    }
 
     const [dropdownDetail , setDropdownDetail] = useState(true);
 
@@ -24,60 +51,218 @@ export const DetailClassmateAbsentCardComponent = (props) => {
         setDropdownDetail((prevHidden) => ! prevHidden);
     }
 
+    const handlerDropdownDetail = () => {
+        setDropdownDetail(true)
+    }
+
+
+    const [dropAction , setDropAction] = useState(false);
+
+    const toggleDropAction = () => {
+        setDropAction(!dropAction);
+    }
+
+    const handleDropdownItemClick = () => {
+        setDropAction(false);
+    };
+
+
+    const [dropActionConfirm , setDropActionConfirm] = useState(false);
+
+    const toggleDropActionConfirm = () => {
+        setDropActionConfirm(!dropActionConfirm);
+    }
+
+    const handleDropdownConfirmItemClick = () => {
+        setDropActionConfirm(false);
+    };
+
+
+    console.log(props.status === null);
+
     return(
         <>
-            <div className="bg-white w-full my-1 border-radius-8 shadow">
-                <div className="w-full  flex">
-                    <div className="flex w-5/12">
-                        <div className="block py-3">
-                            <div className="w-full   mx-5 text-left">
-                                <h3 className="font16-res-300" style={{color:"#646464"}}>{window.innerWidth <= 415 ? truncatedName : props.classmate}</h3>
-                            </div>
-                            <div className="w-full   mx-5 text-left">
-                                <p className="-res-300" style={{  color:"#807e7e"}}>Absent</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="py-3 w-7/12 flex justify-between">
-                        <div className="block">
-                            <div className="w-full flex gap-2 sm:mx-5 mx-2 text-left">
-                                <p className="font14-res-300" style={{ color:"#605f5f"}}>Status : </p>
-                                {props.status === null ? (
-                                    <p className="font14-res-300" style={{  fontWeight:"550" , color:"#605f5f"}}>Belum Absent</p>
-                                ) : (
-                                    <p className="font14-res-300" style={{  fontWeight:"550" , color:"#605f5f"}}>{props.status}</p>
-                                )}
-                            </div>
-                            <div className="w-full  flex gap-2 sm:mx-5 mx-2 text-left">
-                                <p className="font14-res-300" style={{ color:"#605f5f"}}>InTime : </p>
-                                <p className="font14-res-300" style={{ fontWeight: "550", color: "#605f5f" }}>
-                                    {props.absent_time === null ? "Tidak ada" : props.absent_time}
-                                </p>
-                            </div>
-                        </div>
-                        <div className="flex sm:mt-1 mt-0 sm:gap-3 gap-1">
-                            <div className="relative ">
-                                <button onClick={toggleDropdownDetail} className="md:mx-4 mt-1 mx-2">
-                                    <div className="my-auto mx-auto" style={{ height:"24px"}}>
-                                        <img className="h-full" src="/assets/menu-icon.svg"/>
+            {dropAction && (
+                <div id="drop-action" className="fixed inset-0 flex items-center justify-center">
+                    {/* This div serves as a backdrop and should cover the entire screen */}
+                    <div onClick={handleDropdownItemClick} className="bg-gray-300 bg-opacity-30 fixed inset-0"></div>
+                    {/* Centered dropdown content */}
+                    <div className="bg-white w-10/12 md:w-6/12 xl:w-4/12 pt-4 pb-2 border-radius-8 fixed  z-50 left-1/2 transform -translate-x-1/2">
+                        <div className="w-10/12 mx-auto">
+                            <div>
+                                <div className="flex justify-between">
+                                    <div className="pt-1 pb-1  ">
+                                        {props.absent_name.length > 20 ? (
+                                            <p className="font16-res-400">{props.absent_name.slice(0, 15) + '...'}</p>
+                                        ) : (
+                                            <p className="font16-res-400">{props.absent_name}</p>
+                                        )}
                                     </div>
-                                </button>
-                                <div id="dropdown_profile"
-                                     className={`z-10 ${dropdownDetail ? 'hidden' : ''} absolute right-10 top-0 font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-32 md:w-36 dark:bg-gray-700 dark:divide-gray-600`}>
-                                    <ul className="py-2 text-sm text-left text-gray-700 dark:text-gray-400"
-                                        aria-labelledby="dropdownLargeButton">
-                                        <li>
-                                            <a href={`/`} className="block px-4 py-1 md:py-1.5  font15-res-300 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600  dark:hover:text-white">Lihat Detail</a>
-                                        </li>
-                                        <li>
-                                            <a href={`/`} className="block px-4 py-1 md:py-1.5  font15-res-300 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600  dark:hover:text-white">Lihat Profile</a>
-                                        </li>
-                                    </ul>
+                                    {props.status_absent === "selesai" ? (
+                                        <div className="font13-res-300 mt-0.5 ">
+                                            <p className="text-green-400 border-radius-4 pt-1 pb-1 mb-0  px-2 bg-green-200">{props.status_absent}</p>
+                                        </div>
+                                    ): props.status_absent === "terkunci" ? (
+                                        <div className="font13-res-300 mt-0.5 ">
+                                            <p className="text-purple-700 border-radius-4 pt-1 pb-1 mb-0  px-2 bg-gray-200">{props.status_absent}</p>
+                                        </div>
+                                    ) : (
+                                        <div className="font13-res-300 mt-0.5 ">
+                                            <p className="text-yellow-400 border-radius-4 pt-1 pb-1 mb-0  px-2 bg-yellow-200">status absent</p>
+                                        </div>
+                                    )}
+
+                                </div>
+                                <div className="my-3 border-t pt-3">
+                                    <div className="block">
+                                        <div className={"flex mt-1 gap-2 font15-res-300"}>
+                                            <p className="text-gray-700" style={{fontWeight:"500"}} >username : </p>
+                                            <p className="text-gray-500">
+                                                {props.name.length > 15 ? (
+                                                    props.name.slice(0, 15) + '...'
+                                                ) : (
+                                                    props.name
+                                                )}
+                                            </p>
+                                        </div>
+                                        <div className={"flex mb-1 gap-2 font15-res-300"}>
+                                            <p  className="text-gray-700" style={{fontWeight:"500"}}>status : </p>
+                                            <p className="text-gray-500">{props.status === null ? 'Belum Absent' : props.status}</p>
+                                        </div>
+                                    </div>
+                                    <div className="flex my-1 text-left justify-between">
+                                        <div className={"block md:flex gap-2 font15-res-300"}>
+                                            <p  className="text-gray-700" style={{fontWeight:"500"}}>Action : </p>
+                                            <p className="text-gray-500">{props.action === null ? '-' : props.action}</p>
+                                        </div>
+                                        <div  className={"block md:flex gap-2 font15-res-300"}>
+                                            <p   className="text-gray-700" style={{fontWeight:"500"}}>Reason : </p>
+                                            <p className="text-gray-500">{props.reason === null ? '-' : props.reason}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="my-3 block md:flex justify-between border-t pt-3">
+                                    <div className="flex font14-res-300">
+                                        <p  className="text-gray-700" style={{fontWeight:"500"}}>Date Time: </p>
+                                        <p  className="text-gray-500">{props.absent_time === null ? '-' : props.absent_time}</p>
+                                    </div>
+                                    <div className="flex font14-res-300">
+                                        <p  className="text-gray-700" style={{fontWeight:"500"}}>Deadline : </p>
+                                        <p  className="text-gray-500">{props.absent_deadline}</p>
+                                    </div>
+                                </div>
+                                <div className="me-auto my-3 justify-start text-left">
+                                    <button onClick={handleDropdownItemClick} className="bg-white border hover:bg-purple-600 hover:text-white border-purple-700 border-radius-4 text-purple-600 px-3 py-1 cursor-pointer font15-res-300">
+                                        Kembali
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            )}
+            {dropActionConfirm && (
+                <div id="drop-action" className="fixed inset-0 flex items-center justify-center">
+                    {/* This div serves as a backdrop and should cover the entire screen */}
+                    <div onClick={handleDropdownConfirmItemClick} className="bg-gray-300 bg-opacity-30 fixed inset-0"></div>
+                    {/* Centered dropdown content */}
+                    <div className="bg-white w-10/12 md:w-6/12 xl:w-4/12  pt-4 pb-2 border-radius-8 fixed  z-50 left-1/2 transform -translate-x-1/2">
+                        <div className="w-10/12 mx-auto">
+                            <div>
+                                <div className="flex ">
+                                    <div className="pt-1 pb-1  ">
+                                        <p className="font16-res-400">Konfirmasi absensi</p>
+                                    </div>
+                                </div>
+                                <div className="my-3 border-t pt-3">
+                                    <div className="block">
+                                        <div className={"flex text-left mt-1 gap-2 font15-res-300"}>
+                                            {props.action === null && props.reason === null ? (
+                                                <p className="text-gray-700">
+                                                    Konfirmasi kiriman absent {props.name} dengan status action melewatkan dan tanpa alasan
+                                                </p>
+                                            ) : (
+                                                <p className="text-gray-700">
+                                                    Konfirmasi kiriman absent {props.name} dengan status action {props.action} dan alasan {props.reason}
+                                                </p>
+                                            )}
+                                        </div>
+
+                                    </div>
+                                    <div className="my-3 block md:flex justify-between  pt-3">
+                                        <div className="flex font14-res-300">
+                                            <p  className="text-gray-700" style={{fontWeight:"500"}}>Date Time: </p>
+                                            <p  className="text-gray-500">{props.absent_time === null ? '-' : props.absent_time}</p>
+                                        </div>
+                                        <div className="flex font14-res-300">
+                                            <p  className="text-gray-700" style={{fontWeight:"500"}}>Deadline : </p>
+                                            <p  className="text-gray-500">{props.absent_deadline} - {props.absent_date}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="my-3 block w-full md:flex border-t pt-3">
+                                    <div className=" w-full justify-between gap-3 my-2 flex ">
+                                        <button onClick={handleDropdownConfirmItemClick} className="bg-white border hover:bg-purple-600 hover:text-white border-purple-700 border-radius-4 text-purple-600 px-3 py-1 cursor-pointer font15-res-300">
+                                            Kembali
+                                        </button>
+                                        <button className="bg-purple-600 hover:bg-purple-700 border border-purple-700 text-white border-radius-4 cursor-pointer px-3 py-1 font15-res-300">
+                                            Konfirmasi
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            <div className="bg-white w-full py-1 my-1 border-radius-8 shadow">
+                <div className="w-full flex py-2 justify-between ">
+                    <div className="mx-3" style={{ height: "45px" }}>
+                        <img className="h-full radius-100" src={`${props.image ? props.image : "/assets/default-profile.svg"}`} alt="Profile" />
+                    </div>
+                    <div className="block w-11/12">
+                        <div className="flex me-2 md:me-5 justify-between">
+                            <div className="block">
+                                <div className="w-6/12 mx-1 mt-0 md:mt-0.5 text-left">
+                                    <h3 className="font16-res-300" style={{color:"#646464"}}>
+                                        {props.student.length >20 ? (
+                                            props.student.slice(0, 20) + '...'
+                                        ) : (
+                                            props.student
+                                        )}
+                                    </h3>
+                                </div>
+                                <div className="w-full  block mt-1 gap-2  mx-1 text-left">
+                                    <div className=" flex gap-2  text-left">
+                                        <p className="font13-res-300" style={{ color: "#605f5f" }}>Status : </p>
+                                        {props.status === null ? (
+                                            <p className="font13-res-300" style={{ fontWeight: "550", color: "#605f5f" }}>Belum Absent</p>
+                                        ) : (
+                                            <p className="font13-res-300" style={{ fontWeight: "550", color: "#605f5f" }}>{props.status}</p>
+                                        )}
+                                    </div>
+
+
+
+                                </div>
+
+                            </div>
+                            <div className="block gap-2">
+                                <div className=" w-full  mb-1 text-right  block">
+                                    <button onClick={toggleDropAction}  className=" font13-res-300 hover:bg-purple-700 hover:text-white cursor-pointer border-gray-300 text-gray-500 px-2 py-1 rounded-md border">
+                                        Lihat Absensi
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
             </div>
         </>
     )

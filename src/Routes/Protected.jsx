@@ -46,6 +46,7 @@ import FeedLiked from "../Pages/Feed/FeedLiked";
 import FeedNotification from "../Pages/Feed/FeedNotification";
 import FeedSearch from "../Pages/Feed/FeedSearch";
 import Profile from "../Pages/Profile/Profile";
+import DetailClassClassmate from "../Pages/Class/DetailClassClassmate";
 
 export const Protected = () => {
 
@@ -57,23 +58,27 @@ export const Protected = () => {
 
 
       {/*class Page*/}
-        <Route path="/" element={<Main />} />
-      <Route path="/join/class" element={<JoinClass />} /> {/* Done */}
-      <Route path="/create/class" element={<CreateClass />} /> {/* Done */}
-      <Route path="/edit/my/class/:id/:slug" element={<EditMyClass />} /> {/* Done */}
+        <Route path="/" element={<Main />} />  {/* Done */}
+
+        <Route path="/join/class" element={<JoinClass />} /> {/* Done */}
+        <Route path="/create/class" element={<CreateClass />} /> {/* Done */}
+        <Route path="/edit/my/class/:id/:slug" element={<EditMyClass />} /> {/* Done */}
         <Route path="/my/class" element={<MyClass />} /> {/* Done */}
+        <Route path="/view/my/class/:id/:slug" element={<MyClassDetail />} /> {/* Done */}
+        <Route path="/view/my/class/:id/:slug/students" element={<MyClassStudent />}/> {/* Done */}
+
+        <Route path="/view/class/:id/:slug" element={<DetailClass />} />
+        <Route path="/view/class/:id/:slug/classmate" element={<DetailClassClassmate />} />
+
+        <Route path="/class/:id/:slug/create/absent" element={<CreateAbsent />} /> {/* Done */}
+        <Route path="/class/:slug/:class_id/edit/absent/:id" element={<EditMyAbsent />}/> {/* Done */}
+        <Route path="/class/:slug/:class_id/edit/absent/:id" element={<EditMyAbsent />}/> {/* Done */}
+        <Route path="/view/:slug/:class_id/my/absent/:id" element={<MyDetailAbsent />}/> {/* Done */}
+        <Route path="/view/:slug/:class_id/my/absent/:id/students" element={<MyDetailAbsentStudents />}/> {/* Done */}
+
+        <Route path="/view/:slug/:class_id/detail/absent/:id" element={<DetailAbsent />} />
 
 
-      <Route path="/view/my/class/:id/:slug" element={<MyClassDetail />} /> {/* Done */}
-      <Route path="/view/my/class/:id/:slug/students" element={<MyClassStudent />}/> {/* Done */}
-
-      <Route path="/view/class/:id/:slug" element={<DetailClass />} />
-
-
-      <Route path="/class/:id/:slug/create/absent" element={<CreateAbsent />} /> {/* Done */}
-      <Route path="/class/:slug/:class_id/edit/absent/:id" element={<EditMyAbsent />}/> {/* Done */}
-      <Route path="/view/:slug/:class_id/my/absent/:id" element={<MyDetailAbsent />}/> {/* Done */}
-      <Route path="/view/:slug/:class_id/my/absent/:id/students" element={<MyDetailAbsentStudents />}/> {/* Done */}
 
       <Route path="/class/:slug/:id/create/resource" element={<CreateResource />}/> {/* Done */}
       <Route path="/class/:slug/:class_id/edit/resource/:id" element={<EditMyResource />} /> {/* Done */}
@@ -92,7 +97,6 @@ export const Protected = () => {
 
 
       {/*absent Page*/}
-        <Route path="/view/:slug/detail/absent/:id" element={<DetailAbsent />} />
 
 
       <Route

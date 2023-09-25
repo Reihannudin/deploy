@@ -10,6 +10,7 @@ import {DetailMyClassEmptyComponent} from "../../Components/Class/Empty/DetailMy
 import {
     NavbarMyDetailAbsentComponentEmpty
 } from "../../Components/Body/Nav/Task/Absents/Empty/NavbarMyDetailAbsentEmpty.Component";
+import {DetailAbsentComponentEmpty} from "../../Components/Absent/Empty/DetailAbsentEmpty.Component";
 
 
 function DetailAbsent ({}) {
@@ -59,10 +60,13 @@ function DetailAbsent ({}) {
         };
     } , [user])
 
-    const { id, slug } = useParams();
+    console.log("user detail absent : ", user )
+
+    const { class_id,   id,slug } = useParams();
 
     console.log("id" , id)
     console.log("slug" , slug)
+
 
     const [absents, setAbsents] = useState([]);
     const [isFetchingAbsent, setIsFetchingAbsent] = useState(true);
@@ -126,6 +130,8 @@ function DetailAbsent ({}) {
                         <NavbarMyDetailAbsentComponentEmpty />
                         <div className="w-full pb-5 mx-0 px-0 h-full " style={{ background:"#FFFFFF"}}>
                             {/*<DetailMyClassEmptyComponent />*/}
+                            <DetailAbsentComponentEmpty />
+
                             {/*<DetailMyClassEmptyComponent code={item.code} user={user} name={item.name} teacher={item.teacher} students={item.students} subjects={item.subject} section={item.section} room={item.room} />*/}
                         </div>
                     </div>
@@ -139,6 +145,7 @@ function DetailAbsent ({}) {
                         <NavbarMyDetailAbsentComponentEmpty />
                         <div className="w-full pb-5 mx-0 px-0 h-full " style={{ background:"#FFFFFF"}}>
                             {/*<DetailMyClassEmptyComponent />*/}
+                            <DetailAbsentComponentEmpty />
                             {/*<DetailMyClassEmptyComponent code={item.code} user={user} name={item.name} teacher={item.teacher} students={item.students} subjects={item.subject} section={item.section} room={item.room} />*/}
                         </div>
                     </div>
@@ -157,7 +164,9 @@ function DetailAbsent ({}) {
                                     <div id="tab-contents" className=" w-full mx-auto">
                                         <div id="absent" className="w-full">
                                             <div className="w-full">
-                                                <DetailAbsentComponent name={item.name} teacher={item.teacher} action_length={actionLength} post_time={item.post_time} status={item.status} change={item.change_time} start_time={item.start_time} end_time={item.end_time} date={item.date} />
+                                                {/*<DetailAbsentComponentEmpty />*/}
+
+                                                <DetailAbsentComponent name={item.name} user={user} teacher={item.teacher} action_length={actionLength} post_time={item.post_time} status={item.status} change={item.change_time} start_time={item.start_time} end_time={item.end_time} date={item.date} />
                                             </div>
                                         </div>
                                     </div>

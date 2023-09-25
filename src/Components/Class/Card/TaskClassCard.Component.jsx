@@ -1,11 +1,18 @@
-import {useEffect, useRef, useState} from "react";
-import {Link, useParams} from "react-router-dom";
+import React, {useEffect, useRef, useState} from "react";
+import {Link, useNavigate, useParams} from "react-router-dom";
+import {AbsentMyTaskClassCardHelper} from "./Helper/AbsentMyTaskClassCard.Helper";
+import {AssignmentMyTaskClassCardHelper} from "./Helper/AssignmentMyTaskClassCard.Helper";
+import {ResourceTaskClassCardHelper} from "./Helper/ResourceTaskClassCard.Helper";
+import {AbsentTaskClassCardHelper} from "./Helper/AbsentTaskClassCard.Helper";
+import {AssignmentTaskClassCardHelper} from "./Helper/AssignmentTaskClassCard.Helper";
+import CustomAlert from "../../Helper/CustomAlert.Component";
 
 export const TaskClassCardComponent = (props) => {
 
-    const [isDropdownMenu , setIsDropdownMenu] = useState(true);
+    const {id  ,slug} = useParams();
 
     const [windowWidth , setWindowWidth] = useState(window.innerWidth);
+    const [showAlert, setShowAlert] = useState(false);
 
     useEffect(() => {
         const handleResize = () => {
@@ -19,39 +26,33 @@ export const TaskClassCardComponent = (props) => {
         }
     } , []);
 
-    const truncatedName = props.name.length > 24 ? `${props.name.slice(0, 23)}...` : props.name;
-
-    const toggleDropdownMenu = () => {
-        setIsDropdownMenu((prevHidden) => ! prevHidden);
-    }
-
-    const {slug} = useParams();
-
-    const user = JSON.parse(localStorage.getItem('whoLogin'));
-    const username = user.username;
-
-
-    //  Copy Absent
     const urlAbsent = window.location.href;
 
-
-    const definedUrlAbsent = `https://spaceskool.site/view/${slug}/detail/absent/${props.id}`;
-
+    const definedUrlAbsent = `/view/${slug}/detail/absent/${props.id}`;
     const inputRefAbsent = useRef(null);
 
     const copyUrlAbsent = () => {
         if (inputRefAbsent.current) {
+            setShowAlert(true);
             inputRefAbsent.current.value = definedUrlAbsent;
             inputRefAbsent.current.select();
             document.execCommand('copy');
-            alert('Copied URL: ' + definedUrlAbsent);
         }
     };
+
+    const truncatedName = props.name.length > 24 ? `${props.name.slice(0, 23)}...` : props.name;
+
+    const [isDropdownMenu , setIsDropdownMenu] = useState(true);
+    const [error, setError] = useState("");
+
+
+
+    const navigate = useNavigate();
 
     // Copy Assignment
     const urlAssignment = window.location.href;
 
-    const definedUrlAssignment = `https://spaceskool.site/view/${slug}/detail/assignment/${props.id}`
+    const definedUrlAssignment = `/view/${slug}/detail/assignment/${props.id}`
 
     const inputRefAssignment = useRef(null);
 
@@ -67,7 +68,7 @@ export const TaskClassCardComponent = (props) => {
     // Copy Resource
     const urlResource = window.location.href;
 
-    const definedUrlResource = `https://spaceskool.site/view/${slug}/detail/resource/${props.id}`
+    const definedUrlResource = `/view/${slug}/detail/resource/${props.id}`
 
     const inputRefResource = useRef(null);
 
@@ -81,304 +82,61 @@ export const TaskClassCardComponent = (props) => {
     }
 
 
+    useEffect(() => {
+        if (error) {
+            navigate(`/view/class/${id}/${slug}`);
+        }
+    }, [error, navigate]);
+
 
     return(
         <>
-            <div className="mb-4">
+            <div className="mb-10">
                 {props.type  === "absent" ? (
-                    <div >
-                        <div>
-                            <div className="bg-white border py-3 border-b-0 border-radius-4 px-4">
-                                <div className="flex relative">
-                                    <div className="p-2 border-radius-4 me-2" style={{ background: "#A568E6", height: "40px" , width:"40px" }}>
-                                        <div className="my-auto" style={{ height: "24px" ,  width:"40px" }}>
-                                            <img className="h-full" src="/assets/absent-sm-icon.svg" alt="" />
-                                        </div>
-                                    </div>
-                                    <div className="w-10/12 text-left mx-3">
-                                        <h2 className="font16-res-300">{window.innerWidth >= 768 ? truncatedName : props.name}</h2>
-                                        <p className="font14-res-300" style={{ color: "#5d5959" }}>{props.post_time}</p>
-                                    </div>
-                                    <div className="md:w-1/12 w-2/12 my-auto">
-                                        <button onClick={toggleDropdownMenu} className="my-auto">
-                                            <div className="px-1 py-2 bg-white hover:px-1 hover:bg-gray-100 rounded-full">
-                                                <div className="my-auto mx-1" style={{ height: "24px" }}>
-                                                    <img className="h-full w-full" src="/assets/menu-icon.svg" alt="" />
-                                                </div>
-                                            </div>
-                                        </button>
-                                    </div>
-                                    <div id="dropdown_profile" className={`z-10 ${isDropdownMenu ? 'hidden' : ''} absolute right-0 top-10 font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600`}>
-                                        <ul className="py-2 text-sm text-left font14-res-300 text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
-                                            <li>
-                                                <div>
-                                                    <input ref={inputRefAbsent} defaultValue={urlAbsent} style={{ position: 'fixed', top: '-9999px' }} />
-                                                    <button onClick={copyUrlAbsent} className="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600 dark:hover:text-white">
-                                                        Copy Link
-                                                    </button>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div>
-                                                    <Link  className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600 dark:hover:text-white">Laporkan</Link>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="bg-white border border-radius-4 px-4 py-2">
-                                <Link to={`/view/${slug}/detail/absent/${props.id}`}>
-                                    <div className="flex justify-between w-11/12 gap-4 ms-auto">
-                                       <div>
-                                           {props.action.map((item) => {
-                                               console.log("item : " , item)
-                                               console.log("item student : " , item.student_id)
-                                               console.log("user id : " , props.user_id)
-                                               console.log("item status : " ,item.status)
-                                               console.log("item equals : " , parseInt(item.student_id) === parseInt(props.user_id))
-                                                   // item.student_id === props.user_id
-                                                   return(
-                                                       <div key={item.id}>
-                                                           {parseInt(item.student_id) === parseInt(props.user_id) ? (
-                                                               <>
-                                                                   {item.status === 'selesai' || item.status === 'hadir' ? (
-                                                                       <div>
-                                                                           <div className="w-full text-green-600 bg-green-200 px-4 border-radius-4">
-                                                                               <p className="font14-res-300">{item.status}</p>
-                                                                           </div>
-                                                                       </div>
-                                                                   ) : item.status === 'melewatkan' ? (
-                                                                       <div>
-                                                                           <div className="w-full text-red-600 bg-red-200 px-2 border-radius-4">
-                                                                               <p className="font14-res-300">{item.status}</p>
-                                                                           </div>
-                                                                       </div>
-                                                                   ) : item.status === null ? (
-                                                                       <div>
-                                                                           <div className="w-full text-yellow-600 bg-yellow-200 px-4 border-radius-4">
-                                                                               <p className="font14-res-300">Berjalan</p>
-                                                                           </div>
-                                                                       </div>
-                                                                   ) : (
-                                                                       <div>
-                                                                           <div className="w-full text-yellow-600 bg-yellow-200 px-4 border-radius-4">
-                                                                               <p className="font14-res-300">Berjalan</p>
-                                                                           </div>
-                                                                       </div>
-                                                                   )}
-                                                               </>
-                                                           ) : (
-                                                               <>
 
-                                                               </>
-                                                           )}
-                                                       </div>
-                                                   )
-                                               }
-                                           )}
-                                       </div>
-                                        {/*<div className="flex gap-2 mx-0">*/}
-                                        {/*    <div className="mt-0.5 font14-res-300">*/}
-                                        {/*        <p className="my-auto text-gray-500">{props.end_time} - {props.date}</p>*/}
-                                        {/*    </div>*/}
-                                        {/*</div>*/}
-                                        <div className="flex gap-2 mx-5">
-                                            <div className="mt-0.5 font14-res-300">
-                                                <div style={{ height:"18px"}}>
-                                                    <img src="/assets/arrows-right.svg" className="w-full h-full" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </Link>
-
-                            </div>
-                        </div>
-                    </div>
+                    <AbsentTaskClassCardHelper
+                        id={id} slug={slug} navigate={navigate}
+                        absentId={props.id} absentStatus={props.status} absentEndTime={props.end_time} absentDate={props.date}
+                        absentName={props.name} absentPostTime={props.post_time}
+                        isDropdownMenu={isDropdownMenu} setIsDropdownMenu={setIsDropdownMenu}
+                        copyUrlAbsent={copyUrlAbsent} inputRefAbsent={inputRefAbsent} urlAbsent={urlAbsent}
+                    />
                 ) : (props.type === "assignment") ? (
-                    <div>
-                        <div>
-                            <div className="bg-white border py-3 border-b-0 border-radius-4 px-4">
-                                <div className="flex relative">
-                                    <div className="p-2 border-radius-4 me-2" style={{ background: "#A568E6", height: "40px" , width:"40px" }}>
-                                        <div className="my-auto" style={{ height: "24px" ,  width:"40px" }}>
-                                            <img className="h-full" src="/assets/assigment-sm-icon.svg" alt="" />
-                                        </div>
-                                    </div>
-                                    <div className="w-10/12 text-left mx-3">
-                                        <h2 className="font16-res-300">{window.innerWidth >= 768 ? truncatedName : props.name}</h2>
-                                        <p className="font14-res-300" style={{ color: "#5d5959" }}>{props.post_time}</p>
-                                    </div>
-                                    <div className="md:w-1/12 w-2/12 my-auto">
-                                        <button onClick={toggleDropdownMenu} className="my-auto">
-                                            <div className="px-1 py-2 bg-white hover:px-1 hover:bg-gray-100 rounded-full">
-                                                <div className="my-auto mx-1" style={{ height: "24px" }}>
-                                                    <img className="h-full w-full" src="/assets/menu-icon.svg" alt="" />
-                                                </div>
-                                            </div>
-                                        </button>
-                                    </div>
-                                    <div id="dropdown_profile" className={`z-10 ${isDropdownMenu ? 'hidden' : ''} absolute right-0 top-10 font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600`}>
-                                        <ul className="py-2 text-sm text-left font14-res-300 text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
-                                            <li>
-                                                <div>
-                                                    <input ref={inputRefAbsent} defaultValue={urlAbsent} style={{ position: 'fixed', top: '-9999px' }} />
-                                                    <button onClick={copyUrlAbsent} className="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600 dark:hover:text-white">
-                                                        Copy Link
-                                                    </button>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div>
-                                                    <Link  className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600 dark:hover:text-white">Laporkan</Link>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="bg-white border border-radius-4 px-4 py-2">
-                                <Link to={`/view/${slug}/detail/assignment/${props.id}`}>
-                                    <div className="flex justify-between w-11/12 gap-4 ms-auto">
-                                        <div>
-                                            {props.action.map((item) => {
 
-                                                console.log("my user id : " , props.user_id);
-                                                console.log("action user id : " , item.student_id );
-                                                console.log("same user id : " , item.student_id === props.user_id);
-
-                                                    return(
-                                                        <div key={item.id}>
-                                                            {parseInt(item.student_id) === parseInt(props.user_id) ? (
-                                                                <>
-                                                                    {item.status === 'selesai' || item.status === 'mengerjakan' ? (
-                                                                        <div>
-                                                                            <div className="w-full text-green-600 bg-green-200 px-4 border-radius-4">
-                                                                                <p className="font14-res-300">{item.status}</p>
-                                                                            </div>
-                                                                        </div>
-                                                                    ) : item.status === 'melewatkan' ? (
-                                                                        <div>
-                                                                            <div className="w-full text-red-600 bg-red-200 px-2 border-radius-4">
-                                                                                <p className="font14-res-300">{item.status}</p>
-                                                                            </div>
-                                                                        </div>
-                                                                    ) : item.status === null ? (
-                                                                        <div>
-                                                                            <div className="w-full text-yellow-600 bg-yellow-200 px-4 border-radius-4">
-                                                                                <p className="font14-res-300">Berjalan</p>
-                                                                            </div>
-                                                                        </div>
-                                                                    ) : (
-                                                                        <div>
-                                                                            <div className="w-full text-yellow-600 bg-yellow-200 px-4 border-radius-4">
-                                                                                <p className="font14-res-300">Berjalan</p>
-                                                                            </div>
-                                                                        </div>
-                                                                    )}
-                                                                </>
-                                                            ) : (
-                                                                <>
-
-                                                                </>
-                                                            )}
-                                                        </div>
-                                                    )
-                                                }
-                                            )}
-                                        </div>
-                                        <div className="flex gap-2 mx-5">
-                                        <div className="mt-0.5 font14-res-300">
-                                            <div style={{ height:"18px"}}>
-                                                <img src="/assets/arrows-right.svg" className="w-full h-full" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    </div>
-                                </Link>
-                            </div>
-                        </div>
-
-                    </div>
+                    <AssignmentTaskClassCardHelper
+                    id={id} slug={slug} navigate={navigate}
+                            assignmentId={props.id} assignmentStatus={props.status} assignmentEndTime={props.end_time} assignmentDate={props.date}
+                            assignmentName={props.name} assignmentPostTime={props.post_time}
+                            isDropdownMenu={isDropdownMenu} setIsDropdownMenu={setIsDropdownMenu}
+                            copyUrlAssignment={copyUrlAssignment} inputRefAssignment={inputRefAssignment} urlAssignment={urlAssignment}
+            />
                 ) : (
                     <div >
-                        <div>
-                            <div className="bg-white border py-3 border-b-0 border-radius-4 px-4">
-                                <div className="flex relative">
-                                    <div className="p-2 border-radius-4 me-2" style={{ background: "#A568E6", height: "40px" , width:"40px" }}>
-                                        <div className="my-auto" style={{ height: "24px" ,  width:"40px" }}>
-                                            <img className="h-full" src="/assets/resource-sm-icon.svg" alt="" />
-                                        </div>
-                                    </div>
-                                    <div className="w-10/12 text-left mx-3">
-                                        <h2 className="font16-res-300">{window.innerWidth >= 768 ? truncatedName : props.name}</h2>
-                                        <p className="font14-res-300" style={{ color: "#5d5959" }}>{props.post_time}</p>
-                                    </div>
-                                    <div className="md:w-1/12 w-2/12 my-auto">
-                                        <button onClick={toggleDropdownMenu} className="my-auto">
-                                            <div className="px-1 py-2 bg-white hover:px-1 hover:bg-gray-100 rounded-full">
-                                                <div className="my-auto mx-1" style={{ height: "24px" }}>
-                                                    <img className="h-full w-full" src="/assets/menu-icon.svg" alt="" />
-                                                </div>
-                                            </div>
-                                        </button>
-                                    </div>
-                                    <div id="dropdown_profile" className={`z-10 ${isDropdownMenu ? 'hidden' : ''} absolute right-0 top-10 font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600`}>
-                                        <ul className="py-2 text-sm text-left font14-res-300 text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
-                                            <li>
-                                                <div>
-                                                    <input ref={inputRefResource} defaultValue={urlResource} style={{ position: 'fixed', top: '-9999px' }} />
-                                                    <button onClick={copyUrlResource} className="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600 dark:hover:text-white">
-                                                        Copy Link
-                                                    </button>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div>
-                                                    <Link  className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600 dark:hover:text-white">Laporkan</Link>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="bg-white border border-radius-4 px-4 py-2">
-                                <Link to={`/view/${slug}/detail/resource/${props.id}`}>
-                                    <div className="flex justify-between w-11/12 gap-4 ms-auto">
-                                        {props.status === "selesai" ? (
-                                            <div>
-                                                <div className="w-full text-green-600 bg-green-200 px-4 border-radius-4">
-                                                    <p className="font14-res-300">{props.status}</p>
-                                                </div>
-                                            </div>
-                                        ) : props.status === "melewatkan" ? (
-                                            <div>
-                                                <div className="w-full text-red-600 bg-red-200 px-2 border-radius-4">
-                                                    <p className="font14-res-300">{props.status}</p>
-                                                </div>
-                                            </div>
-                                        ) : (
-                                            <div>
-                                                <div className="w-full text-yellow-600 bg-yellow-200 px-4 border-radius-4">
-                                                    <p className="font14-res-300">{props.status}</p>
-                                                </div>
-                                            </div>
-                                        )}
-                                        <div className="flex gap-2 mx-5">
-                                            <div className="mt-0.5 font14-res-300">
-                                                <div style={{ height:"18px"}}>
-                                                    <img src="/assets/arrows-right.svg" className="w-full h-full" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </Link>
-                            </div>
-                        </div>
+                        <ResourceTaskClassCardHelper
+                            id={id} slug={slug} navigate={navigate}
+                            resourceId={props.id} resourceStatus={props.status} resourceEndTime={props.end_time} resourceDate={props.date}
+                            resourceName={props.name} resourcePostTime={props.post_time}
+                            isDropdownMenu={isDropdownMenu} setIsDropdownMenu={setIsDropdownMenu}
+                            copyUrlResource={copyUrlResource} inputRefResource={inputRefResource} urlResource={urlResource}
+/>
                     </div>
                 )}
             </div>
+            {showAlert && (
+                <div id="drop-action" className="fixed inset-0 flex items-center justify-center"  style={{ zIndex: "10000" }}>
+                    {/* This div serves as a backdrop and should cover the entire screen */}
+                    <button
+                        onClick={() => setShowAlert(false)} // Close the alert when clicking the backdrop
+                        className="bg-gray-500 bg-opacity-30 w-full h-full fixed top-0 left-0"
+                        style={{ zIndex: "10000" }}
+                    ></button>
+
+                    <CustomAlert
+                        message={`Copied Url: ${urlAbsent}`}
+                        onClose={() => setShowAlert(false)} // Close the alert when using the custom alert's close button
+                    />
+                </div>
+            )}
         </>
     )
 }

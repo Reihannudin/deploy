@@ -18,7 +18,7 @@ export const NavbarCreateClassComponent = () => {
                             </div>
                         </button>
                         <div className="my-2-cus-back text-left">
-                            <h4 className="my-2 font16-label-res-400">Membuat Kelas</h4>
+                            <h4 className="my-2 font16-res-400">Membuat Kelas</h4>
                         </div>
                     </div>
                 </div>

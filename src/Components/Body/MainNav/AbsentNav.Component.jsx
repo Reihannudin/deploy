@@ -23,7 +23,7 @@ export const  AbsentNavComponent = () => {
                                     <div className="mx-auto cursor-pointer h-icon-main-nav" >
                                         <img className="mx-auto cursor-pointer h-full" src={`${isAbsentActive ? '/assets/icon-absent-nav.svg' : '/assets/icon-absent-nav-gray.svg'}`}  alt="Home Icon" />
                                     </div>
-                                    <p className={`my-1 ${isAbsentActive ? 'text-purple-600' : 'text-gray-400'} hover:text-purple-700`} style={{ fontSize: "11px" }}>Kelasku</p>
+                                    <p className={`my-1 ${isAbsentActive ? 'text-purple-600' : 'text-gray-400'} hover:text-purple-700`} style={{ fontSize: "11px" }}>Absensi</p>
                                 </div>
                             </Link>
 
@@ -36,7 +36,7 @@ export const  AbsentNavComponent = () => {
                                     <div className="mx-auto cursor-pointer h-icon-main-nav">
                                         <img className="mx-auto cursor-pointer h-full"  src={`${isStudentActive ? '/assets/icon-student-nav.svg' : '/assets/icon-student-nav-gray.svg'}`} alt="Profile Icon" />
                                     </div>
-                                    <p className={`my-1 ${isStudentActive ? 'text-purple-600' : 'text-gray-400'} hover:text-purple-700`} style={{ fontSize: "11px" }}>Kelasku</p>
+                                    <p className={`my-1 ${isStudentActive ? 'text-purple-600' : 'text-gray-400'} hover:text-purple-700`} style={{ fontSize: "11px" }}>Siswa</p>
                                 </div>
                             </Link>
                         </div>

@@ -11,7 +11,6 @@ import {ResourceMyTaskClassCardHelper} from "./Helper/ResourceMyTaskClassCard.He
 export const TaskMyClassCardComponent = (props) => {
     const {id  ,slug} = useParams();
 
-
     const [windowWidth , setWindowWidth] = useState(window.innerWidth);
     const [showAlert, setShowAlert] = useState(false);
 
@@ -53,7 +52,7 @@ export const TaskMyClassCardComponent = (props) => {
     // Copy Assignment
     const urlAssignment = window.location.href;
 
-    const definedUrlAssignment = `https://spaceskool.site/view/${slug}/my/assignment/${props.id}`
+    const definedUrlAssignment = `/view/${slug}/my/assignment/${props.id}`
 
     const inputRefAssignment = useRef(null);
 
@@ -69,7 +68,7 @@ export const TaskMyClassCardComponent = (props) => {
     // Copy Resource
     const urlResource = window.location.href;
 
-    const definedUrlResource = `https://spaceskool.site/view/${slug}/${id}/my/resource/${props.id}`
+    const definedUrlResource = `/view/${slug}/${id}/my/resource/${props.id}`
 
     const inputRefResource = useRef(null);
 

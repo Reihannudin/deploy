@@ -6,6 +6,9 @@ import {TaskCardComponent} from "../Class/Card/TaskCard.Component";
 import {MainNavComponent} from "../Body/MainNav/MainNav.Component";
 import api from "../../Config/api";
 import {TaskCardHelperComponent} from "../Class/Card/TaskCardHelper.Component";
+import AbsentDetailMyClassHelper from "../Class/Comps/AbsentDetailMyClass.Helper";
+import {AssignmentDetailMyClassHelper} from "../Class/Comps/AssignmentDetailMyClass.Helper";
+import {ResourceDetailMyClassHelper} from "../Class/Comps/ResourceDetailMyClass.Helper";
 
 export const MainComponent = ({user}) => {
 
@@ -328,3 +331,100 @@ export const MainComponent = ({user}) => {
     )
 }
 
+
+// <div className="lg:flex lg:py-0 md:py-8 py-5 md:block xl:w-10/12 lg:w-11/12 w-full mx-auto lg:justify-between">
+//     <div className="xl:w-10/12 w-full sm:w-11/12 mx-auto lg:my-0 my-5 lg:w-9/12">
+//         <div className="w-full lg:py-6 py-3 text-left  lg:mb-10 md:mb-5 bg-white">
+//             <h2 className="font30-res-300 mx-5">{props.name}</h2>
+//             <div className="text-left flex border-b mb-4 border-gray-200 pb-5 justify-between mx-5">
+//                 <div className="block">
+//                     <h2 className="font14-res-300 text-gray-700" >Guru : {props.teacher}</h2>
+//                     <h2 className="font14-res-300 text-gray-700">Ruang : {props.room}</h2>
+//                 </div>
+//                 <div className="block">
+//                     <h2 className="font14-res-300 text-gray-700" >Kejuruan : {props.subjects}</h2>
+//                     <h2 className="font14-res-300 text-gray-700" >Pelajaran : {props.section}</h2>
+//                 </div>
+//             </div>
+//             <div className="lg:w-10/12 w-11/12 lg:hidden block lg:shadow border-t border-b mx-auto my-6">
+//                 <div className="pt-5  font16-res-400 text-left mx-5">
+//                     <h4 className="font16-res-400 ">Keleolah History anda</h4>
+//                 </div>
+//                 <div className="font14-res-300">
+//                     <div className="flex gap-5 justify-between  px-6 pt-6">
+//                         <label htmlFor="day_l">Pilih Hari : </label>
+//                         <select id="day_l"  className="w-2/5" onChange={handleDayChange} value={selectedDay}>
+//                             <option value="" className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700" >Select</option>
+//                             {generateDaysOptions()}
+//                         </select>
+//                     </div>
+//                     <div className="flex gap-5  justify-between px-6 py-5">
+//                         <label htmlFor="month_l">Pilih Bulan : </label>
+//                         <select id="month_l" className="w-2/5" onChange={handleMonthChange} value={selectedMonth}>
+//                             <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="">Select</option>
+//                             <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="1">January</option>
+//                             <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="2">February</option>
+//                             <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="3">March</option>
+//                             <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="4">April</option>
+//                             <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="5">May</option>
+//                             <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="6">June</option>
+//                             <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="7">July</option>
+//                             <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="8">August</option>
+//                             <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="9">September</option>
+//                             <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="10">October</option>
+//                             <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="11">November</option>
+//                             <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="12">December</option>
+//                         </select>
+//                     </div>
+//                     <div className="flex gap-5 justify-between  px-6 pb-6">
+//                         <label htmlFor="year_l">Pilih Tahun:</label>
+//                         <select id="year_l" className="w-2/5 border-none" onChange={handleYearChange} value={selectedYear}>
+//                             <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700" value="">Select</option>
+//                             <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700" value="2021">2021</option>
+//                             <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700" value="2022">2022</option>
+//                             <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700" value="2023">2023</option>
+//                             {/* Add more year options */}
+//                         </select>
+//                     </div>
+//                 </div>
+//                 <div className="w-full mx-auto pb-4">
+//                     <div className="w-11/12 mx-auto">
+//                         <button
+//                             onClick={handleSaveButtonClick}
+//                             type="button" // Add this line to specify the button type
+//                             className="w-full py-1.5 bg-purple-600 hover:bg-purple-700 cursor-pointer border-radius-4 text-white hover:text-gray-50 font14-res-300 mx-auto"
+//                         >
+//                             Save
+//                         </button>
+//
+//                     </div>
+//                 </div>
+//             </div>
+//             <div className="p-4">
+//                 <div className="text-right mb-3">
+//                     <h2 className="font15-res-300">{!month ? monthNames[currentMonth - 1] : monthNames[month - 1]} {!year ? currentYears : year}</h2>
+//
+//                 </div>
+//                 <div className="grid grid-cols-7 gap-2">
+//                     {weekDays.map((day , index) => {
+//
+//                         return(
+//                             <div
+//                                 key={index}
+//                                 className={`text-center cursor-pointer ${
+//                                     index === activeIndex ? "bg-purple-600 text-white" : "bg-gray-200 hover:bg-purple-600 hover:text-white"
+//                                 } py-2 px-1.5 rounded`}
+//                                 onClick={() => handleDayClick(day, index)}
+//                             >
+//                                 <div className=" font15-res-300" style={{ fontWeight:"550"}}>{daysOfWeek[index]}</div>
+//                                 <div className="font14-res-300">{day.getDate()}</div>
+//                             </div>
+//                         )
+//                     })}
+//                 </div>
+//             </div>
+//
+//            </div>
+//     </div>
+//
+// </div>

@@ -8,7 +8,7 @@ export const NavbarJoinClassComponent = () => {
     };
 
     return (
-        <nav className="w-full fixed py-0.5 bg-white" style={{ zIndex: "44",  minWidth: "280px",  borderBottom: "1px solid #E5E3E9" }}>
+        <nav className="w-full fixed py-1 bg-white" style={{ zIndex: "44",  minWidth: "280px",  borderBottom: "1px solid #E5E3E9" }}>
             <header className="xl:w-9/12 sm:w-10/12 w-11/12 mx-auto">
                 <div className="flex py-0 gap-4">
                     <div className="flex gap-4">

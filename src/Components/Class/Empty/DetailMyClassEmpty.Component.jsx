@@ -212,7 +212,7 @@ export const DetailMyClassEmptyComponent = (props) => {
 
     return(
         <>
-            <div className='h-full mx-auto lg:pt-16 md:pt-7  sm:pt-7 pt-7 px-0' style={{ minWidth:"333px"}} key={props.id}>
+            <div className='h-full mx-auto lg:pt-16 md:pt-7  sm:pt-7 pt-7 px-0' style={{ minWidth:"280px"}} key={props.id}>
                 <div className="block w-full md:hidden">
                     <MyDetailClassNavComponent />
                 </div>

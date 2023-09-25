@@ -1034,9 +1034,52 @@ body{
 
 }
 
+.h-icon-copy{
+  height: 20px;
+}
+
+.p-detail-4{
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.m-6-c-detail{
+  margin-left: 1.25rem;
+  margin-right: 1.25rem;
+  margin-top: 0.75rem;
+  margin-bottom: 1em;
+}
 
 /* Small screens (< 360px) */
 @media (max-width: 359px) {
+
+  .m-6-c-detail{
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+
+  .p-detail-4{
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+
+  .h-icon-copy{
+    height: 16px;
+  }
+
+
+  .font30-res-300{
+    font-size: 22px;
+  }
+
 
   .w-card-class {
     width: 100%; /* When width is less than 360px, make it 92% */

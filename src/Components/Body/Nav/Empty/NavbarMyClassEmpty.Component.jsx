@@ -14,7 +14,7 @@ export const NavbarMyClassEmptyComponent = (props) => {
 
     return(
         <>
-            <div className="w-full fixed md:py-0.5 py-0 bg-white" style={{  zIndex:"39" , minWidth:"300px"}}>
+            <div className="w-full fixed md:py-0.5 py-0 bg-white" style={{  zIndex:"39" , minWidth:"280px"}}>
                 <div className="mx-auto   flex py-1 w-full border-b border-gray-200" >
                     <header className="w-full">
                         <nav

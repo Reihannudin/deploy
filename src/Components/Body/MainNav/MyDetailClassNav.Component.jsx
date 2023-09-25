@@ -44,17 +44,17 @@ export const  MyDetailClassNavComponent = () => {
 
 
 
-            <div className="w-full fixed  bottom-0 border-t border-gray-300 bg-white" style={{zIndex:"60"}} >
+            <div className="w-full fixed z-40  bottom-0 border-t border-gray-300 bg-white" >
                 <div className="mx-auto relative sm:w-10/12 w-full">
                     <div className="absolute left-0 right-0 top-0 bottom-6 flex justify-center items-center">
-                        <div className="bg-white p-2 border-b border-l border-r border-gray-300 rounded-full">
+                        <div className="bg-white p-2-c border-b border-l border-r border-gray-300 rounded-full">
                             <button onClick={toggleDropAction} style={{ transform: dropAction ? 'rotate(40deg)' : 'none' ,    transition: 'transform 0.3s ease-in-out' }} className="bg-purple-600 p-2 rounded-full">
-                                <img style={{ height: "32px" }} src="/assets/add-icon-white.svg" alt="Add Icon" />
+                                <img  className="h-icon-add" src="/assets/add-icon-white.svg" alt="Add Icon" />
                             </button>
                         </div>
                     </div>
-                    <div className="w-full bg-white justify-between flex" style={{ height:"70px"}}>
-                        <div className="flex bg-white  justify-center pt-2 pb-1 mx-auto sm:w-5/12 w-5/12">
+                    <div className="w-full bg-white justify-between flex h-bar-main-nav">
+                        <div className="flex bg-white  justify-center pt-3-c pb-2-c mx-auto sm:w-5/12 w-5/12">
                             <div className=" p-1 bg-white hover:bg-gray-100 radius-full" style={{ width:"60px"}}>
 
                             <Link to={`/view/my/class/${id}/${slug}`} className="text-center bg-white cursor-pointer   " style={{ height: "28px" }}>
@@ -62,8 +62,7 @@ export const  MyDetailClassNavComponent = () => {
                                     <div className="mx-auto cursor-pointer h-icon-main-nav">
                                         <img className="mx-auto cursor-pointer h-full" src={`${isDetailClassActive ? '/assets/icon-myclass-main-nav.svg' : '/assets/icon-myclass-main-nav-gray.svg'} `} alt="Home Icon" />
                                     </div>
-                                    <p className={`my-1 ${isDetailClassActive ? 'text-purple-600' : 'text-gray-400'} hover:text-purple-700`} style={{ fontSize: "11px" }}>Kelasku</p>
-
+                                    <p className={`my-1 ${isDetailClassActive ? 'text-purple-600' : 'text-gray-400'} hover:text-purple-700  font11-res-300`}>Kelasku</p>
                                 </div>
                             </Link>
                             </div>
@@ -77,7 +76,7 @@ export const  MyDetailClassNavComponent = () => {
                                             <div className="mx-auto cursor-pointer h-icon-main-nav" >
                                                 <img className="mx-auto cursor-pointer h-full" src={`${isStudentActive ? '/assets/icon-student-nav.svg' : '/assets/icon-student-nav-gray.svg'} `} alt="Home Icon" />
                                             </div>
-                                            <p className={`my-1 ${isStudentActive ? 'text-purple-600' : 'text-gray-400'} hover:text-purple-700`} style={{ fontSize: "11px" }}>Murid</p>
+                                            <p className={`my-1 ${isStudentActive ? 'text-purple-600' : 'text-gray-400'}  font11-res-300 hover:text-purple-700`} >Murid</p>
                                     </Link>
                                 </div>
                                 </div>
