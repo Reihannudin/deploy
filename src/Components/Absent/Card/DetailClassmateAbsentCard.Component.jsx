@@ -83,11 +83,11 @@ export const DetailClassmateAbsentCardComponent = (props) => {
     return(
         <>
             {dropAction && (
-                <div id="drop-action" className="fixed inset-0 flex items-center justify-center">
+                <div id="drop-action" className="fixed inset-0  z-50 flex items-center justify-center">
                     {/* This div serves as a backdrop and should cover the entire screen */}
-                    <div onClick={handleDropdownItemClick} className="bg-gray-300 bg-opacity-30 fixed inset-0"></div>
+                    <div onClick={handleDropdownItemClick} className="bg-gray-600 bg-opacity-40 z-50 fixed inset-0"></div>
                     {/* Centered dropdown content */}
-                    <div className="bg-white w-10/12 md:w-6/12 xl:w-4/12 pt-4 pb-2 border-radius-8 fixed  z-50 left-1/2 transform -translate-x-1/2">
+                    <div className="bg-white w-10/12 md:w-7/12 lg:w-5/12 xl:w-4/12 pt-4 pb-2 border-radius-8 fixed  z-50 left-1/2 transform -translate-x-1/2">
                         <div className="w-10/12 mx-auto">
                             <div>
                                 <div className="flex justify-between">
@@ -98,17 +98,18 @@ export const DetailClassmateAbsentCardComponent = (props) => {
                                             <p className="font16-res-400">{props.absent_name}</p>
                                         )}
                                     </div>
-                                    {props.status_absent === "selesai" ? (
+                                    {props.status === "hadir" ? (
                                         <div className="font13-res-300 mt-0.5 ">
-                                            <p className="text-green-400 border-radius-4 pt-1 pb-1 mb-0  px-2 bg-green-200">{props.status_absent}</p>
+
+                                            <p className="text-green-400 border-radius-4 pt-1 pb-1 mb-0  px-2 bg-green-200">{props.status}</p>
                                         </div>
-                                    ): props.status_absent === "terkunci" ? (
+                                    ): props.status === "melewatkan" ? (
                                         <div className="font13-res-300 mt-0.5 ">
-                                            <p className="text-purple-700 border-radius-4 pt-1 pb-1 mb-0  px-2 bg-gray-200">{props.status_absent}</p>
+                                            <p className="text-red-400 border-radius-4 pt-1 pb-1 mb-0  px-2 bg-red-200">{props.status}</p>
                                         </div>
                                     ) : (
                                         <div className="font13-res-300 mt-0.5 ">
-                                            <p className="text-yellow-400 border-radius-4 pt-1 pb-1 mb-0  px-2 bg-yellow-200">status absent</p>
+                                            <p className="text-yellow-400 border-radius-4 pt-1 pb-1 mb-0  px-2 bg-yellow-200">{props.status}</p>
                                         </div>
                                     )}
 
@@ -127,7 +128,27 @@ export const DetailClassmateAbsentCardComponent = (props) => {
                                         </div>
                                         <div className={"flex mb-1 gap-2 font15-res-300"}>
                                             <p  className="text-gray-700" style={{fontWeight:"500"}}>status : </p>
-                                            <p className="text-gray-500">{props.status === null ? 'Belum Absent' : props.status}</p>
+                                            {props.status === "hadir" ? (
+                                                <p className=" text-green-400" style={{ fontWeight: "550" }}>{props.status}</p>
+
+                                            ) : props.status === "izin" ? (
+                                                <p className="font13-res-300 text-yellow-400" style={{ fontWeight: "550"}}>{props.status}</p>
+                                            ) : props.status === "melewatkan" ? (
+                                                <p className=" text-red-400" style={{ fontWeight: "550" }}>{props.status}</p>
+                                            ) :(
+                                                <p className="" style={{ fontWeight: "550", color: "#605f5f" }}>{props.status}</p>
+                                            )}
+                                        </div>
+                                        <div className={"flex mb-1 gap-2 font15-res-300"}>
+                                            <p  className="text-gray-700" style={{fontWeight:"500"}}>Terkonfirmasi : </p>
+                                            {props.absent_confirmation === "terkonfirmasi" ? (
+                                                <p className=" text-green-400" style={{ fontWeight: "550" }}>{props.absent_confirmation}</p>
+
+                                            )  : props.absent_confirmation === "belum terkonfirmasi" ? (
+                                                <p className="" style={{ fontWeight: "550", color: "#605f5f" }}>{props.absent_confirmation}</p>
+                                            ) :(
+                                                <p className="" style={{ fontWeight: "550", color: "#605f5f" }}>{props.absent_confirmation}</p>
+                                            )}
                                         </div>
                                     </div>
                                     <div className="flex my-1 text-left justify-between">
@@ -240,7 +261,18 @@ export const DetailClassmateAbsentCardComponent = (props) => {
                                         {props.status === null ? (
                                             <p className="font13-res-300" style={{ fontWeight: "550", color: "#605f5f" }}>Belum Absent</p>
                                         ) : (
-                                            <p className="font13-res-300" style={{ fontWeight: "550", color: "#605f5f" }}>{props.status}</p>
+                                            <>
+                                                {props.status === "hadir" ? (
+                                                    <p className="font13-res-300 text-green-400" style={{ fontWeight: "550" }}>{props.status}</p>
+
+                                                ) : props.status === "izin" ? (
+                                                    <p className="font13-res-300 text-yellow-400" style={{ fontWeight: "550"}}>{props.status}</p>
+                                                ) : props.status === "melewatkan" ? (
+                                                    <p className="font13-res-300 text-red-400" style={{ fontWeight: "550" }}>{props.status}</p>
+                                                ) :(
+                                                    <p className="font13-res-300" style={{ fontWeight: "550", color: "#605f5f" }}>{props.status}</p>
+                                                )}
+                                            </>
                                         )}
                                     </div>
 

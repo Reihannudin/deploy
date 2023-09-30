@@ -30,10 +30,9 @@ export const DetailStudentAbsentEmptyComponent = (props) => {
                 <div className="block w-full md:hidden">
                     <AbsentNavComponent />
                 </div>
-                <div className="lg:flex  lg:justify-between grid  md:grid-cols-1 sm:w-full sm:mx-0 mx-auto w-full">
-
+                <div className="lg:flex gap-4 lg:justify-between grid  md:grid-cols-1 sm:w-full sm:mx-0 mx-auto w-full">
                     <div className="lg:w-4/12 md:border-none border-b border-purple-700 mx-auto w-11/12">
-                        <div className="lg:shadow lg:mt-0 mt-3   lg:w-11/12 lg:pt-4 border-b border-purple-700 w-full pb-6 md:border-radius-8">
+                        <div className="lg:shadow md:mt-0 mt-3  lg:w-11/12 lg:pt-4 md:border-b border-b  md:border-purple-700 w-full pb-6 md:border-radius-8">
                             <div className="mx-2 md:mx-4 text-left md:pt-2 pb-0 ">
                                 <div className="flex justify-between">
                                     <h2 className="font16-res-400" style={{ color:"#646464" , fontWeight:"500"}}>Rangkuman Absent </h2>
@@ -122,10 +121,10 @@ export const DetailStudentAbsentEmptyComponent = (props) => {
 
                     <div className="lg:w-8/12  sm:w-11/12 mx-auto w-11/12">
                         <div className="flex border-b justify-between">
-                            <div className="md:my-3 my-1 md:pb-2 sm:py-8 py-4 text-left">
+                            <div className="md:my-3 my-1 md:pb-2 pb-2 text-left">
                                 <h2 className="font16-res-400 text-gray-600">Daftar Student absent</h2>
                             </div>
-                            <div className="relative py-2.5">
+                            <div className="relative">
                                 <button className="my-auto"  onClick={toggleDropdownFilterStudent}>
                                     <div  className="px-1 py-2 bg-white hover:px-1 hover:bg-gray-100 radius-100 ">
                                         <div className="my-auto  mx-1 " style={{ height:"20px"}}>

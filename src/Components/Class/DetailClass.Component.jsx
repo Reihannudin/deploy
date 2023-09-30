@@ -229,10 +229,6 @@ export const DetailClassComponent = (props) => {
                         tabTogglers[i].classList.remove("text-purple-600");
                     }
                 }
-
-                // Rest of your code...
-
-                // Update the URL hash without triggering a full page reload
                 window.history.replaceState(null, null, `#${tabName}`);
             });
         });
@@ -253,9 +249,6 @@ export const DetailClassComponent = (props) => {
             });
         };
     }, []);
-
-
-    //  ==========================================================
 
     return(
             <>
@@ -499,5 +492,4 @@ export const DetailClassComponent = (props) => {
             </>
         )
 }
-
 

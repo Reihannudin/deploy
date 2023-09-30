@@ -58,7 +58,7 @@ export const StudentCardComponent = (props) => {
 
 
     return (
-        <div className="w-full pt-3 pb-2" style={{ borderBottom: "1px solid #ebebeb" }}>
+        <div className="w-full md:w-11/12  md:ms-5 pt-3 pb-2" style={{ borderBottom: "1px solid #ebebeb" }}>
             <div className="flex justify-between">
                 <div className="flex gap-4">
                     <div style={{ height: "40px" }}>

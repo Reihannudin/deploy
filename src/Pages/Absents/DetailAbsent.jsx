@@ -149,9 +149,7 @@ function DetailAbsent ({}) {
                             {/*<DetailMyClassEmptyComponent code={item.code} user={user} name={item.name} teacher={item.teacher} students={item.students} subjects={item.subject} section={item.section} room={item.room} />*/}
                         </div>
                     </div>
-                    <div className="lg:hidden block mx-0 px-0">
-                        {/* FooterComponent */}
-                    </div>
+
                 </div>
             ): (
                 <div>
@@ -164,8 +162,6 @@ function DetailAbsent ({}) {
                                     <div id="tab-contents" className=" w-full mx-auto">
                                         <div id="absent" className="w-full">
                                             <div className="w-full">
-                                                {/*<DetailAbsentComponentEmpty />*/}
-
                                                 <DetailAbsentComponent name={item.name} user={user} teacher={item.teacher} action_length={actionLength} post_time={item.post_time} status={item.status} change={item.change_time} start_time={item.start_time} end_time={item.end_time} date={item.date} />
                                             </div>
                                         </div>

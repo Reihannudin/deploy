@@ -27,7 +27,7 @@ export const NavbarDetailAbsentComponent = (props) => {
     return(
         <>
             <nav className="w-full fixed  bg-white" style={{  zIndex:"44" , minWidth:"333px" , borderBottom:"1px solid #E5E3E9"}}>
-                <header className="sm:w-10/12 w-11/12 py-1  mx-auto">
+                <header className=" lg:w-10/12 w-11/12 py-1  mx-auto">
                     <div className="flex  justify-between gap-4">
                         <div className="flex gap-4">
                             <Link onClick={navigateBack} className="my-auto" >
@@ -103,7 +103,6 @@ export const NavbarDetailAbsentComponent = (props) => {
                     </div>
                 </div>
             </nav>
-
         </>
     )
 }

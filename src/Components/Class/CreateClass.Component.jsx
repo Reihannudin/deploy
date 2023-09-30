@@ -48,7 +48,6 @@ function CreateActivities({user}){
                     }
                 }
                 else if (response.data.status === 406) {
-                    console.log(response.data.errors.error_name);
                     if (response.data.errors.error_name === "Nama kelas tidak boleh kosong") {
                         let redirectUrl = response.data.redirect_path;
                         setRedirectPath(redirectUrl);
@@ -146,7 +145,6 @@ function CreateActivities({user}){
                                                             id="class"
                                                             name="class"
                                                             onChange={onChangeName}
-                                                            required
                                                             type="text"
                                                             className="md:w-11/12 w-full py-1.5 md:py-2.5 font15-input-res-300 border-b-gray-300"
                                                             style={{ borderBottom: "1px solid #ebebeb" }}
@@ -170,7 +168,6 @@ function CreateActivities({user}){
                                                             id="room"
                                                             name="room"
                                                             onChange={onChangeRoom}
-                                                            required
                                                             type="text"
                                                             className="md:w-11/12 w-full py-1.5 md:py-2.5 font15-input-res-300 border-b-gray-300"
                                                             style={{ borderBottom: "1px solid #ebebeb" }}
@@ -197,7 +194,6 @@ function CreateActivities({user}){
                                                         <input
                                                             id="section"
                                                             name="section"
-                                                            required
                                                             onChange={onChangeSection}
                                                             type="text"
                                                             className="md:w-11/12 w-full py-1.5 md:py-2.5 font15-input-res-300 border-b-gray-300"
@@ -221,7 +217,6 @@ function CreateActivities({user}){
                                                         <input
                                                             id="subject"
                                                             name="subject"
-                                                            required
                                                             onChange={onChangeSubject}
                                                             type="text"
                                                             className="md:w-11/12 w-full py-1.5 md:py-2.5 font15-input-res-300 border-b-gray-300"

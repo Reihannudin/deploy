@@ -32,9 +32,6 @@ export const NavbarComponent = ({isFetching ,isDataFetched ,user}) => {
 
     const urlParams = new URLSearchParams(window.location.search);
 
-    console.log("isFetching " , isFetching )
-    console.log("isDataFetched " , isDataFetched )
-
     return(
         <>
             <div className="w-full mx-auto"  style={{  zIndex:"39" , minWidth:"280px" , maxWidth:"1500px"}}>

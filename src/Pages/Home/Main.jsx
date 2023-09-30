@@ -51,7 +51,6 @@ function Main(){
         };
     } , [user])
 
-    // console.log(user)
     return(
         <>
             <div className="w-full mx-auto" style={{ background:"#FFFFFF" , minWidth:"280px"}}>

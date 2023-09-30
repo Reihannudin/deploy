@@ -4,6 +4,7 @@ import axios from "axios";
 import api from "../../../Config/api";
 import CustomAlert from "../../Helper/CustomAlert.Component";
 import {DeleteAlertComponent} from "../../Helper/DeleteAlert.Component";
+import {FE_URL} from "../../../Config";
 
 export const MyClassCardComponent = ( props ) => {
 
@@ -132,7 +133,7 @@ export const MyClassCardComponent = ( props ) => {
     };
 
     const urlClass = window.location.href;
-    const definedUrlClass = `http://localhost:3000/view/class/${props.id}/${props.slug}`;
+    const definedUrlClass = `${FE_URL}view/my/class/${props.id}/${props.slug}`;
     const inputRefClass = useRef(null);
     const [showAlert, setShowAlert] = useState(false);
 

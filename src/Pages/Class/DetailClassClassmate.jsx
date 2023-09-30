@@ -6,6 +6,10 @@ import {NavbarMyClassComponent} from "../../Components/Body/Nav/Class/NavbarMyCl
 import api from "../../Config/api";
 import {NavbarMyClassEmptyComponent} from "../../Components/Body/Nav/Empty/NavbarMyClassEmpty.Component";
 import {DetailMyClassStudentsEmptyComponent} from "../../Components/Class/Empty/DetailMyClassStudentsEmpty.Component";
+import {NavbarClassComponent} from "../../Components/Body/Nav/Class/NavbarClass.Component";
+import {NavbarClassEmptyComponent} from "../../Components/Body/Nav/Empty/NavbarClassEmpty.Component";
+import {DetailClassClassmateEmptyComponent} from "../../Components/Class/Empty/DetailMyClassClassmateEmpty.Component";
+import {DetailClassClassmateComponent} from "../../Components/Class/DetailClassClassmate.Component";
 
 function DetailClassClassmate(){
 
@@ -66,7 +70,7 @@ function DetailClassClassmate(){
         const fetchData = async () => {
             try {
                 if (!isDataFetchedClass) {
-                    const response = await api.get(`/${slug}/my/class`);
+                    const response = await api.get(`/${slug}/class`);
                     await new Promise((resolve) => setTimeout(resolve, 1500));
 
                     const data = response.data;
@@ -106,9 +110,9 @@ function DetailClassClassmate(){
             {isFetchingClass ? (
                 <div>
                     <div className="w-full" style={{ background: "#FFFFFF" }}>
-                        <NavbarMyClassEmptyComponent />
+                        <NavbarClassEmptyComponent/>
                         <div className="w-full pb-5 mx-0 px-0 h-full " style={{ background:"#FFFFFF"}}>
-                            <DetailMyClassStudentsEmptyComponent />
+                            <DetailClassClassmateEmptyComponent />
                         </div>
                     </div>
                     <div className="lg:hidden block mx-0 px-0">
@@ -118,9 +122,9 @@ function DetailClassClassmate(){
             ) : !isDataFetchedClass ? (
                 <div>
                     <div className="w-full" style={{ background: "#FFFFFF" }}>
-                        <NavbarMyClassEmptyComponent />
+                        <NavbarClassEmptyComponent/>
                         <div className="w-full pb-5 mx-0 px-0 h-full " style={{ background:"#FFFFFF"}}>
-                            <DetailMyClassStudentsEmptyComponent />
+                            <DetailClassClassmateEmptyComponent />
                         </div>
                     </div>
                     <div className="lg:hidden block mx-0 px-0">
@@ -132,14 +136,13 @@ function DetailClassClassmate(){
                     {classes.map((item) => (
                         <div key={item.id}>
                             <div className="w-full" style={{ background: "#FFFFFF" }}>
-                                <NavbarMyClassComponent name={item.name} image={user.image} />
+                                <NavbarClassComponent name={item.name} image={user.image} />
                                 <div className="w-full pb-5 mx-0 px-0 h-full " style={{ background:"#FFFFFF"}}>
-                                    <DetailMyClassStudentsComponent code={item.code} name={item.name} username={user.username} teacher={item.teacher} students={item.students} subjects={item.subject} section={item.section} room={item.room} />
+                                    {/*<DetailClassClassmateEmptyComponent />*/}
+                                    <DetailClassClassmateComponent code={item.code} name={item.name} username={user.username} teacher={item.teacher} students={item.students} subjects={item.subject} section={item.section} room={item.room}  />
                                 </div>
                             </div>
-                            <div className="lg:hidden block mx-0 px-0">
-                                {/* FooterComponent */}
-                            </div>
+
                         </div>
                     ))}
                 </>

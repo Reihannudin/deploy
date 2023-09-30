@@ -1,9 +1,7 @@
 import React, {useEffect, useRef, useState} from "react";
 import {Link, useNavigate, useParams} from "react-router-dom";
-import axios from "axios";
-import api from "../../../Config/api";
+
 import CustomAlert from "../../Helper/CustomAlert.Component";
-import {DeleteAlertComponent} from "../../Helper/DeleteAlert.Component";
 import {AbsentMyTaskClassCardHelper} from "./Helper/AbsentMyTaskClassCard.Helper";
 import {AssignmentMyTaskClassCardHelper} from "./Helper/AssignmentMyTaskClassCard.Helper";
 import {ResourceMyTaskClassCardHelper} from "./Helper/ResourceMyTaskClassCard.Helper";

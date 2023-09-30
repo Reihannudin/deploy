@@ -81,7 +81,6 @@ export const MainComponent = ({user}) => {
     const hashFragment = window.location.hash;
     const hashWithoutHash = hashFragment ? hashFragment.substring(1) : "kelas";
 
-    // console.log(liveTask.length);
 
     const handleTabClick = (e, tabName) => {
         e.preventDefault();
@@ -133,8 +132,6 @@ export const MainComponent = ({user}) => {
             });
         };
     }, []);
-
-    // console.log("lenght" ,liveTask.length)
 
     return(
         <>
@@ -277,7 +274,6 @@ export const MainComponent = ({user}) => {
                                                 // Render your live task items here
                                                 <ul className="sm:gap-3  md:gap-6 lg:gap-3 gap-2 md:my-6 my-4 flex flex-wrap">
                                                     {liveTask.map((item , index) => {
-                                                        // console.log("task item " , item)
                                                         return(
                                                             <div key={index}>
                                                                 {item.absent.length === 0 && item.assignment.length === 0 ? (

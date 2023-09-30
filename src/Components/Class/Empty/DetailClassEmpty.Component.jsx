@@ -4,6 +4,10 @@ import axios from "axios";
 import {ClassmateCardComponent} from "../../Classmate/Card/ClassmateCard.Component";
 import {MyDetailClassNavComponent} from "../../Body/MainNav/MyDetailClassNav.Component";
 import {DetailClassNavComponent} from "../../Body/MainNav/DetailClassNav.Component";
+import AbsentDetailClassHelper from "../Comps/AbsentDetailClass.Helper";
+import {AssignmentDetailClassHelper} from "../Comps/AssignmentDetailClass.Helper";
+import {ResourceDetailClassHelper} from "../Comps/ResourceDetailClass.Helper";
+import CustomAlert from "../../Helper/CustomAlert.Component";
 
 const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
@@ -215,12 +219,12 @@ export const DetailClassEmptyComponent = () => {
 
     return(
             <>
-                <div className='h-full mx-auto  lg:pt-16 md:pt-7  sm:pt-7 pt-7 px-0' style={{ minWidth:"300px"}} >
+                <div className='h-full mx-auto lg:pt-16 md:pt-7  sm:pt-7 pt-7 px-0' style={{ minWidth:"333px"}}>
                     <div className="block w-full md:hidden">
                         <DetailClassNavComponent />
                     </div>
                     <div className="lg:flex lg:py-0 md:py-8 py-5 md:block xl:w-10/12 lg:w-11/12 w-full mx-auto lg:justify-between">
-                        <div className="xl:w-10/12 w-full md:w-10/12 mx-auto lg:my-0 my-5 lg:w-9/12">
+                        <div className="xl:w-10/12 w-full sm:w-11/12 mx-auto lg:my-0 my-5 lg:w-9/12">
                             <div className="w-full lg:py-6 py-3 text-left  lg:mb-10 md:mb-5 bg-white">
                                 <h2 className="font30-res-300 mx-5 bg-gray-200 py-4 animate-pulse"></h2>
                                 <div className="text-left flex border-b border-gray-200 pb-5 justify-between mx-5">
@@ -233,53 +237,66 @@ export const DetailClassEmptyComponent = () => {
                                         <h2 className="font14-res-300 text-gray-700 my-2  w-32 bg-gray-100 py-1  animate-pulse "></h2>
                                     </div>
                                 </div>
-
-
                                 <div className="lg:w-10/12 md:w-8/12 lg:hidden w-10/12 bg-white flex mx-auto border-radius-4">
-
                                     <input id={"code_empty"} name={"code_empty"} className=" font16-res-400 py-2 px-3 bg-gray-100 w-10/12 animate-pulse"   />
                                     <button className="w-2/12 bg-purple-500 hover:bg-purple-700 cursor-pointer" >
                                         <img className="my-auto w-full" style={{ height: "20px" }} src="/assets/copy-icon.svg" alt="Copy" />
                                     </button>
-
                                 </div>
                                 <div className="lg:w-10/12 w-11/12 lg:hidden block lg:shadow border-t border-b mx-auto my-6">
                                     <div className="pt-5  font16-res-400 text-left mx-5">
                                         <h4 className="font16-res-400 ">Keleolah History anda</h4>
                                     </div>
                                     <div className="font14-res-300">
-                                        <div className="flex gap-5 justify-between  px-6 mt-6">
-                                            <label htmlFor="day_empty_l">Pilih Hari : </label>
-                                            <select id="day_empty_l"  className="w-2/5" onChange={handleDayChange} value={selectedDay}>
+                                        <div className="flex gap-5 justify-between  px-6 pt-6">
+                                            <label htmlFor="day_l">Pilih Hari : </label>
+                                            <select id="day_l"  className="w-2/5" onChange={handleDayChange} value={selectedDay}>
                                                 <option value="" className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700" >Select</option>
+                                                {generateDaysOptions()}
                                             </select>
                                         </div>
-                                        <div className="flex gap-5  justify-between px-6 my-5">
-                                            <label htmlFor="month_empty_l">Pilih Bulan : </label>
-                                            <select id="month_empty_l"  className="w-2/5" onChange={handleDayChange} value={selectedDay}>
-                                                <option value="" className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700" >Select</option>
+                                        <div className="flex gap-5  justify-between px-6 py-5">
+                                            <label htmlFor="month_l">Pilih Bulan : </label>
+                                            <select id="month_l" className="w-2/5" onChange={handleMonthChange} value={selectedMonth}>
+                                                <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="">Select</option>
+                                                <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="1">January</option>
+                                                <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="2">February</option>
+                                                <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="3">March</option>
+                                                <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="4">April</option>
+                                                <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="5">May</option>
+                                                <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="6">June</option>
+                                                <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="7">July</option>
+                                                <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="8">August</option>
+                                                <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="9">September</option>
+                                                <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="10">October</option>
+                                                <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="11">November</option>
+                                                <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700"  value="12">December</option>
                                             </select>
                                         </div>
-                                        <div className="flex gap-5 justify-between  px-6 mb-6">
-                                            <label htmlFor="year_empty_l">Pilih Tahun:</label>
-                                            <select id="year_empty_l"  className="w-2/5" onChange={handleDayChange} value={selectedDay}>
-                                                <option value="" className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700" >Select</option>
+                                        <div className="flex gap-5 justify-between  px-6 pb-6">
+                                            <label htmlFor="year_l">Pilih Tahun:</label>
+                                            <select id="year_l" className="w-2/5 border-none" onChange={handleYearChange} value={selectedYear}>
+                                                <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700" value="">Select</option>
+                                                <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700" value="2021">2021</option>
+                                                <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700" value="2022">2022</option>
+                                                <option className="bg-white px-4 py-3  border-none hover:bg-gray-50 cursor-pointer text-gray-600 hover:text-purple-700" value="2023">2023</option>
+                                                {/* Add more year options */}
                                             </select>
                                         </div>
                                     </div>
                                     <div className="w-full mx-auto pb-4">
                                         <div className="w-11/12 mx-auto">
                                             <button
-                                                onClick={() => window.location.reload()}
-                                                disabled
-                                                className=" w-full py-1.5 bg-gray-300 cursor-no-drop border-radius-4 text-white hover:text-gray-50  font14-res-300 mx-auto ">
+                                                onClick={handleSaveButtonClick}
+                                                type="button" // Add this line to specify the button type
+                                                className="w-full py-1.5 bg-purple-600 hover:bg-purple-700 cursor-pointer border-radius-4 text-white hover:text-gray-50 font14-res-300 mx-auto"
+                                            >
                                                 Save
                                             </button>
 
                                         </div>
                                     </div>
                                 </div>
-
                                 <div className="p-4">
                                     <div className="text-right mb-3">
                                         <h2 className="font15-res-300">{!month ? monthNames[currentMonth - 1] : monthNames[month - 1]} {!year ? currentYears : year}</h2>
@@ -296,41 +313,45 @@ export const DetailClassEmptyComponent = () => {
                                                     } py-2 px-1.5 rounded`}
                                                     onClick={() => handleDayClick(day, index)}
                                                 >
-                                                    <div className=" font15-res-300 bg-gray-100 w-8 mt-1 mb-2 mx-auto animate-pulse py-1 " style={{fontWeight:"550" , borderRadius:"1px"}}></div>
-                                                    <div className="font14-res-300 bg-gray-100 w-8  mb-1 mt-2 mx-auto animate-pulse py-1 " style={{borderRadius:"1px"}} ></div>
-                                                    {/*<div className=" font15-res-300" style={{ fontWeight:"550"}}>{daysOfWeek[index]}</div>*/}
-                                                    {/*<div className="font14-res-300">{day.getDate()}</div>*/}
+                                                    <div className=" font15-res-300" style={{ fontWeight:"550"}}>{daysOfWeek[index]}</div>
+                                                    <div className="font14-res-300">{day.getDate()}</div>
                                                 </div>
                                             )
                                         })}
-
                                     </div>
                                 </div>
 
                                 <div className="bg-white">
-                                    <div className="me-auto sm:mx-6 relative md:w-11/12 lg:w-full w-11/12 mx-auto">
-                                        <div className="absolute text-left border-b w-11/12 left-0">
-                                            <ul id="tabs" className="flex mt-1  font18-res-300 w-8/12 px-1  text-purple-500">
-                                                <li className="pe-6 w-full text-gray-500 hover:text-purple-600 text-left  font16-res-400 py-2 ">
-                                                    <a id="default-tab" href="#absent" className="w-full" onClick={(e) => handleTabClick(e, 'absent')}>Absent</a>
-                                                </li>
-                                                <li className="px-6 w-full  text-gray-500 hover:text-purple-600 text-left   mx-4 font16-res-400  py-2 ">
-                                                    <a href="#tugas" className="w-full" onClick={(e) => handleTabClick(e, 'tugas')}>Tugas</a>
-                                                </li>
-                                                <li className="px-6 w-full text-gray-500 hover:text-purple-600 text-left  font16-res-400 py-2 ">
-                                                    <a href="#resource" className="w-full" onClick={(e) => handleTabClick(e, 'resource')}>Resource</a>
-                                                </li>
 
-                                                <li className="px-4 text-gray-800 hidden font-semibold py-2 ">
+                                    <div className="me-auto sm:mx-6 md:w-11/12 border-b lg:w-full w-11/12 mx-auto">
+                                        <div className="w-11/12 ">
+                                            <ul id="tabs" className="flex mt-1  font18-res-300 w-8/12 px-1 text-purple-500">
+                                                <li className="pe-6 w-full text-gray-500 hover:text-purple-600 text-left font16-res-400 py-2">
+                                                    <a id="default-tab" href="#absent" className="w-full" onClick={() => handleTabClick('absent')}>
+                                                        Absent
+                                                    </a>
+                                                </li>
+                                                <li className="px-6 w-full text-gray-500 hover:text-purple-600 text-left mx-4 font16-res-400 py-2">
+                                                    <a href="#assignment" className="w-full" onClick={() => handleTabClick('assignment')}>
+                                                        Tugas
+                                                    </a>
+                                                </li>
+                                                <li className="px-6 w-full text-gray-500 hover:text-purple-600 text-left font16-res-400 py-2">
+                                                    <a href="#resource" className="w-full" onClick={() => handleTabClick('resource')}>
+                                                        Resource
+                                                    </a>
+                                                </li>
+                                                <li className="px-4 text-gray-800 hidden font-semibold py-2">
                                                     <a href="#fourth">Tab 4</a>
                                                 </li>
                                             </ul>
+
                                         </div>
                                     </div>
                                 </div>
 
-                                <div id="tab-contents" className=" w-11/12  lg:w-full lg:mx-3  mx-auto">
-                                    <div id="absent" className="py-2 md:px-4 px-2">
+                                <div id="tab-contents" className="w-11/12 lg:w-full lg:mx-3 mx-auto">
+                                    <div id="absent" className="py-2 lg:px-4">
                                         <div className="w-full py-5">
                                             <div className="mt-8">
                                                 <div className="flex w-full  sm:mx-6  md:mx-0 pb-0  mb-2">
@@ -357,7 +378,7 @@ export const DetailClassEmptyComponent = () => {
                                             </div>
                                         </div>
                                     </div>
-                                    <div id="tugas" className="hidden py-2 md:px-4 px-2">
+                                    <div id="assignment" className="py-2 lg:px-4" style={{ display: 'none' }}>
                                         <div className="w-full py-5">
                                             <div className="mt-8">
                                                 <div className="flex sm:mx-6  md:mx-0 w-full pb-0 mb-2">
@@ -374,16 +395,17 @@ export const DetailClassEmptyComponent = () => {
                                                                 </div>
                                                             </button>
                                                         </div>
-                                                </div>
-                                                <div className="md:py-8 sm:py-6 py-4">
-                                                    <div className="flex items-center justify-center h-32 mb-2 mt-6 ">
-                                                        <div className="animate-spin rounded-full border-r-gray-50 border-l-gray-50  border-b-gray-50 w-8 h-8 md:h-10 md:w-10  border-t-4 border-purple-700"></div>
+                                                    </div>
+                                                    <div className="md:py-8 sm:py-6 py-4">
+                                                        <div className="flex items-center justify-center h-32 mb-2 mt-6 ">
+                                                            <div className="animate-spin rounded-full border-r-gray-50 border-l-gray-50  border-b-gray-50 w-8 h-8 md:h-10 md:w-10  border-t-4 border-purple-700"></div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div id="resource" className="hidden py-2 md:px-4 px-2">
+                                    <div id="resource" className="py-2 lg:px-4" style={{ display: 'none' }}>
                                         <div className="w-full py-5">
                                             <div className="mt-8">
                                                 <div className="flex sm:mx-6 md:mx-0 w-full pb-0  mb-2">
@@ -410,8 +432,7 @@ export const DetailClassEmptyComponent = () => {
                                             </div>
                                         </div>
                                     </div>
-                                    <div id="fourth" className="hidden py-2 md:px-4 px-2">
-                                        Fourth tab
+                                    <div id="fourth" className="py-2 md:px-4" style={{ display: 'none' }}>
                                     </div>
                                 </div>
                             </div>
@@ -422,15 +443,17 @@ export const DetailClassEmptyComponent = () => {
                                     <p className="my-2 font16-res-400">Code class</p>
                                     <div className="lg:w-10/12 md:w-8/12 w-10/12  bg-white flex  mx-auto border-radius-4" >
                                         <input
-                                            className="font16-res-400 py-2 px-3 bg-gray-100 w-10/12"
+                                            id={"code_empty"} name={"code_empty"}
+                                            className=" font16-res-400 py-2 px-3 bg-gray-100 w-10/12 animate-pulse"
                                             readOnly
-                                            style={{ animation: "loading 2s infinite" }}
                                         />
-                                        <button className="w-2/12 bg-purple-500" >
-                                            <img className="my-auto w-full " style={{ height:"20px"}} src="/assets/copy-icon.svg" />
+                                        <button className="w-2/12 bg-purple-500 hover:bg-purple-700 " >
+                                            <img className="my-auto w-full" style={{ height: "20px" }} src="/assets/copy-icon.svg" alt="Copy" />
                                         </button>
+
                                     </div>
                                 </div>
+
                             </div>
                             <div className="md:w-10/12 hidden lg:block w-11/12 shadow mx-auto lg:my-6 my-2">
                                 <div className="md:pt-5 pt-1 font16-res-400 text-left mx-5">
@@ -475,16 +498,18 @@ export const DetailClassEmptyComponent = () => {
                                 </div>
                                 <div className="w-full pb-4">
                                     <button
-                                        onClick={() => window.location.reload()}
+                                        onClick={handleSaveButtonClick}
                                         className="w-10/12 py-1.5 bg-purple-600 hover:bg-purple-700 cursor-pointer border-radius-4 text-white hover:text-gray-50  font14-res-300 mx-auto ">
                                         Save
                                     </button>
                                 </div>
                             </div>
-                        </div>
+
                         </div>
                     </div>
+
                 </div>
+
             </>
         )
 }

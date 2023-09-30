@@ -64,7 +64,6 @@ export const JoinClassComponent = () => {
                     }
                 }
                 else if (response.data.status === 406) {
-                    console.log(response.data.errors);
                     if (response.data.errors === "Nama kelas dan kode kelas tidak boleh kosong") {
                         let redirectUrl = response.data.redirect_path;
                         setRedirectPath(redirectUrl);
@@ -150,7 +149,7 @@ export const JoinClassComponent = () => {
                                                     Gunakan kode kelas dengan 7 huruf atau angka, dan tanpa spasi dan dengan tiga huruf depan Spc
                                                 </li>
                                                 <li className="my-3 list-disc">
-                                                    Gunakan kode kelas dengan 7 huruf atau angka, dan tanpa spasi dan dengan tiga huruf depan Spc
+                                                    Pastikan Anda Perhatikan tanda baca, seperti spasi, koma dan titik dalam kelas anda!
                                                 </li>
                                             </ul>
                                             <p className="font13-label-res-300" style={{ color: "#777676" }}>

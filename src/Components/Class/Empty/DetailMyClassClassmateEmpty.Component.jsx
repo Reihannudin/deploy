@@ -2,10 +2,11 @@ import {Link, useLocation, useNavigate, useParams, useSearchParams} from "react-
 import React, {useEffect, useRef, useState} from "react";
 import {MyDetailClassNavComponent} from "../../Body/MainNav/MyDetailClassNav.Component";
 import {StudentCardComponent} from "../../Classmate/Card/StudentCard.Component";
+import {DetailClassNavComponent} from "../../Body/MainNav/DetailClassNav.Component";
 
 const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-export const DetailMyClassStudentsEmptyComponent = (props) => {
+export const DetailClassClassmateEmptyComponent = (props) => {
 
 
     const inputRef = useRef(null);
@@ -15,11 +16,11 @@ export const DetailMyClassStudentsEmptyComponent = (props) => {
         <>
             <div className='h-full mx-auto lg:pt-16 md:pt-7  sm:pt-7 pt-7 px-0' style={{ minWidth:"300px"}} key={props.id}>
                 <div className="block w-full md:hidden">
-                    <MyDetailClassNavComponent />
+                    <DetailClassNavComponent />
                 </div>
                 <div className="lg:flex lg:py-0 md:py-8 py-5 md:block xl:w-10/12 lg:w-11/12 w-full mx-auto lg:justify-between">
                     <div className=" w-full md:w-11/12 mx-auto lg:my-0 my-5 lg:w-9/12">
-                        <div className="w-full lg:py-6 py-3 text-left  lg:mb-0 md:mb-5 bg-white">
+                        <div className="w-full lg:py-6 py-3 text-left  lg:mb-6 md:mb-5 bg-white">
                             <h2 className="font30-res-300 mx-5 mb-5 bg-gray-200 py-4 animate-pulse"></h2>
                             <div className="text-left flex border-b border-gray-200  pb-5  justify-between mx-5">
                                 <div className="block">
@@ -39,9 +40,7 @@ export const DetailMyClassStudentsEmptyComponent = (props) => {
                                     <button className="w-2/12 bg-purple-500" >
                                         <img className="my-auto w-full " style={{ height:"20px"}} src="/assets/copy-icon.svg" />
                                     </button>
-                                    <button disabled className="w-2/12 bg-gray-100  cursor-pointer border border-purple-600">
-                                        <img className="my-2 w-full" style={{ height: "20px" }} src="/assets/change-code.svg" alt="Change Code" />
-                                    </button>
+
                                 </div>
                             </div>
                         </div>
@@ -74,9 +73,7 @@ export const DetailMyClassStudentsEmptyComponent = (props) => {
                                     <button className="w-2/12 bg-purple-500" >
                                         <img className="my-auto w-full " style={{ height:"20px"}} src="/assets/copy-icon.svg" />
                                     </button>
-                                    <button disabled className="w-2/12 bg-gray-100  cursor-pointer border border-purple-600">
-                                        <img className="my-2 w-full" style={{ height: "20px" }} src="/assets/change-code.svg" alt="Change Code" />
-                                    </button>
+
                                 </div>
                             </div>
 

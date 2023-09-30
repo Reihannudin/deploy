@@ -67,7 +67,7 @@ export const  DetailMyAbsentComponent = (props) => {
                                     </div>
                                     <div className="text-left lg:w-full md:w-11/12 w-full mx-auto mt-3 mb-6">
                                         <div className=" w-11/12  mx-auto pb-3">
-                                            <div className="flex mx-1 justify-between">
+                                            <div className="flex mx-1 lg:mx-0 justify-between">
                                                 <div className="my-1 w-6/12">
                                                     <label className="my-0 py-0 font14-res-300"  >Kelas</label>
                                                     <p className="my-0 py-0 font16-res-300" >
@@ -78,7 +78,7 @@ export const  DetailMyAbsentComponent = (props) => {
                                                         )}
                                                     </p>
                                                 </div>
-                                                <div className="my-1 mx-1  w-6/12">
+                                                <div className="my-1  mx-1 lg:mx-0  w-6/12">
                                                     <label className="my-0 py-0 font14-res-300"  >Guru</label>
                                                     <p className="my-0 py-0  font16-res-300" >
                                                         {window.innerWidth >= 682 ? (
@@ -90,7 +90,7 @@ export const  DetailMyAbsentComponent = (props) => {
                                                 </div>
                                             </div>
                                             <div className="flex justify-between">
-                                                <div className="my-1 mx-1 w-6/12">
+                                                <div className="my-1 mx-1 lg:mx-0 w-6/12">
                                                     <label className="my-0 py-0 font14-res-300" >Tanggal dibuat</label>
                                                     <p className="my-0 py-0  font16-res-300" >{props.post_time}</p>
                                                 </div>
@@ -103,25 +103,25 @@ export const  DetailMyAbsentComponent = (props) => {
                                         </div>
                                         <hr />
                                         <div className=" w-11/12   pt-2 mx-auto pb-3">
-                                            <div className="block mx-1 pt-3 gap-4 ">
+                                            <div className="block  mx-1 lg:mx-0 pt-3 gap-4 ">
                                                 <h1 className="font18-res-300-res-300" style={{  fontWeight:"450"}}>Ringkasan Pengerjaan Absensi</h1>
                                                 <div className="flex my-2">
                                                     <label className="my-0 py-0 font14-res-300"  style={{ color:"#6e6e6e"}}>Status : </label>
                                                     <p className="my-0 py-0 font14-res-300" >{props.status}</p>
                                                 </div>
                                             </div>
-                                            <div className="flex mx-1  my-2">
+                                            <div className="flex mx-1 lg:mx-0  my-2">
                                                 <label className="my-0 py-0 font14-res-300" >Diizinkan melakukan absent : </label>
                                                 <p className="my-0 py-0 font14-res-300" >{props.change}</p>
                                             </div>
 
-                                            <div className="my-2 mx-1 ">
+                                            <div className="my-2 mx-1 lg:mx-0 ">
                                                 <label className="my-0 py-0 font14-res-300" >Batas Waktu Absent</label>
                                                 <p className="my-0 py-0 font14-res-300">{props.start_time} - {props.end_time} / {props.date}</p>
                                             </div>
                                         </div>
                                         <hr />
-                                        <div className="mx-1 ">
+                                        <div className="mx-1 lg:mx-0">
                                             <div className="block pt-3 gap-4 mx-auto w-11/12  ">
                                                 <h1 className="font18-res-300" style={{fontWeight:"450"}}>Terms of reference</h1>
                                                 <p className="my-2 font14-res-300" style={{ color:"#3e3e3e"}}>Setiap member wajib absen sebelum batas waktu yang ditentukan, Setiap member dipersilakan memilih menggunakan metode absen yang telah disediakan, Absensi ini akan tersimpan secara otomatis, jika berhasil absen

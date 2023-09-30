@@ -134,9 +134,6 @@ function MyDetailAbsentStudents () {
                             </div>
                         </div>
                     </div>
-                    <div className="lg:hidden block mx-0 px-0">
-                        {/* FooterComponent */}
-                    </div>
                 </div>
             ) : !isDataFetchedAbsent ?(
                 <div>
@@ -150,13 +147,10 @@ function MyDetailAbsentStudents () {
                                         <DetailStudentAbsentEmptyComponent />
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
-                    <div className="lg:hidden block mx-0 px-0">
-                        {/* FooterComponent */}
-                    </div>
+
                 </div>
             ): (
                 <div>

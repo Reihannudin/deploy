@@ -5,6 +5,7 @@ import api from "../../../Config/api";
 import CustomAlert from "../../Helper/CustomAlert.Component";
 import {DeleteAlertComponent} from "../../Helper/DeleteAlert.Component";
 import {OutAlertComponent} from "../../Helper/OutAlert.Component";
+import {FE_URL} from "../../../Config";
 
 export const ClassCardComponent = ( props ) => {
 
@@ -98,7 +99,7 @@ export const ClassCardComponent = ( props ) => {
 
     const urlClass = window.location.href;
 
-    const definedUrlClass = `/view/class/${props.id}/${props.slug}`
+    const definedUrlClass = `${FE_URL}view/class/${props.id}/${props.slug}`
     const inputRefClass = useRef(null);
     const [showAlert, setShowAlert] = useState(false);
 
@@ -109,7 +110,6 @@ export const ClassCardComponent = ( props ) => {
         inputRefClass.current.select();
         document.execCommand('copy');
     };
-    console.log(classes)
 
     const handleOutClass = async (event) => {
         event.preventDefault();
@@ -126,7 +126,6 @@ export const ClassCardComponent = ( props ) => {
                 }
 
                 else if (response.data.status === 406) {
-                    // console.log(response.data.errors);
                     if (response.data.errors === "Seperti nya user atau kelas ini tidak ada") {
                         let redirectUrl = response.data.redirect_path;
                         setRedirectPath(redirectUrl);

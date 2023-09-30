@@ -5,10 +5,12 @@ import {TaskClassCardComponent} from "./Card/TaskClassCard.Component";
 import {MyDetailClassNavComponent} from "../Body/MainNav/MyDetailClassNav.Component";
 import CustomAlert from "../Helper/CustomAlert.Component";
 import api from "../../Config/api";
+import {ClassmateCardComponent} from "../Classmate/Card/ClassmateCard.Component";
+import {DetailClassNavComponent} from "../Body/MainNav/DetailClassNav.Component";
 
 const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-export const DetailMyClassStudentsComponent = (props) => {
+export const DetailClassClassmateComponent = (props) => {
 
     const navigate = useNavigate();
 
@@ -78,42 +80,13 @@ export const DetailMyClassStudentsComponent = (props) => {
 
 
 
-    let token = localStorage.getItem('auth_token');
-    const [redirectPath, setRedirectPath] = useState("/");
-    const [isLoading, setIsLoading] = useState(false);
-    const [error , setError] = useState('');
-
-    const handleUpdateClassCode = async (event) => {
-        event.preventDefault();
-
-        api
-            .post(`${slug}/update/classes/code/${id}` , {
-                "Content-Type" : "multipart/form-data" ,
-                "Authorization" : "Bearer " + token,
-            })
-            .then((response) => {
-                setIsLoading(false);
-                if (response.data.status === 201) {
-                    let redirectUrl = response.data.redirect_path;
-                    setRedirectPath(redirectUrl);
-                    navigate(`/view/my/class/${id}/${slug}`);
-                    window.location.reload(); // Refresh the page
-                }
-
-            })
-            .catch((error) => {
-                const { errors } = error.response.data;
-                setError(errors?.errors?.[0] || '');
-            });
-
-    };
 
 
     return(
         <>
             <div className='h-full mx-auto lg:pt-16 md:pt-7  sm:pt-7 pt-7 px-0' style={{ minWidth:"300px"}} key={props.id}>
                 <div className="block w-full md:hidden">
-                    <MyDetailClassNavComponent />
+                    <DetailClassNavComponent />
                 </div>
                 <div className="lg:flex lg:py-0 md:py-8 py-5 md:block xl:w-10/12 lg:w-11/12 w-full mx-auto lg:justify-between">
                     <div className=" w-full md:w-11/12 mx-auto lg:my-0 my-5 lg:w-9/12">
@@ -142,9 +115,7 @@ export const DetailMyClassStudentsComponent = (props) => {
                                     <button className="w-2/12 bg-purple-500" onClick={copyText}>
                                         <img className="my-auto w-full" style={{ height: "20px" }} src="/assets/copy-icon.svg" alt="Copy" />
                                     </button>
-                                    <button onClick={handleUpdateClassCode} className="w-2/12 bg-white hover:bg-gray-50 cursor-pointer border border-purple-600">
-                                        <img className="my-2 w-full" style={{ height: "20px" }} src="/assets/change-code.svg" alt="Change Code" />
-                                    </button>
+
                                 </div>
                             </div>
                         </div>
@@ -170,7 +141,7 @@ export const DetailMyClassStudentsComponent = (props) => {
                                             console.log(students)
                                             return(
                                                 <li className="my-2" key={item.id}>
-                                                    <StudentCardComponent name={item.name} image={item.image} username={item.username} />
+                                                    <ClassmateCardComponent name={item.name} image={item.image} username={item.username} />
                                                 </li>
                                             )
                                         })}
@@ -193,9 +164,7 @@ export const DetailMyClassStudentsComponent = (props) => {
                                     <button className="w-2/12 bg-purple-500" onClick={copyText}>
                                         <img className="my-auto w-full" style={{ height: "20px" }} src="/assets/copy-icon.svg" alt="Copy" />
                                     </button>
-                                    <button onClick={handleUpdateClassCode} className="w-2/12 bg-white hover:bg-gray-50 border border-purple-600">
-                                        <img className="my-2 w-full" style={{ height: "20px" }} src="/assets/change-code.svg" alt="Change Code" />
-                                    </button>
+
                                 </div>
                             </div>
 
