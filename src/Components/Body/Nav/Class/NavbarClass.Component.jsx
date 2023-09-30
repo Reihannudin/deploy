@@ -1,9 +1,16 @@
-import {Link, useNavigate, useParams} from "react-router-dom";
+import {Link, useLocation, useNavigate, useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 
 
 export const NavbarClassComponent = (props) => {
+
     const { id, slug } = useParams();
+
+    const location = useLocation();
+
+    const isDetailClassActive = location.pathname === `/view/class/${id}/${slug}`
+    const isStudentActive = location.pathname === `/view/class/${id}/${slug}/classmate`
+
 
     const [isMenuHidden , setIsMenuHidden] = useState(true);
     const [isDropdownHidden  , setIsDropdownHidden] = useState(true);
@@ -91,13 +98,13 @@ export const NavbarClassComponent = (props) => {
                                             <div  className="font-medium mt-1">
                                                 <ul className="list-none gap-6 font16-res-300 flex" style={{ fontWeight :"500"}}>
                                                     <li className="pe-6 my-auto" style={{ borderRight:"1px solid #ebebeb"}}>
-                                                        <Link  style={{ fontWeight:"500"}} className=" text-gray-400 my-0 relative cursor-pointer hover:text-purple-600 font" to={`/view/class/${id}/${slug}`}>Kelas
+                                                        <Link  style={{ fontWeight:"500"}} to={`/view/class/${id}/${slug}`} className={ ` cursor-pointer hover:text-purple-600 relative  ${isDetailClassActive? 'text-purple-600' : 'text-gray-400'}`}  >Kelas
                                                             <div className="w-full mx-auto  absolute top-2 my-3  h-1 cursor-pointer hover:bg-purple-400  block hover:scale-x-50 transform origin-center  transition-transform duration-300">
                                                             </div>
                                                         </Link>
                                                     </li>
                                                     <li className="pe-6 my-auto" style={{ borderRight:"1px solid #ebebeb"}}>
-                                                        <Link style={{ fontWeight:"500"}}  className=" text-gray-400 my-0 relative cursor-pointer hover:text-purple-600 font"  to={`/view/class/${id}/${slug}/classmate`} >Teman Kelas
+                                                        <Link style={{ fontWeight:"500"}}  className={ ` cursor-pointer hover:text-purple-600 relative  ${isStudentActive? 'text-purple-600' : 'text-gray-400'}`} to={`/view/class/${id}/${slug}/classmate`} >Teman Kelas
                                                             <div className="w-full mx-auto  absolute top-2 my-3  h-1 cursor-pointer hover:bg-purple-400  block hover:scale-x-50 transform origin-center  transition-transform duration-300">
                                                             </div>
                                                         </Link>
@@ -190,13 +197,13 @@ export const NavbarClassComponent = (props) => {
                                           lg:pt-0"
                             >
                                 <li className="pt-8 pb-4">
-                                    <Link to={`/view/class/${id}/${slug}`} className=" text-purple-400  cursor-pointer hover:text-purple-600" href="#">Kelas
+                                    <Link to={`/view/class/${id}/${slug}`} className={ ` cursor-pointer hover:text-purple-600  ${isDetailClassActive? 'text-purple-600' : 'text-gray-400'}`} href="#">Kelas
                                         <div className="w-1/12 mx-auto h-1 cursor-pointer hover:bg-purple-400  block hover:scale-x-50 transform origin-center  transition-transform duration-300">
                                         </div>
                                     </Link>
                                 </li>
                                 <li className="pb-6 pt-4">
-                                    <Link to={`/view/class/${id}/${slug}/classmate`} className="  text-purple-400  cursor-pointer hover:text-purple-600 " href="#">Teman kelas
+                                    <Link to={`/view/class/${id}/${slug}/classmate`}  className={ ` cursor-pointer hover:text-purple-600  ${isStudentActive? 'text-purple-600' : 'text-gray-400'}`} href="#">Teman kelas
                                         <div className="w-1/12 mx-auto h-1 cursor-pointer hover:bg-purple-400  block hover:scale-x-50 transform origin-center  transition-transform duration-300">
                                         </div>
                                     </Link>

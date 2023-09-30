@@ -77,7 +77,6 @@ function DetailClass (){
                     {classes.map((item) => {
                         return(
                             <div className="w-full" style={{ background:"#FFFFFF"}} key={item.id}>
-
                                 <NavbarClassComponent name={item.name} image={user.image} />
                                 <div className="w-full pb-5 mx-0 px-0 h-full " style={{ background:"#FFFFFF"}}>
                                     <DetailClassComponent code={item.code} id={item.id} username={item.username} user={user}  name={item.name} teacher={item.teacher} students={item.students} subjects={item.subject} section={item.section} room={item.room} />

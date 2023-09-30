@@ -188,15 +188,15 @@ export const DetailClassComponent = (props) => {
 
     const inputRefCode = useRef(null);
     const [showAlert, setShowAlert] = useState(false);
+    const definedUrlCode = `${props.code}`;
 
     const copyText = () => {
-        if (inputRefCode.current) {
-            setShowAlert(true);
-            inputRefCode.current.select();
-            inputRefCode.current.setSelectionRange(0 , 999999);
-            document.execCommand('copy'); // Attempt to copy
-        }
+        console.log("Copy button clicked");
+        inputRefCode.current.select();
+        document.execCommand('copy');
+        setShowAlert(true);
     };
+
 
     const handleTabClick = (tabName) => {
         // Check if tabName is undefined or an empty string, and set it to "absent" as the default value
@@ -250,6 +250,8 @@ export const DetailClassComponent = (props) => {
         };
     }, []);
 
+    console.log(props.code)
+
     return(
             <>
                 <div className='h-full mx-auto lg:pt-16 md:pt-7  sm:pt-7 pt-7 px-0' style={{ minWidth:"333px"}} key={props.id}>
@@ -273,8 +275,8 @@ export const DetailClassComponent = (props) => {
                                 <div className="lg:w-10/12 md:w-8/12 lg:hidden w-10/12 bg-white flex mx-auto border-radius-4">
                                     <input
                                         ref={inputRefCode}
+                                        defaultValue={definedUrlCode}
                                         className="font16-res-400 py-2 px-3 bg-gray-100 w-10/12"
-                                        value={props.code}
                                         readOnly
                                     />
                                     <button className="w-2/12 bg-purple-500 hover:bg-purple-700 cursor-pointer" onClick={copyText}>
@@ -410,8 +412,8 @@ export const DetailClassComponent = (props) => {
                                     <div className="lg:w-10/12 md:w-8/12 w-10/12  bg-white flex  mx-auto border-radius-4" >
                                         <input
                                             ref={inputRefCode}
+                                            defaultValue={definedUrlCode}
                                             className="font16-res-400 py-2 px-3 bg-gray-100 w-10/12"
-                                            value={props.code}
                                             readOnly
                                         />
                                         <button className="w-2/12 bg-purple-500 hover:bg-purple-700 " onClick={copyText}>
@@ -483,7 +485,7 @@ export const DetailClassComponent = (props) => {
                             ></button>
 
                             <CustomAlert
-                                message={`{props.code}`}
+                                message={`${props.code}`}
                                 onClose={() => setShowAlert(false)} // Close the alert when using the custom alert's close button
                             />
                         </div>
