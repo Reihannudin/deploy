@@ -47,6 +47,8 @@ import FeedNotification from "../Pages/Feed/FeedNotification";
 import FeedSearch from "../Pages/Feed/FeedSearch";
 import Profile from "../Pages/Profile/Profile";
 import DetailClassClassmate from "../Pages/Class/DetailClassClassmate";
+import ActionAbsentFaceRecognation from "../Pages/Absents/ActionAbsentFaceRecognation";
+import ActionAbsentFaceRecognationPassword from "../Pages/Absents/ActionAbsentFaceRecognationPassword";
 
 export const Protected = () => {
 
@@ -73,17 +75,26 @@ export const Protected = () => {
 
         <Route path="/class/:id/:slug/create/absent" element={<CreateAbsent />} /> {/* Done */}
         <Route path="/class/:slug/:class_id/edit/absent/:id" element={<EditMyAbsent />}/> {/* Done */}
-        <Route path="/class/:slug/:class_id/edit/absent/:id" element={<EditMyAbsent />}/> {/* Done */}
         <Route path="/view/:slug/:class_id/my/absent/:id" element={<MyDetailAbsent />}/> {/* Done */}
         <Route path="/view/:slug/:class_id/my/absent/:id/students" element={<MyDetailAbsentStudents />}/> {/* Done */}
 
-        <Route path="/view/:slug/:class_id/detail/absent/:id" element={<DetailAbsent />} />
+        <Route path="/view/:slug/:class_id/detail/absent/:id" element={<DetailAbsent />} /> {/* Done */}
+        <Route path="/view/:slug/detail/absent/:id/action/password" element={<ActionAbsentPassword />} />
+        <Route path="/view/:slug/detail/absent/:id/action/face-recognation" element={<ActionAbsentFaceRecognation />} />
+        <Route path="/view/:slug/detail/absent/:id/action/face-recognation/password" element={<ActionAbsentFaceRecognationPassword />} />
+
+        <Route path="/class/:slug/:id/create/assignment" element={<CreateAssigment />}/> {/* Done */}
+        <Route path="/class/:slug/:class_id/edit/assignment/:id" element={<EditAssigment />}/> {/* Done */}
+        <Route path="/view/:slug/:class_id/my/assignment/:id" element={<MyDetailTaskAssignment />}/>
+        <Route path="/view/:slug/:class_id/my/assignment/:id/students" element={<MyDetailAssignmentStudents />}/>
+
+        <Route path="/view/:slug/detail/assignment/:id" element={<DetailTaskAssigment />}/>
+        <Route path="/view/:slug/detail/assignment/:id/classmate" element={<DetailTaskAssigmentClassmate />}/>
+
 
       <Route path="/class/:slug/:id/create/resource" element={<CreateResource />}/> {/* Done */}
       <Route path="/class/:slug/:class_id/edit/resource/:id" element={<EditMyResource />} /> {/* Done */}
 
-      <Route path="/class/:slug/:id/create/assignment" element={<CreateAssigment />}/> {/* Done */}
-      <Route path="/class/:slug/:class_id/edit/assignment/:id" element={<EditAssigment />}/> {/* Done */}
 
       <Route path="/feed" element={<Feed />} />
       <Route path="/feed/form" element={<FeedForm />} />
@@ -95,6 +106,7 @@ export const Protected = () => {
 
 
 
+        <Route path="/test" element={<Test />} />
       {/*absent Page*/}
 
 
@@ -107,22 +119,12 @@ export const Protected = () => {
         path="/view/:slug/detail/absent/:id/classmate"
         element={<DetailAbsentClassmate />}
       />
-      <Route
-        path="/view/:slug/detail/absent/:id/action/password"
-        element={<ActionAbsentPassword />}
-      />
+
       <Route
         path="/view/:slug/detail/absent/:id/action/photo"
         element={<ActionAbsentPhoto />}
       />
-      <Route
-        path="/view/:slug/detail/assignment/:id"
-        element={<DetailTaskAssigment />}
-      />
-      <Route
-        path="/view/:slug/detail/assignment/:id/classmate"
-        element={<DetailTaskAssigmentClassmate />}
-      />
+
       <Route
         path="/view/:slug/:action/detail/pre/assignment/:id"
         element={<PreAssignment />}
@@ -150,23 +152,7 @@ export const Protected = () => {
         path="/view/:slug/:class_id/my/resource/:id"
         element={<MyDetailResource />}
       />{" "}
-      {/*Beneran Aman*/}
 
-      {/*Beneran Aman*/}
-
-      {/*Beneran Aman*/}
-      <Route
-        path="/view/:slug/:class_id/my/assignment/:id"
-        element={<MyDetailTaskAssignment />}
-      />{" "}
-      {/*Beneran Aman*/}
-      <Route
-        path="/view/:slug/:class_id/my/assignment/:id/students"
-        element={<MyDetailAssignmentStudents />}
-      />{" "}
-      {/*Beneran Aman*/}
-
-      {/*Beneran Aman*/}
 
         <Route path={"/test/component"} element={<Test />}/>
 

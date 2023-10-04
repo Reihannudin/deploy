@@ -26,6 +26,7 @@ function CreateAbsent(){
                 }
                 setIsFetching(false);
             } catch (error) {
+                console.log(error)
                 if (isMounted) {
                     setError(error);
                     setIsFetching(false);

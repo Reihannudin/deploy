@@ -132,7 +132,7 @@ export const DetailClassmateAbsentCardComponent = (props) => {
                                                 <p className=" text-green-400" style={{ fontWeight: "550" }}>{props.status}</p>
 
                                             ) : props.status === "izin" ? (
-                                                <p className="font13-res-300 text-yellow-400" style={{ fontWeight: "550"}}>{props.status}</p>
+                                                <p className="text-yellow-400" style={{ fontWeight: "550"}}>{props.status}</p>
                                             ) : props.status === "melewatkan" ? (
                                                 <p className=" text-red-400" style={{ fontWeight: "550" }}>{props.status}</p>
                                             ) :(

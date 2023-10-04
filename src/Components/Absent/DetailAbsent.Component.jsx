@@ -139,7 +139,6 @@ export const  DetailAbsentComponent = (props) => {
     const [filterStudent, setFilterStudent] = useState('');
 
 
-
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -190,6 +189,8 @@ export const  DetailAbsentComponent = (props) => {
     };
 
 
+    console.log("absent use_password: "  , props.use_password)
+    console.log("absent use_face_recog: "  , props.use_face_recog)
 
     return(
         <>
@@ -391,85 +392,154 @@ export const  DetailAbsentComponent = (props) => {
                     <div
                         className="xl:w-3/12 lg:w-4/12 sm:w-11/12 w-full  lg:relative fixed  bottom-0 lg:mx-0 mx-auto lg:mt-5  ">
                         <div className="xl:w-full  lg:w-full  md:w-10/12 bg-white z-50  w-full me-auto ms-auto lg:me-0 xl:me-auto">
-                            {absentAction.map((itemAction) => {
-                                return(
-                                    <>
-                                        {itemAction.username === username ? (
-                                            <div className="shadow md:shadow-none lg:shadow lg:pb-4 pb-4 border-radius-8">
-                                                <div className="flex lg:mx-4 lg:w-11/12 md:w-full w-11/12 ms-auto  me-auto lg:me-0  xl:me-auto py-6 md:py-5 justify-between">
-                                                    <h2 className="font14-res-300">Absensi Anda</h2>
-                                                    {itemAction.status === "hadir" || props.change === 0 ? (
-                                                        <p className="my-0 font14-res-300 text-green-500">Sudah absent</p>
-                                                    ) : props.status === "selesai" && itemAction.status === null ? (
-                                                        <p className="my-0 font14-res-300 text-gray-500">Melewatkan</p>
-                                                    ) : (
-                                                        <p className="my-0 font14-res-300" style={{ color: "#7e7e7e" }}>diperlukan absent</p>
-                                                    )}
-                                                </div>
-                                                <div className="lg:mx-4 lg:w-11/12 md:w-full w-11/12 mx-auto relative">
-                                                    {itemAction.status === "hadir" || props.change === 0 || props.status === "selesai" ? (
-                                                        <button
-                                                            onClick={toggleDropAction}
-                                                            disabled
-                                                            className="w-full py-2 font14-res-300 bg-gray-300 cursor-no-drop text-white border-radius-4"
-                                                        >
-                                                            Tidak Dizinkan Absent
-                                                        </button>
-                                                    ) : props.status === "selesai" && itemAction.status === null ? (
-                                                        <button
-                                                            onClick={toggleDropAction}
-                                                            disabled
-                                                            className="w-full py-2 font14-res-300 bg-gray-300 cursor-no-drop text-white border-radius-4"
-                                                        >
-                                                            Tidak Dizinkan Absent
-                                                        </button>
-                                                    ) : (
-                                                        <button
-                                                            onClick={toggleDropAction}
-                                                            className="w-full py-2 font14-res-300 weverse-background-btn text-white border-radius-4"
-                                                        >
-                                                            Absent Sekarang
-                                                        </button>
-                                                    )}
-                                                </div>
-                                            </div>
-                                        ): (
-                                            <>
-                                            </>
-                                        )}
-                                    </>
-                                )
-                            })}
+                            {isFetchingAbsentAction === true ? (
+                                <>
+                                    <div className="shadow md:shadow-none lg:shadow lg:pb-4 pb-4 border-radius-8">
+                                        <div className="flex lg:mx-4 lg:w-11/12 md:w-full w-11/12 ms-auto  me-auto lg:me-0  xl:me-auto py-6 md:py-5 justify-between">
+                                            <h2 className="font14-res-300" style={{ color: "#7e7e7e" }}>Absensi Anda</h2>
+                                        </div>
+                                        <div className="lg:mx-4 lg:w-11/12 md:w-full w-11/12 mx-auto relative">
+                                            <button
+                                                onClick={toggleDropAction}
+                                                disabled
+                                                className="w-full py-2 font14-res-300 bg-gray-300 cursor-no-drop text-white border-radius-4"
+                                            >
+                                                Tidak Dizinkan Absent
+                                            </button>
+                                        </div>
+                                    </div>
+                                </>
+                            ) : (
+                              <>
+                                  {absentAction.map((itemAction) => {
+                                      return(
+                                          <>
+                                              {itemAction.username === username ? (
+                                                  <div className="shadow md:shadow-none lg:shadow lg:pb-4 pb-4 border-radius-8">
+                                                      <div className="flex lg:mx-4 lg:w-11/12 md:w-full w-11/12 ms-auto  me-auto lg:me-0  xl:me-auto py-6 md:py-5 justify-between">
+                                                          <h2 className="font14-res-300">Absensi Anda</h2>
+                                                          {itemAction.status === "hadir" || props.change === 0 ? (
+                                                              <p className="my-0 font14-res-300 text-green-500">Sudah absent</p>
+                                                          ) : props.status === "selesai" && itemAction.status === null ? (
+                                                              <p className="my-0 font14-res-300 text-gray-500">Melewatkan</p>
+                                                          ) : (
+                                                              <p className="my-0 font14-res-300" style={{ color: "#7e7e7e" }}>diperlukan absent</p>
+                                                          )}
+                                                      </div>
+                                                      <div className="lg:mx-4 lg:w-11/12 md:w-full w-11/12 mx-auto relative">
+                                                          {itemAction.status === "hadir" || props.change === 0 || props.status === "selesai" || props.status === "izin" ? (
+                                                              <button
+                                                                  onClick={toggleDropAction}
+                                                                  disabled
+                                                                  className="w-full py-2 font14-res-300 bg-gray-300 cursor-no-drop text-white border-radius-4"
+                                                              >
+                                                                  Anda sudah melakukan absensi
+                                                              </button>
+                                                          ) : props.status === "selesai" && itemAction.status === null ? (
+                                                              <button
+                                                                  onClick={toggleDropAction}
+                                                                  disabled
+                                                                  className="w-full py-2 font14-res-300 bg-gray-300 cursor-no-drop text-white border-radius-4"
+                                                              >
+                                                                  Tidak Dizinkan Absent
+                                                              </button>
+                                                          ): props.status === "melewatkan" || itemAction.status === "melewatkan" || false ? (
+                                                              <button
+                                                                  onClick={toggleDropAction}
+                                                                  disabled
+                                                                  className="w-full py-2 font14-res-300 bg-gray-300 cursor-no-drop text-white border-radius-4"
+                                                              >
+                                                                  Tidak Dizinkan Absent
+                                                              </button>
+                                                          ) : (
+                                                              <button
+                                                                  onClick={toggleDropAction}
+                                                                  className="w-full py-2 font14-res-300 weverse-background-btn text-white border-radius-4"
+                                                              >
+                                                                  Absent Sekarang
+                                                              </button>
+                                                          )}
+                                                      </div>
+                                                  </div>
+                                              ): (
+                                                  <>
+                                                  </>
+                                              )}
+                                          </>
+                                      )
+                                  })}
+                              </>
+                            )}
                         </div>
                     </div>
                 </div>
             </div>
 
             {dropAction && (
-                <div id="drop-action" className="flex items-center justify-center w-full fixed bottom-0 min-h-screen">
+                <div id="drop-action" className="flex items-center z-50 justify-center w-full fixed bottom-0 min-h-screen">
                     {/* This div serves as a backdrop and should cover the entire screen */}
-                    <div onClick={handleDropdownItemClick} className="bg-gray-300 bg-opacity-30 w-full h-full absolute bottom-0 z-50" ></div>
+                    <div onClick={handleDropdownItemClick} className="bg-gray-500 bg-opacity-30 w-full h-full absolute bottom-0 z-50" ></div>
                     {/* Centered dropdown content */}
                     <div className="absolute bg-white bottom-0 w-full  py-4 border-radius-8 z-50" style={{ borderRadius:"25px 25px 0px 0px"}}>
                         <div className="py-4 text-left w-10/12 mx-auto">
                             <h2 className="font16-res-400">Metode Absensi</h2>
                             <div className="pt-6 pb-2">
-                                <ul className="gap-3 block">
-                                    <li className="mb-3">
-                                        <Link to={`/class/${slug}/${id}/create/absent`} >
-                                            <div className="py-3  border-radius-4 bg-gray-100  text-purple-600 hover:bg-purple-600 hover:text-white font16-res-300">
-                                                <p className="mx-3 cursor-pointer">Absensi Dengan Passwordt</p>
-                                            </div>
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link to={`/class/${slug}/${id}/create/assignment`}>
-                                            <div  className="py-3 border-radius-4 bg-gray-100  text-purple-600  hover:bg-purple-600 hover:text-white font16-res-300">
-                                                <p className="mx-3 cursor-pointer">Absensi Menggunakan Facial</p>
-                                            </div>
-                                        </Link>
-                                    </li>
-                                </ul>
+                                {props.use_password === 1 & props.use_face_recog === 1 ?(
+                                    <ul className="gap-3 block">
+                                        <li className="mb-3">
+                                            <Link to={`/view/${slug}/detail/absent/${id}/action/password`} >
+                                                <div className="py-3  border-radius-4 bg-gray-100  text-purple-600 hover:bg-purple-600 hover:text-white font16-res-300">
+                                                    <p className="mx-3 cursor-pointer">Absensi Dengan Password</p>
+                                                </div>
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link to={`/view/${slug}/detail/absent/${id}/action/face-recognation`}>
+                                                <div  className="py-3 border-radius-4 bg-gray-100  text-purple-600  hover:bg-purple-600 hover:text-white font16-res-300">
+                                                    <p className="mx-3 cursor-pointer">Absensi Menggunakan Facial</p>
+                                                </div>
+                                            </Link>
+                                        </li>
+                                    </ul>
+                                ) : props.use_password === 1 & props.use_face_recog === 0 ?(
+                                    <ul className="gap-3 block">
+                                        <li className="mb-3">
+                                            <Link to={`/view/${slug}/detail/absent/${id}/action/password`} >
+                                                <div className="py-3  border-radius-4 bg-gray-100  text-purple-600 hover:bg-purple-600 hover:text-white font16-res-300">
+                                                    <p className="mx-3 cursor-pointer">Absensi Dengan Password</p>
+                                                </div>
+                                            </Link>
+                                        </li>
+
+                                    </ul>
+                                ) : props.use_password === 0 & props.use_face_recog === 1 ?(
+                                    <ul className="gap-3 block">
+                                        <li className="mb-3">
+                                            <Link to={`/view/${slug}/detail/absent/${id}/action/face-recognation`}>
+                                                <div  className="py-3 border-radius-4 bg-gray-100  text-purple-600  hover:bg-purple-600 hover:text-white font16-res-300">
+                                                    <p className="mx-3 cursor-pointer">Absensi Menggunakan Facial</p>
+                                                </div>
+                                            </Link>
+                                        </li>
+                                    </ul>
+                                ):(
+                                    <ul className="gap-3 block">
+                                        <li className="mb-3">
+                                            <Link to={`/view/${slug}/detail/absent/${id}/action/password`} >
+                                                <div className="py-3  border-radius-4 bg-gray-100  text-purple-600 hover:bg-purple-600 hover:text-white font16-res-300">
+                                                    <p className="mx-3 cursor-pointer">Absensi Dengan Password</p>
+                                                </div>
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link to={`/view/${slug}/detail/absent/${id}/action/face-recognation`}>
+                                                <div  className="py-3 border-radius-4 bg-gray-100  text-purple-600  hover:bg-purple-600 hover:text-white font16-res-300">
+                                                    <p className="mx-3 cursor-pointer">Absensi Menggunakan Facial</p>
+                                                </div>
+                                            </Link>
+                                        </li>
+                                    </ul>
+                                )}
                                 <div className="mt-3 mx-1">
                                     <span className={"text-gray-500 font13-res-300"}>
                                         Pastikan Anda Melakukan absensi sebelum deadline
@@ -480,44 +550,6 @@ export const  DetailAbsentComponent = (props) => {
                     </div>
                 </div>
             )}
-
-
-
-            {/*<div id="pop_up_detail" tabIndex="-1" onClose={popUpDetail}  style={{ display:"none" , background:"rgba(75,75,75,0.67)" }} className="fixed z-50 w-full p-0 overflow-x-hidden overflow-y-auto inset-0 h-[calc(100%)] ">*/}
-            {/*    <div className="absolute lg:w-6/12 md:w-7/12 sm:w-8/12 w-9/12 mx-auto h-full max-w-2xl position-pop-up md:h-auto" >*/}
-            {/*        <div className="relative bg-white pb-3 xl:w-8/12 lg:w-9/12 md:w-10/12 w-full top-24 rounded-lg shadow dark:bg-gray-700" style={{ minHeight:"260px" , maxHeight:"290px"}} >*/}
-            {/*            <div className="flex items-start justify-end md:pt-5 md:pb-5 pt-3 pb-2 px-4 border-b rounded-t dark:border-gray-600">*/}
-            {/*                <h3 className="text-lg my-1 w-full ms-5 font-normal font16-res-400 text-center text-gray-900 dark:text-white">*/}
-            {/*                    Metode Absent*/}
-            {/*                </h3>*/}
-            {/*                <button type="button"  onClick={popUpDetail} className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="defaultModal">*/}
-            {/*                    <svg aria-hidden="true" className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"></path></svg>*/}
-            {/*                    <span className="sr-only">Close modal</span>*/}
-            {/*                </button>*/}
-            {/*            </div>*/}
-            {/*            <div className="my-3">*/}
-            {/*                <div className="w-10/12 mt-4 text-left mx-auto" >*/}
-            {/*                    <div className="my-2">*/}
-            {/*                        <p className="font15-res-300" style={{ color:"#656565"}}>Pilih metode absensi, yang akan kamu gunakan untuk melakukan absent </p>*/}
-            {/*                        <ul className="py-2 font15-res-300 text-left text-gray-700 dark:text-gray-400"*/}
-            {/*                            aria-labelledby="dropdownLargeButton">*/}
-            {/*                            <li className=" my-3 ">*/}
-            {/*                                <a href={`/view/${slug}/detail/absent/${id}/action/password`} className="block px-4 py-2.5 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600  dark:hover:text-white">Password</a>*/}
-            {/*                            </li>*/}
-            {/*                            <li className="bg-gray-100 text-gray-400 disabled cursor-no-drop">*/}
-            {/*                                <button disabled className="w-full text-left flex cursor-no-drop">*/}
-            {/*                                    <p className="block ps-4 pe-1 py-3.5 hover:bg-gray-50 dark:hover:bg-gray-600 hover:text-purple-600  dark:hover:text-white">Selfie/Foto</p>*/}
-            {/*                                    <p className="text-yellow-500 my-auto">(Dalam pemeliharaan)</p>*/}
-            {/*                                </button>*/}
-            {/*                            </li>*/}
-            {/*                        </ul>*/}
-            {/*                    </div>*/}
-            {/*                </div>*/}
-            {/*            </div>*/}
-
-            {/*        </div>*/}
-            {/*    </div>*/}
-            {/*</div>*/}
         </>
     )
 }
