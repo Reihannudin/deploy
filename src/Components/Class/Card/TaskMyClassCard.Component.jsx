@@ -11,6 +11,7 @@ export const TaskMyClassCardComponent = (props) => {
 
     const [windowWidth , setWindowWidth] = useState(window.innerWidth);
     const [showAlert, setShowAlert] = useState(false);
+    const [urlCopied , setUrlCopied] = useState('');
 
     useEffect(() => {
         const handleResize = () => {
@@ -33,6 +34,7 @@ export const TaskMyClassCardComponent = (props) => {
         if (inputRefAbsent.current) {
             setShowAlert(true);
             inputRefAbsent.current.value = definedUrlAbsent;
+            setUrlCopied(definedUrlAbsent)
             inputRefAbsent.current.select();
             document.execCommand('copy');
         }
@@ -50,34 +52,36 @@ export const TaskMyClassCardComponent = (props) => {
     // Copy Assignment
     const urlAssignment = window.location.href;
 
-    const definedUrlAssignment = `/view/${slug}/my/assignment/${props.id}`
-
+    const definedUrlAssignment = `/view/${slug}/detail/assignment/${props.id}`
     const inputRefAssignment = useRef(null);
 
     const copyUrlAssignment = () => {
-        if (inputRefAssignment.current){
+        if (inputRefAssignment.current) {
+            setShowAlert(true);
             inputRefAssignment.current.value = definedUrlAssignment;
+            setUrlCopied(definedUrlAssignment)
             inputRefAssignment.current.select();
             document.execCommand('copy');
-            alert("Copied URL: " + definedUrlAssignment)
         }
-    }
+    };
 
-    // Copy Resource
+
+
+
     const urlResource = window.location.href;
 
-    const definedUrlResource = `/view/${slug}/${id}/my/resource/${props.id}`
-
+    const definedUrlResource = `/view/${slug}/detail/resource/${props.id}`;
     const inputRefResource = useRef(null);
 
     const copyUrlResource = () => {
-        if (inputRefResource.current){
+        if (inputRefResource.current) {
+            setShowAlert(true);
             inputRefResource.current.value = definedUrlResource;
+            setUrlCopied(definedUrlResource)
             inputRefResource.current.select();
             document.execCommand('copy');
-            alert("Copied URL: " + definedUrlResource)
         }
-    }
+    };
 
 
     useEffect(() => {
@@ -129,7 +133,7 @@ export const TaskMyClassCardComponent = (props) => {
                     ></button>
 
                     <CustomAlert
-                        message={`Copied Url: ${urlAbsent}`}
+                        message={`${urlCopied}`}
                         onClose={() => setShowAlert(false)} // Close the alert when using the custom alert's close button
                     />
                 </div>

@@ -142,23 +142,40 @@ export const MakeTaskAssigmentPGCardComponent = (props) => {
                                     />
 
                                 </div>
-                                {errorQuestion.map(( itemError , index) => {
-                                    console.log("same index?" , index ===  props.index)
-                                    console.log("item error?" , index)
-                                    console.log("item error?" , itemError)
-                                    console.log("erro answer a ?" , itemError.error.answer_a)
-                                    return(
-                                        <>
-                                            {itemError && index ===  props.index ? (
-                                                <div className="mt-0.5 mx-7 border-t text-left">
-                                                    <span className="text-red-600 font14-res-300">{itemError.error.answer_a}</span>
-                                                </div>
-                                            ):(
-                                                <></>
-                                            )}
-                                        </>
-                                    )
-                                })}
+                                {errorQuestion === "Nama Tugas tidak boleh kosong" ? (
+                                    <></>
+                                ) : errorQuestion === "Isi jumlah waktu kali kesempatan pengerjaan" ? (
+                                    <></>
+                                ) : errorQuestion === "Isi jumlah kesempatan pengerjaan" ? (
+                                    <></>
+                                ) : errorQuestion === "Tolong isi waktu dimulainya pengerjaan tugas" ? (
+                                    <></>
+                                ) : errorQuestion === "Tolong isi waktu berakhirnya pengerjaan tugas" ? (
+                                    <></>
+                                ) : errorQuestion === "Isi dengan tanggal yang kamu tentukan" ? (
+                                    <></>
+                                ) : errorQuestion === "Minimal Anda harus satu memiliki pertanyaan" ? (
+                                    <></>
+                                ) : (
+                                    <>
+                                        {Array.isArray(errorQuestion) ? (
+                                            <>
+                                                {errorQuestion.map((itemError, index) => (
+                                                    itemError && index === props.index ? (
+                                                        <div className="mt-0.5 mx-7 border-t text-left" key={index}>
+                                                            <span className="text-red-600 font14-res-300">{itemError.error.answer_a}</span>
+                                                        </div>
+                                                    ) : (
+                                                        <></>
+                                                    )
+                                                ))}
+                                            </>
+                                        ) : (
+                                            <></>
+                                        )}
+                                    </>
+                                )}
+
 
                             </label>
                         </li>

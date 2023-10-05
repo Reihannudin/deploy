@@ -97,9 +97,6 @@ export const CreateAssigmentComponent = ({user}) => {
     const currentURL = window.location.href;
     const requestStillInURL = currentURL.includes('error_questions');
 
-    console.log(startTime);
-    console.log(endTime);
-
 
     const handleDeleteQuestion = (index) => {
         setQuestions((prevQuestions) => {
@@ -199,7 +196,7 @@ export const CreateAssigmentComponent = ({user}) => {
         setInputQuestionType(''); // Set inputQuestionType to an empty string
     };
 
-    console.log(questions);
+    console.log("question : " , questions);
     const handleSubmit = (event) => {
         event.preventDefault();
         setIsLoading(true);
@@ -243,7 +240,8 @@ export const CreateAssigmentComponent = ({user}) => {
                     setErrorDate('');
                     setErrorStartTime('');
                     setErrorEndTime('');
-                    setErrorQuestions('');
+
+                    setErrorQuestions([]);
                     setErrorAnswerA('');
                     setErrorAnswerB('');
                     setErrorAnswerC('');
@@ -263,7 +261,7 @@ export const CreateAssigmentComponent = ({user}) => {
                         setErrorDate('');
                         setErrorStartTime('');
                         setErrorEndTime('');
-                        setErrorQuestions('');
+                        setErrorQuestions([]);
                         setErrorAnswerA('');
                         setErrorAnswerB('');
                         setErrorAnswerC('');
@@ -280,7 +278,7 @@ export const CreateAssigmentComponent = ({user}) => {
                         setErrorDate('');
                         setErrorStartTime('');
                         setErrorEndTime('');
-                        setErrorQuestions('');
+                        setErrorQuestions([]);
                         setErrorAnswerA('');
                         setErrorAnswerB('');
                         setErrorAnswerC('');
@@ -298,7 +296,7 @@ export const CreateAssigmentComponent = ({user}) => {
                         setErrorDate('');
                         setErrorStartTime('');
                         setErrorEndTime('');
-                        setErrorQuestions('');
+                        setErrorQuestions([]);
                         setErrorAnswerA('');
                         setErrorAnswerB('');
                         setErrorAnswerC('');
@@ -316,7 +314,7 @@ export const CreateAssigmentComponent = ({user}) => {
                         setErrorDate('');
                         setErrorStartTime('');
                         setErrorEndTime('');
-                        setErrorQuestions('');
+                        setErrorQuestions([]);
                         setErrorAnswerA('');
                         setErrorAnswerB('');
                         setErrorAnswerC('');
@@ -334,7 +332,7 @@ export const CreateAssigmentComponent = ({user}) => {
                         setErrorDate('');
                         setErrorStartTime('');
                         setErrorEndTime('');
-                        setErrorQuestions('');
+                        setErrorQuestions([]);
                         setErrorAnswerA('');
                         setErrorAnswerB('');
                         setErrorAnswerC('');
@@ -352,7 +350,7 @@ export const CreateAssigmentComponent = ({user}) => {
                         setErrorDate('');
                         setErrorStartTime('');
                         setErrorEndTime('');
-                        setErrorQuestions('');
+                        setErrorQuestions([]);
                         setErrorAnswerA('');
                         setErrorAnswerB('');
                         setErrorAnswerC('');
@@ -370,7 +368,7 @@ export const CreateAssigmentComponent = ({user}) => {
                         setErrorDate('');
                         setErrorStartTime('');
                         setErrorEndTime('');
-                        setErrorQuestions('');
+                        setErrorQuestions([]);
                         setErrorAnswerA('');
                         setErrorAnswerB('');
                         setErrorAnswerC('');
@@ -388,7 +386,7 @@ export const CreateAssigmentComponent = ({user}) => {
                         setErrorDate('');
                         setErrorStartTime('');
                         setErrorEndTime('');
-                        setErrorQuestions('');
+                        setErrorQuestions([]);
                         setErrorAnswerA('');
                         setErrorAnswerB('');
                         setErrorAnswerC('');

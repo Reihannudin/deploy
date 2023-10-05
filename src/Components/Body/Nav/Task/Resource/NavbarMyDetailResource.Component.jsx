@@ -15,7 +15,7 @@ export const NavbarMyDetailResourceComponent = (props) => {
         <>
             <>
                 <nav className="w-full fixed  bg-white" style={{  zIndex:"44" , minWidth:"300px" , borderBottom:"1px solid #E5E3E9"}}>
-                    <header className="md:w-10/12 w-11/12  mx-auto">
+                    <header className="md:w-10/12 w-11/12  py-1  mx-auto">
                         <div className="flex  gap-4">
                             <div className="flex gap-4">
                                 <button className="my-auto" onClick={navigateBack}>
@@ -24,8 +24,9 @@ export const NavbarMyDetailResourceComponent = (props) => {
                                     </div>
                                 </button>
                                 <div className="my-2 text-left" >
+
                                     <h4 className="font16-res-400">{props.name}</h4>
-                                    <p className="font14-res-300">{classname}</p>
+                                    <p className="font14-res-300 text-purple-700">{classname}</p>
                                 </div>
                             </div>
                         </div>

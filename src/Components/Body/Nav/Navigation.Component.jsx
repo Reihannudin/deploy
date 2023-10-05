@@ -80,12 +80,7 @@ export const NavigationComponent = () => {
                                                                 </div>
                                                             </Link>
                                                     </li>
-                                                    <li className="pe-6 my-auto" style={{ borderRight:"1px solid #ebebeb"}}>
-                                                        <Link to={'/learning'} style={{ fontWeight:"500"}} className=" text-gray-400 my-0 relative cursor-pointer hover:text-purple-600 font">Learning
-                                                            <div className="w-full mx-auto  absolute top-2 my-3  h-1 cursor-pointer hover:bg-purple-400  block hover:scale-x-50 transform origin-center  transition-transform duration-300">
-                                                            </div>
-                                                        </Link>
-                                                    </li>
+
                                                     <li className="pe-6 my-auto" style={{ borderRight:"1px solid #ebebeb"}}>
                                                         <Link to={"/about"} style={{ fontWeight:"500"}}  className=" text-gray-400 my-0 relative cursor-pointer hover:text-purple-600 font">About
                                                             <div className="w-full mx-auto  absolute top-2 my-3  h-1 cursor-pointer hover:bg-purple-400  block hover:scale-x-50 transform origin-center  transition-transform duration-300">
@@ -163,12 +158,7 @@ export const NavigationComponent = () => {
                                         </div>
                                     </Link>
                                 </li>
-                                <li className="py-5">
-                                    <Link  className=" text-gray-400 cursor-pointer hover:text-purple-400" to={'learning'}>Learning
-                                        <div className="w-1/12 mx-auto h-1 cursor-pointer hover:bg-purple-400  block hover:scale-x-50 transform origin-center  transition-transform duration-300">
-                                        </div>
-                                    </Link>
-                                </li>
+
                                 <li className="py-5">
                                     <Link  className=" text-gray-400 cursor-pointer hover:text-purple-400" to={'/about'}>About
                                         <div className="w-1/12 mx-auto h-1 cursor-pointer hover:bg-purple-400  block hover:scale-x-50 transform origin-center  transition-transform duration-300">

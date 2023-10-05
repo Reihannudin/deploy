@@ -63,6 +63,8 @@ export const Protected = () => {
         <Route path="/" element={<Main />} />  {/* Done */}
         <Route path="/my/class" element={<MyClass />} /> {/* Done */}
 
+        {/*==========================* Class Path ==========================*/}
+
         <Route path="/join/class" element={<JoinClass />} /> {/* Done */}
         <Route path="/create/class" element={<CreateClass />} /> {/* Done */}
 
@@ -72,6 +74,8 @@ export const Protected = () => {
 
         <Route path="/view/class/:id/:slug" element={<DetailClass />} />
         <Route path="/view/class/:id/:slug/classmate" element={<DetailClassClassmate />} />
+
+        {/*==========================* Absensi Path ==========================*/}
 
         <Route path="/class/:id/:slug/create/absent" element={<CreateAbsent />} /> {/* Done */}
         <Route path="/class/:slug/:class_id/edit/absent/:id" element={<EditMyAbsent />}/> {/* Done */}
@@ -83,6 +87,9 @@ export const Protected = () => {
         <Route path="/view/:slug/detail/absent/:id/action/face-recognation" element={<ActionAbsentFaceRecognation />} />
         <Route path="/view/:slug/detail/absent/:id/action/face-recognation/password" element={<ActionAbsentFaceRecognationPassword />} />
 
+
+        {/*==========================* Assignment Path ==========================*/}
+
         <Route path="/class/:slug/:id/create/assignment" element={<CreateAssigment />}/> {/* Done */}
         <Route path="/class/:slug/:class_id/edit/assignment/:id" element={<EditAssigment />}/> {/* Done */}
         <Route path="/view/:slug/:class_id/my/assignment/:id" element={<MyDetailTaskAssignment />}/>
@@ -92,9 +99,15 @@ export const Protected = () => {
         <Route path="/view/:slug/detail/assignment/:id/classmate" element={<DetailTaskAssigmentClassmate />}/>
 
 
-      <Route path="/class/:slug/:id/create/resource" element={<CreateResource />}/> {/* Done */}
-      <Route path="/class/:slug/:class_id/edit/resource/:id" element={<EditMyResource />} /> {/* Done */}
+        {/*==========================* Resource Path ==========================*/}
 
+        <Route path="/class/:slug/:id/create/resource" element={<CreateResource />}/> {/* Done */}
+        <Route path="/class/:slug/:class_id/edit/resource/:id" element={<EditMyResource />} /> {/* Done */}
+
+        <Route path="/view/:slug/:class_id/my/resource/:id" element={<MyDetailResource />}/>
+
+
+      {/*   ======================================   */}
 
       <Route path="/feed" element={<Feed />} />
       <Route path="/feed/form" element={<FeedForm />} />
@@ -109,11 +122,6 @@ export const Protected = () => {
         <Route path="/test" element={<Test />} />
       {/*absent Page*/}
 
-
-      <Route
-        path="/view/:slug/detail/absent/:id/classmate"
-        element={<DetailAbsentClassmate />}
-      />
 
       <Route
         path="/view/:slug/detail/absent/:id/classmate"
@@ -148,10 +156,7 @@ export const Protected = () => {
 
 
       {/*Beneran Aman*/}
-      <Route
-        path="/view/:slug/:class_id/my/resource/:id"
-        element={<MyDetailResource />}
-      />{" "}
+
 
 
         <Route path={"/test/component"} element={<Test />}/>
