@@ -7,8 +7,8 @@ export const  AssignmentNavComponent = () => {
     const location = useLocation();
     const { id , class_id, slug } = useParams();
 
-    const isAbsentActive = location.pathname === `/view/${slug}/${class_id}/my/absent/${id}`;
-    const isStudentActive = location.pathname === `/view/${slug}/${class_id}/my/absent/${id}/students`
+    const isAbsentActive = location.pathname === `/view/${slug}/${class_id}/my/assignment/${id}`;
+    const isStudentActive = location.pathname === `/view/${slug}/${class_id}/my/assignment/${id}/students`
 
     return(
         <>
@@ -18,12 +18,12 @@ export const  AssignmentNavComponent = () => {
 
                     <div className="w-full bg-white justify-between flex" style={{ height:"70px"}}>
                         <div className="flex bg-white  justify-center pt-3 pb-2 mx-auto sm:w-5/12 w-5/12">
-                            <Link to={`/view/${slug}/${class_id}/my/absent/${id}`} className="text-center bg-white cursor-pointer   " style={{ height: "28px" }}>
+                            <Link to={`/view/${slug}/${class_id}/my/assignment/${id}`} className="text-center bg-white cursor-pointer   " style={{ height: "28px" }}>
                                 <div className="cursor-pointer p-1 bg-white hover:bg-gray-100 radius-full" style={{ width:"60px"}}>
                                     <div className="mx-auto cursor-pointer h-icon-main-nav" >
-                                        <img className="mx-auto cursor-pointer h-full" src={`${isAbsentActive ? '/assets/icon-absent-nav.svg' : '/assets/icon-absent-nav-gray.svg'}`}  alt="Home Icon" />
+                                        <img className="mx-auto cursor-pointer h-full" src={`${isAbsentActive ? '/assets/icon-assignment-nav.svg' : '/assets/icon-assignment-nav-gray.svg'}`}  alt="Home Icon" />
                                     </div>
-                                    <p className={`my-1 ${isAbsentActive ? 'text-purple-600' : 'text-gray-400'} hover:text-purple-700`} style={{ fontSize: "11px" }}>Absensi</p>
+                                    <p className={`my-1 ${isAbsentActive ? 'text-purple-600' : 'text-gray-400'} hover:text-purple-700`} style={{ fontSize: "11px" }}>Tugas</p>
                                 </div>
                             </Link>
 
@@ -31,7 +31,7 @@ export const  AssignmentNavComponent = () => {
 
                         <div className="flex justify-center  bg-white mx-auto py-3 sm:w-5/12 w-5/12">
 
-                            <Link to={`/view/${slug}/${class_id}/my/absent/${id}/students`} className="text-center bg-white cursor-pointer  radius-full " style={{ height: "28px" }}>
+                            <Link to={`/view/${slug}/${class_id}/my/assignment/${id}/students`} className="text-center bg-white cursor-pointer  radius-full " style={{ height: "28px" }}>
                                 <div className="cursor-pointer p-1 hover:bg-gray-100 radius-full" style={{ width:"60px"}}>
                                     <div className="mx-auto cursor-pointer h-icon-main-nav">
                                         <img className="mx-auto cursor-pointer h-full"  src={`${isStudentActive ? '/assets/icon-student-nav.svg' : '/assets/icon-student-nav-gray.svg'}`} alt="Profile Icon" />

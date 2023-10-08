@@ -100,6 +100,7 @@ export const DetailStudentAbsentComponent = (props) => {
     }, [ slug, filterStudent]);
 
 
+    console.log("student" , student)
 
     const [isDropdownFilterStudent, setIsDropdownFilterStudent] = useState(true);
 
@@ -420,37 +421,49 @@ export const DetailStudentAbsentComponent = (props) => {
                             </div>
                         </div>
                         <ul className="pt-1 w-full block">
-                            {student.length === 0 ? (
+                            {student && student.length === 0 ? (
                                 <div className="my-20">
-                                    <div className="mx-auto my-5" style={{ height:"30px"}}>
-                                        <img className="h-full mx-auto" src="/assets/icon-tidak-ada.svg" />
+                                    <div className="mx-auto my-5" style={{ height: "30px" }}>
+                                        <img className="h-full mx-auto" src="/assets/icon-tidak-ada.svg" alt="No data" />
                                     </div>
                                     <h2 className="font16-res-300 my-3 text-gray-500">Belum ada murid yang melakukan absensi</h2>
                                 </div>
-                            ):(
+                            ) : (
                                 <div>
-                                    {student.map((item) => {
-                                        console.log(item)
-                                        return(
-                                            <li key={item.id} className="">
-                                                {item.action === 0 ? (
-                                                    <div className="my-8">
-                                                        <div className="mx-auto my-5" style={{ height:"30px"}}>
-                                                            <img className="h-full mx-auto" src="/assets/icon-tidak-ada.svg" />
-                                                        </div>
-                                                        <h2 className="font16-res-300 my-3 text-gray-500">Belum ada murid yang melakukan absensi</h2>
+                                    {student?.map((item) => (
+                                        <li key={item.id} className="">
+                                            {item.action === 0 ? (
+                                                <div className="my-8">
+                                                    <div className="mx-auto my-5" style={{ height: "30px" }}>
+                                                        <img className="h-full mx-auto" src="/assets/icon-tidak-ada.svg" alt="No data" />
                                                     </div>
-                                                ) : (
-                                                    <div>
-                                                        <DetailStudentAbsentCardComponent id={item.id} image={item.image} name={item.name} absent_date={item.absent_date} absent_name={item.absent_name} status_absent={item.absent_status}  action={item.action} reason={item.reason} absent_time={item.absent_time} absent_deadline={item.absent_deadline}   absent_confirmation={item.absent_confirmation} student={item.name} status={item.status} />
-                                                    </div>
-                                                )}
-                                            </li>
-                                        )
-                                    })}
+                                                    <h2 className="font16-res-300 my-3 text-gray-500">Belum ada murid yang melakukan absensi</h2>
+                                                </div>
+                                            ) : (
+                                                <div>
+                                                    <DetailStudentAbsentCardComponent
+                                                        id={item.id}
+                                                        image={item.image}
+                                                        name={item.name}
+                                                        absent_date={item.absent_date}
+                                                        absent_name={item.absent_name}
+                                                        status_absent={item.absent_status}
+                                                        action={item.action}
+                                                        reason={item.reason}
+                                                        absent_time={item.absent_time}
+                                                        absent_deadline={item.absent_deadline}
+                                                        absent_confirmation={item.absent_confirmation}
+                                                        student={item.name}
+                                                        status={item.status}
+                                                    />
+                                                </div>
+                                            )}
+                                        </li>
+                                    ))}
                                 </div>
                             )}
                         </ul>
+
                     </div>
                 </div>
             </div>

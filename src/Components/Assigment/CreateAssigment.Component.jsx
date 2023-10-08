@@ -63,13 +63,36 @@ export const CreateAssigmentComponent = ({user}) => {
     };
 
     const onChangeOutApp = (event) => {
-        const out_app = event.target.value;
-        setOutApp(out_app);
+        const value = event.target.value;
+        setOutApp(value);
+
+        if (value.length > 1) {
+            setErrorOutApp('Jumlah angka tidak boleh lebih dari satu');
+        } else if (parseInt(value) > 9) {
+            setErrorOutApp('Jumlah maksimal keluar aplikasi adalah 9');
+        } else if (parseInt(value) === 0) {
+            setErrorOutApp('Jumlah keluar aplikasi tidak boleh 0');
+        }
+        else {
+            setErrorOutApp('');
+        }
     };
 
     const onChangeChange = (event) => {
-        const change = event.target.value;
-        setChange(change);
+        const value = event.target.value;
+        setChange(value)
+
+        if (value.length > 1) {
+            setErrorChange('Jumlah angka tidak boleh lebih dari satu');
+        } else if (parseInt(value) > 5) {
+            setErrorChange('Jumlah maksimal pengerjaan tugas adalah 5');
+        }
+        else if (parseInt(value) === 0) {
+            setErrorChange('Jumlah pengerjaan tugas tidak boleh 0');
+        }
+        else {
+            setErrorChange('');
+        }
     };
 
     const onChangeStartTime = (event) => {

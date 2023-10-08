@@ -126,7 +126,7 @@ function DetailAbsent ({}) {
         <>
             {isFetchingAbsent ? (
                 <div>
-                    <div className="w-full" style={{ background: "#FFFFFF" }}>
+                    <div className="w-full" style={{ background: "#FFFFFF" , maxWidth:"1500px", }}>
                         <NavbarMyDetailAbsentComponentEmpty />
                         <div className="w-full pb-5 mx-0 px-0 h-full " style={{ background:"#FFFFFF"}}>
                             <DetailAbsentComponentEmpty />
@@ -135,7 +135,7 @@ function DetailAbsent ({}) {
                 </div>
             ) : !isDataFetchedAbsent ?(
                 <div>
-                    <div className="w-full" style={{ background: "#FFFFFF" }}>
+                    <div className="w-full" style={{ background: "#FFFFFF" , maxWidth:"1500px",}}>
                         <NavbarMyDetailAbsentComponentEmpty />
                         <div className="w-full pb-5 mx-0 px-0 h-full " style={{ background:"#FFFFFF"}}>
                             <DetailAbsentComponentEmpty />
@@ -150,7 +150,7 @@ function DetailAbsent ({}) {
                         console.log("absent use_face_recog: "  , item.use_face_recog)
                         let actionLength = item.action.length
                         return(
-                            <div className="w-full" style={{ background:"#FFFFFF"}} key={item.id}>
+                            <div className="w-full" style={{ background:"#FFFFFF" , maxWidth:"1500px",}} key={item.id}>
                                 <NavbarDetailAbsentComponent id={item.id} slug={slug} name={item.name} />
                                 <div className="w-full pb-5 mx-0 px-0 h-full " style={{ background:"#FFFFFF"}}>
                                     <div id="tab-contents" className=" w-full mx-auto">

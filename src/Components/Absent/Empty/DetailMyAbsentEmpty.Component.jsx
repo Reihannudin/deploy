@@ -73,12 +73,12 @@ export const  DetailMyAbsentComponentEmpty = (props) => {
                                         </div>
                                     </div>
                                     <div className="flex mx-1 lg:mx-0 my-2">
-                                        <label className="my-0 py-0 font14-res-300" >Diizinkan melakukan absent : </label>
+                                        <label className="my-0 py-0 font14-res-300" style={{ color:"#6e6e6e"}} >Diizinkan melakukan absent : </label>
                                         <p className="my-0  font16-res-300 py-1.5 animate-pulse w-32 bg-gray-100" ></p>
                                     </div>
 
                                     <div className="my-2 mx-1 lg:mx-0">
-                                        <label className="my-0 py-0 font14-res-300" >Batas Waktu Absent</label>
+                                        <label className="my-0 py-0 font14-res-300" style={{ color:"#6e6e6e"}}>Batas Waktu Absent</label>
                                         <p className="my-0  font16-res-300 py-1.5 animate-pulse w-32 bg-gray-100" ></p>
                                     </div>
                                 </div>

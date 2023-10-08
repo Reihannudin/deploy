@@ -27,56 +27,6 @@ export const AssignmentTaskClassCardHelper = (
         setIsDropdownMenu((prevHidden) => ! prevHidden);
     }
 
-    const [showAlertDelete  , setShowAlertDelete] = useState(false);
-    const inputRefClassDelete = useRef(null);
-
-    const handleDeleteResource = async (event) => {
-        event.preventDefault();
-
-        api
-            .delete(`/${slug}/${id}/delete/assignment/${assignmentId}` , {
-                "Content-Type" : "multipart/form-data" ,
-                "Authorization" : "Bearer " + token,
-            })
-            .then((response) => {
-                setIsLoading(false);
-                if (response.data.status === 201) {
-                    navigate(`/view/my/class/${id}/${slug}`);
-                    window.location.reload(); // Refresh the page
-                }
-                else if (response.data.status === 406) {
-                    if (response.data.errors.message === "Assignment tidak ditemukan") {
-                        let redirectUrl = response.data.redirect_path;
-                        setRedirectPath(redirectUrl);
-                        setError(response.data.errors.message);
-                        navigate(redirectUrl);
-                    } else  if (response.data.errors.message === "Anda Bukan Pengajar di kelas ini") {
-                        let redirectUrl = response.data.redirect_path;
-                        setRedirectPath(redirectUrl);
-                        setError(response.data.errors.message);
-                        navigate(redirectUrl);
-                    } else  if (response.data.errors.message === "Pengguna tidak ditemukan") {
-                        let redirectUrl = response.data.redirect_path;
-                        setRedirectPath(redirectUrl);
-                        setError(response.data.errors.message);
-                        navigate(redirectUrl);
-                    }
-                }
-
-            })
-            .catch((error) => {
-                const { errors } = error.response.data;
-                setError(errors?.errors?.[0] || '');
-            });
-
-    };
-
-    const handleDeleteAssignment = () => {
-        setShowAlertDelete(true)
-        setIsDropdownMenu(false)
-        inputRefClassDelete.current.select();
-        document.execCommand('delete');
-    };
 
 
     return(
@@ -122,48 +72,8 @@ export const AssignmentTaskClassCardHelper = (
                                               Copy Link
                                           </button>
                                       </li>
-                                      <li className={"sm:py-1"}>
-                                          <Link to={`/class/${slug}/${id}/edit/assignment/${assignmentId}`} className="block px-4 py-1.5 lg:py-2  font14-res-300 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600  dark:hover:text-white">Edit Tugas</Link>
-                                      </li>
-                                      <li className={"sm:py-1"}>
-                                          <button
-                                              onClick={() => setShowAlertDelete(true)}
-                                              className="block w-full text-left px-4 py-1.5 lg:py-2  font14-res-300 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600  dark:hover:text-white">Hapus
-                                          </button>
-                                      </li>
-                                      {showAlertDelete && (
-                                          <div id="drop-action_absent" className="fixed inset-0 flex items-center justify-center">
-                                              <button
-                                                  onClick={() => setShowAlertDelete(false)} // Close the alert when clicking the backdrop
-                                                  className="bg-gray-500 bg-opacity-30 w-full h-full absolute top-0 left-0"
-                                                  style={{ zIndex: "300" }}
-                                              ></button>
-
-                                              <DeleteAlertComponent
-                                                  type={"Tugas"}
-                                                  name={assignmentName}
-                                                  onClose={() => setShowAlertDelete(false)} // Close the alert when using the custom alert's close button
-                                                  onSubmit={(event) => handleDeleteAssignment(event)}
-                                              />
-
-                                          </div>
-                                      )}
                                   </ul>
 
-                                  {/*<ul className="py-2 text-sm text-left text-gray-700 dark:text-gray-400">*/}
-                                  {/*    <li className={"py-1"}>*/}
-                                  {/*        <input ref={inputRefAssignment} defaultValue={urlAssignment} style={{ position: 'fixed', top: '-9999px' }} />*/}
-                                  {/*        <button onClick={copyUrlAssignment} className="block w-full text-left font14-res-300 px-4 py-1.5 lg:py-2  hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600 dark:hover:text-white">*/}
-                                  {/*            Copy Link*/}
-                                  {/*        </button>*/}
-                                  {/*    </li>*/}
-                                  {/*    <li className={"py-1"}>*/}
-                                  {/*        <Link to={`/class/${slug}/${id}/edit/assignment/${assignmentId}`} className="block px-4 py-1.5 lg:py-2  font14-res-300 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600  dark:hover:text-white">Edit Assignment</Link>*/}
-                                  {/*    </li>*/}
-                                  {/*    <li className={"py-1"}>*/}
-                                  {/*        <button onClick={handleDeleteAssignment} className="block px-4 py-1.5 lg:py-2  font14-res-300 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600  dark:hover:text-white">Hapus</button>*/}
-
-                                  {/*    </li>*/}
                                   {/*</ul>*/}
                               </div>
 
@@ -172,7 +82,7 @@ export const AssignmentTaskClassCardHelper = (
                   </div>
               </div>
               <div className="bg-white border border-radius-4 px-4 py-2">
-                  <Link to={`/view/${slug}/${id}/my/assignment/${assignmentId}`}>
+                  <Link to={`/view/${slug}/${id}/detail/assignment/${assignmentId}`}>
                       <div className="flex justify-between w-11/12 gap-4 ms-auto">
                           {assignmentStatus === "selesai" ? (
                               <div>
@@ -195,7 +105,7 @@ export const AssignmentTaskClassCardHelper = (
                           )}
                           <div className="flex gap-2 mx-6">
                               <div  className="mt-0.5 font14-res-300" >
-                                  <p className="my-auto text-gray-400" >{assignmentEndTime} - {assignmentDate}</p>
+                                  <p className="my-auto text-gray-500" >{assignmentEndTime} - {assignmentDate}</p>
                               </div>
                           </div>
                       </div>

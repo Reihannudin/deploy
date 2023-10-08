@@ -111,12 +111,12 @@ export const  DetailMyAbsentComponent = (props) => {
                                                 </div>
                                             </div>
                                             <div className="flex mx-1 lg:mx-0  my-2">
-                                                <label className="my-0 py-0 font14-res-300" >Diizinkan melakukan absent : </label>
+                                                <label className="my-0 py-0 font14-res-300" style={{ color:"#6e6e6e"}}>Diizinkan melakukan absent : </label>
                                                 <p className="my-0 py-0 font14-res-300" >{props.change}</p>
                                             </div>
 
                                             <div className="my-2 mx-1 lg:mx-0 ">
-                                                <label className="my-0 py-0 font14-res-300" >Batas Waktu Absent</label>
+                                                <label className="my-0 py-0 font14-res-300" style={{ color:"#6e6e6e"}}>Batas Waktu Absent</label>
                                                 <p className="my-0 py-0 font14-res-300">{props.start_time} - {props.end_time} / {props.date}</p>
                                             </div>
                                         </div>

@@ -153,7 +153,6 @@ export const DetailStudentAbsentCardComponent = (props) => {
                                     </div>
                                     {props.status === "hadir" ? (
                                         <div className="font13-res-300 mt-0.5 ">
-
                                             <p className="text-green-400 border-radius-4 pt-1 pb-1 mb-0  px-2 bg-green-200">{props.status}</p>
                                         </div>
                                     ): props.status === "melewatkan" ? (

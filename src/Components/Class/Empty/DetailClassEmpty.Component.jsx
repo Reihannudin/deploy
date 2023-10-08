@@ -353,7 +353,7 @@ export const DetailClassEmptyComponent = () => {
                                 <div id="tab-contents" className="w-11/12 lg:w-full lg:mx-3 mx-auto">
                                     <div id="absent" className="py-2 lg:px-4">
                                         <div className="w-full py-5">
-                                            <div className="mt-8">
+                                            <div className="mt-0 ">
                                                 <div className="flex w-full  sm:mx-6  md:mx-0 pb-0  mb-2">
                                                     <div className="flex w-full justify-between">
                                                         <div className="my-auto roboto font16-res-400" style={{  color:"#4f4f4f"}}>
@@ -380,7 +380,7 @@ export const DetailClassEmptyComponent = () => {
                                     </div>
                                     <div id="assignment" className="py-2 lg:px-4" style={{ display: 'none' }}>
                                         <div className="w-full py-5">
-                                            <div className="mt-8">
+                                            <div className="mt-0">
                                                 <div className="flex sm:mx-6  md:mx-0 w-full pb-0 mb-2">
                                                     <div className="flex w-full justify-between">
                                                         <div className="my-auto roboto font16-res-400" style={{ color:"#4f4f4f"}}>
@@ -407,7 +407,7 @@ export const DetailClassEmptyComponent = () => {
                                     </div>
                                     <div id="resource" className="py-2 lg:px-4" style={{ display: 'none' }}>
                                         <div className="w-full py-5">
-                                            <div className="mt-8">
+                                            <div className="mt-0 ">
                                                 <div className="flex sm:mx-6 md:mx-0 w-full pb-0  mb-2">
                                                     <div className="flex w-full justify-between">
                                                         <div className="my-auto roboto font16-res-400" style={{ color:"#4f4f4f"}}>

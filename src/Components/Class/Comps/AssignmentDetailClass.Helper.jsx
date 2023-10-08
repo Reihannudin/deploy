@@ -2,6 +2,7 @@ import {TaskMyClassCardComponent} from "../Card/TaskMyClassCard.Component";
 import React, {useEffect, useState} from "react";
 import api from "../../../Config/api";
 import {useLocation, useNavigate} from "react-router-dom";
+import {TaskClassCardComponent} from "../Card/TaskClassCard.Component";
 
 export const AssignmentDetailClassHelper = ({ slug, username, userId , start_day , month , year}) => {
     const location = useLocation();
@@ -156,7 +157,7 @@ export const AssignmentDetailClassHelper = ({ slug, username, userId , start_day
                                                 return(
                                                     <div key={item.id}>
                                                         <li  key={item.id}>
-                                                            <TaskMyClassCardComponent username={username} id={item.id} user_id={userId} name={item.name} type={item.type} action={item.action} status={item.status} end_time={item.end_time}  date={item.date} post_time={item.post_time}/>
+                                                            <TaskClassCardComponent username={username} id={item.id} user_id={userId} name={item.name} type={item.type} action={item.action} status={item.status} end_time={item.end_time}  date={item.date} post_time={item.post_time}/>
                                                         </li>
                                                     </div>
                                                 )

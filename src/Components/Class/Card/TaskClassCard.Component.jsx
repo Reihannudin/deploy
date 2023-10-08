@@ -10,6 +10,7 @@ import CustomAlert from "../../Helper/CustomAlert.Component";
 export const TaskClassCardComponent = (props) => {
 
     const {id  ,slug} = useParams();
+    const navigate = useNavigate();
 
     const [windowWidth , setWindowWidth] = useState(window.innerWidth);
     const [showAlert, setShowAlert] = useState(false);
@@ -46,22 +47,18 @@ export const TaskClassCardComponent = (props) => {
     const [error, setError] = useState("");
 
 
-
-    const navigate = useNavigate();
-
     // Copy Assignment
     const urlAssignment = window.location.href;
 
     const definedUrlAssignment = `/view/${slug}/detail/assignment/${props.id}`
-
     const inputRefAssignment = useRef(null);
 
     const copyUrlAssignment = () => {
         if (inputRefAssignment.current){
+            setShowAlert(true);
             inputRefAssignment.current.value = definedUrlAssignment;
             inputRefAssignment.current.select();
             document.execCommand('copy');
-            alert("Copied URL: " + definedUrlAssignment)
         }
     }
 
@@ -74,10 +71,10 @@ export const TaskClassCardComponent = (props) => {
 
     const copyUrlResource = () => {
         if (inputRefResource.current){
+            setShowAlert(true);
             inputRefResource.current.value = definedUrlResource;
             inputRefResource.current.select();
             document.execCommand('copy');
-            alert("Copied URL: " + definedUrlResource)
         }
     }
 

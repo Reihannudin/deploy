@@ -83,7 +83,7 @@ export const Protected = () => {
         <Route path="/view/:slug/:class_id/my/absent/:id/students" element={<MyDetailAbsentStudents />}/> {/* Done */}
 
         <Route path="/view/:slug/:class_id/detail/absent/:id" element={<DetailAbsent />} /> {/* Done */}
-        <Route path="/view/:slug/detail/absent/:id/action/password" element={<ActionAbsentPassword />} />
+        <Route path="/view/:slug/detail/absent/:id/action/password" element={<ActionAbsentPassword />} /> {/* Done */}
         <Route path="/view/:slug/detail/absent/:id/action/face-recognation" element={<ActionAbsentFaceRecognation />} />
         <Route path="/view/:slug/detail/absent/:id/action/face-recognation/password" element={<ActionAbsentFaceRecognationPassword />} />
 
@@ -92,10 +92,10 @@ export const Protected = () => {
 
         <Route path="/class/:slug/:id/create/assignment" element={<CreateAssigment />}/> {/* Done */}
         <Route path="/class/:slug/:class_id/edit/assignment/:id" element={<EditAssigment />}/> {/* Done */}
-        <Route path="/view/:slug/:class_id/my/assignment/:id" element={<MyDetailTaskAssignment />}/>
-        <Route path="/view/:slug/:class_id/my/assignment/:id/students" element={<MyDetailAssignmentStudents />}/>
+        <Route path="/view/:slug/:class_id/my/assignment/:id" element={<MyDetailTaskAssignment />}/> {/* Done */}
+        <Route path="/view/:slug/:class_id/my/assignment/:id/students" element={<MyDetailAssignmentStudents />}/> {/* Done */}
 
-        <Route path="/view/:slug/detail/assignment/:id" element={<DetailTaskAssigment />}/>
+        <Route path="/view/:slug/:class_id/detail/assignment/:id" element={<DetailTaskAssigment />}/>
         <Route path="/view/:slug/detail/assignment/:id/classmate" element={<DetailTaskAssigmentClassmate />}/>
 
 

@@ -167,6 +167,12 @@ export const AbsentMyTaskClassCardHelper = ({
                                         <p className="font14-res-300">{absentStatus}</p>
                                     </div>
                                 </div>
+                            ): absentStatus === "terkunci" ? (
+                                <div>
+                                    <div className="w-full text-purple-600 bg-gray-200 px-2 border-radius-4">
+                                        <p className="font14-res-300">{absentStatus}</p>
+                                    </div>
+                                </div>
                             ) : (
                                 <div>
                                     <div className="w-full text-yellow-600 bg-yellow-200 px-4 border-radius-4">
