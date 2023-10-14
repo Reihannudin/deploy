@@ -4,36 +4,117 @@ import {useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
 import {NavbarTaskComponent} from "../../Components/Body/Nav/NavbarTask.Component";
 import {TaskComponent} from "../../Components/Assigment/Task.Component";
+import api from "../../Config/api";
 
 function Task() {
 
+    const { class_id,   id,slug } = useParams();
     const navigate = useNavigate();
-    const { id, slug } = useParams();
+    let token = localStorage.getItem('auth_token');
 
-    const user = JSON.parse(localStorage.getItem('whoLogin'));
-    const user_id = user.id;
+    const [user , setUser] = useState([]);
+    const [isFetching, setIsFetching] = useState(true);
+    const [isDataFetched, setIsDataFetched] = useState(false);
+    const [error, setError] = useState(null);
 
-    const [userAction, setUserAction] = useState([]);
-    useEffect(() => {
+    useEffect(()=> {
+        let isMounted = true;
         const fetchData = async () => {
             try {
-                // const response = await axios.get(`https://rest-api.spaceskool.site/public/api/${slug}/assignment/${id}/action/${user_id}`);
-                const response = await axios.get(`http://127.0.0.1:8000/api/${slug}/assignment/${id}/action/${user_id}`);
-                const data = response.data;
-                setUserAction(data);
+                if (!isDataFetched) {
+                    const response = await api.get(`/user`);
+                    await new Promise((resolve) => setTimeout(resolve, 1500));
+
+                    const data = response.data;
+                    if (isMounted) {
+                        setUser(data);
+                        setIsDataFetched(true);
+                    }
+                }
+                setIsFetching(false);
             } catch (error) {
-                console.log("Error Fetching Assignment Data:", error);
+                if (isMounted) {
+                    setError(error);
+                    setIsFetching(false);
+                }
+            }
+        }
+
+        const timeout = setTimeout(() => {
+            if (isFetching) {
+                if (isMounted) {
+                    setError(new Error("Timeout: Could not fetch data."));
+                    setIsFetching(false);
+                }
+            }
+        }, 20000);
+
+        fetchData();
+
+        return () => {
+            isMounted = false;
+            clearTimeout(timeout);
+        };
+    } , [user])
+
+    const [userAction , setUserAction] = useState([]);
+    const [isFetchingUserAction, setIsFetchingUserAction] = useState(true);
+    const [isDataFetchedUserAction, setIsDataFetchedUserAction] = useState(false);
+    const [errorUserAction, setErrorUserAction] = useState(null);
+
+    useEffect(() => {
+        let isMounted = true;
+
+        const fetchData = async () => {
+            try {
+                if (!isDataFetchedUserAction) {
+                    const response = await api.get(`/${slug}/assignment/${id}/action/${user.id}` , {
+                        "Content-Type" : "multipart/form-data" ,
+                        "Authorization" : "Bearer " + token,
+                    });
+                    const data = response.data;
+
+                    if (isMounted) {
+                        setUserAction(data);
+                        setIsDataFetchedUserAction(true);
+                        setIsFetchingUserAction(false);
+                    }
+                }
+
+            } catch (error) {
+                if (isMounted) {
+                    setErrorUserAction(error);
+                    setIsFetchingUserAction(false);
+                }
             }
         };
+
+        const timeout = setTimeout(() => {
+            if (isFetchingUserAction) {
+                if (isMounted) {
+                    setErrorUserAction(new Error("Timeout: Could not fetch data."));
+                    setIsFetchingUserAction(false);
+                }
+            }
+        }, 20000);
+
         fetchData();
-    }, []);
+
+        return () => {
+            isMounted = false;
+            clearTimeout(timeout);
+        };
+    }, [userAction]);
+
+    console.log("user action" , userAction);
+
 
     const [assignment, setAssignment] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const storedData = localStorage.getItem('assignmentData');
+                const storedData = localStorage.getItem(`assignmentData_${id}`);
                 if (storedData) {
                     setAssignment(JSON.parse(storedData));
                 }
@@ -68,9 +149,9 @@ function Task() {
     const updateData = async () => {
         try {
             console.log(1)
-            navigate('/'); // Redirect to "/" after successful deletion when online
+            navigate(`/error/${slug}/${class_id}/online/assignment/${id}`); // Redirect to "/" after successful deletion when online
             // await axios.put(`https://rest-api.spaceskool.site/public/api/${slug}/assignment/${id}/action/${user_id}/delete`);
-            await axios.put(`http://127.0.0.1:8000/api/${slug}/assignment/${id}/action/${user_id}/delete`);
+            await axios.put(`http://127.0.0.1:8000/api/${slug}/assignment/${id}/action/${user.id}/delete`);
         } catch (error) {
             console.log("Error deleting action:", error);
         }
@@ -80,7 +161,7 @@ function Task() {
         if (isOnline) {
             updateData();
         }
-    }, [isOnline, navigate, id, slug, user_id]);
+    }, [isOnline, navigate, id, slug, user.id]);
 
     return (
         <>
@@ -94,7 +175,7 @@ function Task() {
                             <div className="w-full" key={item.id} style={{ background: "#FFFFFF" }}>
                                 <NavbarTaskComponent name={item.name} />
                                 <div className="w-full mx-0 px-0 h-full " style={{ background: "#FFFFFF" }}>
-                                    <TaskComponent id={item.id} out_app={userAction.out_app} change={item.change_time} slug={slug} name={item.name} point={item.point} start_time={item.start_time} end_time={item.end_time} date={item.date}  status={item.status} class={item.class} teacher={item.teacher} created_at={item.post_time} question={item.question} />
+                                    <TaskComponent id={item.id} user_id={user.id} out_app={userAction.out_app} change={item.change_time} action_id={userAction.id} slug={slug} name={item.name} point={item.point} start_time={item.start_time} end_time={item.end_time} date={item.date}  status={item.status} class={item.class} teacher={item.teacher} created_at={item.post_time} question={item.question} />
                                 </div>
                             </div>
                         );

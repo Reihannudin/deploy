@@ -49,6 +49,7 @@ import Profile from "../Pages/Profile/Profile";
 import DetailClassClassmate from "../Pages/Class/DetailClassClassmate";
 import ActionAbsentFaceRecognation from "../Pages/Absents/ActionAbsentFaceRecognation";
 import ActionAbsentFaceRecognationPassword from "../Pages/Absents/ActionAbsentFaceRecognationPassword";
+import OnlineAssignment from "../Pages/Error/OnlineAssignment";
 
 export const Protected = () => {
 
@@ -96,8 +97,12 @@ export const Protected = () => {
         <Route path="/view/:slug/:class_id/my/assignment/:id/students" element={<MyDetailAssignmentStudents />}/> {/* Done */}
 
         <Route path="/view/:slug/:class_id/detail/assignment/:id" element={<DetailTaskAssigment />}/>
-        <Route path="/view/:slug/detail/assignment/:id/classmate" element={<DetailTaskAssigmentClassmate />}/>
 
+        <Route path="/view/:slug/:class_id/detail/pre/assignment/:id" element={<PreAssignment />}/>
+        <Route path="/view/:slug/:class_id/task/assignment/:id" element={<Task />}/>
+        <Route path="/view/:slug/:class_id/task/review/assignment/:id" element={<ReviewAssignment />}/>
+
+        <Route path="/error/:slug/:class_id/online/assignment/:id" element={<OnlineAssignment />}/>
 
         {/*==========================* Resource Path ==========================*/}
 
@@ -133,18 +138,7 @@ export const Protected = () => {
         element={<ActionAbsentPhoto />}
       />
 
-      <Route
-        path="/view/:slug/:action/detail/pre/assignment/:id"
-        element={<PreAssignment />}
-      />
-      <Route
-        path="/view/:slug/:action/work/assignment/:id"
-        element={<Task />}
-      />
-      <Route
-        path="/view/:slug/:action/detail/review/assignment/:id"
-        element={<ReviewAssignment />}
-      />
+
       <Route
         path="/view/:slug/detail/resource/:id"
         element={<DetailResource />}

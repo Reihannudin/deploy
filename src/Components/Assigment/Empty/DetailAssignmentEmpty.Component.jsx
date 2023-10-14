@@ -1,11 +1,9 @@
+
 import React, {useEffect, useState} from "react";
 import {Link, useLocation, useNavigate, useParams} from "react-router-dom";
-import api from "../../Config/api";
-import {DetailClassmateAbsentCardComponent} from "../Absent/Card/DetailClassmateAbsentCard.Component";
-import {DetailClassmateAssignmentCardComponent} from "./Card/DetailClassmateAssignmentCard.Component";
+import api from "../../../Config/api";
 
-
-export const  DetailTaskAssigmentComponent = (props) => {
+export const  DetailAssignmentComponentEmpty = (props) => {
     const { id , class_id , slug } = useParams();
 
     const navigate = useNavigate();
@@ -42,16 +40,13 @@ export const  DetailTaskAssigmentComponent = (props) => {
     };
 
 
-    const [isAssignmentidden , setIsAssignmentHidden] = useState(true);
+    const [isAbsentidden , setIsAbsentHidden] = useState(true);
 
-    const toggleAssignment = () => {
-        setIsAssignmentHidden((prevHidden) => !prevHidden);
+    const toggleAbsent = () => {
+        setIsAbsentHidden((prevHidden) => !prevHidden);
     }
 
 
-    const user = props.user;
-    console.log("detail absent component " , user)
-    const username = user.username;
 
 
     const [assignmentAction, setAssignmentAction] = useState([]);
@@ -67,7 +62,7 @@ export const  DetailTaskAssigmentComponent = (props) => {
         const fetchData = async () => {
             try {
                 if (!isDataFetchedAssignmentAction) {
-                    const response = await api.get(`${slug}/assignment/${id}/show/action/user` , {
+                    const response = await api.get(`${slug}/absent/${id}/show/action/user` , {
                         "Content-Type" : "multipart/form-data" ,
                         "Authorization" : "Bearer " + token,
                     });
@@ -134,6 +129,7 @@ export const  DetailTaskAssigmentComponent = (props) => {
     const [filterStudent, setFilterStudent] = useState('');
 
 
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -175,7 +171,6 @@ export const  DetailTaskAssigmentComponent = (props) => {
     const handleFilterStudentClick = (filterValue) => {
         setFilterStudent(filterValue);
         const url = `?filter=${filterValue}`;
-        // Replace navigate with your navigation function
         navigate(url);
     };
 
@@ -184,28 +179,11 @@ export const  DetailTaskAssigmentComponent = (props) => {
     };
 
 
-
-    const popUpDetail = () => {
-        const popUp = document.getElementById('pop_up_detail');
-        if (popUp.style.display === 'none'){
-            popUp.style.display = 'block'
-        } else if(popUp.style.display === 'block'){
-            popUp.style.display = 'none'
-        }
-    }
-
-    let changeAction = parseInt(props.out_app);
-
-    console.log("status" , props.status);
-    console.log("change" , props.change);
-    console.log("status action" ,  props.statusAction)
-
     return(
         <>
-
-            <div className='h-screen mx-auto md:pt-16 pt-14  px-0' style={{minWidth: "300px"}}>
-                <div className="lg:flex md:block relative h-full lg:w-10/12 md:w-11/12 w-full mx-auto lg:justify-between">
-                <div className="xl:w-9/12 md:w-full mx-auto lg:w-9/12 w-full">
+            <div className='h-full  mx-auto md:pt-16  pt-14 px-0' style={{ minWidth:"333px"}} key={props.id} >
+                <div className="lg:flex md:block relative h-full gap-2 md:gap-4 lg:w-10/12 sm:w-11/12  w-full  mx-auto lg:justify-between">
+                    <div className="xl:w-9/12 md:w-full mx-auto lg:w-9/12 w-full">
                         <div className="bg-white">
                             <div className="me-auto   md:w-10/12 border-b lg:w-full w-11/12 mx-auto">
                                 <div className="w-11/12 lg:mx-6 mt-4 mb-0 ">
@@ -234,72 +212,79 @@ export const  DetailTaskAssigmentComponent = (props) => {
                                     <div
                                         className="lg:w-full flex justify-between w-full md:w-11/12 bg-white pb-1 mx-auto border-radius-8">
                                         <div className="flex md:w-full w-9/12 mx-auto gap-2">
-                                            <div className="p-2 border-radius-4 me-2" style={{ background:"#A568E6" , height:"45px" }} >
-                                                <div className="my-auto" style={{ height:"30px"}}>
+                                            <div className="p-2 border-radius-4 ms-1.5 me-2"
+                                                 style={{background: "#A568E6", height: "45px"}}>
+                                                <div className="my-auto" style={{height: "30px"}}>
                                                     <img className="h-full" src="/assets/assigment-sm-icon.svg" />
+
                                                 </div>
                                             </div>
                                             <div className="text-left my-auto">
                                                 <p className="font14-res-300" style={{ color:"#5d5c5c"}}>Assignment</p>
-                                                <h1 className="font18-res-300">{props.name}</h1>
+                                                <h1 className="font18-res-300 py-2.5 mt-0.5 bg-gray-200 w-40 animate-pulse"></h1>
+
                                             </div>
                                         </div>
                                         <div className="w-2/12 me-auto"></div>
                                     </div>
-                                    <div className="text-left lg:w-full mx-auto md:mt-4 mt-1 ">
-                                        <div className="w-11/12 lg:w-full pt-1 md:pt-0 mx-auto pb-3">
-                                            <div className="flex justify-between">
+                                    <div className="text-left lg:w-full md:w-11/12 w-full mx-auto mt-3 mb-6">
+                                        <div className=" w-11/12  mx-auto pb-3">
+                                            <div className="flex mx-1 lg:mx-0 justify-between">
                                                 <div className="my-1 w-6/12">
-                                                    <label className="my-0 py-0 font14-res-300">Kelas</label>
-                                                    <p className="my-0 py-0 font16-res-300">{classname}</p>
+                                                    <label className="my-0 py-0 font14-res-300"  >Kelas</label>
+                                                    <p className="my-0  font16-res-300 py-1.5 animate-pulse w-32 bg-gray-100" ></p>
                                                 </div>
-                                                <div className="my-1 w-6/12">
-                                                    <label className="my-0 py-0 font14-res-300">Guru</label>
-                                                    <p className="my-0 py-0 font16-res-300">{props.teacher}</p>
+                                                <div className="my-1 mx-1 lg:mx-0  w-6/12">
+                                                    <label className="my-0 py-0 font14-res-300"  >Tanggal dibuat</label>
+                                                    <p className="my-0  font16-res-300 py-1.5 animate-pulse w-32 bg-gray-100" ></p>
                                                 </div>
                                             </div>
                                             <div className="flex justify-between">
-                                                <div className="my-1 w-6/12">
+                                                <div className="my-1 mx-1 lg:mx-0 w-6/12">
                                                     <label className="my-0 py-0 font14-res-300" >Point</label>
-                                                    <p className="my-0 py-0  font16-res-300" >{props.point} pts</p>
+                                                    <p className="my-0  font16-res-300 py-1.5 animate-pulse w-32 bg-gray-100" ></p>
                                                 </div>
-                                                <div className="my-1 w-6/12">
-                                                    <label className="my-0 py-0 font14-res-300">Time</label>
-                                                    <p className="my-0 py-0 font16-res-300">{hours + ':' + minutes + ':' + seconds}</p>
+                                                <div className="my-1 mx-1  lg:mx-0 w-6/12">
+                                                    <label className="my-0 py-0 font14-res-300"  >Time</label>
+                                                    <p className="my-0  font16-res-300 py-1.5 animate-pulse w-32 bg-gray-100" ></p>
                                                 </div>
                                             </div>
 
                                         </div>
-                                        <hr/>
-                                        <div className=" w-11/12  pt-2 mx-auto pb-3">
-                                            <div className="block pt-3 gap-4 ">
-                                                <h1 className="font18-res-300" style={{  fontWeight:"450"}}>Ringkasan Pengerjaan Tugas</h1>
+                                        <hr />
+                                        <div className=" w-11/12   pt-2 mx-auto pb-3">
+                                            <div className="block mx-1 lg:mx-0 pt-3 gap-4 ">
+                                                <h1 className="font18-res-300-res-300" style={{  fontWeight:"450"}}>Ringkasan Pengerjaan Tugas</h1>
                                                 <div className="flex my-2">
                                                     <label className="my-0 py-0 font14-res-300"  style={{ color:"#6e6e6e"}}>Status : </label>
-                                                    <p className="my-0 py-0 font14-res-300" >{props.status}</p>
+                                                    <p className="my-0  font16-res-300 py-1.5 animate-pulse w-32 bg-gray-100" ></p>
                                                 </div>
                                             </div>
-                                            <div className="flex my-2">
-                                                <label className="my-0 py-0 font14-res-300" >Diizinkan melakukan mengerjakan : </label>
-                                                <p className="my-0 py-0 font14-res-300" >{props.change}</p>
+                                            <div className="flex mx-1 lg:mx-0 my-2">
+                                                <label className="my-0 py-0 font14-res-300" style={{ color:"#6e6e6e"}}>Kesempatan keluar dari aplikasi : </label>
+                                                <p className="my-0  font16-res-300 py-1.5 animate-pulse w-32 bg-gray-100" ></p>
                                             </div>
-                                            <div className="flex my-2">
-                                                <label className="my-0 py-0 font14-res-300" >Kesempatan keluar dari aplikasi : </label>
-                                                <p className="my-0 py-0 font14-res-300" >{changeAction}</p>
+                                            <div className="flex mx-1 lg:mx-0 my-2">
+                                                <label className="my-0 py-0 font14-res-300" style={{ color:"#6e6e6e"}}>Diizinkan melakukan pengerjaan : </label>
+                                                <p className="my-0  font16-res-300 py-1.5 animate-pulse w-32 bg-gray-100" ></p>
                                             </div>
-                                            <div className="my-2">
-                                                <label className="my-0 py-0 font14-res-300" >Batas Waktu pengerjaan tugas</label>
-                                                <p className="my-0 py-0 font14-res-300">{props.start_time} - {props.end_time} / {props.date}</p>
+
+                                            <div className="my-2 mx-1 lg:mx-0">
+                                                <label className="my-0 py-0 font14-res-300" style={{ color:"#6e6e6e"}}>Batas waktu pengerjaan</label>
+                                                <p className="my-0  font16-res-300 py-1.5 animate-pulse w-32 bg-gray-100" ></p>
                                             </div>
                                         </div>
                                         <hr />
-                                        <div className="block pt-3 gap-4 mx-auto w-11/12  ">
-                                            <h1 className="font18-res-300" style={{fontWeight:"450"}}>Terms of reference</h1>
-                                            <p className="my-2 font14-res-300" style={{ color:"#3e3e3e"}}>
-                                                Setiap anggota wajib menyelesaikan tugas sebelum batas waktu yang ditentukan, setiap anggota diharapkan tidak menyalin jawaban dari internet, jika setiap keluar dari aplikasi maka waktu mengerjakan tugas akan berkurang 2 menit secara otomatis.
-                                            </p>
+                                        <div className="mx-1 lg:mx-0">
+                                            <div className="block pt-3 gap-4 mx-auto w-11/12  ">
+                                                <h1 className="font18-res-300" style={{fontWeight:"450"}}>Terms of reference</h1>
+                                                <p className="my-2 font14-res-300" style={{ color:"#3e3e3e"}}>
+                                                    Setiap anggota wajib menyelesaikan tugas sebelum batas waktu yang ditentukan, setiap anggota diharapkan tidak menyalin jawaban dari internet, jika setiap keluar dari aplikasi maka waktu mengerjakan tugas akan berkurang 2 menit secara otomatis.
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
                             <div id="classmate" className={`py-2 lg:px-4 ${activeTab === 'classmate' ? '' : 'hidden'}`}>
@@ -359,36 +344,17 @@ export const  DetailTaskAssigmentComponent = (props) => {
                                             </div>
                                         </div>
                                         <ul className="pt-1 w-full block">
-                                            {student.length === 0 ? (
-                                                <div className="my-20">
-                                                    <div className="mx-auto my-5" style={{ height:"30px"}}>
-                                                        <img className="h-full mx-auto" src="/assets/icon-tidak-ada.svg" />
-                                                    </div>
-                                                    <h2 className="font16-res-300 my-3 text-gray-500">Belum ada murid yang melakukan absensi</h2>
-                                                </div>
-                                            ):(
-                                                <div>
-                                                    {student.map((item) => {
-                                                        console.log(item)
-                                                        return(
-                                                            <li key={item.id} className="">
-                                                                {item.action === 0 ? (
-                                                                    <div className="my-8">
-                                                                        <div className="mx-auto my-5" style={{ height:"30px"}}>
-                                                                            <img className="h-full mx-auto" src="/assets/icon-tidak-ada.svg" />
-                                                                        </div>
-                                                                        <h2 className="font16-res-300 my-3 text-gray-500">Belum ada murid yang melakukan absensi</h2>
-                                                                    </div>
-                                                                ) : (
-                                                                    <div>
-                                                                        <DetailClassmateAssignmentCardComponent id={item.id} image={item.image} name={item.name} assignment_date={item.absent_date} assignment_name={item.assignment_name} correct={item.correct} wrong={item.wrong} task_time={item.task_time} intime={item.intime} status_assignment={item.assignment_status}  action={item.action} reason={item.reason} assignment_time={item.assignment_time} assignment_deadline={item.assignment_deadline}   assignment_confirmation={item.assignment_confirmation} student={item.name} status={item.status} />
-                                                                    </div>
-                                                                )}
-                                                            </li>
-                                                        )
-                                                    })}
-                                                </div>
-                                            )}
+                                            <div className="flex items-center justify-center  h-96 md:mt-6 mt-14 sm:mt-20">
+                                                <div
+                                                    className="animate-spin rounded-full border-r-gray-50 border-l-gray-50  border-b-gray-50  w-7 h-7 md:h-10 md:w-10 border-t-4 border-purple-700"></div>
+                                            </div>
+                                            {/*<div className="my-20">*/}
+                                            {/*    */}
+                                            {/*    <div className="mx-auto my-5" style={{ height:"30px"}}>*/}
+                                            {/*        <img className="h-full mx-auto" src="/assets/icon-tidak-ada.svg" />*/}
+                                            {/*    </div>*/}
+                                            {/*    <h2 className="font16-res-300 my-3 text-gray-500">Belum ada murid yang melakukan absensi</h2>*/}
+                                            {/*</div>*/}
                                         </ul>
                                     </div>
 
@@ -399,92 +365,35 @@ export const  DetailTaskAssigmentComponent = (props) => {
                         </div>
                     </div>
                     <div
-                        className="xl:w-3/12 lg:w-4/12 w-full sw-full lg:relative absolute bottom-0 lg:mx-0 mx-auto lg:mt-5  ">
-                        <div className="lg:w-full md:w-10/12 bg-white z-50  w-full mx-auto">
-                            <div className="shadow md:shadow-none lg:shadow lg:pb-4 pb-3 border-radius-8">
-                                <div className="flex lg:mx-4 lg:w-11/12 md:w-full w-10/12 mx-auto py-5 justify-between">
-                                    <h2 className="font16-res-400">Tugas Anda</h2>
-                                    {props.status  === "selesai" || props.change === 0 || props.statusAction === "mengerjakan"  ? (
-                                        <p className="my-0 font14-res-300 text-green-500">Sudah mengerjakan</p>
-                                    ) : props.status === "selesai" && props.statusAction === null ? (
-                                        <p className="my-0 font14-res-300 text-gray-500">Melewatkan</p>
-                                    ) : (
-                                        <p className="my-0 font14-res-300" style={{ color: "#7e7e7e" }}>diperlukan pengerjaan</p>
-                                    )}
-                                </div>
-                                <div className="lg:mx-4 lg:w-11/12 md:w-full w-10/12 mx-auto relative">
-                                    {props.status === "selesai" || props.change === 0 || props.statusAction === "mengerjakan" ? (
+                        className="xl:w-3/12 lg:w-4/12 w-full sw-full lg:relative fixed  bottom-0 lg:mx-0 mx-auto lg:mt-5  ">
+                        <div className="xl:w-full  lg:w-11/12 md:w-10/12 bg-white z-50  w-full me-auto ms-auto lg:me-0 xl:me-auto">
+                            <>
+                                <div className="shadow md:shadow-none lg:shadow lg:pb-4 pb-4 border-radius-8">
+                                    <div className="flex lg:mx-4 lg:w-11/12 md:w-full w-11/12 mx-auto py-6 md:py-5 justify-between">
+                                        <h2 className="font14-res-300"  style={{ color: "#7e7e7e" }}>Tugas Anda</h2>
+                                        <p className="my-0 font14-res-300" style={{ color: "#7e7e7e" }}>diperlukan penilaian</p>
+                                    </div>
+                                    <div className="lg:mx-4 lg:w-11/12 md:w-full w-11/12 mx-auto relative">
                                         <button
                                             onClick={toggleDropAction}
                                             disabled
                                             className="w-full py-2 font16-res-300 bg-gray-300 cursor-no-drop text-white border-radius-4"
                                         >
-                                            Tidak Dizinkan Mengerjakan
+                                            Tugas latihan
                                         </button>
-                                    ) : props.status === "selesai" &&  props.statusAction === null ? (
-                                        <button
-                                            onClick={toggleDropAction}
-                                            disabled
-                                            className="w-full py-2 font16-res-300 bg-gray-300 cursor-no-drop text-white border-radius-4"
-                                        >
-                                            Tidak Dizinkan Mengerjakan
-                                        </button>
-                                    ) : (
-                                        <button
-                                            onClick={toggleDropAction}
-                                            className="w-full py-2 font16-res-300 weverse-background-btn text-white border-radius-4"
-                                        >
-                                            Kerjakan Sekarang
-                                        </button>
-                                    )}
+
+                                    </div>
                                 </div>
-                            </div>
+
+                            </>
                         </div>
                     </div>
                 </div>
             </div>
 
-            {dropAction && (
-                <div id="drop-action" className="flex items-center z-50 justify-center w-full fixed bottom-0 min-h-screen">
-                    {/* This div serves as a backdrop and should cover the entire screen */}
-                    <div onClick={handleDropdownItemClick} className="bg-gray-500 bg-opacity-30 w-full h-full absolute bottom-0 z-50" ></div>
-                    {/* Centered dropdown content */}
-                    <div className="absolute bg-white bottom-0 w-full  py-4 border-radius-8 z-50" style={{ borderRadius:"25px 25px 0px 0px"}}>
-                        <div className="py-4 text-left w-10/12 mx-auto">
-                            <h2 className="font16-res-400">Mengerjakan tugas </h2>
-                            <div className="block mt-3 text-left font14-res-300">
-                                <div className="">
-                                    <p className="text-gray-700">Izin keluar dari aplikasi : </p>
-                                    <p className="text-gray-500"> {props.out_app}</p>
-                                </div>
-                                <div className="">
-                                    <p className="text-gray-700">Kesempatan pengerjaan : </p>
-                                    <p className="text-gray-500">{props.change}</p>
-                                </div>
-                            </div>
-                            <div className="pt-4 pb-2">
-                                <ul className="gap-3 block">
-                                        <li className="mb-3">
-                                            <Link to={`/view/${slug}/${class_id}/detail/pre/assignment/${id}`} >
-                                                <div className="py-3  border-radius-4 border-purple-700 hover:bg-purple-600 text-purple-600 border hover:text-white font16-res-300">
-                                                    <p className="mx-3 cursor-pointer">Kerjakan sekarang</p>
-                                                </div>
-                                            </Link>
-                                        </li>
-
-                                    </ul>
-                                <div className="mt-3 mx-1">
-                                    <span className={"text-gray-500 font13-res-300"}>
-                                        Pastikan Anda Melakukan pengerjaan sebelum deadline
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            )}
-
         </>
+
+
     )
 }
 

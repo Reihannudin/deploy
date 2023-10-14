@@ -1,7 +1,7 @@
 import {Link, useLocation, useNavigate, useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 
-export const NavbarDetailAssignmentEmptyComponent = () => {
+export const NavbarDetailAbsentEmptyComponent = (props) => {
 
     const navigate = useNavigate();
 
@@ -37,9 +37,9 @@ export const NavbarDetailAssignmentEmptyComponent = () => {
                             </Link>
 
                             <div className="my-2 font16-res-400 text-left" >
-                                <h4 className=" font16-res-400 w-44 border-radius-4 bg-gray-200 py-2 animate-pulse">
-                                </h4>
-                                <p className="font14-res-300 w-44 border-radius-4 bg-gray-200 py-1 mt-3 animate-pulse" ></p>
+                                    <h4 className=" font16-res-400 w-44 border-radius-4 bg-gray-200 py-2 animate-pulse">
+                                    </h4>
+                                    <p className="font14-res-300 w-44 border-radius-4 bg-gray-200 py-1 mt-3 animate-pulse" ></p>
 
                             </div>
                         </div>

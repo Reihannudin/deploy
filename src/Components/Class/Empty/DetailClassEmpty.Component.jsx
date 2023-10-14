@@ -174,7 +174,7 @@ export const DetailClassEmptyComponent = () => {
 
 
     const handleTabClick = (tabName) => {
-        navigate(`/view/my/class/${id}/${slug}#${tabName}`);
+        navigate(`/view/class/${id}/${slug}#${tabName}`)
     };
 
     useEffect(() => {

@@ -1,7 +1,6 @@
 
 import React, {useEffect, useState} from "react";
 import {Link, useParams} from "react-router-dom";
-import {AbsentNavComponent} from "../../Body/MainNav/AbsentNav.Component";
 import {AssignmentNavComponent} from "../../Body/MainNav/AssignmentNav.Component";
 
 export const  DetailMyAssignmentComponentEmpty = (props) => {
@@ -9,6 +8,7 @@ export const  DetailMyAssignmentComponentEmpty = (props) => {
 
     return(
         <>
+
             <div className=' h-full mx-auto md:pt-16  pt-14 px-0' style={{ minWidth:"333px"}} key={props.id} >
                 <div className="block w-full md:hidden">
                     <AssignmentNavComponent />

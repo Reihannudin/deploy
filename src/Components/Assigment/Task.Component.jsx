@@ -6,9 +6,7 @@ import {TaskAssigmentFileCardComponent} from "./Card/TaskAssigmentFileCard.Compo
 
 export const TaskComponent = (props) => {
 
-    const { id, action, slug } = useParams();
-    const user = JSON.parse(localStorage.getItem("whoLogin"));
-    const userId = user.id;
+    const { slug , class_id, id } = useParams();
 
     const [answers, setAnswers] = useState(() => {
         const storedAnswers = localStorage.getItem("answerAssignmentData");
@@ -20,9 +18,9 @@ export const TaskComponent = (props) => {
             answer: updatedAnswer.answer,
             question_id: updatedAnswer.question_id,
             assignment_id: id,
-            action_assignment_id: action,
+            action_assignment_id: props.action_id,
             type: "PG",
-            user_id: userId,
+            user_id: props.user_id,
         };
 
         setAnswers((prevAnswers) => {
@@ -90,23 +88,24 @@ export const TaskComponent = (props) => {
                 className="h-full mx-auto md:pt-16 pt-10 px-0"
                 style={{ minWidth: "300px" }}
             >
-                <div className="lg:flex xl:w-9/12 lg:w-10/12 md:w-10/12 w-11/12 mx-auto">
+                <div className="lg:flex xl:w-10/12  md:w-10/12 lg:w-11/12 w-11/12 mx-auto">
+
                     <div className="w-full mx-auto block lg:flex lg:justify-between">
                         <div className="lg:w-5/12 md:w-full sm:w-11/12 w-full mx-auto my-8 lg:mx-0">
-                            <div className="lg:shadow shadow-none border-b  mt-3 lg:w-11/12 bg-white my-6 md:px-2 px-1 w-full pb-1 border-radius-12">
-                                <div className="lg:mx-4 mx-0 text-left  border-b pb-2 border-b-gray-200 lg:pt-5 pt-2 mb-3 ">
+                            <div className="shadow-none border-b  mt-3 bg-white my-6 md:px-2 px-1 w-full pb-1 border-radius-12">
+                                <div className="lg:mx-4 mx-0 text-left  border-b pb-2 border-b-gray-200 lg:pt-0 pt-2 mb-3 ">
                                     <h2
                                         className="font16-res-400 md:font18-res-300"
                                         style={{ color: "#646464", fontWeight: "500" }}
                                     >
                                         Keterangan task
                                     </h2>
-                                    <p className="my-3 font13-res-300 md:font14-res-300 text-gray-500">
+                                    <p className="mt-1 md:mt-3 mb-3  font14-res-300  text-gray-500">
                                         Pastikan anda mengerjakan sebelum tenggat waktu, jika lewat
                                         dari tenggat waktu tugas akan dikirmkan secara otomatis
                                         dengan jawaban yang anda miliki.
                                     </p>
-                                    <p className="my-3 font13-res-300 md:font14-res-300 text-gray-500">
+                                    <p className="my-3 font14-res-300  text-gray-500">
                                         Anda tidak diperbolehkan untuk menghidupkan internet saat
                                         selama mengrjakan tugas jika anda memaksa untuk tetap
                                         menaktifkan internet anda akan terlempar keluar kehalama
@@ -158,13 +157,13 @@ export const TaskComponent = (props) => {
                                     <div className="w-full text-left  mx-auto">
                                         <div className=" pb-1 mx-auto border-radius-4 font14-res-300 text-gray-600">
                                             <p className="font13-res-300 md:font14-res-300">Kesempatan pengerjaan</p>
-                                            <p className="my-1 font-semibold font14-res-300">{props.change} kali</p>
+                                            <p className="my-1  font14-res-300">{props.change} kali</p>
                                         </div>
                                     </div>
                                     <div className="w-full text-left  mx-auto">
                                         <div className=" pb-4 mx-auto border-radius-4 font14-res-300 text-gray-600">
                                             <p className="font13-res-300 md:font14-res-300">Kesempatan telah keluar saat pengerjaan</p>
-                                            <p className="my-1 font-semibold font14-res-300">{changeAction} kali</p>
+                                            <p className="my-1  font14-res-300">{changeAction} kali</p>
                                         </div>
                                     </div>
                                 </div>
@@ -276,12 +275,11 @@ export const TaskComponent = (props) => {
                             </ul>
                             <div className="mt-10 border-t ">
                                 <div className="flex pt-8 border-t gap-4 ">
-                                    <a href={`/view/${slug}/${action}/detail/review/assignment/${id}`}
-                                        className="w-4/12  ms-auto   weverse-background-btn  hover:bg-purple-500 text-white font-bold py-2 px-4 rounded"
+                                    <a href={`/view/${slug}/${class_id}/task/review/assignment/${id}`}
+                                        className="w-4/12  ms-auto font15-res-300  bg-purple-600 hover:bg-purple-700 text-white  py-2 px-4 rounded"
                                         style={{
                                             color: "#ffffff",
                                             borderRadius: "4px",
-                                            fontSize: "15px",
                                             border: "1px solid #A373E9",
                                         }}
                                     >

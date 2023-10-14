@@ -11,6 +11,9 @@ import {
     NavbarMyDetailAbsentComponentEmpty
 } from "../../Components/Body/Nav/Task/Absents/Empty/NavbarMyDetailAbsentEmpty.Component";
 import {DetailAbsentComponentEmpty} from "../../Components/Absent/Empty/DetailAbsentEmpty.Component";
+import {
+    NavbarDetailAbsentEmptyComponent
+} from "../../Components/Body/Nav/Task/Absents/Empty/NavbarDetailAbsentEmpty.Component";
 
 
 function DetailAbsent ({}) {
@@ -127,7 +130,7 @@ function DetailAbsent ({}) {
             {isFetchingAbsent ? (
                 <div>
                     <div className="w-full" style={{ background: "#FFFFFF" , maxWidth:"1500px", }}>
-                        <NavbarMyDetailAbsentComponentEmpty />
+                        <NavbarDetailAbsentEmptyComponent />
                         <div className="w-full pb-5 mx-0 px-0 h-full " style={{ background:"#FFFFFF"}}>
                             <DetailAbsentComponentEmpty />
                         </div>
@@ -136,7 +139,7 @@ function DetailAbsent ({}) {
             ) : !isDataFetchedAbsent ?(
                 <div>
                     <div className="w-full" style={{ background: "#FFFFFF" , maxWidth:"1500px",}}>
-                        <NavbarMyDetailAbsentComponentEmpty />
+                        <NavbarDetailAbsentEmptyComponent />
                         <div className="w-full pb-5 mx-0 px-0 h-full " style={{ background:"#FFFFFF"}}>
                             <DetailAbsentComponentEmpty />
                         </div>
