@@ -158,7 +158,7 @@ export const LoginCardComponent = ({
               <div className="flex justify-center my-3">
                 <a
                   className="w-full max-w-sm"
-                  href={`http://127.0.0.1:8000/api/login/p`}
+                  href={`http://127.0.0.1:8000/login/p`}
                 >
                   <div className="w-full font-medium flex py-2 text-purple-500 text-center border border-purple-500 rounded">
                     <div className="flex items-center mx-auto">

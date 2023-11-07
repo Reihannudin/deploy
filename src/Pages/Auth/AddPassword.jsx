@@ -1,5 +1,5 @@
 import {AddPasswordCardComponent} from "../../Components/Auth/Card/AddPasswordCard.Component";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import bcrypt from "bcryptjs";
 import api from "../../Config/api";
@@ -18,6 +18,20 @@ function AddPassword(){
     const [isLoading, setIsLoading] = useState(false);
     const [redirectPath, setRedirectPath] = useState("/register");
 
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get('token');
+
+    const urlEmail = params.get('token');
+    if (!email) {
+        setEmail(urlEmail)
+        localStorage.setItem('registrationEmail', email);
+    }
+
+// Check if the 'token' parameter is present in the URL
+    if (token) {
+        // Store the 'token' in localStorage
+        localStorage.setItem('token', token);
+    }
 
     const getEmail = localStorage.getItem('registrationEmail');
     const getToken = localStorage.getItem('token');
