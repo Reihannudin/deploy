@@ -3,10 +3,7 @@ import {Link, useLocation, useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
 import {AbsentNavComponent} from "../Body/MainNav/AbsentNav.Component";
 import api from "../../Config/api";
-import AbsentDetailMyClassHelper from "../Class/Comps/AbsentDetailMyClass.Helper";
-import {AssignmentDetailMyClassHelper} from "../Class/Comps/AssignmentDetailMyClass.Helper";
-import {ResourceDetailMyClassHelper} from "../Class/Comps/ResourceDetailMyClass.Helper";
-import {DetailStudentAbsentCardComponent} from "./Card/DetailStudentAbsentCard.Component";
+
 import {DetailClassmateAbsentCardComponent} from "./Card/DetailClassmateAbsentCard.Component";
 
 
@@ -197,9 +194,9 @@ export const  DetailAbsentComponent = (props) => {
             <div className='h-full  mx-auto md:pt-16  pt-14 px-0' style={{ minWidth:"333px"}} key={props.id} >
 
                 <div className="lg:flex md:block relative h-full gap-2 md:gap-4 lg:w-10/12 sm:w-11/12  w-full mx-auto lg:justify-between">
-                    <div className="xl:w-9/12 md:w-full mx-auto lg:w-9/12 w-full">
+                    <div className="xl:w-8/12 md:w-full mx-auto lg:w-8/12 w-full">
                         <div className="bg-white">
-                            <div className="me-auto   md:w-10/12 border-b lg:w-full w-11/12 mx-auto">
+                            <div className="me-auto   md:w-11/12 border-b lg:w-full w-11/12 mx-auto">
                                 <div className="w-11/12 lg:mx-6 mt-4 mb-0 ">
                                     <ul id="tabs" className="flex mt-1  font18-res-300 w-10/12 px-1 text-purple-500">
                                         <li className="pe-3 sm:pe-6  text-gray-500 hover:text-purple-600 text-left font15-res-300 py-2">
@@ -220,7 +217,7 @@ export const  DetailAbsentComponent = (props) => {
                                 </div>
                             </div>
                         </div>
-                        <div id="tab-contents" className="w-full md:w-11/12 lg:w-full lg:mx-3 mx-auto">
+                        <div id="tab-contents" className="w-full lg:w-full lg:mx-3 mx-auto">
                             <div id="absent" className={`py-2 lg:px-4 ${activeTab === 'absent' ? '' : 'hidden'}`}>
                                 <div className="my-3">
                                     <div
@@ -239,26 +236,26 @@ export const  DetailAbsentComponent = (props) => {
                                         </div>
                                         <div className="w-2/12 me-auto"></div>
                                     </div>
-                                    <div className="text-left lg:w-full mx-auto md:mt-4 mt-1 ">
+                                    <div className="text-left lg:w-full mx-auto md:mt-2 mt-1 ">
                                         <div className="w-11/12 lg:w-full pt-3 md:pt-0 mx-auto pb-3">
                                             <div className="flex justify-between">
                                                 <div className="my-1 w-6/12">
-                                                    <label className="my-0 py-0 font14-res-300">Kelas</label>
-                                                    <p className="my-0 py-0 font16-res-300">{classname}</p>
+                                                    <label className="my-0 py-0 text-gray-500 font14-res-300">Kelas</label>
+                                                    <p className="my-0 py-0 font15-res-300 text-gray-700">{classname}</p>
                                                 </div>
                                                 <div className="my-1 w-6/12">
-                                                    <label className="my-0 py-0 font14-res-300">Guru</label>
-                                                    <p className="my-0 py-0 font16-res-300">{props.teacher}</p>
+                                                    <label className="my-0 py-0 text-gray-500 font14-res-300">Guru</label>
+                                                    <p className="my-0 py-0 font15-res-300 text-gray-700">{props.teacher}</p>
                                                 </div>
                                             </div>
                                             <div className="flex justify-between">
                                                 <div className="my-1 w-6/12">
-                                                    <label className="my-0 py-0 font14-res-300">Tanggal dibuat</label>
-                                                    <p className="my-0 py-0 font16-res-300">{props.post_time}</p>
+                                                    <label className="my-0 py-0 text-gray-500 font14-res-300">Tanggal dibuat</label>
+                                                    <p className="my-0 py-0 font15-res-300 text-gray-700">{props.post_time}</p>
                                                 </div>
                                                 <div className="my-1 w-6/12">
-                                                    <label className="my-0 py-0 font14-res-300">Time</label>
-                                                    <p className="my-0 py-0 font16-res-300">{hours + ':' + minutes + ':' + seconds}</p>
+                                                    <label className="my-0 py-0 text-gray-500 font14-res-300">Time</label>
+                                                    <p className="my-0 py-0 font15-res-300 text-gray-700">{hours + ':' + minutes + ':' + seconds}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -391,7 +388,7 @@ export const  DetailAbsentComponent = (props) => {
                     </div>
                     <div
                         className="xl:w-3/12 lg:w-4/12 sm:w-11/12 w-full  lg:relative fixed  bottom-0 lg:mx-0 mx-auto lg:mt-5  ">
-                        <div className="xl:w-full  lg:w-full  md:w-10/12 bg-white z-50  w-full me-auto ms-auto lg:me-0 xl:me-auto">
+                        <div className="xl:w-full  lg:w-full  md:w-11/12 bg-white z-50  w-full me-auto ms-auto lg:me-0 xl:me-auto">
                             {isFetchingAbsentAction === true ? (
                                 <>
                                     <div className="shadow md:shadow-none lg:shadow lg:pb-4 pb-4 border-radius-8">
@@ -480,76 +477,152 @@ export const  DetailAbsentComponent = (props) => {
                     {/* This div serves as a backdrop and should cover the entire screen */}
                     <div onClick={handleDropdownItemClick} className="bg-gray-500 bg-opacity-30 w-full h-full absolute bottom-0 z-50" ></div>
                     {/* Centered dropdown content */}
-                    <div className="absolute bg-white bottom-0 w-full  py-4 border-radius-8 z-50" style={{ borderRadius:"25px 25px 0px 0px"}}>
-                        <div className="py-4 text-left w-10/12 mx-auto">
-                            <h2 className="font16-res-400">Metode Absensi</h2>
-                            <div className="pt-6 pb-2">
-                                {props.use_password === 1 & props.use_face_recog === 1 ?(
-                                    <ul className="gap-3 block">
-                                        <li className="mb-3">
-                                            <Link to={`/view/${slug}/detail/absent/${id}/action/password`} >
-                                                <div className="py-3  border-radius-4 bg-gray-100  text-purple-600 hover:bg-purple-600 hover:text-white font16-res-300">
-                                                    <p className="mx-3 cursor-pointer">Absensi Dengan Password</p>
-                                                </div>
-                                            </Link>
-                                        </li>
-                                        <li>
-                                            <Link to={`/view/${slug}/detail/absent/${id}/action/face-recognation`}>
-                                                <div  className="py-3 border-radius-4 bg-gray-100  text-purple-600  hover:bg-purple-600 hover:text-white font16-res-300">
-                                                    <p className="mx-3 cursor-pointer">Absensi Menggunakan Facial</p>
-                                                </div>
-                                            </Link>
-                                        </li>
-                                    </ul>
-                                ) : props.use_password === 1 & props.use_face_recog === 0 ?(
-                                    <ul className="gap-3 block">
-                                        <li className="mb-3">
-                                            <Link to={`/view/${slug}/detail/absent/${id}/action/password`} >
-                                                <div className="py-3  border-radius-4 bg-gray-100  text-purple-600 hover:bg-purple-600 hover:text-white font16-res-300">
-                                                    <p className="mx-3 cursor-pointer">Absensi Dengan Password</p>
-                                                </div>
-                                            </Link>
-                                        </li>
+                    <div className=" md:hidden block w-full">
+                        <div className="absolute bg-white bottom-0 w-full  py-4 border-radius-8 z-50" style={{ borderRadius:"25px 25px 0px 0px"}}>
+                            <div className="py-4 text-left w-10/12 mx-auto">
+                                <h2 className="font16-res-400">Metode Absensi</h2>
+                                <div className="pt-6 pb-2">
+                                    {props.use_password === 1 & props.use_face_recog === 1 ?(
+                                        <ul className="gap-3 block">
+                                            <li className="mb-3">
+                                                <Link to={`/view/${slug}/detail/absent/${id}/action/password`} >
+                                                    <div className="py-3  border-radius-4 bg-gray-100  text-purple-600 hover:bg-purple-600 hover:text-white font16-res-300">
+                                                        <p className="mx-3 cursor-pointer">Absensi Dengan Password</p>
+                                                    </div>
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <Link to={`http://127.0.0.1:5000/view/${slug}/detail/absent/${id}/action/face-recognation`}>
+                                                    <div  className="py-3 border-radius-4 bg-gray-100  text-purple-600  hover:bg-purple-600 hover:text-white font16-res-300">
+                                                        <p className="mx-3 cursor-pointer">Absensi Menggunakan Facial</p>
+                                                    </div>
+                                                </Link>
+                                            </li>
+                                        </ul>
+                                    ) : props.use_password === 1 & props.use_face_recog === 0 ?(
+                                        <ul className="gap-3 block">
+                                            <li className="mb-3">
+                                                <Link to={`/view/${slug}/detail/absent/${id}/action/password`} >
+                                                    <div className="py-3  border-radius-4 bg-gray-100  text-purple-600 hover:bg-purple-600 hover:text-white font16-res-300">
+                                                        <p className="mx-3 cursor-pointer">Absensi Dengan Password</p>
+                                                    </div>
+                                                </Link>
+                                            </li>
 
-                                    </ul>
-                                ) : props.use_password === 0 & props.use_face_recog === 1 ?(
-                                    <ul className="gap-3 block">
-                                        <li className="mb-3">
-                                            <Link to={`/view/${slug}/detail/absent/${id}/action/face-recognation`}>
-                                                <div  className="py-3 border-radius-4 bg-gray-100  text-purple-600  hover:bg-purple-600 hover:text-white font16-res-300">
-                                                    <p className="mx-3 cursor-pointer">Absensi Menggunakan Facial</p>
-                                                </div>
-                                            </Link>
-                                        </li>
-                                    </ul>
-                                ):(
-                                    <ul className="gap-3 block">
-                                        <li className="mb-3">
-                                            <Link to={`/view/${slug}/detail/absent/${id}/action/password`} >
-                                                <div className="py-3  border-radius-4 bg-gray-100  text-purple-600 hover:bg-purple-600 hover:text-white font16-res-300">
-                                                    <p className="mx-3 cursor-pointer">Absensi Dengan Password</p>
-                                                </div>
-                                            </Link>
-                                        </li>
-                                        <li>
-                                            <Link to={`/view/${slug}/detail/absent/${id}/action/face-recognation`}>
-                                                <div  className="py-3 border-radius-4 bg-gray-100  text-purple-600  hover:bg-purple-600 hover:text-white font16-res-300">
-                                                    <p className="mx-3 cursor-pointer">Absensi Menggunakan Facial</p>
-                                                </div>
-                                            </Link>
-                                        </li>
-                                    </ul>
-                                )}
-                                <div className="mt-3 mx-1">
+                                        </ul>
+                                    ) : props.use_password === 0 & props.use_face_recog === 1 ?(
+                                        <ul className="gap-3 block">
+                                            <li className="mb-3">
+                                                <Link to={`http://127.0.0.1:5000/view/${slug}/detail/absent/${id}/action/face-recognation`}>
+                                                    <div  className="py-3 border-radius-4 bg-gray-100  text-purple-600  hover:bg-purple-600 hover:text-white font16-res-300">
+                                                        <p className="mx-3 cursor-pointer">Absensi Menggunakan Facial</p>
+                                                    </div>
+                                                </Link>
+                                            </li>
+                                        </ul>
+                                    ):(
+                                        <ul className="gap-3 block">
+                                            <li className="mb-3">
+                                                <Link to={`/view/${slug}/detail/absent/${id}/action/password`} >
+                                                    <div className="py-3  border-radius-4 bg-gray-100  text-purple-600 hover:bg-purple-600 hover:text-white font16-res-300">
+                                                        <p className="mx-3 cursor-pointer">Absensi Dengan Password</p>
+                                                    </div>
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <Link to={`/view/${slug}/detail/absent/${id}/action/face-recognation`}>
+                                                    <div  className="py-3 border-radius-4 bg-gray-100  text-purple-600  hover:bg-purple-600 hover:text-white font16-res-300">
+                                                        <p className="mx-3 cursor-pointer">Absensi Menggunakan Facial</p>
+                                                    </div>
+                                                </Link>
+                                            </li>
+                                        </ul>
+                                    )}
+                                    <div className="mt-3 mx-1">
                                     <span className={"text-gray-500 font13-res-300"}>
                                         Pastikan Anda Melakukan absensi sebelum deadline
                                     </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div className="hidden md:block mx-auto relative w-full">
+                        <div className="absolute bg-white left-0 right-0 mx-auto  bottom-0 w-11/12 sm:w-10/12 md:w-8/12 lg:w-6/12 xl:w-5/12 py-4 border-radius-8 z-50" style={{ borderRadius: "8px 8px 8px 8px" }}>
+                            <div className="pt-4 pb-0 text-left w-10/12 sm:w-11/12 md:w-10/12 mx-auto">
+                                <h2 className="font16-res-400">Metode Absensi</h2>
+                                <div className="pt-6 pb-2">
+                                    {props.use_password === 1 && props.use_face_recog === 1 ? (
+                                        <ul className="gap-3 block">
+                                            <li className="mb-3">
+                                                <Link to={`/view/${slug}/detail/absent/${id}/action/password`}>
+                                                    <div className="py-3 border-radius-4 bg-gray-100 text-purple-600 hover:bg-purple-600 hover-text-white font16-res-300">
+                                                        <p className="mx-3 cursor-pointer">Absensi Dengan Password</p>
+                                                    </div>
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <Link to={`/view/${slug}/detail/absent/${id}/action/face-recognation`}>
+                                                    <div className="py-3 border-radius-4 bg-gray-100 text-purple-600 hover:bg-purple-600 hover-text-white font16-res-300">
+                                                        <p className="mx-3 cursor-pointer">Absensi Menggunakan Facial</p>
+                                                    </div>
+                                                </Link>
+                                            </li>
+                                        </ul>
+                                    ) : props.use_password === 1 && props.use_face_recog === 0 ? (
+                                        <ul className="gap-3 block">
+                                            <li className="mb-3">
+                                                <Link to={`/view/${slug}/detail/absent/${id}/action/password`}>
+                                                    <div className="py-3 border-radius-4 bg-gray-100 text-purple-600 hover-bg-purple-600 hover-text-white font16-res-300">
+                                                        <p className="mx-3 cursor-pointer">Absensi Dengan Password</p>
+                                                    </div>
+                                                </Link>
+                                            </li>
+                                        </ul>
+                                    ) : props.use_password === 0 && props.use_face_recog === 1 ? (
+                                        <ul className="gap-3 block">
+                                            <li className="mb-3">
+                                                <Link to={`/view/${slug}/detail/absent/${id}/action/face-recognation`}>
+                                                    <div className="py-3 border-radius-4 bg-gray-100 text-purple-600 hover-bg-purple-600 hover-text-white font16-res-300">
+                                                        <p className="mx-3 cursor-pointer">Absensi Menggunakan Facial</p>
+                                                    </div>
+                                                </Link>
+                                            </li>
+                                        </ul>
+                                    ) : (
+                                        <ul className="gap-3 block">
+                                            <li className="mb-3">
+                                                <Link to={`/view/${slug}/detail/absent/${id}/action/password`}>
+                                                    <div className="py-3 border-radius-4 bg-gray-100 text-purple-600 hover-bg-purple-600 hover-text-white font16-res-300">
+                                                        <p className="mx-3 cursor-pointer">Absensi Dengan Password</p>
+                                                    </div>
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <Link to={`/view/${slug}/detail/absent/${id}/action/face-recognation`}>
+                                                    <div className="py-3 border-radius-4 bg-gray-100 text-purple-600 hover-bg-purple-600 hover-text-white font16-res-300">
+                                                        <p className="mx-3 cursor-pointer">Absensi Menggunakan Facial</p>
+                                                    </div>
+                                                </Link>
+                                            </li>
+                                        </ul>
+                                    )}
+                                    <div className="mt-3 mx-1">
+          <span className="text-gray-500 font13-res-300">
+            Pastikan Anda Melakukan absensi sebelum the deadline
+          </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
                 </div>
             )}
+
+
         </>
     )
 }

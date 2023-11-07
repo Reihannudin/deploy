@@ -14,9 +14,9 @@ export const FeatureComponent = () => {
                                     <img className="h-full mx-auto " src="/assets/absent-icon.svg" />
                                 </div>
                                 <div className="my-2 w-full">
-                                    <h2 className="my-0 py-0 font18-res-300 " style={{color:"#584e5d"}}>Absent</h2>
+                                    <h2 className="my-0 py-0 font18-res-300 " style={{color:"#584e5d"}}>Absensi</h2>
                                     <div className="w-full my-2 mx-auto">
-                                        <p className="my-0 text-center py-0 font-normal  font14-res-300"  style={{color:"#7c7a7e"}} >Buat Absent secara online dan organiser peserta dengan fitur radius dan authentication.</p>
+                                        <p className="my-0 text-center py-0 font-normal  font14-res-300"  style={{color:"#7c7a7e"}} >Keleolah Absensi secara online dan meningkatkan kedispilinan dengan fitur authentication.</p>
                                     </div>
                                 </div>
                             </div>
@@ -27,7 +27,7 @@ export const FeatureComponent = () => {
                                 <div className="my-2 w-full">
                                     <h2 className="my-0 py-0 font18-res-300 " style={{color:"#584e5d"}}>Tugas</h2>
                                     <div className="w-full mb-2 mt-1 mx-auto">
-                                        <p className="my-0 text-center py-0 font-normal  font14-res-300"  style={{color:"#7c7a7e"}} >Buat tugas ulangan dengan pengerjaan offline sehingga meminimalisirkan kecuangan.</p>
+                                        <p className="my-0 text-center py-0 font-normal  font14-res-300"  style={{color:"#7c7a7e"}} >Buatlah tugas baik ulangan maupun harian, dengan cara pengerjaan yang meminimalisirkan kecuangan.</p>
                                     </div>
                                 </div>
                             </div>
@@ -36,9 +36,9 @@ export const FeatureComponent = () => {
                                     <img className="h-full mx-auto radius-full" src="/assets/resource-icon.svg" />
                                 </div>
                                 <div className="my-2 w-full">
-                                    <h2 className="my-0 py-0 font18-res-300 " style={{color:"#584e5d"}}>Sumber Daya</h2>
+                                    <h2 className="my-0 py-0 font18-res-300 " style={{color:"#584e5d"}}>Bahan Belajar</h2>
                                     <div className="w-full my-2 mx-auto">
-                                        <p className="my-0 text-center py-0 font-normal  font14-res-300"  style={{color:"#7c7a7e"}} >Buat Sumber daya belajar untuk murid anda, dan akses selamanya.</p>
+                                        <p className="my-0 text-center py-0 font-normal  font14-res-300"  style={{color:"#7c7a7e"}} >Buat Bahan belajar terstruktur baik untuk pengajar maupun pelajar.</p>
                                     </div>
                                 </div>
                             </div>

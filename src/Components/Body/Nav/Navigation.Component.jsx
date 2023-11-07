@@ -82,7 +82,7 @@ export const NavigationComponent = () => {
                                                     </li>
 
                                                     <li className="pe-6 my-auto" style={{ borderRight:"1px solid #ebebeb"}}>
-                                                        <Link to={"/about"} style={{ fontWeight:"500"}}  className=" text-gray-400 my-0 relative cursor-pointer hover:text-purple-600 font">About
+                                                        <Link to={"/about"} style={{ fontWeight:"500"}}  className=" text-gray-400 my-0 relative cursor-pointer hover:text-purple-600 font">Tentang Kami
                                                             <div className="w-full mx-auto  absolute top-2 my-3  h-1 cursor-pointer hover:bg-purple-400  block hover:scale-x-50 transform origin-center  transition-transform duration-300">
                                                             </div>
                                                         </Link>
@@ -121,16 +121,19 @@ export const NavigationComponent = () => {
                                         </div>
                                     ):(
                                         <div className="my-auto lg:flex hidden gap-2 md:gap-1">
+                                            <Link to="/login">
+
                                             <button className="btn lg:block weverse-background-btn hover:bg-purple-700 border-radius-20 px-4 sm:px-5 lg:px-5 xl:px-6 py-1">
-                                                <Link to="/login">
-                                                    <p className="font-medium  text-white" style={{ fontSize:"14px"}}>Log in</p>
-                                                </Link>
+                                                    <p className="font-medium  text-white" style={{ fontSize:"14px"}}>Masuk</p>
                                             </button>
+                                            </Link>
+                                            <Link to="/register">
+
                                             <button className="btn  lg:block border-radius-20 bg-white hover:bg-purple-600 font-medium weverse-color hover:text-white sm:px-5 px-4 lg:px-5 xl:px-6 py-1" style={{ border:"1px solid #AC7EEE"}}>
-                                                <Link to="/register">
-                                                    <p className="" style={{ fontSize:"14px"}}>Sign Up</p>
-                                                </Link>
+                                                    <p className="" style={{ fontSize:"14px"}}>Daftar</p>
                                             </button>
+                                            </Link>
+
                                         </div>
                                     )}
                                 </div>
@@ -160,7 +163,7 @@ export const NavigationComponent = () => {
                                 </li>
 
                                 <li className="py-5">
-                                    <Link  className=" text-gray-400 cursor-pointer hover:text-purple-400" to={'/about'}>About
+                                    <Link  className=" text-gray-400 cursor-pointer hover:text-purple-400" to={'/about'}>Tentang Kami
                                         <div className="w-1/12 mx-auto h-1 cursor-pointer hover:bg-purple-400  block hover:scale-x-50 transform origin-center  transition-transform duration-300">
                                         </div>
                                     </Link>
@@ -170,7 +173,7 @@ export const NavigationComponent = () => {
                                         <div className="my-3">
                                             <button className="btn lg:block border-radius-4 weverse-background-btn px-4 w-10/12 py-1">
                                                 <Link to="/login">
-                                                    <p className="font-medium  text-white" style={{ fontSize:"14px"}}>Log in</p>
+                                                    <p className="font-medium  text-white" style={{ fontSize:"14px"}}>Masuk</p>
                                                 </Link>
                                             </button>
                                         </div>
@@ -178,7 +181,7 @@ export const NavigationComponent = () => {
                                         <div className="my-3">
                                             <button className="btn  lg:block sm:px-5 px-4 border-radius-4 w-10/12 py-1" style={{ border:"1px solid #AC7EEE" }}>
                                                 <Link to="/register">
-                                                    <p className="font-medium weverse-color" style={{ fontSize:"14px"}}>Sign Up</p>
+                                                    <p className="font-medium weverse-color" style={{ fontSize:"14px"}}>Daftar</p>
                                                 </Link>
                                             </button>
                                         </div>

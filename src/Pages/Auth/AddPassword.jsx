@@ -1,6 +1,6 @@
 import {AddPasswordCardComponent} from "../../Components/Auth/Card/AddPasswordCard.Component";
 import {useNavigate} from "react-router-dom";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import bcrypt from "bcryptjs";
 import api from "../../Config/api";
 
@@ -17,6 +17,18 @@ function AddPassword(){
     const [redirect, setRedirect] = useState("/add/password");
     const [isLoading, setIsLoading] = useState(false);
     const [redirectPath, setRedirectPath] = useState("/register");
+
+
+    const getEmail = localStorage.getItem('registrationEmail');
+    const getToken = localStorage.getItem('token');
+
+    useEffect(() => {
+        if (!getEmail && !getToken) {
+            navigate("/register");
+        } else {
+            setEmail(getEmail);
+        }
+    }, [navigate]);
 
     const bcrypt = require('bcryptjs');
     const salt = bcrypt.genSaltSync(10);
@@ -59,14 +71,23 @@ function AddPassword(){
                     }
                 } else if (response.data.status === 406) {
 
-                    setIsLoading(false); // Stop loading indicator
+                    setIsLoading(false);
                     if (response.data.errors.password === "Sepertinya anda belum terauthentikasi") {
-
                         let redirectUrl = response.data.redirect_path;
                         setRedirect(redirectUrl);
                         setErrorEmail(response.data.errors.password);
                         navigate(redirect);
                     } else if (response.data.errors.password === "Password tidak boleh kosong") {
+                        let redirectUrl = response.data.redirect_path;
+                        setErrorConfirmPassword(response.data.errors.password);
+                        setRedirect(redirectUrl);
+                        navigate(redirect);
+                    }  else if (response.data.errors.password === "Password harus memiliki setidaknya 8 karakter") {
+                        let redirectUrl = response.data.redirect_path;
+                        setErrorConfirmPassword(response.data.errors.password);
+                        setRedirect(redirectUrl);
+                        navigate(redirect);
+                    }  else if (response.data.errors.password === "Konfirmasi password tidak boleh kosong") {
                         let redirectUrl = response.data.redirect_path;
                         setErrorConfirmPassword(response.data.errors.password);
                         setRedirect(redirectUrl);
@@ -78,7 +99,6 @@ function AddPassword(){
                         navigate(redirect);
                     } else if (response.data.errors.password === "Pastikan password anda sama saat tahap konfirmasi") {
                         let redirectUrl = response.data.redirect_path;
-                        console.log(redirectUrl)
                         setErrorConfirmPassword(response.data.errors.password);
                         setRedirect(redirectUrl);
                         navigate(redirect);
@@ -95,7 +115,7 @@ function AddPassword(){
 
     return(
         <>
-            <div className="w-full md:py-6 py-0" style={{ background:"#FAFBFC" , minWidth:"280px"}}>
+            <div className="w-full md:py-6 py-0 h-screen" style={{ background:"#FAFBFC" , minWidth:"280px"}}>
                 <div className="xl:w-6/12 lg:w-7/12 md:w-9/12  mx-auto">
                     <div className="md:w-8/12   w-full mx-auto">
                         <AddPasswordCardComponent

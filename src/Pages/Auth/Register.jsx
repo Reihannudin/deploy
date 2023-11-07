@@ -37,13 +37,11 @@ function Register() {
                         let redirectUrl = response.data.redirect_path;
                         localStorage.setItem("registrationEmail", email);
                         setRedirectPath(redirectUrl);
-                        // Navigate after setting the necessary values
                         navigate(redirectUrl);
                     } else if (response.data.message === "Akun sudah terdaftar, silahkan login") {
                         let redirectUrl = response.data.redirect_path;
                         localStorage.setItem("registrationEmail", email);
                         setRedirectPath(redirectUrl);
-                        // Navigate after setting the necessary values
                         navigate(redirectUrl);
                     }
                 }
@@ -53,13 +51,11 @@ function Register() {
                         let redirectUrl = response.data.redirect_path;
                         setRedirectPath(redirectUrl);
                         setErrorEmail(response.data.errors.email);
-                        // Navigate after setting the necessary values
                         navigate(redirectUrl);
                     } else if (response.data.errors.email === "Format email tidak valid") {
                         let redirectUrl = response.data.redirect_path;
                         setErrorEmail(response.data.errors.email);
                         setRedirectPath(redirectUrl);
-                        // Navigate after setting the necessary values
                         navigate(redirectUrl);
                     }
                 }

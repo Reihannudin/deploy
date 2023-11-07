@@ -6,10 +6,10 @@ export const ActionAbsentPasswordEmptyComponent = (props) => {
 
     return (
         <>
-            <div className="h-full mx-auto sm:pt-10  pt-12 px-0" style={{ minWidth: "300px" }}>
+            <div className="h-full mx-auto  pt-12 sm:pt-14 px-0" style={{ minWidth: "300px" }}>
                 <div className="flex md:my-4 my-2  sm:w-11/12  mx-auto w-full">
-                    <div className="xl:w-10/12 lg:w-full md:11/12 w-full md:mx-auto">
-                        <form >
+                    <div className="lg:w-11/12  md:11/12 w-full md:mx-auto">
+                    <form >
                             <div>
                                 <div className="my-3 w-full mx-auto">
                                     <div className="mt-6 border-b pb-3 mb-4 w-11/12  mx-auto">

@@ -39,14 +39,14 @@ export const AddInformationCardComponent = ({
                         <img className="h-full" src="/assets/spaceSkool-logo-account.svg" alt=""/>
                     </div>
                     <div className="mx-0 text-left">
-                        <h1 className="font-bold" style={{ fontSize:"26px"}}>Add your information SpaceSkool Account.</h1>
+                        <h1 className="font-bold" style={{ fontSize:"26px"}}>Tambahkan informasi Anda Akun SpaceSkool.</h1>
                     </div>
                     <form onSubmit={handleSubmit}>
                         <div className="text-left">
                             <div >
                                 <div className="mt-8">
-                                    <label style={{ color:"#777575" , fontSize:"14px"}}>Name</label>
-                                    <input type="text"   onChange={onChangeName} value={name} className="w-full py-3 border-b-gray-300" style={{ borderBottom:"1px solid #ebebeb"}} placeholder="your name"/>
+                                    <label style={{ color:"#777575" , fontSize:"14px"}}>Nama Lengkap</label>
+                                    <input type="text"   onChange={onChangeName} value={name} className="w-full py-3 border-b-gray-300" style={{ borderBottom:"1px solid #ebebeb"}} placeholder="Tambahkan Nama Lengkap"/>
                                     {errorName === '' ? (
                                         <div className="my-2">
                                         </div>
@@ -58,7 +58,7 @@ export const AddInformationCardComponent = ({
                                 </div>
                                 <div className=" mt-4">
                                     <label style={{ color:"#777575" , fontSize:"14px"}}>Username</label>
-                                    <input type="text" onChange={onChangeUsername} value={username} className="w-full py-3 border-b-gray-300" style={{ borderBottom:"1px solid #ebebeb"}} placeholder="your username"/>
+                                    <input type="text" onChange={onChangeUsername} value={username} className="w-full py-3 border-b-gray-300" style={{ borderBottom:"1px solid #ebebeb"}} placeholder="Tambahkan Username Anda"/>
                                     {errorUsername === '' ? (
                                         <div className="my-2">
                                         </div>
@@ -69,8 +69,8 @@ export const AddInformationCardComponent = ({
                                     )}
                                 </div>
                                 <div className="mt-4">
-                                    <label style={{ color:"#777575" , fontSize:"14px"}}>Phone Number</label>
-                                    <input type="text"   onChange={onChangeContact} value={contact} className="w-full py-3 border-b-gray-300" style={{ borderBottom:"1px solid #ebebeb"}} placeholder="your phone number"/>
+                                    <label style={{ color:"#777575" , fontSize:"14px"}}>Nomor telepon</label>
+                                    <input type="text"   onChange={onChangeContact} value={contact} className="w-full py-3 border-b-gray-300" style={{ borderBottom:"1px solid #ebebeb"}} placeholder="Tambahkan Nomor telepon"/>
                                     {errorContact === '' ? (
                                         <div className="my-2">
                                         </div>
@@ -81,8 +81,8 @@ export const AddInformationCardComponent = ({
                                     )}
                                 </div>
                                 <div className="mt-4">
-                                    <label style={{ color:"#777575" , fontSize:"14px"}}>BirthDay</label>
-                                    <input type="date"  onChange={onChangeBirthday} value={birthday} className="w-full py-3 border-b-gray-300" style={{ borderBottom:"1px solid #ebebeb"}} placeholder="your birthday"/>
+                                    <label style={{ color:"#777575" , fontSize:"14px"}}>Hari ulang tahun</label>
+                                    <input type="date"  onChange={onChangeBirthday} value={birthday} className="w-full py-3 border-b-gray-300" style={{ borderBottom:"1px solid #ebebeb"}} placeholder="Tambahkan Hari ulang tahun"/>
                                     {errorBirthday === '' ? (
                                         <div className="my-2">
                                         </div>
@@ -96,7 +96,7 @@ export const AddInformationCardComponent = ({
                                 </div>
                                 <button className="w-full mt-10 md:mt-7" onSubmit={handleSubmit} >
                                     <div className="w-full font-medium py-2.5 text-center border border-purple-600 rounded text-white bg-purple-600 hover:bg-purple-700">
-                                        Save
+                                        Tambahkan
                                     </div>
                                 </button>
                             </div>

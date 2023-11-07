@@ -133,7 +133,7 @@ export const JoinClassComponent = () => {
     return (
         <>
             <div className="h-full mx-auto p-nav-content-crud px-0" style={{ minWidth: "280px" }}>
-                <div className="lg:flex xl:w-9/12 sm:w-10/12 w-11/12 mx-auto">
+                <div className="lg:flex xl:w-10/12 sm:w-10/12 w-11/12 mx-auto">
                     <div className="w-full " style={{ background: "#ffffff" }}>
                         <div className="w-full mx-auto">
                             <div className="my-6">

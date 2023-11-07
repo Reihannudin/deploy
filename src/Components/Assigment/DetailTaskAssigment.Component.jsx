@@ -445,13 +445,13 @@ export const  DetailTaskAssigmentComponent = (props) => {
             </div>
 
             {dropAction && (
-                <div id="drop-action" className="flex items-center z-50 justify-center w-full fixed bottom-0 min-h-screen">
+                <div id="drop-action" className="flex items-center z-50 justify-center w-full fixed bottom-0 min-h-screen md:top-0 md:left-0 md:h-full md:flex">
                     {/* This div serves as a backdrop and should cover the entire screen */}
-                    <div onClick={handleDropdownItemClick} className="bg-gray-500 bg-opacity-30 w-full h-full absolute bottom-0 z-50" ></div>
+                    <div onClick={handleDropdownItemClick} className="bg-gray-500 bg-opacity-30 w-full h-full absolute bottom-0  z-50"></div>
                     {/* Centered dropdown content */}
-                    <div className="absolute bg-white bottom-0 w-full  py-4 border-radius-8 z-50" style={{ borderRadius:"25px 25px 0px 0px"}}>
-                        <div className="py-4 text-left w-10/12 mx-auto">
-                            <h2 className="font16-res-400">Mengerjakan tugas </h2>
+                    <div className="absolute bg-white bottom-0  w-full py-4 border-radius-8 z-50" style={{ borderRadius: "25px 25px 0px 0px" }}>
+                        <div className="py-4 text-left md:w-10/12 mx-auto"> {/* Add 'md:' to center the content on md screens */}
+                            <h2 className="font16-res-400">Mengerjakan tugas</h2>
                             <div className="block mt-3 text-left font14-res-300">
                                 <div className="">
                                     <p className="text-gray-700">Izin keluar dari aplikasi : </p>
@@ -464,19 +464,18 @@ export const  DetailTaskAssigmentComponent = (props) => {
                             </div>
                             <div className="pt-4 pb-2">
                                 <ul className="gap-3 block">
-                                        <li className="mb-3">
-                                            <Link to={`/view/${slug}/${class_id}/detail/pre/assignment/${id}`} >
-                                                <div className="py-3  border-radius-4 border-purple-700 hover:bg-purple-600 text-purple-600 border hover:text-white font16-res-300">
-                                                    <p className="mx-3 cursor-pointer">Kerjakan sekarang</p>
-                                                </div>
-                                            </Link>
-                                        </li>
-
-                                    </ul>
+                                    <li className="mb-3">
+                                        <Link to={`/view/${slug}/${class_id}/detail/pre/assignment/${id}`}>
+                                            <div className="py-3 border-radius-4 border-purple-700 hover:bg-purple-600 text-purple-600 border hover:text-white font16-res-300">
+                                                <p className="mx-3 cursor-pointer">Kerjakan sekarang</p>
+                                            </div>
+                                        </Link>
+                                    </li>
+                                </ul>
                                 <div className="mt-3 mx-1">
-                                    <span className={"text-gray-500 font13-res-300"}>
-                                        Pastikan Anda Melakukan pengerjaan sebelum deadline
-                                    </span>
+            <span className="text-gray-500 font13-res-300">
+              Pastikan Anda Melakukan pengerjaan sebelum deadline
+            </span>
                                 </div>
                             </div>
                         </div>

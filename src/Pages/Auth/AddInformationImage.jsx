@@ -1,5 +1,5 @@
 import {AddInformationImageCardComponent} from "../../Components/Auth/Card/AddInformationImageCard.Component";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import api from "../../Config/api";
@@ -12,17 +12,71 @@ function AddInformationImage (){
     const [bio , setBio] = useState('');
     const [school , setSchool] = useState('');
     const [address , setAddress] = useState('');
-    const [errorImage , setErrorImage] = useState('');
-    const [errorEmail , setErrorEmail] = useState('');
-    const [errorBio , setErrorBio] = useState('');
-    const [errorAddress , setErrorAddress] = useState('');
-    const [errorSchool , setErrorSchool] = useState('');
+     const [errorSchool , setErrorSchool] = useState('');
     const [redirectPath, setRedirectPath] = useState("/register");
     const [isLoading, setIsLoading] = useState(false);
-    const [redirectUrl, setRedirectUrl] = useState('');
+
+    const [schoolList , setSchoolList] = useState([]);
+    const [isFetchingSchool, setIsFetchingSchool] = useState(true);
+    const [isSchoolFetched, setIsSchoolFetched] = useState(false);
+
+    const getEmail = localStorage.getItem('registrationEmail');
+    const getToken = localStorage.getItem('token');
+
+    useEffect(() => {
+        let isMounted = true;
+        let token =localStorage.getItem('token');
+
+        const fetchData = async () => {
+            try {
+                if (!isSchoolFetched) {
+                    const response = await api.get(`/school`  ,{
+                        "Authorization: " : "Bearer " + token,
+                    });
+                    const data = response.data;
+
+                    if (isMounted) {
+                        setSchoolList(data);
+                        setIsSchoolFetched(true);
+                        setIsFetchingSchool(false);
+                    }
+                }
+
+            } catch (error) {
+                if (isMounted) {
+                    setErrorSchool(error);
+                    setIsFetchingSchool(false);
+                }
+            }
+        };
+
+        const timeout = setTimeout(() => {
+            if (isFetchingSchool) {
+                if (isMounted) {
+                    setErrorSchool(new Error("Timeout: Could not fetch data."));
+                    setIsFetchingSchool(false);
+                }
+            }
+        }, 20000);
+
+        fetchData();
+
+        return () => {
+            isMounted = false;
+            clearTimeout(timeout);
+        };
+    }, [isSchoolFetched]);
 
 
-    console.log(errorSchool)
+
+    useEffect(() => {
+        if (!getEmail && !getToken) {
+            navigate("/register");
+        } else {
+            setEmail(getEmail);
+        }
+    }, [navigate]);
+
     const handleSubmit = (event) => {
         event.preventDefault(); // Prevent the default form submission behavior
 
@@ -44,15 +98,14 @@ function AddInformationImage (){
             .then((response) => {
                 setIsLoading(false); // Stop loading indicator
                 if (response.data.status === 201) {
-                    console.log(response.data.message);
-                    if (response.data.message === "Informasi gambar berhasil diperbarui") {
+                      if (response.data.message === "Informasi gambar berhasil diperbarui") {
                         let redirectUrl = response.data.redirect_path;
                         setRedirectPath(redirectUrl);
                         navigate(redirectUrl);
                     }
                 }
+
                 else if (response.data.status === 406) {
-                    console.log(response.data.message);
                     if (response.data.message === "Tolong isi asal sekolah kamu!") {
                         let redirectUrl = response.data.redirect_path;
                         setErrorSchool(response.data.message);
@@ -65,23 +118,24 @@ function AddInformationImage (){
                         setErrorSchool(response.data.message);
                         // Navigate after setting the necessary values
                         navigate(redirectUrl);
+                    }else  if (response.data.message === " mohon maaf saat ini sekolah anda belum terdaftar, Tolong masukan nama sekolah anda!") {
+                        let redirectUrl = response.data.redirect_path;
+                        setRedirectPath(redirectUrl);
+                        setErrorSchool(response.data.message);
+                        // Navigate after setting the necessary values
+                        navigate(redirectUrl);
                     }
+
                 }
 
 
             })
             .catch((error) => {
                 setIsLoading(false);
-                // const { errors } = error.response.data;
-                // setErrorImage(errors?.image?.[0] || '');
-                // setErrorBio(errors?.bio?.[0] || '');
-                // setErrorSchool(errors?.school?.[0] || '');
-                // setErrorAddress(errors?.address?.[0] || '');
-
+              
             });
     };
 
-    console.log(isLoading)
 
 
     return(
@@ -97,6 +151,7 @@ function AddInformationImage (){
                             setImage={setImage}
                             setBio={setBio}
                             setSchool={setSchool}
+                            schoolsList={schoolList}
                             setAddress={setAddress}
                             errorSchool={errorSchool}
                             handleSubmit={(e)=> handleSubmit(e)}

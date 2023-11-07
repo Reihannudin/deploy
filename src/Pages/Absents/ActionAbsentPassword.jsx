@@ -10,6 +10,10 @@ import {
 } from "../../Components/Body/Nav/Task/Absents/Empty/NavbarMyDetailAbsentEmpty.Component";
 import {DetailMyAbsentComponentEmpty} from "../../Components/Absent/Empty/DetailMyAbsentEmpty.Component";
 import {ActionAbsentPasswordEmptyComponent} from "../../Components/Absent/Empty/ActionAbsentPasswordEmpty.Component";
+import {
+    NavbarDetailAbsentEmptyComponent
+} from "../../Components/Body/Nav/Task/Absents/Empty/NavbarDetailAbsentEmpty.Component";
+import {NavbarDetailAbsentComponent} from "../../Components/Body/Nav/Task/Absents/NavbarDetailAbsent.Component";
 
 function ActionAbsentPassword (){
 
@@ -126,7 +130,7 @@ function ActionAbsentPassword (){
         {isFetchingAbsent ? (
             <div>
                 <div className="w-full" style={{ background: "#FFFFFF" }}>
-                    <NavbarAbsentActionClassComponent />
+                    <NavbarDetailAbsentEmptyComponent />
                     <div className="w-full pb-5 mx-0 px-0 h-full " style={{ background:"#FFFFFF"}}>
                         <ActionAbsentPasswordEmptyComponent />
 
@@ -136,7 +140,7 @@ function ActionAbsentPassword (){
         ) : !isDataFetchedAbsent ?(
             <div>
                 <div className="w-full" style={{ background: "#FFFFFF" }}>
-                    <NavbarAbsentActionClassComponent />
+                    <NavbarDetailAbsentEmptyComponent />
                     <div className="w-full pb-5 mx-0 px-0 h-full " style={{ background:"#FFFFFF"}}>
                         <ActionAbsentPasswordEmptyComponent />
                     </div>
@@ -147,7 +151,7 @@ function ActionAbsentPassword (){
                 {absents.map((item) => {
                     return(
                         <div className="h-full" key={item.id} style={{ background:"#FFFFFF"}}>
-                            <NavbarAbsentActionClassComponent title={"Absensi kehadiran"} />
+                            <NavbarDetailAbsentComponent id={item.id} slug={slug} name={item.name} />
                             <div className="w-full pb-5 mx-0 px-0 h-full " style={{ background:"#FFFFFF"}}>
                                 <div  className="w-full">
                                     <div className="w-full">

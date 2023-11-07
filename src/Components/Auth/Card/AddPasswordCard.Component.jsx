@@ -49,7 +49,7 @@ export const AddPasswordCardComponent = ({
                         <img className="h-full" src="/assets/spaceSkool-logo-account.svg" alt=""/>
                     </div>
                     <div className="mx-0 text-left">
-                        <h1 className="font-bold" style={{ fontSize:"26px"}}>Add Your Password.</h1>
+                        <h1 className="font-bold" style={{ fontSize:"26px"}}>Tambahkan Password Anda.</h1>
                     </div>
 
                         <div className="text-left">
@@ -57,7 +57,7 @@ export const AddPasswordCardComponent = ({
                                 <div className="mt-8 mb-4">
                                     <label style={{ color:"#777575" , fontSize:"14px"}}>Password</label>
                                     <div className="flex">
-                                        <input id="password" required  value={password} type="password" onChange={onChangePassword} className="w-full py-3 border-b-gray-300" style={{ borderBottom:"1px solid #ebebeb"}} placeholder="your password"/>
+                                        <input id="password" required  value={password} type="password" onChange={onChangePassword} className="w-full py-3 border-b-gray-300" style={{ borderBottom:"1px solid #ebebeb"}} placeholder="Buat password anda"/>
                                         <button onClick={VisibiliyPassword}>
                                             <div className="bg-white px-3 py-2 radius-100 hover:bg-gray-50 " style={{ height:"40px"}}>
                                                 <img className="h-full" src="/assets/visibilty-on.svg" />
@@ -68,9 +68,9 @@ export const AddPasswordCardComponent = ({
                                 </div>
 
                                 <div className="mt-0 mb-24">
-                                    <label style={{ color:"#777575" , fontSize:"14px"}}>Confirm Password</label>
+                                    <label style={{ color:"#777575" , fontSize:"14px"}}>Konfirmasi password</label>
                                     <div className="flex">
-                                        <input id="confirm_password" required  value={confirmPassword} type="password" onChange={onChangeConfirmPassword} className="w-full py-3 border-b-gray-300" style={{ borderBottom:"1px solid #ebebeb"}} placeholder="your confirm password"/>
+                                        <input id="confirm_password" required  value={confirmPassword} type="password" onChange={onChangeConfirmPassword} className="w-full py-3 border-b-gray-300" style={{ borderBottom:"1px solid #ebebeb"}} placeholder="Konfirmasi password anda"/>
                                         <button onClick={VisibiliyConfirmPassword}>
                                             <div className="bg-white px-3 py-2 radius-100 hover:bg-gray-50 " style={{ height:"40px"}}>
                                                 <img className="h-full" src="/assets/visibilty-on.svg" />
@@ -99,7 +99,7 @@ export const AddPasswordCardComponent = ({
 
                                 <button className="w-full mt-16" onSubmit={handleSubmit}>
                                     <div className="w-full font-medium py-2.5 text-center border border-purple-600 rounded text-white bg-purple-600 hover:bg-purple-700">
-                                        Add Password
+                                        Tambahkan Password
                                     </div>
                                 </button>
                                 </form>

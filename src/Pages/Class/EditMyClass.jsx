@@ -117,7 +117,7 @@ function EditMyClass (){
                                 <div className="w-full pb-5 mx-0 px-0 h-full " style={{ background:"#FFFFFF"}}>
                                     <div id="class" className="w-full">
                                         <div className="w-full">
-                                            <EditClassComponent id={id} slug={slug} name={item.name} room={item.room} section={item.section} subject={item.subject} maxStudent={item.max_student} />
+                                            <EditClassComponent id={id} slug={slug} is_private={item.is_private} name={item.name} room={item.room} section={item.section} subject={item.subject} maxStudent={item.max_student} />
                                         </div>
                                     </div>
                                 </div>

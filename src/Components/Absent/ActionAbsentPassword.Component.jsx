@@ -154,9 +154,9 @@ export const ActionAbsentPasswordComponent = (props) => {
 
     return (
         <>
-            <div className="h-full mx-auto sm:pt-10  pt-12 px-0" style={{ minWidth: "300px" }}>
+            <div className="h-full mx-auto  pt-12 sm:pt-14 px-0" style={{ minWidth: "300px" }}>
                 <div className="flex md:my-4 my-2  sm:w-11/12  mx-auto w-full">
-                    <div className="xl:w-10/12 lg:w-full md:11/12 w-full md:mx-auto">
+                    <div className="lg:w-11/12  md:11/12 w-full md:mx-auto">
                         <form onSubmit={handleSubmit}>
                             <div>
                                 <div className="my-3 w-full mx-auto">
@@ -167,7 +167,7 @@ export const ActionAbsentPasswordComponent = (props) => {
                                                     <p className="font14-label-res-300">Nama Absent : </p>
                                                     <h2
                                                         className="font16-label-res-400 text-gray-600"
-                                                        style={{ fontWeight: "500" }}
+                                                        style={{ fontWeight: "550" }}
                                                     >
                                                         {props.name}
                                                     </h2>
@@ -217,7 +217,7 @@ export const ActionAbsentPasswordComponent = (props) => {
                                                 <input
                                                     type="email"
                                                     disabled
-                                                    className="w-full px-2 py-2 md:py-3 text-gray-400 font15-input-res-300 border-b-gray-300```jsx
+                                                    className="w-full px-2 py-2 md:py-3 text-gray-400 font15-res-300 border-b-gray-300```jsx
                           "
                                                     style={{ borderBottom: "1px solid #ebebeb" }}
                                                     value={props.email}
@@ -235,7 +235,7 @@ export const ActionAbsentPasswordComponent = (props) => {
                                                         onChange={onChangePassword}
                                                         type="password"
 
-                                                        className="w-full font15-input-res-300   px-2 py-2 md:py-3  border-b-gray-300"
+                                                        className="w-full font15-res-300   px-2 py-2 md:py-3  border-b-gray-300"
                                                         style={{ borderBottom: "1px solid #ebebeb" }}
                                                         placeholder="your password"
                                                     />
@@ -262,18 +262,18 @@ export const ActionAbsentPasswordComponent = (props) => {
                                                         <select
                                                             id="action"
                                                             name="action"
-                                                            className="w-full font15-input-res-300  py-2 md:py-3  border-b font16-res-400 cursor-pointer form-select mb-1"
+                                                            className="w-full font15-res-300  py-2 md:py-3  border-b font16-res-400 cursor-pointer form-select mb-1"
                                                             aria-label="Default select example"
                                                             value={action}
                                                             onChange={onChangeAction}
                                                         >
-                                                            <option disabled value="none" className=" font15-input-res-300">
+                                                            <option disabled value="none" className=" font15-res-300">
                                                                 Pilih Option Absent
                                                             </option>
-                                                            <option value="hadir" className=" font15-input-res-300">
+                                                            <option value="hadir" className=" font15-res-300">
                                                                 Hadir
                                                             </option>
-                                                            <option value="izin" className=" font15-input-res-300">
+                                                            <option value="izin" className=" font15-res-300">
                                                                 Izin
                                                             </option>
                                                         </select>
@@ -336,7 +336,7 @@ export const ActionAbsentPasswordComponent = (props) => {
                                         </div>
                                         <div className="w-4/12 md:w-3/12 xl:w-2/12 lg:w-2/12 ms-auto ">
                                             <button
-                                                className="w-11/12 font15-input-res-300   py-1.5 bg-purple-600 hover:bg-purple-700 cursor-pointer text-center mt-5"
+                                                className="w-11/12 font15-res-300   py-1.5 bg-purple-600 hover:bg-purple-700 cursor-pointer text-center mt-5"
                                                 type="submit"
                                                 style={{ color: "#ffffff", borderRadius: "4px", border: "1px solid #A373E9" }}
                                             >

@@ -188,9 +188,9 @@ export const  DetailAbsentComponentEmpty = (props) => {
             <div className='h-full  mx-auto md:pt-16  pt-14 px-0' style={{ minWidth:"333px"}} key={props.id} >
 
                 <div className="lg:flex md:block relative h-full gap-2 md:gap-4 lg:w-10/12 sm:w-11/12  w-full  mx-auto lg:justify-between">
-                    <div className="xl:w-9/12 md:w-full mx-auto lg:w-9/12 w-full">
+                    <div className="xl:w-8/12 md:w-full mx-auto lg:w-8/12 w-full">
                         <div className="bg-white">
-                            <div className="me-auto   md:w-10/12 border-b lg:w-full w-11/12 mx-auto">
+                            <div className="me-auto   md:w-11/12 border-b lg:w-full w-11/12 mx-auto">
                                 <div className="w-11/12 lg:mx-6 mt-4 mb-0 ">
                                     <ul id="tabs" className="flex mt-1  font18-res-300 w-10/12 px-1 text-purple-500">
                                         <li className="pe-3 sm:pe-6  text-gray-500 hover:text-purple-600 text-left font15-res-300 py-2">
@@ -374,7 +374,7 @@ export const  DetailAbsentComponentEmpty = (props) => {
                                         <button
                                             onClick={toggleDropAction}
                                             disabled
-                                            className="w-full py-2 font16-res-300 bg-gray-300 cursor-no-drop text-white border-radius-4"
+                                            className="w-full py-2 font14-res-300 bg-gray-300 cursor-no-drop text-white border-radius-4"
                                         >
                                             Absensi kehadiran
                                         </button>

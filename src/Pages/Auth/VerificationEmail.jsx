@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useRef, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../../Config/api";
 import {VerificationEmailCardComponent} from "../../Components/Auth/Card/VerificationEmailCard.Component";
@@ -10,11 +10,24 @@ function VerificationEmail() {
     const [code, setCode] = useState('');
     const [errorEmail, setErrorEmail] = useState('');
     const [errorCode, setErrorCode] = useState('');
-    const [redirect, setRedirect] = useState("/verification/email");
+    const [redirect, setRedirect] = useState("/verification/code/change/password");
     const [isLoading, setIsLoading] = useState(false);
     const [redirectPath, setRedirectPath] = useState("/register");
 
-    const getEmail = localStorage.getItem('registrationEmail')
+    const inputRefCode = useRef(null);
+
+    const [showAlert, setShowAlert] = useState(false);
+
+
+    const getEmail = localStorage.getItem('registrationEmail');
+
+    useEffect(() => {
+        if (!getEmail) {
+            navigate("/register");
+        } else {
+            setEmail(getEmail);
+        }
+    }, [navigate]);
 
     const handleSuccessResponse = (response) => {
         if (response.data.message === "Sukses verifikasi kode email") {
@@ -22,7 +35,6 @@ function VerificationEmail() {
             localStorage.setItem("isVerifyCodeSend", true);
             localStorage.setItem("token", response.data.token);
             setRedirect(redirectUrl); // Set the redirect path in state first
-            // Navigate to the new page after setting the state
             navigate(redirectUrl);
         }
     };
@@ -32,7 +44,6 @@ function VerificationEmail() {
             let redirectUrl = response.data.redirect_path;
             setRedirect(redirectUrl);
             setErrorCode(response.data.errors.code);
-            // Navigate to the new page after setting the state
             navigate(redirectUrl);
         }
     };
@@ -47,15 +58,20 @@ function VerificationEmail() {
             email: getEmail,
         }
 
+        setShowAlert(true);
+
         api
-            .post('/send-verification-code', formData)
+            .post('/send-verification-code/f/password', formData)
             .then((response) => {
+
                 setIsLoading(false); // Stop loading indicator
 
                 if (response.data.status === 200) {
                     if (response.data.message === "Kode verifikasi email telah dikirim, tolong periksa email anda") {
                         localStorage.setItem("isVerifyCodeSend", true);
-                        navigate("/verification/email"); // Directly navigate without using the 'redirect' state
+
+                        navigate("/verification/code/change/password"); // Directly navigate without using the 'redirect' state
+
                     }
                 } else if (response.data.status === 406){
                     if (response.data.errors.code === "Kode verifikasi tidak boleh kosong") {
@@ -90,7 +106,7 @@ function VerificationEmail() {
         }
 
         api
-            .post(`/verify/email`, formData, {
+            .post(`/verify/email/f/password`, formData, {
                 headers: {
                     'Accept': '*/*',
                     // Other headers if needed
@@ -99,40 +115,6 @@ function VerificationEmail() {
             .then((response) => {
                 setIsLoading(false); // Stop loading indicator
 
-                // if (response.data.status === 201) {
-                //
-                //     if (response.data.message === "Sukses verifikasi kode email") {
-                //         let redirectUrl = response.data.redirect_path;
-                //         localStorage.setItem("isVerifyCodeSend", true);
-                //         localStorage.setItem("token", response.data.token);
-                //         setRedirect(redirectUrl);
-                //         navigate(redirect);
-                //     }
-                // }
-                // else if (response.data.status === 406){
-                //     if (response.data.errors.code === "Kode verifikasi tidak boleh kosong"){
-                //         let redirectUrl = response.data.redirect_path;
-                //         setRedirect(redirectUrl);
-                //         setErrorCode(response.data.errors.code);
-                //         navigate(redirect);
-                //     } else if (response.data.errors.code === "Kode verifikasi tidak sama"){
-                //         let redirectUrl = response.data.redirect_path;
-                //         setRedirect(redirectUrl);
-                //         setErrorCode(response.data.errors.code);
-                //         navigate(redirect);
-                //     } else if (response.data.errors.code === "Akun tidak ditemukan"){
-                //         let redirectUrl = response.data.redirect_path;
-                //         setRedirect(redirectUrl);
-                //         setErrorCode(response.data.errors.code);
-                //         navigate(redirect);
-                //     }
-                //     else if (response.data.errors.code === "Email tidak boleh kosong"){
-                //         let redirectUrl = response.data.redirect_path;
-                //         setRedirect(redirectUrl);
-                //         setErrorCode(response.data.errors.code);
-                //         navigate(redirect);
-                //     }
-                // }
                 if (response.data.status === 201) {
                     handleSuccessResponse(response);
                 } else if (response.data.status === 406) {
@@ -146,11 +128,10 @@ function VerificationEmail() {
             });
     }
 
-    console.log(isLoading)
 
     return (
         <>
-            <div className="w-full md:py-6 py-0" style={{ background: "#FAFBFC", minWidth: "280px" }}>
+            <div className="w-full md:py-6 py-0 h-screen" style={{ background: "#FAFBFC", minWidth: "280px" }}>
                 <div className="xl:w-6/12 lg:w-7/12 md:w-9/12 mx-auto">
                     <div className="md:w-8/12 w-full mx-auto">
                         <VerificationEmailCardComponent
@@ -162,6 +143,8 @@ function VerificationEmail() {
                             setCode={setCode}
                             errorEmail={errorEmail}
                             errorCode={errorCode}
+                            showAlert={showAlert}
+                            setShowAlert={setShowAlert}
                         />
                     </div>
                 </div>
@@ -172,8 +155,6 @@ function VerificationEmail() {
                     {/*<div className="absolute gap-2 inset-0 flex items-center h-full justify-center bg-white opacity-100">*/}
                     <div
                         className="animate-spin rounded-full border-r-gray-50 border-l-gray-50  border-b-gray-50  w-8 h-8 md:h-10 md:w-10 border-t-4 border-purple-700"></div>
-
-
                 </div>
             )}
         </>

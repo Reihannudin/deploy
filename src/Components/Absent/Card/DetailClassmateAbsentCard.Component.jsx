@@ -88,10 +88,10 @@ export const DetailClassmateAbsentCardComponent = (props) => {
                     <div onClick={handleDropdownItemClick} className="bg-gray-600 bg-opacity-40 z-50 fixed inset-0"></div>
                     {/* Centered dropdown content */}
                     <div className="bg-white w-10/12 md:w-7/12 lg:w-5/12 xl:w-4/12 pt-4 pb-2 border-radius-8 fixed  z-50 left-1/2 transform -translate-x-1/2">
-                        <div className="w-10/12 mx-auto">
-                            <div>
-                                <div className="flex justify-between">
-                                    <div className="pt-1 pb-1  ">
+                        <div className="lg:w-10/12 sm:w-11/12  w-10/12 mx-auto">
+                            <div className="w-full ">
+                                <div className="flex w-full justify-between">
+                                    <div className="pt-1 text-left w-full pb-1  ">
                                         {props.absent_name.length > 20 ? (
                                             <p className="font16-res-400">{props.absent_name.slice(0, 15) + '...'}</p>
                                         ) : (
@@ -244,9 +244,9 @@ export const DetailClassmateAbsentCardComponent = (props) => {
                         <img className="h-full radius-100" src={`${props.image ? props.image : "/assets/default-profile.svg"}`} alt="Profile" />
                     </div>
                     <div className="block w-11/12">
-                        <div className="flex me-2 md:me-5 justify-between">
-                            <div className="block">
-                                <div className="w-6/12 mx-1 mt-0 md:mt-0.5 text-left">
+                        <div className="flex pe-2 w-full md:me-5 justify-between">
+                            <div className="block w-6/12 md:w-9/12">
+                                <div className="w-full mx-1 mt-0 md:mt-0.5 text-left">
                                     <h3 className="font16-res-300" style={{color:"#646464"}}>
                                         {props.student.length >20 ? (
                                             props.student.slice(0, 20) + '...'
@@ -281,7 +281,7 @@ export const DetailClassmateAbsentCardComponent = (props) => {
                                 </div>
 
                             </div>
-                            <div className="block gap-2">
+                            <div className="block gap-2 md:w-3/12 w-4/12">
                                 <div className=" w-full  mb-1 text-right  block">
                                     <button onClick={toggleDropAction}  className=" font13-res-300 hover:bg-purple-700 hover:text-white cursor-pointer border-gray-300 text-gray-500 px-2 py-1 rounded-md border">
                                         Lihat Absensi

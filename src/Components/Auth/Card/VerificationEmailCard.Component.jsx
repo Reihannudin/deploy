@@ -2,10 +2,12 @@ import {useNavigate, useSearchParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import bcrypt from "bcryptjs";
 import axios from "axios";
+import CustomAlert from "../../Helper/CustomAlert.Component";
 
 export const VerificationEmailCardComponent = ({
-    handleSubmit , handleGetCode , email , setEmail, errorEmail , code , setCode , errorCode
+    handleSubmit , showAlert , setShowAlert ,  handleGetCode , email , setEmail, errorEmail , code , setCode , errorCode
                                                }) => {
+
 
     const onChangeCode = (event) => {
         const code = event.target.value;
@@ -20,7 +22,6 @@ export const VerificationEmailCardComponent = ({
     };
 
     const handleDropdownAlert = () => {
-        // Close the dropdown when an item is clicked
         setIsAlertMessage(true);
     };
 
@@ -32,14 +33,14 @@ export const VerificationEmailCardComponent = ({
                         <img className="h-full" src="/assets/spaceSkool-logo-account.svg" alt=""/>
                     </div>
                     <div className="mx-0 text-left">
-                        <h1 className="font-bold" style={{ fontSize:"26px"}}>Verification your Account.</h1>
+                        <h1 className="font-bold" style={{ fontSize:"26px"}}>Masukan kode verifikasi, untuk mengganti password</h1>
                     </div>
                         <div className="text-left">
                             <div >
                                 <div className="mt-8 mb-4">
-                                    <label style={{ color:"#777575" , fontSize:"14px"}}>Verification Code</label>
+                                    <label style={{ color:"#777575" , fontSize:"14px"}}>Kode Verifikasi</label>
                                     <div className="flex">
-                                        <input id="password"  value={code} type="text" onChange={onChangeCode} className="w-full py-3 border-b-gray-300" style={{ borderBottom:"1px solid #ebebeb"}} placeholder="Kode Anda"/>
+                                        <input id="password"  value={code} type="text" onChange={onChangeCode} className="w-full py-3 border-b-gray-300" style={{ borderBottom:"1px solid #ebebeb"}} placeholder="Masukan Kode Verifikasi Anda"/>
                                     </div>
                                     {errorEmail === '' ? (
                                         <div className="my-2">
@@ -59,15 +60,15 @@ export const VerificationEmailCardComponent = ({
                                     )}
                                 </div>
                                 <form onSubmit={handleSubmit}>
-                                <button className="w-full mt-32 md:mt-16" onSubmit={handleSubmit}>
+                                <button className="w-full mt-32 md:mt-36" onSubmit={handleSubmit}>
                                     <div className="w-full font-medium py-2.5 text-center border border-purple-600 rounded text-white bg-purple-600 hover:bg-purple-700">
-                                        Verification
+                                        Verifikasi
                                     </div>
                                 </button>
                                 </form>
                                 <div className="flex mt-4 w-full">
                                     <div className="w-full mx-5 my-auto" style={{ height: "1px", background: "#d0d0d0" }}></div>
-                                    <p className="mx-auto">OR</p>
+                                    <p className="mx-auto">Atau</p>
                                     <div className="w-full mx-5 my-auto" style={{ height: "1px", background: "#d0d0d0" }}></div>
                                 </div>
                                 <form onSubmit={handleGetCode}>
@@ -96,23 +97,18 @@ export const VerificationEmailCardComponent = ({
                         </div>
                 </div>
             </div>
-            {isAlertMessage ? null : (
-                <div
-                    id="dropdown_profile"
-                    className="z-10 fixed inset-0"
-                    onClick={handleDropdownAlert}
-                >
-                    <div className="bg-gray-500 bg-opacity-40 w-full h-full z-40 absolute right-0 bottom-0"></div>
+            {showAlert && (
+                <div id="drop-action" className="fixed inset-0 flex items-center justify-center"  style={{ zIndex: "10000" }}>
+                    <button
+                        onClick={() => setShowAlert(false)} // Close the alert when clicking the backdrop
+                        className="bg-gray-500 bg-opacity-30 w-full h-full fixed top-0 left-0"
+                        style={{ zIndex: "10000" }}
+                    ></button>
 
-                    <div className="absolute inset-0 flex items-center justify-center z-50">
-                        <div className="bg-white divide-y divide-gray-100 rounded-lg shadow w-9/12 sm:w-7/12 md:w-5/12 lg:w-4/12 xl:w-3/12 dark:bg-gray-700 dark:divide-gray-600">
-                            <div className="py-8 px-4">
-                                <h2 className="font18-res-300">{alertMessage}</h2>
-                                <p className="text-gray-600 mt-4 font14-res-300">Mohon tunggu 10 detik untuk mendapatkan Code verify Email anda, dan cobalah untuk email anda, </p>
-                            </div>
-
-                        </div>
-                    </div>
+                    <CustomAlert
+                        message={`Code verifikasi email telah terkirim silahkan cek email anda!`}
+                        onClose={() => setShowAlert(false)} // Close the alert when using the custom alert's close button
+                    />
                 </div>
             )}
         </>
