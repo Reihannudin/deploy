@@ -9,6 +9,7 @@ import {TaskCardHelperComponent} from "../Class/Card/TaskCardHelper.Component";
 import AbsentDetailMyClassHelper from "../Class/Comps/AbsentDetailMyClass.Helper";
 import {AssignmentDetailMyClassHelper} from "../Class/Comps/AssignmentDetailMyClass.Helper";
 import {ResourceDetailMyClassHelper} from "../Class/Comps/ResourceDetailMyClass.Helper";
+import {MainNavSchoolComponent} from "../Body/MainNav/MainNavSchool.Component";
 
 export const MainComponent = ({user}) => {
 
@@ -137,14 +138,15 @@ export const MainComponent = ({user}) => {
         <>
             <div className=' h-full min-h-screen mx-auto md:pt-16  relative  pt-16 px-0' style={{ minWidth:"280px" , maxWidth:"1500px"}}>
                 <div className="block w-full md:hidden">
-                    <MainNavComponent user={user} />
+                    <MainNavSchoolComponent user={user} />
+
                 </div>
                 <div className="w-bar-class-list md:py-3 py-2  mx-auto  lg:mb-10 md:mb-2 bg-white">
                     <div className="bg-white">
                         <div className="me-auto relative xl:w-10/12 lg:w-11/12 md:w-11/12  sm:w-11/12 w-full  mx-auto">
                             <div className="absolute left-0">
                                 <ul id="tabs" className="flex mt-1 w-full text-left px-1 pb-1 text-purple-500">
-                                    <li className="md:px-4 ps-0 pe-2 w-full font16-res-400 text-gray-400 hover:text-purple-600 md:py-2">
+                                    <li className="md:px-4 ps-0 pe-2 w-full  text-gray-400 hover:text-purple-600 md:py-2" style={{ fontSize:"16px"}}>
                                         <div>
                                             <a
                                                 id="default-tab"
@@ -249,7 +251,7 @@ export const MainComponent = ({user}) => {
 
                         <div id="berlangsung" className="hidden md:py-2 py-4 md:px-4">
                             <div className="w-full md:py-5 py-2">
-                                <div className="md:mt-5 mt-3 border-t border-gray-300">
+                                <div className="md:mt-5 mt-3 border-t border-gray-200">
                                     {liveTask.length === 0 && !isFetchingTask ? (
                                         <div className="md:py-8 py-2">
                                             <div className="mb-8 mt-20">
