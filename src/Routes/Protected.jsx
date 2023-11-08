@@ -53,6 +53,7 @@ import OnlineAssignment from "../Pages/Error/OnlineAssignment";
 import {useEffect, useState} from "react";
 import api from "../Config/api";
 import MainSchool from "../Pages/Home/MainSchool";
+import SendVerifyCode from "../Pages/Profile/SendVerifyCode";
 
 export const Protected = () => {
 
@@ -111,6 +112,12 @@ export const Protected = () => {
 
       {/*class Page*/}
         <Route path="/" element={<Main user={user} isFetching={isFetching} isDataFetched={isDataFetched} />} />  {/* Done */}
+        <Route path="/profile" element={<MyProfile user={user} isFetching={isFetching} isDataFetched={isDataFetched}  />} />
+        <Route path="/edit/profile" element={<EditProfile user={user} isFetching={isFetching} isDataFetched={isDataFetched}  />} />
+        <Route path="/edit/profile/password" element={<EditProfilePassword user={user} isFetching={isFetching} isDataFetched={isDataFetched}/>} />
+        {/*<Route path="/send/verify/code" element={<SendVerifyCode  user={user} isFetching={isFetching} isDataFetched={isDataFetched}/>} />*/}
+
+
         <Route path="/my/class" element={<MyClass />} /> {/* Done */}
 
         {/*==========================* Class Path ==========================*/}
@@ -169,7 +176,6 @@ export const Protected = () => {
       <Route path="/feed/notification" element={<FeedNotification />} />
       <Route path="/feed/search" element={<FeedSearch />} />
 
-      <Route path="/profile" element={<MyProfile />} />
 
 
 
@@ -192,9 +198,7 @@ export const Protected = () => {
         path="/view/:slug/detail/resource/:id"
         element={<DetailResource />}
       />
-      <Route path="/profile" element={<MyProfile />} />
-      <Route path="/edit/profile" element={<EditProfile />} />
-      <Route path="/edit/profile/password" element={<EditProfilePassword />} />
+
       {/*/!*crud*!/*/}
 
 

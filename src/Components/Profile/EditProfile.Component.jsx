@@ -208,6 +208,7 @@ export const EditProfileComponent = (props) => {
                                                     <label className="font13-res-300 w-full my-0 py-0 mx-3" style={{ color:"#777575" }}>Password</label>
                                                     <p className="w-full mt-1 focus:outline-none cursor-pointer px-3 pb-1 font16-res-300 text-gray-500 hover:text-purple-600 border-b-gray-300" >
                                                        <Link to={'/edit/profile/password'}>
+                                                           {/*<Link to={'/send/verify/code'}>*/}
                                                            Change Password
                                                        </Link>
                                                     </p>

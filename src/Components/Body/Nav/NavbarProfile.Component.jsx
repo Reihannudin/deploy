@@ -1,6 +1,7 @@
 import {useNavigate} from "react-router-dom";
+import React from "react";
 
-export const NavbarProfileComponent = (props) => {
+export const NavbarProfileComponent = ({isFetching ,isDataFetched ,user}) => {
 
     const navigate = useNavigate();
 
@@ -20,8 +21,24 @@ export const NavbarProfileComponent = (props) => {
                                 </div>
                             </button>
                             <div className="my-2 text-left" >
-                                <h4 className="font16-res-400">{props.name}</h4>
-                                <p className="font14-res-300 text-purple-700" >0 Postingan</p>
+                                {isFetching? (
+                                    <div className={"my-1"}>
+                                        <h4 className="font16-res-400 mb-2   w-44 border-radius-4 bg-gray-200 py-2 animate-pulse"></h4>
+                                        <p className="font14-res-300  w-44 border-radius-4 bg-gray-200 py-1 animate-pulse" ></p>
+                                    </div>
+                                ) : !isDataFetched ? (
+                                    <div className={"my-1"}>
+                                        <h4 className="font16-res-400 mb-2   w-44 border-radius-4 bg-gray-200 py-2 animate-pulse"></h4>
+                                        <p className="font14-res-300  w-44 border-radius-4 bg-gray-200 py-1 animate-pulse" ></p>
+                                    </div>
+                                ) :(
+                                    <div>
+                                        <h4 className="font16-res-400">{user.name}</h4>
+                                        <p className="font14-res-300 text-purple-700" >{user.position}</p>
+                                    </div>
+                                )
+                                }
+
                             </div>
                         </div>
                     </div>
