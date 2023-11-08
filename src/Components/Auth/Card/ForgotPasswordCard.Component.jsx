@@ -14,6 +14,10 @@ export const ForgotPasswordCardComponent = ({
     const bcrypt = require('bcryptjs');
     const salt = bcrypt.genSaltSync(10);
 
+    console.log("error component " , errorPassword)
+    console.log("error component " , errorNewPassword)
+    console.log("error component " , errorConfirmPassword)
+
     const onChangePassword = (event) => {
         const password = event.target.value;
         setPassword(password)
@@ -77,8 +81,16 @@ export const ForgotPasswordCardComponent = ({
                                     <div className="flex">
                                         <input id="password"   value={password} type="password" onChange={onChangePassword} className="w-full py-3 border-b-gray-300" style={{ borderBottom:"1px solid #ebebeb"}} placeholder="Password anda"/>
                                         <button onClick={VisibiliyPassword}>
-                                            <i className="fa-solid fa-eye-slash" style={{ color:"#777575"}}>
-                                            </i>
+                                            <div
+                                                className="bg-white px-3 py-2 radius-100 hover:bg-gray-50"
+                                                style={{ height: "40px" }}
+                                            >
+                                                <img
+                                                    className="h-full"
+                                                    src="/assets/visibilty-on.svg"
+                                                    alt=""
+                                                />
+                                            </div>
                                         </button>
                                     </div>
                                     {errorPassword === '' ? (
@@ -94,9 +106,18 @@ export const ForgotPasswordCardComponent = ({
                                     <label style={{ color:"#777575" , fontSize:"14px"}}>Password Baru</label>
                                     <div className="flex">
                                         <input id="new_password" value={newPassword} type="password" onChange={onChangeNewPassword} className="w-full py-3 border-b-gray-300" style={{ borderBottom:"1px solid #ebebeb"}} placeholder="Password baru anda"/>
+
                                         <button onClick={VisibiltyNewPassword}>
-                                            <i className="fa-solid fa-eye-slash" style={{ color:"#777575"}}>
-                                            </i>
+                                            <div
+                                                className="bg-white px-3 py-2 radius-100 hover:bg-gray-50"
+                                                style={{ height: "40px" }}
+                                            >
+                                                <img
+                                                    className="h-full"
+                                                    src="/assets/visibilty-on.svg"
+                                                    alt=""
+                                                />
+                                            </div>
                                         </button>
                                     </div>
                                     {errorNewPassword === '' ? (
@@ -113,8 +134,16 @@ export const ForgotPasswordCardComponent = ({
                                     <div className="flex">
                                         <input id="confirm_password"   value={confirmPassword} type="password" onChange={onChangeConfirmPassword} className="w-full py-3 border-b-gray-300" style={{ borderBottom:"1px solid #ebebeb"}} placeholder="Konfirmasi password"/>
                                         <button onClick={VisibiltyConfirmPassword}>
-                                            <i className="fa-solid fa-eye-slash" style={{ color:"#777575"}}>
-                                            </i>
+                                            <div
+                                                className="bg-white px-3 py-2 radius-100 hover:bg-gray-50"
+                                                style={{ height: "40px" }}
+                                            >
+                                                <img
+                                                    className="h-full"
+                                                    src="/assets/visibilty-on.svg"
+                                                    alt=""
+                                                />
+                                            </div>
                                         </button>
                                     </div>
                                     {errorConfirmPassword === '' ? (

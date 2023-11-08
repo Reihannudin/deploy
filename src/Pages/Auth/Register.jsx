@@ -88,8 +88,6 @@ function Register() {
             </div>
             {isLoading && (
                 <div className="fixed gap-2 inset-0 flex items-center justify-center bg-white opacity-100">
-                {/*<div className="absolute gap-2 inset-0 flex items-center h-full justify-center bg-white opacity-100">*/}
-
                     <div
                         className="animate-spin rounded-full border-r-gray-50 border-l-gray-50  border-b-gray-50  w-8 h-8 md:h-10 md:w-10 border-t-4 border-purple-700"></div>
 

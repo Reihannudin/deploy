@@ -19,15 +19,15 @@ function VerificationEmail() {
     const [showAlert, setShowAlert] = useState(false);
 
 
-    const getEmail = localStorage.getItem('registrationEmail');
+    const getEmail = localStorage.getItem('requestCodeEmail');
 
-    useEffect(() => {
-        if (!getEmail) {
-            navigate("/register");
-        } else {
-            setEmail(getEmail);
-        }
-    }, [navigate]);
+    // useEffect(() => {
+    //     if (!getEmail) {
+    //         navigate("/register");
+    //     } else {
+    //         setEmail(getEmail);
+    //     }
+    // }, [navigate]);
 
     const handleSuccessResponse = (response) => {
         if (response.data.message === "Sukses verifikasi kode email") {

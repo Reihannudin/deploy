@@ -160,7 +160,8 @@ export const LoginCardComponent = ({
                   className="w-full max-w-sm"
                   href={`http://127.0.0.1:8000/login/p`}
                 >
-                  <div className="w-full font-medium flex py-2 text-purple-500 text-center border border-purple-500 rounded">
+                  <div className="w-full font-medium flex py-2 text-purple-600 hover:text-white hover:bg-purple-700 text-center border border-purple-500 rounded">
+
                     <div className="flex items-center mx-auto">
                       <div className="mr-2 w-6 h-6">
                         <img src="/assets/Google_icon.svg" alt="" />

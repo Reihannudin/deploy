@@ -59,7 +59,9 @@ export const RegisterCardComponent = ({
                             </div>
 
                             <div className="flex justify-center my-3">
-                                <a className="w-full max-w-sm"  href={`https://rest-api.spaceskool.site/public/login/p`}>
+                                <a className="w-full max-w-sm"
+                                   href={`http://127.0.0.1:8000/login/p`}
+                                >
                                     <div className="w-full font-medium flex py-2 text-purple-600 hover:text-white hover:bg-purple-700 text-center border border-purple-500 rounded">
                                         <div className="flex items-center mx-auto">
                                             <div className="mr-2 w-6 h-6">

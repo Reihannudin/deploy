@@ -55,39 +55,42 @@ function ForgotPassword(){
                 } else if (response.data.status === 406) {
 
                     console.log(response.data.status)
-                    if (response.data.message === "Password lama tidak boleh kosong") {
+                    console.log(response.data.errors)
+                    console.log(response.data.errors.password)
+
+                    if (response.data.errors.password === "Password lama tidak boleh kosong") {
                         let redirectUrl = response.data.redirect_path;
-                        setErrorPassword(response.data.message);
+                        setErrorPassword(response.data.errors.password);
                         setRedirectPath(redirectUrl);
                         navigate(redirectUrl);
                         // setErrorPassword('');
 
-                    } else if (response.data.message === "Password baru tidak boleh kosong") {
+                    } else if (response.data.errors.password === "Password baru tidak boleh kosong") {
                         let redirectUrl = response.data.redirect_path;
                         setRedirectPath(redirectUrl);
-                        setErrorNewPassword(response.data.message);
+                        setErrorNewPassword(response.data.errors.password);
                         navigate(redirectUrl);
-                    } else if (response.data.message === "Password baru harus memiliki setidaknya 8 karakter") {
+                    } else if (response.data.errors.password === "Password baru harus memiliki setidaknya 8 karakter") {
                         let redirectUrl = response.data.redirect_path;
                         setRedirectPath(redirectUrl);
-                        setErrorNewPassword(response.data.message);
+                        setErrorNewPassword(response.data.errors.password);
                         navigate(redirectUrl);
-                    } else if (response.data.message === "Konfirmasi password tidak boleh kosong") {
+                    } else if (response.data.errors.password === "Konfirmasi password tidak boleh kosong") {
                         let redirectUrl = response.data.redirect_path;
                         setRedirectPath(redirectUrl);
-                        setErrorConfirmPassword(response.data.message);
-                        navigate(redirectUrl);
-                    }
-                    else if (response.data.message === "Password lama tidak cocok") {
-                        let redirectUrl = response.data.redirect_path;
-                        setRedirectPath(redirectUrl);
-                        setErrorPassword(response.data.message);
+                        setErrorConfirmPassword(response.data.errors.password);
                         navigate(redirectUrl);
                     }
-                    else if (response.data.message === "Password baru harus sesuai dengan konfirmasi password") {
+                    else if (response.data.errors.password === "Password lama tidak cocok") {
                         let redirectUrl = response.data.redirect_path;
                         setRedirectPath(redirectUrl);
-                        setErrorNewPassword(response.data.message);
+                        setErrorPassword(response.data.errors.password);
+                        navigate(redirectUrl);
+                    }
+                    else if (response.data.errors.password === "Password baru harus sesuai dengan konfirmasi password") {
+                        let redirectUrl = response.data.redirect_path;
+                        setRedirectPath(redirectUrl);
+                        setErrorNewPassword(response.data.errors.password);
                         navigate(redirectUrl);
                     }
                 }
@@ -95,16 +98,13 @@ function ForgotPassword(){
             .catch((error) => {
                 setIsLoading(false); // Stop loading indicator
                 const { errors } = error.response.data;
-                console.log(errors)
-                setErrorPassword(errors?.password?.[0] || '');
-                setErrorNewPassword(errors.password?.[0] || '');
-                setErrorConfirmPassword(errors?.password?.[0] || '');
             });
     };
 
-    console.log(password)
-    console.log(newPassword)
-    console.log(confirmPassword)
+    console.log("error main " , errorPassword)
+    console.log("error main " , errorNewPassword)
+    console.log("error main " , errorConfirmPassword)
+
 
     return(
         <>

@@ -20,16 +20,6 @@ function SendForgotPasswordVerificationCode() {
     const [showAlert, setShowAlert] = useState(false);
 
 
-    const getEmail = localStorage.getItem('registrationEmail');
-
-    useEffect(() => {
-        if (!getEmail) {
-            navigate("/login");
-        } else {
-            setEmail(getEmail);
-        }
-    }, [navigate]);
-
 
     const handleSubmit= (event) => {
 
@@ -38,7 +28,7 @@ function SendForgotPasswordVerificationCode() {
         setIsLoading(true); // Start loading indicator
 
         const formData = {
-            email: getEmail,
+            email: email,
         }
 
         setShowAlert(true);
@@ -49,7 +39,7 @@ function SendForgotPasswordVerificationCode() {
             })
             .then((response) => {
                 console.log(response)
-
+                localStorage.setItem('requestCodeEmail' , email)
                 setIsLoading(false); // Stop loading indicator
 
                 console.log(response.data.message === "Kode verifikasi untuk perubahan password sudah dikirimkan, silahkan cek email anda")
