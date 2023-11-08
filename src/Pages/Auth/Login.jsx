@@ -75,8 +75,8 @@ function Login({ setIsLogged }) {
     } catch (error) {
       setIsLoading(false);
       const { errors } = error.response.data;
-      setErrorEmail(errors?.email?.[0] || "");
-      setErrorPassword(errors?.password?.[0] || "");
+      setErrorEmail(errors?.email || "");
+      setErrorPassword(errors?.password || "");
     }
   };
 

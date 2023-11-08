@@ -207,7 +207,7 @@ export const NavbarComponent = ({isFetching ,isDataFetched ,user}) => {
                                     </Link>
                                 </li>
                                 <li className="pb-8 pt-6">
-                                    <Link to="/my/class" className="text-purple-400 cursor-pointer hover:text-purple-600">Feed
+                                    <Link to="/feed" className="text-purple-400 cursor-pointer hover:text-purple-600">Feed
                                         <div className="w-1/12 mx-auto h-1 cursor-pointer hover:bg-purple-400 block hover:scale-x-50 transform origin-center transition-transform duration-300"></div>
                                     </Link>
                                 </li>

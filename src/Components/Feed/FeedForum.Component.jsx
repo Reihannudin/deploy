@@ -3,7 +3,7 @@ import {useEffect} from "react";
 import {FeedBarComponent} from "./FeedBar.Component";
 import {FeedFormCardComponent} from "./Card/FeedFormCard.Component";
 
-export const  FeedFormComponent = () => {
+export const FeedForumComponent = () => {
 
     const navigate = useNavigate();
 
@@ -50,17 +50,12 @@ export const  FeedFormComponent = () => {
         <>
             <div className='h-full mx-auto md:pt-16 pt-16 px-0' style={{ minWidth: "375px" }}>
                 <div className="xl:w-10/12 lg:w-full md:w-full w-full mx-auto">
-                    <div className="flex justify-between my-6 w-full">
-                        <div className="lg:w-4/12 md:w-4/12 relative">
-                            <div className="fixed   xl:w-3/12 lg:w-4/12 sm:w-2/12 w-2/12  md:w-4/12 left-auto  top-auto  ">
-                                <FeedBarComponent />
-                            </div>
-                        </div>
-                        <div className="lg:w-8/12 md:w-8/12 w-10/12">
-                            <div className="lg:w-full md:w-full sm:w-11/12 w-full">
+                    <div className="flex justify-between my-6">
+                        <div className="">
+                            <div className="">
                                 <div className="relative w-full">
-                                    <div className="fixed pt-5 top-16 xl:w-7/12 lg:w-8/12 md:w-8/12 w-10/12 bg-white">
-                                        <ul id="tabs" className="flex mt-1 font16-res-300 justify-between  w-full mx-auto px-1 pb-1 text-purple-500">
+                                    <div className="fixed pt-5 top-10 bg-white w-full">
+                                        <ul id="tabs" className="flex mt-1 font16-res-300 justify-between w-full mx-auto px-1 pb-1 text-purple-500">
                                             <li className="px-4 w-full border-b text-gray-500 hover:text-purple-600 mx-4 font-normal py-2">
                                                 <a id="default-tab" className="w-full" href="#world" onClick={(e) => handleTabCLick(e, 'world')}>World</a>
                                             </li>
@@ -80,6 +75,15 @@ export const  FeedFormComponent = () => {
                                                 <div className="mt-10 ">
                                                     <div className="w-full my-4 mx-auto">
                                                         <ul className="gap-2">
+                                                            <li className="mb-0">
+                                                                <FeedFormCardComponent />
+                                                            </li>
+                                                            <li className="mb-0">
+                                                                <FeedFormCardComponent />
+                                                            </li>
+                                                            <li className="mb-0">
+                                                                <FeedFormCardComponent />
+                                                            </li>
                                                             <li className="mb-0">
                                                                 <FeedFormCardComponent />
                                                             </li>

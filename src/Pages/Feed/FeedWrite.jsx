@@ -1,14 +1,19 @@
 import { NavbarComponent } from "../../Components/Body/Nav/Navbar.Component";
-import { FeedComponent } from "../../Components/Feed/Feed.Component";
+import { FeedWriteComponent } from "../../Components/Feed/FeedWrite.Component";
 import { useEffect, useState } from "react";
 import api from "../../Config/api";
+import { useNavigate } from "react-router-dom/dist/umd/react-router-dom.development";
 
-function Feed() {
+function FeedWrite() {
+
+  const navigate = useNavigate()
   const [user, setUser] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [isFetching, setIsFetching] = useState(true);
   const [isDataFetched, setIsDataFetched] = useState(false);
   const [error, setError] = useState(null);
-  const [feeds, setFeeds] = useState([]);
+  const [content, setContent] = useState(null);
+  const [isArchive, setIsArchive] = useState(false);
 
   useEffect(() => {
     let isMounted = true;
@@ -50,29 +55,39 @@ function Feed() {
     };
   }, [user]);
 
-  const getFeeds = async () => {
-    const response = await api.get("/feed");
-    if (response.data.status) {
-      setFeeds(response.data.data.feeds);
-      return response.data.data.feeds
+  const storeFeed = async () => {
+    setIsLoading(true);
+    const response = await api.post("feed/store", {
+      content,
+      status: isArchive ? "archive" : "public",
+    });
+
+    if(response.data.status && response.data.message == "Feed terupload"){
+      navigate('/feed')
     }
+
+    setIsLoading(false);
   };
 
-  useEffect(async () => {
-    await getFeeds();
-  }, []);
-
   return (
-    <div className="w-full" style={{ background: "#FFFFFF" }}>
-      <NavbarComponent user={user} />
-      <div
-        className="w-full mx-0 px-0 h-full "
-        style={{ background: "#FFFFFF" }}
-      >
-        <FeedComponent feeds={feeds} />
+    <>
+      <div className="w-full" style={{ background: "#FFFFFF" }}>
+        {/* <NavbarComponent user={user} /> */}
+        <div
+          className="w-full mx-0 px-0 h-full "
+          style={{ background: "#FFFFFF" }}
+        >
+          <FeedWriteComponent
+            storeFeed={storeFeed}
+            setContent={setContent}
+            isArchive={isArchive}
+            setIsArchive={setIsArchive}
+            isLoading={isLoading}
+          />
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
-export default Feed;
+export default FeedWrite;

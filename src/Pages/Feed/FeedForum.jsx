@@ -1,5 +1,5 @@
 import {NavbarComponent} from "../../Components/Body/Nav/Navbar.Component";
-import {FeedFormComponent} from "../../Components/Feed/FeedForm.Component";
+import {FeedForumComponent} from "../../Components/Feed/FeedForum.Component";
 import {useEffect, useState} from "react";
 import api from "../../Config/api";
 
@@ -57,7 +57,7 @@ function FeedForm (){
             <div className="w-full" style={{ background:"#FFFFFF"}}>
                 <NavbarComponent user={user}/>
                 <div className="w-full mx-0 px-0 h-full " style={{ background:"#FFFFFF"}}>
-                    <FeedFormComponent />
+                    <FeedForumComponent />
                 </div>
             </div>
         </>

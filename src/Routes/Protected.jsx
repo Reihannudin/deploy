@@ -36,68 +36,89 @@ import AddPassword from "./../Pages/Auth/AddPassword";
 import AddInformation from "./../Pages/Auth/AddInformation";
 import AddInformationImage from "./../Pages/Auth/AddInformationImage";
 
-
 import { Route, Routes } from "react-router-dom";
 import Feed from "../Pages/Feed/Feed";
-import TestProfille from "../Pages/Helper/TestProfille";
 import Test from "../Pages/Test";
-import FeedForm from "../Pages/Feed/FeedForm";
+import FeedForm from "../Pages/Feed/FeedForum";
 import FeedLiked from "../Pages/Feed/FeedLiked";
 import FeedNotification from "../Pages/Feed/FeedNotification";
 import FeedSearch from "../Pages/Feed/FeedSearch";
-import Profile from "../Pages/Profile/Profile";
+import FeedWrite from "../Pages/Feed/FeedWrite";
 
 export const Protected = () => {
-
   return (
     <Routes>
       <Route path="/add/password" element={<AddPassword />} />
       <Route path="/add/information" element={<AddInformation />} />
       <Route path="/add/information/image" element={<AddInformationImage />} />
-
-
       {/*class Page*/}
-        <Route path="/" element={<Main />} />
+      <Route path="/" element={<Main />} />
       <Route path="/join/class" element={<JoinClass />} /> {/* Done */}
       <Route path="/create/class" element={<CreateClass />} /> {/* Done */}
-      <Route path="/edit/my/class/:id/:slug" element={<EditMyClass />} /> {/* Done */}
-        <Route path="/my/class" element={<MyClass />} /> {/* Done */}
-      <Route path="/view/my/class/:id/:slug" element={<MyClassDetail />} /> {/* Done */}
-      <Route path="/view/my/class/:id/:slug/students" element={<MyClassStudent />}/> {/* Done */}
-
+      <Route path="/edit/my/class/:id/:slug" element={<EditMyClass />} />{" "}
+      {/* Done */}
+      <Route path="/my/class" element={<MyClass />} /> {/* Done */}
+      <Route path="/view/my/class/:id/:slug" element={<MyClassDetail />} />{" "}
+      {/* Done */}
+      <Route
+        path="/view/my/class/:id/:slug/students"
+        element={<MyClassStudent />}
+      />{" "}
+      {/* Done */}
       <Route path="/view/class/:id/:slug" element={<DetailClass />} />
-
-
-      <Route path="/class/:id/:slug/create/absent" element={<CreateAbsent />} /> {/* Done */}
-      <Route path="/class/:slug/:class_id/edit/absent/:id" element={<EditMyAbsent />}/> {/* Done */}
-      <Route path="/view/:slug/:class_id/my/absent/:id" element={<MyDetailAbsent />}/> {/* Done */}
-      <Route path="/view/:slug/:class_id/my/absent/:id/students" element={<MyDetailAbsentStudents />}/> {/* Done */}
-
-      <Route path="/class/:slug/:id/create/resource" element={<CreateResource />}/> {/* Done */}
-      <Route path="/class/:slug/:class_id/edit/resource/:id" element={<EditMyResource />} /> {/* Done */}
-
-      <Route path="/class/:slug/:id/create/assignment" element={<CreateAssigment />}/> {/* Done */}
-      <Route path="/class/:slug/:class_id/edit/assignment/:id" element={<EditAssigment />}/> {/* Done */}
-
+      <Route
+        path="/class/:id/:slug/create/absent"
+        element={<CreateAbsent />}
+      />{" "}
+      {/* Done */}
+      <Route
+        path="/class/:slug/:class_id/edit/absent/:id"
+        element={<EditMyAbsent />}
+      />{" "}
+      {/* Done */}
+      <Route
+        path="/view/:slug/:class_id/my/absent/:id"
+        element={<MyDetailAbsent />}
+      />{" "}
+      {/* Done */}
+      <Route
+        path="/view/:slug/:class_id/my/absent/:id/students"
+        element={<MyDetailAbsentStudents />}
+      />{" "}
+      {/* Done */}
+      <Route
+        path="/class/:slug/:id/create/resource"
+        element={<CreateResource />}
+      />{" "}
+      {/* Done */}
+      <Route
+        path="/class/:slug/:class_id/edit/resource/:id"
+        element={<EditMyResource />}
+      />{" "}
+      {/* Done */}
+      <Route
+        path="/class/:slug/:id/create/assignment"
+        element={<CreateAssigment />}
+      />{" "}
+      {/* Done */}
+      <Route
+        path="/class/:slug/:class_id/edit/assignment/:id"
+        element={<EditAssigment />}
+      />{" "}
+      {/* Done */}
       <Route path="/feed" element={<Feed />} />
-      <Route path="/feed/form" element={<FeedForm />} />
+      <Route path="/feed/write" element={<FeedWrite />} />
+      <Route path="/feed/forum" element={<FeedForm />} />
       <Route path="/feed/liked" element={<FeedLiked />} />
       <Route path="/feed/notification" element={<FeedNotification />} />
       <Route path="/feed/search" element={<FeedSearch />} />
-
       <Route path="/profile" element={<MyProfile />} />
-
-
-
       {/*absent Page*/}
-        <Route path="/view/:slug/detail/absent/:id" element={<DetailAbsent />} />
-
-
+      <Route path="/view/:slug/detail/absent/:id" element={<DetailAbsent />} />
       <Route
         path="/view/:slug/detail/absent/:id/classmate"
         element={<DetailAbsentClassmate />}
       />
-
       <Route
         path="/view/:slug/detail/absent/:id/classmate"
         element={<DetailAbsentClassmate />}
@@ -138,17 +159,13 @@ export const Protected = () => {
       <Route path="/edit/profile" element={<EditProfile />} />
       <Route path="/edit/profile/password" element={<EditProfilePassword />} />
       {/*/!*crud*!/*/}
-
-
       {/*Beneran Aman*/}
       <Route
         path="/view/:slug/:class_id/my/resource/:id"
         element={<MyDetailResource />}
       />{" "}
       {/*Beneran Aman*/}
-
       {/*Beneran Aman*/}
-
       {/*Beneran Aman*/}
       <Route
         path="/view/:slug/:class_id/my/assignment/:id"
@@ -160,11 +177,8 @@ export const Protected = () => {
         element={<MyDetailAssignmentStudents />}
       />{" "}
       {/*Beneran Aman*/}
-
       {/*Beneran Aman*/}
-
-        <Route path={"/test/component"} element={<Test />}/>
-
+      <Route path={"/test/component"} element={<Test />} />
       {/*/!*Auth*!/*/}
       <Route path="/logout" element={<Logout />} />
       {/*<Route path="/reset/password" element={<ForgotPassword />}/>*/}
