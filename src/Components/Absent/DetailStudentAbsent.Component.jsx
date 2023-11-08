@@ -72,49 +72,35 @@ export const DetailStudentAbsentComponent = (props) => {
 
     const token = localStorage.getItem('auth_token');
 
-    console.log(`/${slug}/absent/${id}/show/action/user?filter=${filterStudent}`);
-    console.log(`/${filterStudent}`);
 
     useEffect(() => {
-        let isMounted = true;
         const fetchData = async () => {
             try {
-                if (!isDataFetchedStudent) {
-                    const response = await api.get(`/${slug}/absent/${id}/show/action/user?filter=${filterStudent}`);
-                    await new Promise((resolve) => setTimeout(resolve, 1500));
+                const token = localStorage.getItem("auth_token");
+                setIsFetchingStudent(true); // Set isFetchingAbsent to true before fetching data
+                const response = await api.get(`/${slug}/absent/${id}/show/action/user?filter=${filterStudent}`, {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
 
-                    const data = response.data;
-                    if (isMounted) {
-                        setStudent(data);
-                        setIsDataFetchedStudent(true);
-                    }
-                }
-                setIsFetchingStudent(false);
+                await new Promise((resolve) => setTimeout(resolve, 1500));
+                const data = response.data;
+                setStudent(data);
+                setIsDataFetchedStudent(true);
+                setIsFetchingStudent(false); // Set isFetchingAbsent to false after data is fetched
             } catch (error) {
-                if (isMounted) {
-                    setErrorStudent(error); // Update the errorStudent state variable
-                    setIsFetchingStudent(false);
-                }
+                setErrorStudent(error);
+                setIsFetchingStudent(false); // Set isFetchingAbsent to false in case of an error
             }
         };
 
-        const timeout = setTimeout(() => {
-            if (isFetchingStudent) {
-                if (isMounted) {
-                    setErrorStudent(new Error("Timeout: Could not fetch data.")); // Update the errorStudent state variable
-                    setIsFetchingStudent(false);
-                }
-            }
-        }, 20000);
+        fetchData();
+    }, [ slug, filterStudent]);
 
-        fetchData(); // Fetch data when the component mounts or when filterStudent changes
 
-        return () => {
-            isMounted = false;
-            clearTimeout(timeout);
-        };
-    }, [slug, student , id, filterStudent, isDataFetchedStudent]); // Include filterStudent in the dependency array
-
+    console.log("student" , student)
 
     const [isDropdownFilterStudent, setIsDropdownFilterStudent] = useState(true);
 
@@ -155,12 +141,14 @@ export const DetailStudentAbsentComponent = (props) => {
 
     return(
         <>
-            <div className=" md:w-full sm:w-11/12  mx-auto w-full"  style={{ minWidth:"300px"}}>
+            <div className=" md:w-full sm:w-11/12  mx-auto w-full"  style={{ minWidth:"333px"}}>
                 <div className="block w-full md:hidden">
                     <AbsentNavComponent />
                 </div>
+
                 <div className="lg:flex gap-4 lg:justify-between grid  md:grid-cols-1 sm:w-full sm:mx-0 mx-auto w-full">
-                    <div className="lg:w-4/12 md:border-none border-b border-purple-700 w-full">
+
+                    <div className="lg:w-4/12 md:border-none border-b border-purple-700 mx-auto w-11/12">
                         <div className="lg:shadow md:mt-0 mt-3  lg:w-11/12 lg:pt-4 md:border-b border-b  md:border-purple-700 w-full pb-6 md:border-radius-8">
                             <div className="mx-2 md:mx-4 text-left md:pt-2 pb-0 ">
                                 <div className="flex justify-between">
@@ -372,7 +360,7 @@ export const DetailStudentAbsentComponent = (props) => {
                         <div className=" lg:shadow w-11/12  block pb-3 md:mx-0 mx-auto md:my-6 my-2">
                             <div className="my-2 text-center py-1 border-none md:border-t">
                                 <p className="my-2 font16-res-400">URL Absensi</p>
-                                <div className="lg:w-10/12 md:w-8/12 w-10/12  bg-white flex  mx-auto border-radius-4" >
+                                <div className="lg:w-10/12 md:w-8/12 w-full  bg-white flex  mx-auto border-radius-4" >
                                     <input ref={inputRef}  className=" font16-res-400 py-2 px-3 bg-gray-100 w-10/12" value={definedUrlAbsent}  onChange={() => {}} />
                                     <button className="w-2/12 bg-purple-500" onClick={copyText}>
                                         <img className="my-auto w-full " style={{ height:"20px"}} src="/assets/copy-icon.svg" />
@@ -381,7 +369,7 @@ export const DetailStudentAbsentComponent = (props) => {
                             </div>
                         </div>
                     </div>
-                    <div className="lg:w-8/12 mx-auto sm:w-11/12  w-full">
+                    <div className="lg:w-8/12 mx-auto sm:w-11/12  w-11/12">
                         <div className="flex border-b justify-between">
                             <div className="md:my-3 my-1 md:pb-2 pb-2 text-left">
                                 <h2 className="font16-res-400 text-gray-600">Daftar Student absent</h2>
@@ -405,22 +393,22 @@ export const DetailStudentAbsentComponent = (props) => {
                                         >
                                             <div className="bg-whie bg-opacity-0 w-full h-full z-40 absolute right-0 bottom-0"></div>
                                         </div>
-                                            <div className="absolute right-0 md:right-16 xl:right-28 z-50 top-0 font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-36 md:w-44 dark:bg-gray-700 dark:divide-gray-600">
+                                            <div className="absolute right-0 md:right-10 xl:right-0 z-50 top-0 font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-36 md:w-44 dark:bg-gray-700 dark:divide-gray-600">
                                                 <ul className="py-2 text-sm text-left text-gray-700 dark:text-gray-400">
                                                     <li>
-                                                        <button className="block px-4 py-2 font16-res-300 w-full text-left hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600 dark:hover:text-white" onClick={() => handleFilterStudentClick('')}>Semua</button>
+                                                        <button className="block px-4 py-2 font15-res-300 w-full text-left hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600 dark:hover:text-white" onClick={() => handleFilterStudentClick('')}>Semua</button>
                                                     </li>
                                                     <li>
-                                                        <button className="block px-4 py-2 font16-res-300  w-full text-left hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600 dark:hover:text-white" onClick={() =>  handleFilterStudentClick('hadir')}>Hadir</button>
+                                                        <button className="block px-4 py-2 font15-res-300  w-full text-left hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600 dark:hover:text-white" onClick={() =>  handleFilterStudentClick('hadir')}>Hadir</button>
                                                     </li>
                                                     <li>
-                                                        <button className="block px-4 py-2 font16-res-300  w-full text-left hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600 dark:hover:text-white" onClick={() =>  handleFilterStudentClick('izin')}>Izin</button>
+                                                        <button className="block px-4 py-2 font15-res-300  w-full text-left hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600 dark:hover:text-white" onClick={() =>  handleFilterStudentClick('izin')}>Izin</button>
                                                     </li>
                                                     <li>
-                                                        <button className="block px-4 py-2 font16-res-300  w-full text-left hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600 dark:hover:text-white" onClick={() =>  handleFilterStudentClick('belum_absent')}>Belum Absent</button>
+                                                        <button className="block px-4 py-2 font15-res-300  w-full text-left hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600 dark:hover:text-white" onClick={() =>  handleFilterStudentClick('belum_absent')}>Belum Absent</button>
                                                     </li>
                                                     <li>
-                                                        <button className="block px-4 py-2 font16-res-300  w-full text-left hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600 dark:hover:text-white" onClick={() =>  handleFilterStudentClick('melewatkan')}>Melewatkan</button>
+                                                        <button className="block px-4 py-2 font15-res-300  w-full text-left hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600 dark:hover:text-white" onClick={() =>  handleFilterStudentClick('melewatkan')}>Melewatkan</button>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -433,37 +421,49 @@ export const DetailStudentAbsentComponent = (props) => {
                             </div>
                         </div>
                         <ul className="pt-1 w-full block">
-                            {student.length === 0 ? (
+                            {student && student.length === 0 ? (
                                 <div className="my-20">
-                                    <div className="mx-auto my-5" style={{ height:"30px"}}>
-                                        <img className="h-full mx-auto" src="/assets/icon-tidak-ada.svg" />
+                                    <div className="mx-auto my-5" style={{ height: "30px" }}>
+                                        <img className="h-full mx-auto" src="/assets/icon-tidak-ada.svg" alt="No data" />
                                     </div>
                                     <h2 className="font16-res-300 my-3 text-gray-500">Belum ada murid yang melakukan absensi</h2>
                                 </div>
-                            ):(
+                            ) : (
                                 <div>
-                                    {student.map((item) => {
-                                        console.log(item)
-                                        return(
-                                            <li key={item.id} className="">
-                                                {item.action === 0 ? (
-                                                    <div className="my-8">
-                                                        <div className="mx-auto my-5" style={{ height:"30px"}}>
-                                                            <img className="h-full mx-auto" src="/assets/icon-tidak-ada.svg" />
-                                                        </div>
-                                                        <h2 className="font16-res-300 my-3 text-gray-500">Belum ada murid yang melakukan absensi</h2>
+                                    {student?.map((item) => (
+                                        <li key={item.id} className="">
+                                            {item.action === 0 ? (
+                                                <div className="my-8">
+                                                    <div className="mx-auto my-5" style={{ height: "30px" }}>
+                                                        <img className="h-full mx-auto" src="/assets/icon-tidak-ada.svg" alt="No data" />
                                                     </div>
-                                                ) : (
-                                                    <div>
-                                                        <DetailStudentAbsentCardComponent id={item.id} image={item.image} name={item.name} absent_date={item.absent_date} absent_name={item.absent_name} status_absent={item.absent_status}  action={item.action} reason={item.reason} absent_time={item.absent_time} absent_deadline={item.absent_deadline}   confirmation_status={item.absent_confirmation} student={item.name} status={item.status} />
-                                                    </div>
-                                                )}
-                                            </li>
-                                        )
-                                    })}
+                                                    <h2 className="font16-res-300 my-3 text-gray-500">Belum ada murid yang melakukan absensi</h2>
+                                                </div>
+                                            ) : (
+                                                <div>
+                                                    <DetailStudentAbsentCardComponent
+                                                        id={item.id}
+                                                        image={item.image}
+                                                        name={item.name}
+                                                        absent_date={item.absent_date}
+                                                        absent_name={item.absent_name}
+                                                        status_absent={item.absent_status}
+                                                        action={item.action}
+                                                        reason={item.reason}
+                                                        absent_time={item.absent_time}
+                                                        absent_deadline={item.absent_deadline}
+                                                        absent_confirmation={item.absent_confirmation}
+                                                        student={item.name}
+                                                        status={item.status}
+                                                    />
+                                                </div>
+                                            )}
+                                        </li>
+                                    ))}
                                 </div>
                             )}
                         </ul>
+
                     </div>
                 </div>
             </div>
@@ -477,7 +477,7 @@ export const DetailStudentAbsentComponent = (props) => {
                     ></button>
 
                     <CustomAlert
-                        message={`Copied Url: ${definedUrlAbsent}`}
+                        message={`${definedUrlAbsent}`}
                         onClose={() => setShowAlert(false)} // Close the alert when using the custom alert's close button
                     />
                 </div>

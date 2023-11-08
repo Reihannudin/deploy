@@ -10,7 +10,8 @@ export const LoginCardComponent = ({
   email,
   setEmail,
   password,
-  setPassword
+  setPassword,
+                                     redirectToVerifyCode
 }) => {
 
   const onChangeEmail = (event) => {
@@ -50,7 +51,8 @@ export const LoginCardComponent = ({
           </div>
           <div className="mx-0 text-left">
             <h1 className="font-bold" style={{ fontSize: "26px" }}>
-              Log in with your SpaceSkool Account.
+              {/*Log in with your SpaceSkool Account.*/}
+              Masuk dengan Akun SpaceSkool Anda.
             </h1>
           </div>
           <div className="text-left">
@@ -65,7 +67,7 @@ export const LoginCardComponent = ({
                     onChange={onChangeEmail}
                     className="w-full py-3 border-b border-gray-300"
                     // style={{ borderBottom: "1px solid #ebebeb" }}
-                    placeholder="your@email.com"
+                    placeholder="email_anda@gmail.com"
                   />
                   {errorEmail === "" ? (
                     <div className="my-2"></div>
@@ -92,7 +94,7 @@ export const LoginCardComponent = ({
                       onChange={onChangePassword}
                       className="w-full py-3 border-b-gray-300"
                       style={{ borderBottom: "1px solid #ebebeb" }}
-                      placeholder="your password"
+                      placeholder="password anda"
                     />
                     <button onClick={togglePasswordVisibility}>
                       <div
@@ -123,17 +125,17 @@ export const LoginCardComponent = ({
                 <form onSubmit={handleSubmit}>
                 <button className="w-full" onSubmit={handleSubmit}>
                   <div className="w-full font-medium py-2.5 text-center border border-purple-600 rounded text-white bg-purple-600 hover:bg-purple-700">
-                    Login
+                    Masuk
                   </div>
                 </button>
                 </form>
 
               </div>
             <div className="text-center my-4">
-              <Link to="/">
+              <Link to="/send/verify/password">
                 <div>
                   <p style={{ color: "#777575", fontSize: "14px" }}>
-                    Forgot password?
+                    Lupa password anda
                   </p>
                 </div>
               </Link>
@@ -146,7 +148,7 @@ export const LoginCardComponent = ({
                   className="w-full mx-5 my-auto"
                   style={{ height: "1px", background: "#d0d0d0" }}
                 ></div>
-                <p className="mx-auto">OR</p>
+                <p className="mx-auto">Atau</p>
                 <div
                   className="w-full mx-5 my-auto"
                   style={{ height: "1px", background: "#d0d0d0" }}
@@ -156,23 +158,23 @@ export const LoginCardComponent = ({
               <div className="flex justify-center my-3">
                 <a
                   className="w-full max-w-sm"
-                  href={`http://127.0.0.1:8000/api/login/p`}
+                  href={`http://127.0.0.1:8000/login/p`}
                 >
                   <div className="w-full font-medium flex py-2 text-purple-500 text-center border border-purple-500 rounded">
                     <div className="flex items-center mx-auto">
                       <div className="mr-2 w-6 h-6">
                         <img src="/assets/Google_icon.svg" alt="" />
                       </div>
-                      <div>Log In With Google</div>
+                      <div>Masuk dengan Google</div>
                     </div>
                   </div>
                 </a>
               </div>
               <div className="block" style={{ fontSize: "14px" }}>
-                <span>Don't have an account with us yet?</span>
+                <span>Belum memiliki akun Spaceskool? </span>
                 <Link to="/register">
                   <span style={{ color: "#9C74E1" }}>
-                    Create a Spaceskool Account
+                    Buat Akun Spaceskool
                   </span>
                 </Link>
               </div>

@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from "react";
 import {Link, useLocation, useNavigate, useParams, useSearchParams} from "react-router-dom";
 import axios from "axios";
+import bcrypt from "bcryptjs";
+import api from "../../../Config/api";
 
 export const DetailStudentAbsentCardComponent = (props) => {
 
     const {id, class_id , slug} = useParams();
 
-    const [confirmation , setConfirmation] = useState('terkonfirmasi');
     const [action, setAction] = useState("hadir");
     const [reason, setReason] = useState("");
 
@@ -78,17 +79,68 @@ export const DetailStudentAbsentCardComponent = (props) => {
         setDropActionConfirm(false);
     };
 
+    const [confirmation , setConfirmation] = useState('terkonfirmasi');
+    const [errorConfirmation , setErroConfirmation]= useState('');
+    const [isLoading, setIsLoading] = useState(false);
+    const [redirectPath, setRedirectPath] = useState("/register");
 
-    console.log(props.status === null);
+    let token = localStorage.getItem('auth_token');
+
+
+    const handleConfirmAbsent = async (event) => {
+        event.preventDefault();
+
+        api
+            .put(`/${slug}/confirmation/accept/${id}/absent/${props.id} ` , {
+                "Content-Type" : "multipart/form-data" ,
+                "Authorization" : "Bearer " + token,
+            })
+            .then((response) => {
+                setIsLoading(false);
+                if (response.data.status === 201) {
+                    // let redirectUrl = response.data.redirect_path;
+                    // setRedirectPath(redirectUrl);
+                    navigate(`/view/my/class/${id}/${slug}`);
+                    window.location.reload(); // Refresh the page
+                }
+                else if (response.data.status === 406) {
+                    if (response.data.errors.message === "Absent tidak ditemukan") {
+                        let redirectUrl = response.data.redirect_path;
+                        setRedirectPath(redirectUrl);
+                        setErroConfirmation(response.data.errors.message);
+                        navigate(redirectUrl);
+                    } else  if (response.data.errors.message === "Anda Bukan Pengajar di kelas ini") {
+                        let redirectUrl = response.data.redirect_path;
+                        setRedirectPath(redirectUrl);
+                        setErroConfirmation(response.data.errors.message);
+                        navigate(redirectUrl);
+                    } else  if (response.data.errors.message === "Pengguna tidak ditemukan") {
+                        let redirectUrl = response.data.redirect_path;
+                        setRedirectPath(redirectUrl);
+                        setErroConfirmation(response.data.errors.message);
+                        navigate(redirectUrl);
+                    }
+                }
+
+            })
+            .catch((error) => {
+                const { errors } = error.response.data;
+                setErroConfirmation(errors?.errors?.[0] || '');
+            });
+
+    };
+
+    console.log("props.absent_confirmation" , props.absent_confirmation)
+
 
     return(
         <>
             {dropAction && (
-                <div id="drop-action" className="fixed inset-0 flex items-center justify-center">
+                <div id="drop-action" className="fixed inset-0  z-50 flex items-center justify-center">
                     {/* This div serves as a backdrop and should cover the entire screen */}
-                    <div onClick={handleDropdownItemClick} className="bg-gray-300 bg-opacity-30 fixed inset-0"></div>
+                    <div onClick={handleDropdownItemClick} className="bg-gray-600 bg-opacity-40 z-50 fixed inset-0"></div>
                     {/* Centered dropdown content */}
-                    <div className="bg-white w-10/12 md:w-6/12 xl:w-4/12  pt-4 pb-2 border-radius-8 fixed  z-50 left-1/2 transform -translate-x-1/2">
+                    <div className="bg-white w-10/12 md:w-7/12 lg:w-5/12 xl:w-4/12 pt-4 pb-2 border-radius-8 fixed  z-50 left-1/2 transform -translate-x-1/2">
                         <div className="w-10/12 mx-auto">
                             <div>
                                 <div className="flex justify-between">
@@ -99,49 +151,69 @@ export const DetailStudentAbsentCardComponent = (props) => {
                                             <p className="font16-res-400">{props.absent_name}</p>
                                         )}
                                     </div>
-                                    {props.status_absent === "selesai" ? (
+                                    {props.status === "hadir" ? (
                                         <div className="font13-res-300 mt-0.5 ">
-                                            <p className="text-green-400 border-radius-4 pt-1 pb-1 mb-0  px-2 bg-green-200">{props.status_absent}</p>
+                                            <p className="text-green-400 border-radius-4 pt-1 pb-1 mb-0  px-2 bg-green-200">{props.status}</p>
                                         </div>
-                                    ): props.status_absent === "terkunci" ? (
+                                    ): props.status === "melewatkan" ? (
                                         <div className="font13-res-300 mt-0.5 ">
-                                            <p className="text-purple-700 border-radius-4 pt-1 pb-1 mb-0  px-2 bg-gray-200">{props.status_absent}</p>
+                                            <p className="text-red-400 border-radius-4 pt-1 pb-1 mb-0  px-2 bg-red-200">{props.status}</p>
                                         </div>
                                     ) : (
                                         <div className="font13-res-300 mt-0.5 ">
-                                            <p className="text-yellow-400 border-radius-4 pt-1 pb-1 mb-0  px-2 bg-yellow-200">status absent</p>
+                                            <p className="text-yellow-400 border-radius-4 pt-1 pb-1 mb-0  px-2 bg-yellow-200">{props.status}</p>
                                         </div>
                                     )}
 
                                 </div>
-                               <div className="my-3 border-t pt-3">
-                                   <div className="block">
-                                       <div className={"flex mt-1 gap-2 font15-res-300"}>
-                                           <p className="text-gray-700" style={{fontWeight:"500"}} >username : </p>
-                                           <p className="text-gray-500">
-                                               {props.name.length > 15 ? (
-                                                   props.name.slice(0, 15) + '...'
-                                               ) : (
-                                                   props.name
-                                               )}
-                                           </p>
-                                       </div>
-                                       <div className={"flex mb-1 gap-2 font15-res-300"}>
-                                           <p  className="text-gray-700" style={{fontWeight:"500"}}>status : </p>
-                                           <p className="text-gray-500">{props.status === null ? 'Belum Absent' : props.status}</p>
-                                       </div>
-                                   </div>
-                                   <div className="flex my-1 text-left justify-between">
-                                       <div className={"block md:flex gap-2 font15-res-300"}>
-                                           <p  className="text-gray-700" style={{fontWeight:"500"}}>Action : </p>
-                                           <p className="text-gray-500">{props.action === null ? '-' : props.action}</p>
-                                       </div>
-                                       <div  className={"block md:flex gap-2 font15-res-300"}>
-                                           <p   className="text-gray-700" style={{fontWeight:"500"}}>Reason : </p>
-                                           <p className="text-gray-500">{props.reason === null ? '-' : props.reason}</p>
-                                       </div>
-                                   </div>
-                               </div>
+                                <div className="my-3 border-t pt-3">
+                                    <div className="block">
+                                        <div className={"flex mt-1 gap-2 font15-res-300"}>
+                                            <p className="text-gray-700" style={{fontWeight:"500"}} >username : </p>
+                                            <p className="text-gray-500">
+                                                {props.name.length > 15 ? (
+                                                    props.name.slice(0, 15) + '...'
+                                                ) : (
+                                                    props.name
+                                                )}
+                                            </p>
+                                        </div>
+                                        <div className={"flex mb-1 gap-2 font15-res-300"}>
+                                            <p  className="text-gray-700" style={{fontWeight:"500"}}>status : </p>
+                                            {props.status === "hadir" ? (
+                                                <p className=" text-green-400" style={{ fontWeight: "550" }}>{props.status}</p>
+
+                                            ) : props.status === "izin" ? (
+                                                <p className=" text-yellow-400" style={{ fontWeight: "550"}}>{props.status}</p>
+                                            ) : props.status === "melewatkan" ? (
+                                                <p className=" text-red-400" style={{ fontWeight: "550" }}>{props.status}</p>
+                                            ) :(
+                                                <p className="" style={{ fontWeight: "550", color: "#605f5f" }}>{props.status}</p>
+                                            )}
+                                        </div>
+                                        <div className={"flex mb-1 gap-2 font15-res-300"}>
+                                            <p  className="text-gray-700" style={{fontWeight:"500"}}>Terkonfirmasi : </p>
+                                            {props.absent_confirmation === "terkonfirmasi" ? (
+                                                <p className=" text-green-400" style={{ fontWeight: "550" }}>{props.absent_confirmation}</p>
+
+                                            )  : props.absent_confirmation === "belum terkonfirmasi" ? (
+                                                <p className="" style={{ fontWeight: "550", color: "#605f5f" }}>{props.absent_confirmation}</p>
+                                            ) :(
+                                                <p className="" style={{ fontWeight: "550", color: "#605f5f" }}>{props.absent_confirmation}</p>
+                                            )}
+                                        </div>
+                                    </div>
+                                    <div className="flex my-1 text-left justify-between">
+                                        <div className={"block md:flex gap-2 font15-res-300"}>
+                                            <p  className="text-gray-700" style={{fontWeight:"500"}}>Action : </p>
+                                            <p className="text-gray-500">{props.action === null ? '-' : props.action}</p>
+                                        </div>
+                                        <div  className={"block md:flex gap-2 font15-res-300"}>
+                                            <p   className="text-gray-700" style={{fontWeight:"500"}}>Reason : </p>
+                                            <p className="text-gray-500">{props.reason === null ? '-' : props.reason}</p>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div className="my-3 block md:flex justify-between border-t pt-3">
                                     <div className="flex font14-res-300">
                                         <p  className="text-gray-700" style={{fontWeight:"500"}}>Date Time: </p>
@@ -163,9 +235,9 @@ export const DetailStudentAbsentCardComponent = (props) => {
                 </div>
             )}
             {dropActionConfirm && (
-                <div id="drop-action" className="fixed inset-0 flex items-center justify-center">
+                <div id="drop-action" className="fixed inset-0 z-50  flex items-center justify-center">
                     {/* This div serves as a backdrop and should cover the entire screen */}
-                    <div onClick={handleDropdownConfirmItemClick} className="bg-gray-300 bg-opacity-30 fixed inset-0"></div>
+                    <div onClick={handleDropdownConfirmItemClick} className="bg-gray-500 bg-opacity-40 fixed inset-0"></div>
                     {/* Centered dropdown content */}
                     <div className="bg-white w-10/12 md:w-6/12 xl:w-4/12  pt-4 pb-2 border-radius-8 fixed  z-50 left-1/2 transform -translate-x-1/2">
                         <div className="w-10/12 mx-auto">
@@ -206,7 +278,7 @@ export const DetailStudentAbsentCardComponent = (props) => {
                                         <button onClick={handleDropdownConfirmItemClick} className="bg-white border hover:bg-purple-600 hover:text-white border-purple-700 border-radius-4 text-purple-600 px-3 py-1 cursor-pointer font15-res-300">
                                             Kembali
                                         </button>
-                                        <button className="bg-purple-600 hover:bg-purple-700 border border-purple-700 text-white border-radius-4 cursor-pointer px-3 py-1 font15-res-300">
+                                        <button onClick={handleConfirmAbsent} className="bg-purple-600 hover:bg-purple-700 border border-purple-700 text-white border-radius-4 cursor-pointer px-3 py-1 font15-res-300">
                                             Konfirmasi
                                         </button>
                                     </div>
@@ -223,8 +295,8 @@ export const DetailStudentAbsentCardComponent = (props) => {
                     <div className="mx-3" style={{ height: "45px" }}>
                         <img className="h-full radius-100" src={`${props.image ? props.image : "/assets/default-profile.svg"}`} alt="Profile" />
                     </div>
-                    <div className="block w-full">
-                        <div className="flex justify-between">
+                    <div className="block w-11/12">
+                        <div className="flex me-2 md:me-5 justify-between">
                             <div className="block">
                                 <div className="w-6/12 mx-1 mt-0 md:mt-0.5 text-left">
                                     <h3 className="font16-res-300" style={{color:"#646464"}}>
@@ -235,7 +307,7 @@ export const DetailStudentAbsentCardComponent = (props) => {
                                         )}
                                     </h3>
                                 </div>
-                                <div className="w-full  block mt-1 gap-2  mx-1 text-left">
+                                <div className="w-full  block  sm:flex mt-1 gap-2  mx-1 text-left">
                                     <div className=" flex gap-2  text-left">
                                         <p className="font13-res-300" style={{ color: "#605f5f" }}>Status : </p>
                                         {props.status === null ? (
@@ -244,6 +316,7 @@ export const DetailStudentAbsentCardComponent = (props) => {
                                             <p className="font13-res-300" style={{ fontWeight: "550", color: "#605f5f" }}>{props.status}</p>
                                         )}
                                     </div>
+                                    <p className="hidden  sm:flex">-</p>
                                     <div className=" flex  gap-2  text-left">
                                         <p className="text-gray-600  text-right font13-res-300">InTime :</p>
                                         <p className="font13-res-300  text-right text-gray-600">
@@ -256,19 +329,26 @@ export const DetailStudentAbsentCardComponent = (props) => {
 
                             </div>
                             <div className="block gap-2">
-                                <div className=" w-full  mb-1 text-right sm:mx-3 block">
+                                <div className=" w-full  mb-1 text-right  block">
                                     <button onClick={toggleDropAction}  className=" font13-res-300 hover:bg-purple-700 hover:text-white cursor-pointer border-gray-300 text-gray-500 px-2 py-1 rounded-md border">
                                         Lihat Absensi
                                     </button>
                                 </div>
-                                {props.status_absent === "selesai" || props.status === "hadir" || props.status === "izin" || props.status === "melewatkan" ? (
-                                    <div className="w-full text-right sm:mx-3 block">
-                                        <button onClick={toggleDropActionConfirm}  className=" font13-res-300 w-full bg-purple-600 hover:bg-purple-700 hover:text-white cursor-pointer border-gray-300 text-gray-200 px-2 py-1 rounded-md border">
-                                            Konfirmasi
-                                        </button>
-                                    </div>
+                                {props.change_confirmation === 0 || props.absent_confirmation === "terkonfirmasi" ?  (
+                                    <>
+                                    </>
                                 ): (
                                     <>
+                                        {props.status_absent === "selesai" || props.status === "hadir" || props.status === "izin" || props.status === "melewatkan" ? (
+                                            <div className="w-full text-right  block">
+                                                <button onClick={toggleDropActionConfirm}  className=" font13-res-300 w-full bg-purple-600 hover:bg-purple-700 hover:text-white cursor-pointer border-gray-300 text-gray-200 px-2 py-1 rounded-md border">
+                                                    Konfirmasi
+                                                </button>
+                                            </div>
+                                        ): (
+                                            <>
+                                            </>
+                                        )}
                                     </>
                                 )}
                             </div>

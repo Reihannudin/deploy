@@ -1,5 +1,5 @@
 import {Link, useLocation, useNavigate, useParams} from "react-router-dom";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 
 export const NavbarMyDetailAbsentComponent = (props) => {
 
@@ -29,23 +29,29 @@ export const NavbarMyDetailAbsentComponent = (props) => {
 
     return(
         <>
-            <nav className="w-full fixed  bg-white" style={{  zIndex:"44" , minWidth:"300px" , borderBottom:"1px solid #E5E3E9"}}>
+            <nav className="w-full fixed  bg-white" style={{  zIndex:"44" , minWidth:"333px" , borderBottom:"1px solid #E5E3E9"}}>
                 <header className="sm:w-10/12 w-11/12 py-1  mx-auto">
             <div className="flex  justify-between gap-4">
                 <div className="flex gap-4">
-                    <Link onClick={navigateBack} className="my-auto" >
+                    <button onClick={navigateBack} className="my-auto" >
                         <div style={{ height:"24px"}}>
                             <img className="h-full" src="/assets/arrow-back.svg"/>
                         </div>
-                    </Link>
+                    </button>
 
-                    <div className="my-2 text-left" >
-                        <h4 className="font16-res-400" >{props.name}</h4>
+                    <div className="my-2 font16-res-400 text-left" >
+                        <h1 className={"font16-res-400"}>
+                            {window.innerWidth >= 992 ? (
+                                props.name
+                            ) : (
+                                props.name.length > 20 ? props.name.slice(0, 17) + '...' : props.name
+                            )}
+                        </h1>
                         <p className="font14-res-300 text-purple-700" >{classname}</p>
                     </div>
                 </div>
                 <div className="flex justify-between">
-                    <div className="   w-full lg:flex hidden my-auto  lg:items-center lg:w-auto" id="menu">
+                    <div className="   w-full md:flex hidden my-auto  lg:items-center lg:w-auto" id="menu">
                         <div className="flex gap-4 my-auto ">
                             <div style={{ fontSize:"16px"}} className="font-medium font16-res-300 mt-1">
                                 <ul className="list-none gap-6 flex" style={{ fontWeight :"500"}}>

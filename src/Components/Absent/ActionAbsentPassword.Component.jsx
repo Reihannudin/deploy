@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import axios from "axios";
+import api from "../../Config/api";
 
 export const ActionAbsentPasswordComponent = (props) => {
     const [action, setAction] = useState("hadir");
@@ -10,18 +11,8 @@ export const ActionAbsentPasswordComponent = (props) => {
     const [errorAction, setErrorAction] = useState("");
     const [errorPassword, setErrorPassword] = useState("");
     const [errorReason, setErrorReason] = useState("");
+    const [error, setError] = useState("");
     const [redirectUrl, setRedirectUrl] = useState("");
-
-    useEffect(() => {
-        const errorActionParam = searchParams.get("error_action");
-        setErrorAction(errorActionParam || "");
-
-        const errorPasswordParam = searchParams.get("error_password");
-        setErrorPassword(errorPasswordParam || "");
-
-        const errorReasonParam = searchParams.get("error_reason");
-        setErrorReason(errorReasonParam || "");
-    }, [searchParams]);
 
     const onChangeAction = (event) => {
         const action = event.target.value;
@@ -39,13 +30,18 @@ export const ActionAbsentPasswordComponent = (props) => {
     };
 
     const { id, slug } = useParams();
-    const user = JSON.parse(localStorage.getItem("whoLogin"));
+    const user = props.user;
     const username = user.username;
 
     const navigate = useNavigate();
+    const [redirectPath, setRedirectPath] = useState("/register");
+    const [isLoading, setIsLoading] = useState(false);
+
 
     const handleSubmit = (event) => {
         event.preventDefault();
+
+        setIsLoading(true); // Start loading indicator
 
         const formData = {
             action,
@@ -53,58 +49,92 @@ export const ActionAbsentPasswordComponent = (props) => {
             reason,
         };
 
-        console.log(formData);
-        axios
-            .post(
-                `http://127.0.0.1:8000/api/${username}/${slug}/absent/${id}/action/password`,
-                formData
-            )
-            // .post(
-            //     `https://rest-api.spaceskool.site/public/api/${username}/${slug}/absent/${id}/action/password`,
-            //     formData
-            // )
+        api
+            .post(`/${slug}/absent/${id}/action/password`, formData)
             .then((response) => {
-                console.log(response.data);
-                const { redirectUrl } = response.data;
-                setRedirectUrl(redirectUrl);
+                setIsLoading(false); // Stop loading indicator
+                if (response.data.status === 201) {
+                        let redirectUrl = response.data.redirect_path;
+                        console.log(redirectUrl)
+                        setRedirectPath(redirectUrl);
+                        navigate(redirectUrl);
+                }
+                else if (response.data.status === 406) {
+                    if (response.data.errors.message === "Absent Action tidak boleh kosong") {
+                        let redirectUrl = response.data.redirect_path;
+                        // setErrorAction("")
+                        setErrorAction(response.data.errors.message);
+                        setRedirectPath(redirectUrl);
+                        navigate(redirectUrl);
+
+                    } else if (response.data.errors.message === "Konfirmasi Password tidak boleh kosong") {
+                        let redirectUrl = response.data.redirect_path;
+                        // setErrorPassword("")
+
+                        setErrorPassword(response.data.errors.message);
+                        setRedirectPath(redirectUrl);
+                        navigate(redirectUrl);
+                    }
+                    else if (response.data.errors.message === "Alasan tidak boleh kosong jika melakukan izin") {
+                        let redirectUrl = response.data.redirect_path;
+                        // setErrorReason("")
+                        setErrorReason(response.data.errors.message);
+                        setRedirectPath(redirectUrl);
+                        navigate(redirectUrl);
+
+                    } else if (response.data.errors.message === "Anda sudah tidak bisa melakukan absent") {
+                        let redirectUrl = response.data.redirect_path;
+                        // setError("")
+                        console.log(redirectUrl)
+                        setError(response.data.errors.message);
+                        setRedirectPath(redirectUrl);
+                        navigate(redirectUrl);
+
+                    }
+                    else if (response.data.errors.message === "Anda sudah tidak bisa melakukan absent, Kesempatan Absent telah selesai") {
+                        let redirectUrl = response.data.redirect_path;
+                        console.log(redirectUrl)
+                        setError(response.data.errors.message);
+                        setRedirectPath(redirectUrl);
+                        navigate(redirectUrl);
+                    }
+                    else if (response.data.errors.message === "Password anda tidak sama") {
+                        let redirectUrl = response.data.redirect_path;
+                        setErrorPassword(response.data.errors.message);
+                        // setErrorPassword("")
+                        setRedirectPath(redirectUrl);
+                        navigate(redirectUrl);
+                    }
+                    else if (response.data.errors.message === "Anda sudah tidak bisa melakukan absent, Masa Absent telah selesai") {
+                        let redirectUrl = response.data.redirect_path;
+                        // setError("")
+                        setError(response.data.errors.message);
+                        setRedirectPath(redirectUrl);
+                        navigate(redirectUrl);
+                    }
+                    else if (response.data.errors.message === "Anda sudah tidak bisa melakukan absent, Masa Absent telah selesai") {
+                        let redirectUrl = response.data.redirect_path;
+                        // setError("")
+                        setError(response.data.errors.message);
+                        setRedirectPath(redirectUrl);
+                        navigate(redirectUrl);
+
+                    }
+                }
+
+
             })
             .catch((error) => {
-                console.log(error.response.data)
+                setIsLoading(false); // Stop loading indicator
                 const { errors } = error.response.data;
-
                 setErrorAction(errors?.action?.[0] || "");
                 setErrorPassword(errors?.password?.[0] || "");
                 setErrorReason(errors?.reason?.[0] || "");
+                setError(errors?.message?.[0] || "");
             });
     };
 
-    useEffect(() => {
-        if (redirectUrl) {
-            const url = new URL(redirectUrl);
-            const searchParams = new URLSearchParams(url.search);
 
-            setErrorAction(searchParams.get("error_action") || "");
-            setErrorPassword(searchParams.get("error_password") || "");
-            setErrorReason(searchParams.get("error_reason") || "");
-
-            setAction(searchParams.get("action") || "");
-            setReason(searchParams.get("reason") || "");
-
-            searchParams.delete("action");
-            searchParams.delete("reason");
-
-            url.search = searchParams.toString();
-            window.history.replaceState({}, "", url.href);
-
-            const statusParam = searchParams.get("status");
-
-            if (statusParam === "201") {
-                navigate(`/view/class/${id}/${slug}`);
-            }
-
-            setRedirectUrl("");
-        }
-    }, [redirectUrl]);
 
     const [currentTime, setCurrentTime] = useState(new Date());
 
@@ -124,9 +154,9 @@ export const ActionAbsentPasswordComponent = (props) => {
 
     return (
         <>
-            <div className="h-full mx-auto sm:pt-10  pt-12 px-0" style={{ minWidth: "300px" }}>
-                <div className="flex md:my-4 my-2 w-full">
-                    <div className="xl:w-9/12 lg:w-10/12 md:11/12 sm:w-11/12 w-11/12 mx-auto">
+            <div className="h-full mx-auto  pt-12 sm:pt-14 px-0" style={{ minWidth: "300px" }}>
+                <div className="flex md:my-4 my-2  sm:w-11/12  mx-auto w-full">
+                    <div className="lg:w-11/12  md:11/12 w-full md:mx-auto">
                         <form onSubmit={handleSubmit}>
                             <div>
                                 <div className="my-3 w-full mx-auto">
@@ -134,10 +164,10 @@ export const ActionAbsentPasswordComponent = (props) => {
                                         <div className="w-full text-left">
                                             <div className="my-2">
                                                 <div className=" text-gray-600">
-                                                    <p className="font14-res-300">Nama Absent : </p>
+                                                    <p className="font14-label-res-300">Nama Absent : </p>
                                                     <h2
-                                                        className="font16-res-300 text-gray-600"
-                                                        style={{ fontWeight: "500" }}
+                                                        className="font16-label-res-400 text-gray-600"
+                                                        style={{ fontWeight: "550" }}
                                                     >
                                                         {props.name}
                                                     </h2>
@@ -145,22 +175,30 @@ export const ActionAbsentPasswordComponent = (props) => {
                                             </div>
                                             <div className="mt-2 mb-3">
                                                 <div className=" flex text-gray-600">
-                                                    <p className="font14-res-300">Status : </p>
-                                                    <h2 className="font14-res-300 text-gray-500 ms-1">
+                                                    <p className="font14-label-res-300">Methode : </p>
+                                                    <h2 className="font14-label-res-300 text-gray-500 ms-1">
+                                                        Menggunakan Password
+                                                    </h2>
+                                                </div>
+                                            </div>
+                                            <div className="mt-2 mb-3">
+                                                <div className=" flex text-gray-600">
+                                                    <p className="font14-label-res-300">Status : </p>
+                                                    <h2 className="font14-label-res-300 text-gray-500 ms-1">
                                                         {props.status}
                                                     </h2>
                                                 </div>
                                             </div>
                                             <div className="flex justify-between">
                                                 <div className=" text-gray-600">
-                                                    <p className="font13-res-300">Time : </p>
-                                                    <p className="font15-res-300">
+                                                    <p className="font14-label-res-300">Time : </p>
+                                                    <p className="font14-label-res-300">
                                                         {hours + ":" + minutes + ":" + seconds}
                                                     </p>
                                                 </div>
                                                 <div className="font16-res-300 text-gray-600">
-                                                    <p className="font13-res-300">Deadline : </p>
-                                                    <p className="font15-res-300">
+                                                    <p className="font14-label-res-300">Deadline : </p>
+                                                    <p className="font14-label-res-300">
                                                         {props.end_time} - {props.date}
                                                     </p>
                                                 </div>
@@ -171,7 +209,7 @@ export const ActionAbsentPasswordComponent = (props) => {
                                         <div className="md:w-5/12 w-full">
                                             <div className="my-6">
                                                 <p
-                                                    className="w-full font14-res-300 md:w-full my-2"
+                                                    className="w-full font14-label-res-300 md:w-full my-2"
                                                     style={{ color: "#777575" }}
                                                 >
                                                     Anda akan absent menggunakan password dari email ini
@@ -179,7 +217,7 @@ export const ActionAbsentPasswordComponent = (props) => {
                                                 <input
                                                     type="email"
                                                     disabled
-                                                    className="w-full py-3 text-gray-400 font16-res-300 font-normal border-b-gray-300```jsx
+                                                    className="w-full px-2 py-2 md:py-3 text-gray-400 font15-res-300 border-b-gray-300```jsx
                           "
                                                     style={{ borderBottom: "1px solid #ebebeb" }}
                                                     value={props.email}
@@ -187,7 +225,7 @@ export const ActionAbsentPasswordComponent = (props) => {
                                                 />
                                             </div>
                                             <div className="my-3">
-                                                <label className="font14-res-300" style={{ color: "#777575" }}>
+                                                <label className="font14-label-res-300" style={{ color: "#777575" }}>
                                                     Confirmm Password
                                                 </label>
                                                 <div className="flex">
@@ -197,7 +235,7 @@ export const ActionAbsentPasswordComponent = (props) => {
                                                         onChange={onChangePassword}
                                                         type="password"
 
-                                                        className="w-full font15-res-300 py-1 border-b-gray-300"
+                                                        className="w-full font15-res-300   px-2 py-2 md:py-3  border-b-gray-300"
                                                         style={{ borderBottom: "1px solid #ebebeb" }}
                                                         placeholder="your password"
                                                     />
@@ -209,7 +247,7 @@ export const ActionAbsentPasswordComponent = (props) => {
                                                     <div className="my-1"></div>
                                                 ) : (
                                                     <div className="my-1 text-left">
-                                                        <span className="text-red-600 font14-res-300">{errorPassword}</span>
+                                                        <span className="text-red-600 font14-label-res-300">{errorPassword}</span>
                                                     </div>
                                                 )}
                                             </div>
@@ -217,14 +255,14 @@ export const ActionAbsentPasswordComponent = (props) => {
                                         <div className="md:w-6/12 w-full">
                                             <div className="my-3">
                                                 <div className="my-2">
-                                                    <label className="font14-res-300" style={{ color: "#777575" }}>
+                                                    <label className="font14-label-res-300" style={{ color: "#777575" }}>
                                                         Action
                                                     </label>
                                                     <div className="flex">
                                                         <select
                                                             id="action"
                                                             name="action"
-                                                            className="w-full font15-res-300 py-1 border-b font16-res-400 cursor-pointer form-select mb-1"
+                                                            className="w-full font15-res-300  py-2 md:py-3  border-b font16-res-400 cursor-pointer form-select mb-1"
                                                             aria-label="Default select example"
                                                             value={action}
                                                             onChange={onChangeAction}
@@ -246,7 +284,7 @@ export const ActionAbsentPasswordComponent = (props) => {
                                                 </div>
                                                 {action === "izin" ? (
                                                     <div className="my-2">
-                                                        <label className="font14-res-300" style={{ color: "#777575" }}>
+                                                        <label className="font14-label-res-300" style={{ color: "#777575" }}>
                                                             Alasan
                                                         </label>
                                                         <div className="flex">
@@ -255,7 +293,7 @@ export const ActionAbsentPasswordComponent = (props) => {
                                                                 value={reason}
                                                                 onChange={onChangeReason}
                                                                 type="text"
-                                                                className="w-full font15-res-300 py-1 border-b font16-res-400 cursor-pointer form-select mb-1"
+                                                                className="w-full font15-input-res-300 py-2 md:py-3 border-b font16-res-400 cursor-pointer form-select mb-1"
 
                                                                 style={{ borderBottom: "1px solid #ebebeb" }}
                                                                 placeholder="your Reason"
@@ -268,7 +306,7 @@ export const ActionAbsentPasswordComponent = (props) => {
                                                             <div className="my-1"></div>
                                                         ) : (
                                                             <div className="my-1 text-left">
-                                                                <span className="text-red-600 font14-res-300">{errorReason}</span>
+                                                                <span className="text-red-600 font14-label-res-300">{errorReason}</span>
                                                             </div>
                                                         )}
                                                     </div>
@@ -276,12 +314,29 @@ export const ActionAbsentPasswordComponent = (props) => {
                                                     <div></div>
                                                 )}
                                             </div>
+                                            {errorAction === '' ? (
+                                                <div className="my-1"></div>
+                                            ) : (
+                                                <div className="my-1 text-left">
+                                                    <span className="text-red-600 font14-label-res-300">{errorAction}</span>
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
-                                    <div className="w-full">
-                                        <div className={"md:w-3/12 w-4/12 lg:me-10 me-0 my-12 ms-auto"}>
+                                    {error === '' ? (
+                                        <div className="my-1"></div>
+                                    ) : (
+                                        <div className="my-1 text-left">
+                                            <span className="text-red-600 font14-label-res-300">{error}</span>
+                                        </div>
+                                    )}
+                                    <div className="w-11/12 mx-auto pt-8 md:pt-6 justify-between flex">
+                                        <div>
+
+                                        </div>
+                                        <div className="w-4/12 md:w-3/12 xl:w-2/12 lg:w-2/12 ms-auto ">
                                             <button
-                                                className="w-full font16-res-400 font-medium py-1.5 weverse-background-btn text-center mt-5"
+                                                className="w-11/12 font15-res-300   py-1.5 bg-purple-600 hover:bg-purple-700 cursor-pointer text-center mt-5"
                                                 type="submit"
                                                 style={{ color: "#ffffff", borderRadius: "4px", border: "1px solid #A373E9" }}
                                             >

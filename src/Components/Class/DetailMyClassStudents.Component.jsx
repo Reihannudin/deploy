@@ -99,24 +99,6 @@ export const DetailMyClassStudentsComponent = (props) => {
                     navigate(`/view/my/class/${id}/${slug}`);
                     window.location.reload(); // Refresh the page
                 }
-                // else if (response.data.status === 406) {
-                //     if (response.data.errors.message === "Absent tidak ditemukan") {
-                //         let redirectUrl = response.data.redirect_path;
-                //         setRedirectPath(redirectUrl);
-                //         setError(response.data.errors.message);
-                //         navigate(redirectUrl);
-                //     } else  if (response.data.errors.message === "Anda Bukan Pengajar di kelas ini") {
-                //         let redirectUrl = response.data.redirect_path;
-                //         setRedirectPath(redirectUrl);
-                //         setError(response.data.errors.message);
-                //         navigate(redirectUrl);
-                //     } else  if (response.data.errors.message === "Pengguna tidak ditemukan") {
-                //         let redirectUrl = response.data.redirect_path;
-                //         setRedirectPath(redirectUrl);
-                //         setError(response.data.errors.message);
-                //         navigate(redirectUrl);
-                //     }
-                // }
 
             })
             .catch((error) => {
@@ -135,7 +117,7 @@ export const DetailMyClassStudentsComponent = (props) => {
                 </div>
                 <div className="lg:flex lg:py-0 md:py-8 py-5 md:block xl:w-10/12 lg:w-11/12 w-full mx-auto lg:justify-between">
                     <div className=" w-full md:w-11/12 mx-auto lg:my-0 my-5 lg:w-9/12">
-                        <div className="w-full  lg:py-6 py-3  text-left  lg:mb-10 md:mb-5  bg-white"> <
+                        <div className="w-full  lg:py-6 py-3  text-left  lg:mb-0 md:mb-5  bg-white"> <
                             h2 className="font30-res-300 mx-5">{props.name}</h2>
                             <div className="text-left flex border-b border-gray-200  pb-5  justify-between mx-5">
                                 <div className="block">

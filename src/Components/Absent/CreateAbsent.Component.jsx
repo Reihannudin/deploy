@@ -51,9 +51,14 @@ export const CreateAbsentComponent = ({user}) => {
         setErrorDate(errorDateParam || '');
     }, [searchParams]);
 
-    const onChangeName = (event) => {
-        const name = event.target.value;
-        setName(name);
+    const onChangeName = (e) => {
+        const inputName = e.target.value;
+        if (inputName.length <= 30) {
+            setName(inputName);
+            setErrorName("");
+        } else {
+            setErrorName("Nama harus terdiri dari 30 karakter atau kurang");
+        }
     };
 
     const onChangeDate = (event) => {

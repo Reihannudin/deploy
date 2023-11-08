@@ -21,13 +21,13 @@ export const RegisterCardComponent = ({
                         <img className="h-full" src="/assets/spaceSkool-logo-account.svg" alt=""/>
                     </div>
                     <div className="mx-0 text-left">
-                        <h1 className="font-bold" style={{ fontSize:"26px"}}>SpaceSkool Account Sign up</h1>
+                        <h1 className="font-bold" style={{ fontSize:"26px"}}>Pendaftaran Akun SpaceSkool</h1>
                     </div>
                     <form onSubmit={handleSubmit}>
                         <div className="text-left">
                             <div className="my-8">
                                 <label className="font14-res-300" style={{ color:"#777575" }}>Email</label>
-                                <input type="email" value={email} className="w-full py-3 border-b-gray-300" onChange={onChangeEmail} style={{ borderBottom:"1px solid #ebebeb"}} placeholder="your@email.com"/>
+                                <input type="email" value={email} className="w-full py-3 border-b-gray-300" onChange={onChangeEmail} style={{ borderBottom:"1px solid #ebebeb"}} placeholder="email_anda@gmail.com"/>
                                 {errorEmail === '' ? (
                                     <div className="my-2">
                                     </div>
@@ -43,25 +43,18 @@ export const RegisterCardComponent = ({
                             <div className="flex justify-center my-3">
                                 <button className="w-full" onSubmit={handleSubmit}>
                                     <div className="w-full font-medium py-2.5 text-center border border-purple-600 rounded text-white bg-purple-600 hover:bg-purple-700">
-                                        Sign In
+                                        Daftar
                                     </div>
                                 </button>
-                                {/*<a className="w-full max-w-sm" href={`http://127.0.0.1:8000/register?email=${email}`}>*/}
-                                {/*    <div className="w-full font-medium py-2.5 text-center border border-purple-500 rounded text-white bg-purple-500">*/}
-                                {/*        Sign In*/}
-                                {/*    </div>*/}
-                                {/*</a>*/}
+
                             </div>
-
-                            {/*<button className="w-full font-medium py-2.5" style={{ color:"#ffffff" , borderRadius:"4px" , fontSize:"16px" , border:"1px solid #40CDCC" , background:"#08CCCA"}}>Sign In</button>*/}
-
                         </div>
                     </form>
                     <div className="my-5">
                         <div>
                             <div className="flex w-full">
                                 <div className="w-full mx-5 my-auto" style={{ height:"1px",  background:"#d0d0d0"}}></div>
-                                <p className="mx-auto">OR</p>
+                                <p className="mx-auto">Atau</p>
                                 <div className="w-full mx-5 my-auto" style={{ height:"1px",  background:"#d0d0d0"}}></div>
                             </div>
 
@@ -72,15 +65,15 @@ export const RegisterCardComponent = ({
                                             <div className="mr-2 w-6 h-6">
                                                 <img src="/assets/Google_icon.svg" alt=""/>
                                             </div>
-                                            <div>Sign In With Google</div>
+                                            <div>Masuk Dengan Google</div>
                                         </div>
                                     </div>
                                 </a>
                             </div>
 
                             <div className="block" style={{ fontSize:"14px"}}>
-                                <span>Already have account?</span><br/>
-                                <Link to="/login"><span className="hover:underline" style={{ color:"#9C74E1"}}>Login a Spaceskool now</span></Link>
+                                <span>Sudah punya akun?</span><br/>
+                                <Link to="/login"><span className="hover:underline" style={{ color:"#9C74E1"}}>Masuk ke Spaceskool sekarang</span></Link>
                             </div>
                         </div>
                     </div>

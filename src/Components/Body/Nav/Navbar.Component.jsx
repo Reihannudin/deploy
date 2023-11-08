@@ -34,8 +34,8 @@ export const NavbarComponent = ({isFetching ,isDataFetched ,user}) => {
 
     return(
         <>
-            <div className="w-full mx-auto"  style={{  zIndex:"39" , minWidth:"300px" , maxWidth:"1500px"}}>
-                <div className="w-full fixed  bg-white mx-auto" style={{  zIndex:"39" , minWidth:"300px" , maxWidth:"1500px"}}>
+            <div className="w-full mx-auto"  style={{  zIndex:"39" , minWidth:"280px" , maxWidth:"1500px"}}>
+                <div className="w-full fixed  bg-white mx-auto" style={{  zIndex:"39" , minWidth:"280px" , maxWidth:"1500px"}}>
                     <div className="mx-auto pb-2  lg:pb-2 pt-1 flex  w-full" style={{ borderBottom:"1px solid #E5E3E9"}}>
                         <header className="w-full">
                             <nav
@@ -148,20 +148,20 @@ export const NavbarComponent = ({isFetching ,isDataFetched ,user}) => {
                                                         className="cursor-pointer ms-auto gap-2 my-auto flex"
                                                     >
                                                         {isFetching? (
-                                                            <div style={{ width: "38px", height: "38px" }} >
+                                                            <div className="wh-icon-pp" >
                                                                 <div className="h-full w-full  radius-full bg-gray-200 py-2 animate-pulse"   ></div>
                                                             </div>
                                                         ) : !isDataFetched ? (
-                                                            <div style={{ width: "38px", height: "38px" }} >
+                                                            <div  className="wh-icon-pp">
                                                                 <div className="h-full w-full  radius-full bg-gray-200 py-2 animate-pulse"   ></div>
                                                             </div>
                                                         ) :(
-                                                                <div style={{ width: "38px", height: "38px" }}>
+                                                                <div className="wh-icon-pp">
                                                                     <img className="h-full w-full" src={user.image || "../assets/default-profile.svg"} alt="Profile" />
                                                                 </div>
                                                             )
                                                         }
-                                                        <div className="my-auto" style={{ height: "19px", width: "19px" , transform: isDropdownHidden ? 'rotate(-180deg)' : 'none' ,    transition: 'transform 0.3s ease-in-out' }}>
+                                                        <div className="my-auto" style={{ maxHeight: "19px", minHeight:"16px" , maxWidth: "19px" , minWidth:"16px" , transform: isDropdownHidden ? 'rotate(-180deg)' : 'none' ,    transition: 'transform 0.3s ease-in-out' }}>
                                                             <img className="w-full h-full" src="/assets/expand-icon.svg" alt="Expand" />
                                                         </div>
                                                     </button>
@@ -173,16 +173,16 @@ export const NavbarComponent = ({isFetching ,isDataFetched ,user}) => {
                                                         onClick={handleDropdownProfile}
                                                     >
                                                         <div className="bg-white bg-opacity-0 w-full h-full z-40 absolute right-0 bottom-0"></div>
-                                                        <div className="absolute right-0 md:right-16 xl:right-28 z-50 top-12 font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-36 md:w-44 dark:bg-gray-700 dark:divide-gray-600">
+                                                        <div className="absolute right-0 md:right-16 xl:right-28 z-50 top-12 font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-36-c dark:bg-gray-700 dark:divide-gray-600">
                                                             <ul className="py-2 text-sm text-left text-gray-700 dark:text-gray-400">
                                                                 <li className="py-1">
-                                                                    <a href="/" className="block px-4 py-1.5 lg:py-2 hover:bg-gray-100 font15-res-300 dark:hover:bg-gray-600 hover:text-purple-600 dark:hover:text-white">Activities</a>
+                                                                    <Link to="/" className="block px-4 py-1.5 lg:py-2 hover:bg-gray-100 font15-res-300 dark:hover:bg-gray-600 hover:text-purple-600 dark:hover:text-white">Activities</Link>
                                                                 </li>
                                                                 <li className="py-1">
-                                                                    <a href="/profile" className="block px-4 py-1.5 lg:py-2 hover:bg-gray-100 font15-res-300 dark:hover:bg-gray-600 hover:text-purple-600 dark:hover:text-white">Profile</a>
+                                                                    <Link to="/profile" className="block px-4 py-1.5 lg:py-2 hover:bg-gray-100 font15-res-300 dark:hover:bg-gray-600 hover:text-purple-600 dark:hover:text-white">Profile</Link>
                                                                 </li>
                                                                 <li className="py-1">
-                                                                    <a href="/logout" className="block px-4 py-1.5 lg:py-2 hover:bg-gray-100 font15-res-300 dark:hover:bg-gray-600 hover:text-purple-600 dark:hover:text-white">Log out</a>
+                                                                    <Link to="/logout" className="block px-4 py-1.5 lg:py-2 hover:bg-gray-100 font15-res-300 dark:hover:bg-gray-600 hover:text-purple-600 dark:hover:text-white">Log out</Link>
 
                                                                     {/*<button onSubmit={handleLogout} className="block px-4 font15-res-300 py-1.5 lg:py-2 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600 dark:hover:text-white">Log Out</button>*/}
                                                                 </li>

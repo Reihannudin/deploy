@@ -57,14 +57,14 @@ export const MyClassComponent = ({user}) => {
 
     return(
         <>
-            <div className=' h-full mx-auto md:pt-16  pt-16 px-0' style={{ minWidth:"300px"}}>
+            <div className=' h-full mx-auto md:pt-16  pt-16 px-0' style={{ minWidth:"280px" , maxWidth:"1500px"}}>
                 <div className="block w-full md:hidden">
                     <MainNavComponent user={user} />
                 </div>
-                <div className="md:w-full w-11/12 md:py-3 py-1  mx-auto  lg:mb-10 md:mb-2 bg-white">
+                <div className="w-bar-class-list md:py-3 py-1  mx-auto  lg:mb-10 md:mb-2 bg-white">
                     <div className="bg-white">
                         <div className="me-auto ms- relative  w-full mx-auto">
-                                <div className="bg-white md:mx-5  mx-1 mt-3 text-left">
+                                <div className="bg-white md:mx-5  mx-1 mt-2 md:mt-3 text-left">
                                     <div className="me-auto relative xl:w-10/12 sm:w-11/12 w-full  text-purple-500 mx-auto">
                                         <h2 className="font16-res-400" style={{ fontWeight:"500" }}>Kelas Ku</h2>
                                     </div>
@@ -72,35 +72,39 @@ export const MyClassComponent = ({user}) => {
                         </div>
                     </div>
                     <div id="tab-contents" className="xl:w-10/12 lg:w-11/12 md:w-11/12 sm:w-11/12 w-full mx-auto">
-                        <div id="kelas" className="md:py-0 py-0 md:px-4 px-1">
+                        <div id="kelas" className="md:py-0 py-0 md:px-4 ">
                             <div className="w-full py-0">
-                                <div className=" md:mt-3 mt-2 border-t border-purple-700">
+                                <div className=" mt-3 md:mt-3 border-t border-gray-200">
                                     {classes.length === 0 && !isFetching ? (
+                                        // Display empty state
                                         <div className="md:py-8 py-6">
-                                            <div className="mb-8 mt-12">
+                                            <div className="mb-8 mt-8">
                                                 <div>
-                                                    <div className="mx-auto" style={{ height: "180px", width: "320px" }}>
+                                                    <div className="mx-auto wh-stiker-not-class">
                                                         <img className="w-full mx-auto h-full" src="/assets/tidak-ada-kelas.svg" alt="" />
                                                     </div>
+
                                                     <p className="text-purple-600 my-4">{classes.status}</p>
-                                                    <div className="flex xl:w-4/12 gap-4 lg:w-4/12 md:w-6/12 w-full mb-8 mt-0 mx-auto font14-res-300">
-                                                        <div className="mx-auto gap-4 flex" style={{ minWidth: "300px", maxWidth: "400px" }}>
-                                                            <div className="my-2" style={{ minWidth: "140px" }}>
+                                                    <div className="flex xl:w-4/12 gap-4 lg:w-4/12 md:w-6/12 w-full mb-8 mt-0 mx-auto ">
+                                                        <div className="mx-auto gap-4 flex" style={{ minWidth: "260px", maxWidth: "400px" }}>
+                                                            <div className="my-2 mx-auto" style={{ minWidth: "118px" }}>
                                                                 <Link to="/join/class">
-                                                                    <div className={"bg-purple-600 px-3 w-full py-2 border-radius-4 text-white cursor-pointer hover:bg-purple-700"}>
-                                                                        <p>
+                                                                    <div className={"bg-purple-600 px-3 border-purple-600 border  w-full py-2 border-radius-4 text-white cursor-pointer hover:bg-purple-700"}>
+                                                                        <p className="font14-res-300">
                                                                             Bergabung Kelas
                                                                         </p>
                                                                     </div>
                                                                 </Link>
                                                             </div>
-                                                            <div className="my-2" style={{ minWidth: "140px" }}>
+
+                                                            <div className="my-2 mx-auto" style={{ minWidth: "118px" }}>
                                                                 <Link to="/create/class">
-                                                                    <div className={"bg-white-600 px-3 border-purple-700 border w-full py-2 border-radius-4 text-purple-600 cursor-pointer "}>
-                                                                        <p>
+                                                                    <div className={"bg-white-600 px-3  text-purple-600 border-purple-600 border w-full py-2 border-radius-4 hover:text-white cursor-pointer hover:bg-purple-600"}>
+                                                                        <p className="font14-res-300">
                                                                             Buat Kelas
                                                                         </p>
                                                                     </div>
+
                                                                 </Link>
                                                             </div>
                                                         </div>
@@ -112,17 +116,17 @@ export const MyClassComponent = ({user}) => {
                                         <>
                                             {isFetching && (
                                                 // Display loading state with animate pulse
-                                                <div className="flex items-center justify-center  h-96 md:mt-6 mt-20">
+                                                <div className="flex items-center justify-center  h-96 md:mt-6 mt-14 sm:mt-20">
                                                     <div
-                                                        className="animate-spin rounded-full border-r-gray-50 border-l-gray-50  border-b-gray-50  w-8 h-8 md:h-10 md:w-10 border-t-4 border-purple-700"></div>
+                                                        className="animate-spin rounded-full border-r-gray-50 border-l-gray-50  border-b-gray-50  w-7 h-7 md:h-10 md:w-10 border-t-4 border-purple-700"></div>
                                                 </div>
 
                                             )}
 
                                             {!isFetching && (
-                                                <ul className="sm:gap-3  md:gap-6 lg:gap-3 gap-2 md:my-6 my-4 flex flex-wrap">
+                                                <ul className="sm:gap-3 pb-14  md:gap-5 lg:gap-3 gap-2 md:my-6 my-4 flex flex-wrap">
                                                     {classes.map((item) => (
-                                                        <li key={item.id} className="grid-class-card-flex mb-3  sm:w-1/2 md:w-1/2 lg:w-1/3 xl:w-1/5">
+                                                        <li key={item.id} className="grid-class-card-flex mb-3  w-class-card-grid " >
                                                             <MyClassCardComponent id={item.id} name={item.name} slug={item.slug} teacher={item.teacher} />
                                                         </li>
                                                     ))}

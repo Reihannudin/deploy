@@ -5,6 +5,7 @@ import api from "../../../Config/api";
 import CustomAlert from "../../Helper/CustomAlert.Component";
 import {DeleteAlertComponent} from "../../Helper/DeleteAlert.Component";
 import {OutAlertComponent} from "../../Helper/OutAlert.Component";
+import {FE_URL} from "../../../Config";
 
 export const ClassCardComponent = ( props ) => {
     const user = JSON.parse(localStorage.getItem('whoLogin'));
@@ -102,7 +103,7 @@ export const ClassCardComponent = ( props ) => {
 
     const urlClass = window.location.href;
 
-    const definedUrlClass = `/view/class/${props.id}/${props.slug}`
+    const definedUrlClass = `${FE_URL}view/class/${props.id}/${props.slug}`
     const inputRefClass = useRef(null);
     const [showAlert, setShowAlert] = useState(false);
 
@@ -113,7 +114,6 @@ export const ClassCardComponent = ( props ) => {
         inputRefClass.current.select();
         document.execCommand('copy');
     };
-    console.log(classes)
 
     const handleOutClass = async (event) => {
         event.preventDefault();
@@ -130,7 +130,6 @@ export const ClassCardComponent = ( props ) => {
                 }
 
                 else if (response.data.status === 406) {
-                    // console.log(response.data.errors);
                     if (response.data.errors === "Seperti nya user atau kelas ini tidak ada") {
                         let redirectUrl = response.data.redirect_path;
                         setRedirectPath(redirectUrl);
@@ -155,10 +154,11 @@ export const ClassCardComponent = ( props ) => {
 
     return(
         <>
-            <div key={props.id} className="bg-white shadow mx-auto border-radius-8"   style={{ maxWidth:"320px" }}>
-                <div className="w-full ">
+            <div key={props.id} className="w-card-class bg-white shadow mx-auto border-radius-8"  >
+                <div className="md:w-full">
                     <div className="w-full " >
-                        <img className="w-full h-full object-cover"  style={{ maxWidth:"320px" , borderRadius:"8px 8px 0px 0px" , maxHeight:"140px"}} src="/assets/bg-absence.svg"  />
+                        <img className="w-full h-full object-cover"  style={{ maxWidth:"509px" , borderRadius:"8px 8px 0px 0px" , maxHeight:"140px"}} src="/assets/bg-absence.svg"  />
+
                     </div>
                     <div className="block w-11/12 sm:w-11/12 mx-auto text-left sm:mx-4 sm:py-2 py-2 gap-4">
                         <div className="flex justify-between">
@@ -213,7 +213,7 @@ export const ClassCardComponent = ( props ) => {
                                                                         ></button>
 
                                                                         <CustomAlert
-                                                                            message={`Copied URL: ${definedUrlClass}`}
+                                                                            message={`${definedUrlClass}`}
                                                                             onClose={() => setShowAlert(false)} // Close the alert when using the custom alert's close button
                                                                         />
                                                                     </div>
@@ -260,7 +260,7 @@ export const ClassCardComponent = ( props ) => {
                                 )}
                             </div>
                         </div>
-                        <div className="border-t pt-1 sm:pt-2  flex justify-between">
+                        <div className="border-t pt-1 lg:pt-2  flex justify-between">
                             <div className="my-auto">
                                 {parseInt(classes.absent_count) === 0 && parseInt(classes.assignment_count) === 0 ? (
                                     <p className="font12-res-300 text-gray-600" >tidak ada aktivitas</p>
@@ -268,9 +268,9 @@ export const ClassCardComponent = ( props ) => {
                                     <p className="font12-res-300 text-gray-600" >terdapat {classes.total_count} activitas </p>
                                 )}
                             </div>
-                            <button className=" py-0.5 mx-2 mb-1 text-black border-radius-8">
+                            <button className=" py-0.5 mx-2 mb-1 mt-1 text-black border-radius-8">
                                 <Link to={`/view/class/${props.id}/${props.slug}`}>
-                                    <div style={{ height:"18px"}}>
+                                    <div className="" style={{height:"18px"}}>
                                         <img src="/assets/arrows-right.svg" className="w-full h-full" />
                                     </div>
                                 </Link>

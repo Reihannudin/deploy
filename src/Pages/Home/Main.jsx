@@ -51,11 +51,10 @@ function Main(){
         };
     } , [user])
 
-    // console.log(user)
     return(
         <>
-            <div className="w-full mx-auto" style={{ background:"#FFFFFF"}}>
-                <NavbarComponent user={user} />
+            <div className="w-full mx-auto" style={{ background:"#FFFFFF" , minWidth:"280px"}}>
+                <NavbarComponent user={user} isFetching={isFetching} isDataFetched={isDataFetched} />
                 <div className="w-full relative mx-0 px-0 h-full " style={{ background:"#FFFFFF"}}>
                     <MainComponent user={user} />
                 </div>

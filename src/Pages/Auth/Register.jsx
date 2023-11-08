@@ -37,13 +37,11 @@ function Register() {
                         let redirectUrl = response.data.redirect_path;
                         localStorage.setItem("registrationEmail", email);
                         setRedirectPath(redirectUrl);
-                        // Navigate after setting the necessary values
                         navigate(redirectUrl);
                     } else if (response.data.message === "Akun sudah terdaftar, silahkan login") {
                         let redirectUrl = response.data.redirect_path;
                         localStorage.setItem("registrationEmail", email);
                         setRedirectPath(redirectUrl);
-                        // Navigate after setting the necessary values
                         navigate(redirectUrl);
                     }
                 }
@@ -53,13 +51,11 @@ function Register() {
                         let redirectUrl = response.data.redirect_path;
                         setRedirectPath(redirectUrl);
                         setErrorEmail(response.data.errors.email);
-                        // Navigate after setting the necessary values
                         navigate(redirectUrl);
                     } else if (response.data.errors.email === "Format email tidak valid") {
                         let redirectUrl = response.data.redirect_path;
                         setErrorEmail(response.data.errors.email);
                         setRedirectPath(redirectUrl);
-                        // Navigate after setting the necessary values
                         navigate(redirectUrl);
                     }
                 }
@@ -77,7 +73,7 @@ function Register() {
         <>
             <div
                 className="w-full md:py-6 py-0"
-                style={{ background: "#FAFBFC", minWidth: "300px" }}
+                style={{ background: "#FAFBFC", minWidth: "280px" }}
             >
                 <div className="xl:w-6/12 lg:w-7/12 md:w-9/12  mx-auto">
                     <div className="lg:w-8/12 md:w-9/12 sm:w-10/12   w-full mx-auto">

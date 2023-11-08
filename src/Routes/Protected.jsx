@@ -43,7 +43,15 @@ import FeedForm from "../Pages/Feed/FeedForum";
 import FeedLiked from "../Pages/Feed/FeedLiked";
 import FeedNotification from "../Pages/Feed/FeedNotification";
 import FeedSearch from "../Pages/Feed/FeedSearch";
+<<<<<<< HEAD
 import FeedWrite from "../Pages/Feed/FeedWrite";
+=======
+import Profile from "../Pages/Profile/Profile";
+import DetailClassClassmate from "../Pages/Class/DetailClassClassmate";
+import ActionAbsentFaceRecognation from "../Pages/Absents/ActionAbsentFaceRecognation";
+import ActionAbsentFaceRecognationPassword from "../Pages/Absents/ActionAbsentFaceRecognationPassword";
+import OnlineAssignment from "../Pages/Error/OnlineAssignment";
+>>>>>>> cfc0533dd30d31374f2e65af6a70674d47ead41d
 
 export const Protected = () => {
   return (
@@ -52,6 +60,7 @@ export const Protected = () => {
       <Route path="/add/information" element={<AddInformation />} />
       <Route path="/add/information/image" element={<AddInformationImage />} />
       {/*class Page*/}
+<<<<<<< HEAD
       <Route path="/" element={<Main />} />
       <Route path="/join/class" element={<JoinClass />} /> {/* Done */}
       <Route path="/create/class" element={<CreateClass />} /> {/* Done */}
@@ -106,6 +115,61 @@ export const Protected = () => {
         element={<EditAssigment />}
       />{" "}
       {/* Done */}
+=======
+        <Route path="/" element={<Main />} />  {/* Done */}
+        <Route path="/my/class" element={<MyClass />} /> {/* Done */}
+
+        {/*==========================* Class Path ==========================*/}
+
+        <Route path="/join/class" element={<JoinClass />} /> {/* Done */}
+        <Route path="/create/class" element={<CreateClass />} /> {/* Done */}
+
+        <Route path="/edit/my/class/:id/:slug" element={<EditMyClass />} /> {/* Done */}
+        <Route path="/view/my/class/:id/:slug" element={<MyClassDetail />} /> {/* Done */}
+        <Route path="/view/my/class/:id/:slug/students" element={<MyClassStudent />}/> {/* Done */}
+
+        <Route path="/view/class/:id/:slug" element={<DetailClass />} />
+        <Route path="/view/class/:id/:slug/classmate" element={<DetailClassClassmate />} />
+
+        {/*==========================* Absensi Path ==========================*/}
+
+        <Route path="/class/:id/:slug/create/absent" element={<CreateAbsent />} /> {/* Done */}
+        <Route path="/class/:slug/:class_id/edit/absent/:id" element={<EditMyAbsent />}/> {/* Done */}
+        <Route path="/view/:slug/:class_id/my/absent/:id" element={<MyDetailAbsent />}/> {/* Done */}
+        <Route path="/view/:slug/:class_id/my/absent/:id/students" element={<MyDetailAbsentStudents />}/> {/* Done */}
+
+        <Route path="/view/:slug/:class_id/detail/absent/:id" element={<DetailAbsent />} /> {/* Done */}
+        <Route path="/view/:slug/detail/absent/:id/action/password" element={<ActionAbsentPassword />} /> {/* Done */}
+        <Route path="/view/:slug/detail/absent/:id/action/face-recognation" element={<ActionAbsentFaceRecognation />} />
+        <Route path="/view/:slug/detail/absent/:id/action/face-recognation/password" element={<ActionAbsentFaceRecognationPassword />} />
+
+
+        {/*==========================* Assignment Path ==========================*/}
+
+        <Route path="/class/:slug/:id/create/assignment" element={<CreateAssigment />}/> {/* Done */}
+        <Route path="/class/:slug/:class_id/edit/assignment/:id" element={<EditAssigment />}/> {/* Done */}
+        <Route path="/view/:slug/:class_id/my/assignment/:id" element={<MyDetailTaskAssignment />}/> {/* Done */}
+        <Route path="/view/:slug/:class_id/my/assignment/:id/students" element={<MyDetailAssignmentStudents />}/> {/* Done */}
+
+        <Route path="/view/:slug/:class_id/detail/assignment/:id" element={<DetailTaskAssigment />}/>
+
+        <Route path="/view/:slug/:class_id/detail/pre/assignment/:id" element={<PreAssignment />}/>
+        <Route path="/view/:slug/:class_id/task/assignment/:id" element={<Task />}/>
+        <Route path="/view/:slug/:class_id/task/review/assignment/:id" element={<ReviewAssignment />}/>
+
+        <Route path="/error/:slug/:class_id/online/assignment/:id" element={<OnlineAssignment />}/>
+
+        {/*==========================* Resource Path ==========================*/}
+
+        <Route path="/class/:slug/:id/create/resource" element={<CreateResource />}/> {/* Done */}
+        <Route path="/class/:slug/:class_id/edit/resource/:id" element={<EditMyResource />} /> {/* Done */}
+
+        <Route path="/view/:slug/:class_id/my/resource/:id" element={<MyDetailResource />}/>
+
+
+      {/*   ======================================   */}
+
+>>>>>>> cfc0533dd30d31374f2e65af6a70674d47ead41d
       <Route path="/feed" element={<Feed />} />
       <Route path="/feed/write" element={<FeedWrite />} />
       <Route path="/feed/forum" element={<FeedForm />} />
@@ -113,44 +177,28 @@ export const Protected = () => {
       <Route path="/feed/notification" element={<FeedNotification />} />
       <Route path="/feed/search" element={<FeedSearch />} />
       <Route path="/profile" element={<MyProfile />} />
+<<<<<<< HEAD
       {/*absent Page*/}
       <Route path="/view/:slug/detail/absent/:id" element={<DetailAbsent />} />
+=======
+
+
+
+        <Route path="/test" element={<Test />} />
+      {/*absent Page*/}
+
+
+>>>>>>> cfc0533dd30d31374f2e65af6a70674d47ead41d
       <Route
         path="/view/:slug/detail/absent/:id/classmate"
         element={<DetailAbsentClassmate />}
-      />
-      <Route
-        path="/view/:slug/detail/absent/:id/classmate"
-        element={<DetailAbsentClassmate />}
-      />
-      <Route
-        path="/view/:slug/detail/absent/:id/action/password"
-        element={<ActionAbsentPassword />}
       />
       <Route
         path="/view/:slug/detail/absent/:id/action/photo"
         element={<ActionAbsentPhoto />}
       />
-      <Route
-        path="/view/:slug/detail/assignment/:id"
-        element={<DetailTaskAssigment />}
-      />
-      <Route
-        path="/view/:slug/detail/assignment/:id/classmate"
-        element={<DetailTaskAssigmentClassmate />}
-      />
-      <Route
-        path="/view/:slug/:action/detail/pre/assignment/:id"
-        element={<PreAssignment />}
-      />
-      <Route
-        path="/view/:slug/:action/work/assignment/:id"
-        element={<Task />}
-      />
-      <Route
-        path="/view/:slug/:action/detail/review/assignment/:id"
-        element={<ReviewAssignment />}
-      />
+
+
       <Route
         path="/view/:slug/detail/resource/:id"
         element={<DetailResource />}
@@ -160,6 +208,7 @@ export const Protected = () => {
       <Route path="/edit/profile/password" element={<EditProfilePassword />} />
       {/*/!*crud*!/*/}
       {/*Beneran Aman*/}
+<<<<<<< HEAD
       <Route
         path="/view/:slug/:class_id/my/resource/:id"
         element={<MyDetailResource />}
@@ -179,6 +228,13 @@ export const Protected = () => {
       {/*Beneran Aman*/}
       {/*Beneran Aman*/}
       <Route path={"/test/component"} element={<Test />} />
+=======
+
+
+
+        <Route path={"/test/component"} element={<Test />}/>
+
+>>>>>>> cfc0533dd30d31374f2e65af6a70674d47ead41d
       {/*/!*Auth*!/*/}
       <Route path="/logout" element={<Logout />} />
       {/*<Route path="/reset/password" element={<ForgotPassword />}/>*/}

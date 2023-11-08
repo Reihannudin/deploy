@@ -6,6 +6,8 @@ import {AssignmentDetailMyClassHelper} from "./Comps/AssignmentDetailMyClass.Hel
 import {ResourceDetailMyClassHelper} from "./Comps/ResourceDetailMyClass.Helper";
 import AbsentDetailMyClassHelper from "./Comps/AbsentDetailMyClass.Helper";
 import api from "../../Config/api";
+import {FE_URL} from "../../Config";
+
 
 const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
@@ -19,18 +21,17 @@ export const DetailMyClassComponent = (props) => {
     const username = props.user.username;
     const userId = props.user.id;
 
-
-    const inputRefCode = useRef(null);
     const [showAlert, setShowAlert] = useState(false);
+    const definedUrlCode = `${props.code}`;
+    const inputRefCode = useRef(null);
 
-    const copyText = () => {
-        if (inputRefCode.current) {
-            setShowAlert(true);
-            inputRefCode.current.select();
-            inputRefCode.current.setSelectionRange(0 , 999999);
-            document.execCommand('copy'); // Attempt to copy
-        }
+    const copyUrlCode = () => {
+        console.log("Copy button clicked");
+        inputRefCode.current.select();
+        document.execCommand('copy');
+        setShowAlert(true);
     };
+
 
     const handleTabClick = (tabName) => {
         // Check if tabName is undefined or an empty string, and set it to "absent" as the default value
@@ -113,10 +114,7 @@ export const DetailMyClassComponent = (props) => {
     const currentDateMin7 = currentDate  / 2;
 
     useEffect(() => {
-        // Check if selectedDay is empty or undefined
         if (!selectedDay) {
-
-            // Format the currentDate as needed
             setSelectedDay(currentDate);
         }
     }, [selectedDay]); //
@@ -129,7 +127,6 @@ export const DetailMyClassComponent = (props) => {
     const startOfWeek = new Date(startDate);
     startOfWeek.setDate(startDate.getDate() - startDate.getDay() + (startDate.getDay() === 0 ? 7 : 0));
 
-    // Assuming startOfWeek is a Date object representing the desired start date
     const weekDays = [];
     for (let i = 0; i < 7; i++) {
         const day = new Date(startOfWeek);
@@ -161,7 +158,7 @@ export const DetailMyClassComponent = (props) => {
 
     const handleDayClick = (clickedDay, index) => {
         setSelectedDate(clickedDay);
-        setActiveIndex(index); // Set the active index
+        setActiveIndex(index);
 
         const startOfWeekContainingClickedDay = new Date(clickedDay);
         startOfWeekContainingClickedDay.setDate(
@@ -169,7 +166,7 @@ export const DetailMyClassComponent = (props) => {
         );
 
         const clickedDayOfMonth = clickedDay.getDate();
-        const clickedMonth = clickedDay.getMonth() + 1; // Months are 0-based
+        const clickedMonth = clickedDay.getMonth() + 1;
         const clickedYear = clickedDay.getFullYear();
 
             const newSearchParams = new URLSearchParams({
@@ -301,12 +298,13 @@ export const DetailMyClassComponent = (props) => {
                             </div>
                             <div className="lg:w-10/12 md:w-8/12 lg:hidden w-10/12 bg-white flex mx-auto border-radius-4">
                                 <input
-                                    ref={inputRefCode}
-                                    className="font16-res-400 py-2 px-3 bg-gray-100 w-10/12"
-                                    value={props.code}
+                                    ref={inputRefCode} // Make sure this is properly assigned
+                                    defaultValue={definedUrlCode}
                                     readOnly
+                                    className="font16-res-400 py-2 px-3 bg-gray-100 w-10/12"
                                 />
-                                <button className="w-2/12 bg-purple-500 hover:bg-purple-700 cursor-pointer" onClick={copyText}>
+                                <button className="w-2/12 bg-purple-500 hover:bg-purple-700 cursor-pointer"
+                                      onClick={copyUrlCode}  >
                                     <img className="my-auto w-full" style={{ height: "20px" }} src="/assets/copy-icon.svg" alt="Copy" />
                                 </button>
                                 <button onClick={handleUpdateClassCode} className="w-2/12 bg-white hover:bg-gray-50 cursor-pointer border border-purple-600">
@@ -442,11 +440,12 @@ export const DetailMyClassComponent = (props) => {
                                 <div className="lg:w-10/12 md:w-8/12 w-10/12  bg-white flex  mx-auto border-radius-4" >
                                     <input
                                         ref={inputRefCode}
-                                        className="font16-res-400 py-2 px-3 bg-gray-100 w-10/12"
-                                        value={props.code}
+                                        defaultValue={definedUrlCode}
                                         readOnly
+                                        className="font16-res-400 py-2 px-3 bg-gray-100 w-10/12"
                                     />
-                                    <button className="w-2/12 bg-purple-500 hover:bg-purple-700 " onClick={copyText}>
+                                    <button className="w-2/12 bg-purple-500 hover:bg-purple-700"  onClick={copyUrlCode}
+                                            onTouchEnd={copyUrlCode}>
                                         <img className="my-auto w-full" style={{ height: "20px" }} src="/assets/copy-icon.svg" alt="Copy" />
                                     </button>
                                     <button onClick={handleUpdateClassCode} className="w-2/12 bg-white hover:bg-gray-50 border border-purple-600">
@@ -454,7 +453,6 @@ export const DetailMyClassComponent = (props) => {
                                     </button>
                                 </div>
                             </div>
-
                         </div>
                         <div className="md:w-10/12 hidden lg:block w-11/12 shadow mx-auto lg:my-6 my-2">
                             <div className="md:pt-5 pt-1 font16-res-400 text-left mx-5">
@@ -507,7 +505,7 @@ export const DetailMyClassComponent = (props) => {
                         </div>
 
                     </div>
-                   </div>
+                </div>
                 {showAlert && (
                     <div id="drop-action" className="fixed inset-0 flex items-center justify-center"  style={{ zIndex: "10000" }}>
                         <button

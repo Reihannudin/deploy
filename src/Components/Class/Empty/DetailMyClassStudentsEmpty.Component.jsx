@@ -19,7 +19,7 @@ export const DetailMyClassStudentsEmptyComponent = (props) => {
                 </div>
                 <div className="lg:flex lg:py-0 md:py-8 py-5 md:block xl:w-10/12 lg:w-11/12 w-full mx-auto lg:justify-between">
                     <div className=" w-full md:w-11/12 mx-auto lg:my-0 my-5 lg:w-9/12">
-                        <div className="w-full lg:py-6 py-3 text-left  lg:mb-10 md:mb-5 bg-white">
+                        <div className="w-full lg:py-6 py-3 text-left  lg:mb-0 md:mb-5 bg-white">
                             <h2 className="font30-res-300 mx-5 mb-5 bg-gray-200 py-4 animate-pulse"></h2>
                             <div className="text-left flex border-b border-gray-200  pb-5  justify-between mx-5">
                                 <div className="block">
@@ -48,7 +48,6 @@ export const DetailMyClassStudentsEmptyComponent = (props) => {
 
                         <div className="  md:w-full  w-11/12 h-full  mx-auto">
                             <div className="flex  md:mx-5 justify-between" style={{ borderBottom:"2px solid#A568E6"}}>
-                                {/*<h2 className="my-3 font18-res-300" style={{  color:"#8D2EF4"}} >Siswa</h2>*/}
                                 <p className=" my-3 font16-res-300" style={{  color:"#8D2EF4"}} >Jumlah siswa</p>
                                 <p className=" my-3 font16-res-300 bg-gray-100 border-radius-8 w-24 py-1 animate-pulse" ></p>
                             </div>
@@ -77,7 +76,7 @@ export const DetailMyClassStudentsEmptyComponent = (props) => {
                                     </button>
                                     <button disabled className="w-2/12 bg-gray-100  cursor-pointer border border-purple-600">
                                         <img className="my-2 w-full" style={{ height: "20px" }} src="/assets/change-code.svg" alt="Change Code" />
-                                    </button>>
+                                    </button>
                                 </div>
                             </div>
 

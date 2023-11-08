@@ -1,9 +1,16 @@
-import {Link, useNavigate, useParams} from "react-router-dom";
+import {Link, useLocation, useNavigate, useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 
 
 export const NavbarClassComponent = (props) => {
+
     const { id, slug } = useParams();
+
+    const location = useLocation();
+
+    const isDetailClassActive = location.pathname === `/view/class/${id}/${slug}`
+    const isStudentActive = location.pathname === `/view/class/${id}/${slug}/classmate`
+
 
     const [isMenuHidden , setIsMenuHidden] = useState(true);
     const [isDropdownHidden  , setIsDropdownHidden] = useState(true);
@@ -91,13 +98,13 @@ export const NavbarClassComponent = (props) => {
                                             <div  className="font-medium mt-1">
                                                 <ul className="list-none gap-6 font16-res-300 flex" style={{ fontWeight :"500"}}>
                                                     <li className="pe-6 my-auto" style={{ borderRight:"1px solid #ebebeb"}}>
-                                                        <Link  style={{ fontWeight:"500"}} className=" text-gray-400 my-0 relative cursor-pointer hover:text-purple-600 font" to={`/view/my/class/${id}/${slug}`}>Kelas
+                                                        <Link  style={{ fontWeight:"500"}} to={`/view/class/${id}/${slug}`} className={ ` cursor-pointer hover:text-purple-600 relative  ${isDetailClassActive? 'text-purple-600' : 'text-gray-400'}`}  >Kelas
                                                             <div className="w-full mx-auto  absolute top-2 my-3  h-1 cursor-pointer hover:bg-purple-400  block hover:scale-x-50 transform origin-center  transition-transform duration-300">
                                                             </div>
                                                         </Link>
                                                     </li>
                                                     <li className="pe-6 my-auto" style={{ borderRight:"1px solid #ebebeb"}}>
-                                                        <Link style={{ fontWeight:"500"}}  className=" text-gray-400 my-0 relative cursor-pointer hover:text-purple-600 font"  to={`/view/my/class/${id}/${slug}/students`} >Students
+                                                        <Link style={{ fontWeight:"500"}}  className={ ` cursor-pointer hover:text-purple-600 relative  ${isStudentActive? 'text-purple-600' : 'text-gray-400'}`} to={`/view/class/${id}/${slug}/classmate`} >Teman Kelas
                                                             <div className="w-full mx-auto  absolute top-2 my-3  h-1 cursor-pointer hover:bg-purple-400  block hover:scale-x-50 transform origin-center  transition-transform duration-300">
                                                             </div>
                                                         </Link>
@@ -107,6 +114,29 @@ export const NavbarClassComponent = (props) => {
                                         </div>
                                     </div>
                                     <div className="flex  ">
+                                        <button id="menu-button" className="md:mx-4  md:block hidden mx-0" onClick={toggleMenu}>
+                                            {isMenuHidden === false ? (
+
+                                                <div className="h-6 w-6 me-2 cursor-pointer lg:hidden block" style={{ height:"26px"}} >
+                                                    <img className="h-full w-full" src="/assets/icon-close.svg"/>
+                                                </div>
+                                            ) : (
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    id="menu-button"
+                                                    className="h-6 w-6 me-2 cursor-pointer lg:hidden block"
+                                                    fill="none"
+                                                    viewBox="0 0 24 24"
+                                                    stroke="currentColor"
+                                                >
+                                                    <path
+
+                                                        d="M4 6h16M4 12h16M4 18h16"
+                                                    />
+                                                </svg>
+                                            )}
+                                        </button>
+
                                         <div className="mt-0.5 relative flex gap-3">
                                             <li className="my-auto relative mt-1 list-none">
                                                 <button
@@ -145,36 +175,6 @@ export const NavbarClassComponent = (props) => {
                                                 </div>
                                             )}
                                         </div>
-
-                                        {/*<div className="my-auto flex gap-3">*/}
-                                        {/*    <li className="my-auto relative mt-1 list-none">*/}
-                                        {/*        <button  onClick={toggleDropdown} style={{ fontSize:"14px"}}  data-dropdown-toggle="dropdown_profile"*/}
-                                        {/*                 className=" cursor-pointer gap-2 my-auto flex ">*/}
-                                        {/*            <div style={{width:"35px", height:"35px"}}>*/}
-                                        {/*                <img className="h-full w-full" src="/assets/default-profile.svg"/>*/}
-                                        {/*            </div>*/}
-                                        {/*            <div className="my-auto" style={{ height:"19px" , width:"19px"}}>*/}
-                                        {/*                <img  className="w-full h-full" src="/assets/expand-icon.svg"/>*/}
-                                        {/*            </div>*/}
-                                        {/*        </button>*/}
-                                        {/*        <div id="dropdown_profile"*/}
-                                        {/*             className={`z-10 ${isDropdownHidden ? 'hidden' : ''} absolute right-0 top-10 font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-32 dark:bg-gray-700 dark:divide-gray-600`}>*/}
-                                        {/*            <ul className="py-2 text-sm text-left font16-res-300 text-gray-700 dark:text-gray-400"*/}
-                                        {/*                aria-labelledby="dropdownLargeButton">*/}
-                                        {/*                <li className="">*/}
-                                        {/*                    <a href={``} className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600  dark:hover:text-white">Activities</a>*/}
-                                        {/*                </li>*/}
-                                        {/*                <li className="">*/}
-                                        {/*                    <a href={`/profile`} className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600  dark:hover:text-white">Profile</a>*/}
-                                        {/*                </li>*/}
-                                        {/*                <li className="">*/}
-                                        {/*                    <a href={`https://rest-api.spaceskool.site/public/api/logout`} className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600  dark:hover:text-white">Log Out</a>*/}
-                                        {/*                </li>*/}
-
-                                        {/*            </ul>*/}
-                                        {/*        </div>*/}
-                                        {/*    </li>*/}
-                                        {/*</div>*/}
                                     </div>
                                 </div>
 
@@ -182,8 +182,8 @@ export const NavbarClassComponent = (props) => {
                         </nav>
                     </header>
                 </div>
-                <div  id="menu" className={`h-full md:block hidden menu ${isMenuHidden ? 'hidden' : ''}`} >
-                    <div className=" h-full w-full bg-white border-b ">
+                <div  id="menu" className={`h-full md:block hidden menu `} >
+                    <div className={` h-full w-full ${isMenuHidden ? 'hidden': 'block'}  bg-white border-b `}>
                         <div className="lg:hidden lg:w-full relative flex items-center w-auto sm:flex sm:items-center sm:w-auto md:flex md:items-center md:w-auto">
                             <ul
                                 className="
@@ -197,13 +197,13 @@ export const NavbarClassComponent = (props) => {
                                           lg:pt-0"
                             >
                                 <li className="pt-8 pb-4">
-                                    <Link to={`/view/my/class/${id}/${slug}`} className=" text-purple-400  cursor-pointer hover:text-purple-600" href="#">Kelas
+                                    <Link to={`/view/class/${id}/${slug}`} className={ ` cursor-pointer hover:text-purple-600  ${isDetailClassActive? 'text-purple-600' : 'text-gray-400'}`} href="#">Kelas
                                         <div className="w-1/12 mx-auto h-1 cursor-pointer hover:bg-purple-400  block hover:scale-x-50 transform origin-center  transition-transform duration-300">
                                         </div>
                                     </Link>
                                 </li>
                                 <li className="pb-6 pt-4">
-                                    <Link to={`/view/my/class/${id}/${slug}/students`} className="  text-purple-400  cursor-pointer hover:text-purple-600 " href="#">Students
+                                    <Link to={`/view/class/${id}/${slug}/classmate`}  className={ ` cursor-pointer hover:text-purple-600  ${isStudentActive? 'text-purple-600' : 'text-gray-400'}`} href="#">Teman kelas
                                         <div className="w-1/12 mx-auto h-1 cursor-pointer hover:bg-purple-400  block hover:scale-x-50 transform origin-center  transition-transform duration-300">
                                         </div>
                                     </Link>

@@ -58,7 +58,14 @@ export const EditAssignmentComponent= (props) => {
     const onChangeName = (event) => {
         const name = event.target.value;
         setName(name);
+        if (name.length >= 30) {
+            setErrorName("Nama harus terdiri dari 30 karakter atau kurang");
+        }else{
+            setName(name);
+            setErrorName("");
+        }
     };
+
 
     useEffect(() => {
         setChange(props.change);

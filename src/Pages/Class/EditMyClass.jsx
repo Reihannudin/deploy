@@ -103,10 +103,10 @@ function EditMyClass (){
         <>
             {isFetching && (
                 <div className="flex items-center justify-center min-h-screen">
-                    <div className="animate-spin">
-                        <img src="/assets/planet_gif-1.gif" className="h-20 w-20" alt="Loading" />
-                    </div>
+                    <div
+                        className="animate-spin rounded-full border-r-gray-50 border-l-gray-50  border-b-gray-50  w-8 h-8 md:h-10 md:w-10 border-t-4 border-purple-700"></div>
                 </div>
+
             )}
             {!isFetching && (
                 <div>
@@ -117,7 +117,7 @@ function EditMyClass (){
                                 <div className="w-full pb-5 mx-0 px-0 h-full " style={{ background:"#FFFFFF"}}>
                                     <div id="class" className="w-full">
                                         <div className="w-full">
-                                            <EditClassComponent id={id} slug={slug} name={item.name} room={item.room} section={item.section} subject={item.subject} maxStudent={item.max_student} />
+                                            <EditClassComponent id={id} slug={slug} is_private={item.is_private} name={item.name} room={item.room} section={item.section} subject={item.subject} maxStudent={item.max_student} />
                                         </div>
                                     </div>
                                 </div>

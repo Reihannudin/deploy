@@ -1,6 +1,6 @@
 import {AddInformationCardComponent} from "../../Components/Auth/Card/AddInformationCard.Component";
 import {useNavigate, useSearchParams} from "react-router-dom";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import bcrypt from "bcryptjs";
 import api from "../../Config/api";
 
@@ -23,6 +23,16 @@ function AddInformation(){
     const [errorContact, setErrorContact] = useState('');
     const [errorBirthday, setErrorBirthday] = useState('');
 
+    const getEmail = localStorage.getItem('registrationEmail');
+    const getToken = localStorage.getItem('token');
+
+    useEffect(() => {
+        if (!getEmail && !getToken) {
+            navigate("/register");
+        } else {
+            setEmail(getEmail);
+        }
+    }, [navigate]);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -36,9 +46,6 @@ function AddInformation(){
             birthday: birthday
         }
 
-        console.log(formData)
-
-        console.log(localStorage.getItem('token'))
         let token =localStorage.getItem('token');
 
         api
@@ -48,18 +55,13 @@ function AddInformation(){
             .then((response) => {
                 setIsLoading(false); // Stop loading indicator
 
-                console.log(response.data.status)
-
                 if (response.data.status === 201) {
-                    console.log(response.data.message)
                     if (response.data.message === "Informasi berhasil diperbarui") {
                         let redirectUrl = response.data.redirect_path;
                         setRedirect(redirectUrl);
                         navigate(redirectUrl);
                     }
                 } else if (response.data.status === 406) {
-                    console.log(response.data.message)
-                    console.log(response.data.message)
 
                     if (response.data.message === "Nama pengguna tidak boleh kosong") {
                         let redirectUrl = response.data.redirect_path;
@@ -73,20 +75,17 @@ function AddInformation(){
                         navigate(redirectUrl);
                     }  else if (response.data.message === "Nomor Telepon tidak boleh kosong") {
                         let redirectUrl = response.data.redirect_path;
-                        console.log(redirectUrl)
                         setErrorContact(response.data.message);
                         setRedirect(redirectUrl);
                         navigate(redirect);
                     } else if (response.data.message === "Tanggal lahir tidak boleh kosong") {
                         let redirectUrl = response.data.redirect_path;
-                        console.log(redirectUrl)
                         setErrorBirthday(response.data.message);
                         setRedirect(redirectUrl);
                         navigate(redirect);
                     }
                     else if (response.data.message === "Pengguna tidak ditemukan") {
                         let redirectUrl = response.data.redirect_path;
-                        console.log(redirectUrl)
                         setErrorBirthday(response.data.message);
                         setRedirect(redirectUrl);
                         navigate(redirect);
@@ -104,10 +103,9 @@ function AddInformation(){
     }
 
 
-    console.log(isLoading)
     return(
         <>
-            <div className="w-full  md:py-6 py-0" style={{ background:"#FAFBFC" , minWidth:"300px"}}>
+            <div className="w-full  md:py-6 py-0 h-screen" style={{ background:"#FAFBFC" , minWidth:"300px"}}>
                 <div className="xl:w-6/12 lg:w-7/12 md:w-9/12  mx-auto">
                     <div className="md:w-8/12 w-full mx-auto">
                         <AddInformationCardComponent
@@ -138,7 +136,6 @@ function AddInformation(){
             </div>
             {isLoading && (
                 <div className="fixed gap-2 inset-0 flex items-center justify-center bg-white opacity-100">
-                    {/*<div className="absolute gap-2 inset-0 flex items-center h-full justify-center bg-white opacity-100">*/}
                     <div
                         className="animate-spin rounded-full border-r-gray-50 border-l-gray-50  border-b-gray-50  w-8 h-8 md:h-10 md:w-10 border-t-4 border-purple-700"></div>
 

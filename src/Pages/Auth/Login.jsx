@@ -40,6 +40,9 @@ function Login({ setIsLogged }) {
     }
   };
 
+  let token =localStorage.getItem('token');
+
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     setIsLoading(true);
@@ -72,7 +75,8 @@ function Login({ setIsLogged }) {
           setErrorPassword(responseData.errors.password);
         }
       }
-    } catch (error) {
+    }
+    catch (error) {
       setIsLoading(false);
       const { errors } = error.response.data;
       setErrorEmail(errors?.email || "");

@@ -52,19 +52,47 @@ export const CreateAssigmentComponent = ({user}) => {
 
     let token = localStorage.getItem('auth_token');
 
-    const onChangeName = (event) => {
-        const name = event.target.value;
-        setName(name);
+    const onChangeName = (e) => {
+        const inputName = e.target.value;
+        if (inputName.length <= 30) {
+            setName(inputName);
+            setErrorName("");
+        } else {
+            setErrorName("Nama harus terdiri dari 30 karakter atau kurang");
+        }
     };
 
     const onChangeOutApp = (event) => {
-        const out_app = event.target.value;
-        setOutApp(out_app);
+        const value = event.target.value;
+        setOutApp(value);
+
+        if (value.length > 1) {
+            setErrorOutApp('Jumlah angka tidak boleh lebih dari satu');
+        } else if (parseInt(value) > 9) {
+            setErrorOutApp('Jumlah maksimal keluar aplikasi adalah 9');
+        } else if (parseInt(value) === 0) {
+            setErrorOutApp('Jumlah keluar aplikasi tidak boleh 0');
+        }
+        else {
+            setErrorOutApp('');
+        }
     };
 
     const onChangeChange = (event) => {
-        const change = event.target.value;
-        setChange(change);
+        const value = event.target.value;
+        setChange(value)
+
+        if (value.length > 1) {
+            setErrorChange('Jumlah angka tidak boleh lebih dari satu');
+        } else if (parseInt(value) > 5) {
+            setErrorChange('Jumlah maksimal pengerjaan tugas adalah 5');
+        }
+        else if (parseInt(value) === 0) {
+            setErrorChange('Jumlah pengerjaan tugas tidak boleh 0');
+        }
+        else {
+            setErrorChange('');
+        }
     };
 
     const onChangeStartTime = (event) => {
@@ -91,9 +119,6 @@ export const CreateAssigmentComponent = ({user}) => {
 
     const currentURL = window.location.href;
     const requestStillInURL = currentURL.includes('error_questions');
-
-    console.log(startTime);
-    console.log(endTime);
 
 
     const handleDeleteQuestion = (index) => {
@@ -194,7 +219,7 @@ export const CreateAssigmentComponent = ({user}) => {
         setInputQuestionType(''); // Set inputQuestionType to an empty string
     };
 
-    console.log(questions);
+    console.log("question : " , questions);
     const handleSubmit = (event) => {
         event.preventDefault();
         setIsLoading(true);
@@ -238,7 +263,8 @@ export const CreateAssigmentComponent = ({user}) => {
                     setErrorDate('');
                     setErrorStartTime('');
                     setErrorEndTime('');
-                    setErrorQuestions('');
+
+                    setErrorQuestions([]);
                     setErrorAnswerA('');
                     setErrorAnswerB('');
                     setErrorAnswerC('');
@@ -258,7 +284,7 @@ export const CreateAssigmentComponent = ({user}) => {
                         setErrorDate('');
                         setErrorStartTime('');
                         setErrorEndTime('');
-                        setErrorQuestions('');
+                        setErrorQuestions([]);
                         setErrorAnswerA('');
                         setErrorAnswerB('');
                         setErrorAnswerC('');
@@ -275,7 +301,7 @@ export const CreateAssigmentComponent = ({user}) => {
                         setErrorDate('');
                         setErrorStartTime('');
                         setErrorEndTime('');
-                        setErrorQuestions('');
+                        setErrorQuestions([]);
                         setErrorAnswerA('');
                         setErrorAnswerB('');
                         setErrorAnswerC('');
@@ -293,7 +319,7 @@ export const CreateAssigmentComponent = ({user}) => {
                         setErrorDate('');
                         setErrorStartTime('');
                         setErrorEndTime('');
-                        setErrorQuestions('');
+                        setErrorQuestions([]);
                         setErrorAnswerA('');
                         setErrorAnswerB('');
                         setErrorAnswerC('');
@@ -311,7 +337,7 @@ export const CreateAssigmentComponent = ({user}) => {
                         setErrorDate('');
                         setErrorStartTime('');
                         setErrorEndTime('');
-                        setErrorQuestions('');
+                        setErrorQuestions([]);
                         setErrorAnswerA('');
                         setErrorAnswerB('');
                         setErrorAnswerC('');
@@ -329,7 +355,7 @@ export const CreateAssigmentComponent = ({user}) => {
                         setErrorDate('');
                         setErrorStartTime('');
                         setErrorEndTime('');
-                        setErrorQuestions('');
+                        setErrorQuestions([]);
                         setErrorAnswerA('');
                         setErrorAnswerB('');
                         setErrorAnswerC('');
@@ -347,7 +373,7 @@ export const CreateAssigmentComponent = ({user}) => {
                         setErrorDate('');
                         setErrorStartTime('');
                         setErrorEndTime('');
-                        setErrorQuestions('');
+                        setErrorQuestions([]);
                         setErrorAnswerA('');
                         setErrorAnswerB('');
                         setErrorAnswerC('');
@@ -365,7 +391,7 @@ export const CreateAssigmentComponent = ({user}) => {
                         setErrorDate('');
                         setErrorStartTime('');
                         setErrorEndTime('');
-                        setErrorQuestions('');
+                        setErrorQuestions([]);
                         setErrorAnswerA('');
                         setErrorAnswerB('');
                         setErrorAnswerC('');
@@ -383,7 +409,7 @@ export const CreateAssigmentComponent = ({user}) => {
                         setErrorDate('');
                         setErrorStartTime('');
                         setErrorEndTime('');
-                        setErrorQuestions('');
+                        setErrorQuestions([]);
                         setErrorAnswerA('');
                         setErrorAnswerB('');
                         setErrorAnswerC('');

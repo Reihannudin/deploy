@@ -31,9 +31,8 @@ export const DetailStudentAbsentEmptyComponent = (props) => {
                     <AbsentNavComponent />
                 </div>
                 <div className="lg:flex gap-4 lg:justify-between grid  md:grid-cols-1 sm:w-full sm:mx-0 mx-auto w-full">
-
-                    <div className="lg:w-4/12 md:border-none border-b border-purple-700 w-full">
-                        <div className="lg:shadow mt-0  lg:w-11/12 lg:pt-4 border-b border-purple-700 w-full pb-6 md:border-radius-8">
+                    <div className="lg:w-4/12 md:border-none border-b border-purple-700 mx-auto w-11/12">
+                        <div className="lg:shadow md:mt-0 mt-3  lg:w-11/12 lg:pt-4 md:border-b border-b  md:border-purple-700 w-full pb-6 md:border-radius-8">
                             <div className="mx-2 md:mx-4 text-left md:pt-2 pb-0 ">
                                 <div className="flex justify-between">
                                     <h2 className="font16-res-400" style={{ color:"#646464" , fontWeight:"500"}}>Rangkuman Absent </h2>
@@ -110,7 +109,7 @@ export const DetailStudentAbsentEmptyComponent = (props) => {
                         <div className=" lg:shadow w-11/12  block pb-3 md:mx-0 mx-auto md:my-6 my-2">
                             <div className="my-2 text-center py-1 border-none md:border-t">
                                 <p className="my-2 font16-res-400">URL Absensi</p>
-                                <div className="lg:w-10/12 md:w-8/12 w-10/12  bg-white flex  mx-auto border-radius-4" >
+                                <div className="lg:w-10/12 md:w-8/12 w-full  bg-white flex  mx-auto border-radius-4" >
                                     <input  disabled className=" font16-res-400 py-2 px-3 bg-gray-100 w-10/12 animate-pulse " value={""}  onChange={() => {}} />
                                     <button className="w-2/12 bg-purple-500 " >
                                         <img className="my-auto w-full " style={{ height:"20px"}} src="/assets/copy-icon.svg" />
@@ -120,7 +119,7 @@ export const DetailStudentAbsentEmptyComponent = (props) => {
                         </div>
                     </div>
 
-                    <div className="lg:w-8/12 mx-auto sm:w-11/12  w-full">
+                    <div className="lg:w-8/12  sm:w-11/12 mx-auto w-11/12">
                         <div className="flex border-b justify-between">
                             <div className="md:my-3 my-1 md:pb-2 pb-2 text-left">
                                 <h2 className="font16-res-400 text-gray-600">Daftar Student absent</h2>

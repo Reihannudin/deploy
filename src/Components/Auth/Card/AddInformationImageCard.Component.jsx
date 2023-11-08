@@ -7,8 +7,11 @@ export const AddInformationImageCardComponent = ({
     handleSubmit ,
     image , bio , address , school,
     setImage , setBio  , setAddress , setSchool,
-    errorSchool
+    errorSchool , schoolsList
                                                  }) => {
+
+
+    const [schoolId , setSchoolId] = useState('')
 
     const onChangeImage = (event) => {
         const image = event.target.value;
@@ -29,6 +32,12 @@ export const AddInformationImageCardComponent = ({
         setSchool(school)
     }
 
+    const onChangeSchoolId = (event) => {
+        const school = event.target.value;
+        setSchool(school)
+        setSchoolId(school)
+    }
+
     const handleImageChange = (event) => {
         const selectedFile = event.target.files[0];
         setImage(URL.createObjectURL(selectedFile));
@@ -39,7 +48,7 @@ export const AddInformationImageCardComponent = ({
         setImage(selectedImageUrl);
     };
 
-    console.log(image)
+    console.log(school)
 
 
     return(
@@ -101,15 +110,52 @@ export const AddInformationImageCardComponent = ({
                                     <input type="text"  onChange={onChangeBio} value={bio} className="w-full py-3 border-b-gray-300" style={{ borderBottom:"1px solid #ebebeb"}} placeholder="Tambahkan bio kamu"/>
 
                                 </div>
-                                <div className=" mt-4">
-                                    <label style={{ color:"#777575" , fontSize:"14px"}}>Asal Sekolah</label>
-                                    <input type="text" onChange={onChangeSchool} value={school} className="w-full py-3 border-b-gray-300" style={{ borderBottom:"1px solid #ebebeb"}} placeholder="Tambahkan sekolah asal kamu"/>
-                                    {errorSchool === '' ? (
-                                        <div className="my-2">
+                                <div className="mt-4">
+
+
+                                    {/* Dropdown untuk memilih sekolah */}
+                                    <div className="mt-0">
+                                        <label style={{ color: "#777575", fontSize: "14px" }}>Pilih Sekolah</label>
+                                        <select
+                                            value={school}
+                                            onChange={onChangeSchoolId}
+                                            className="w-full py-3 border-b-gray-300"
+                                            style={{ borderBottom: "1px solid #ebebeb" }}
+                                        >
+                                            <option value="">Pilih sekolah...</option>
+                                            {schoolsList.map((schoolOption, index) => (
+                                                <option key={index} value={schoolOption.name}>
+                                                    {schoolOption.name}
+                                                </option>
+                                            ))}
+                                            <option value="tidak_ada">Sekolah tidak ada diatas</option>
+
+
+                                        </select>
+                                    </div>
+                                    {schoolId === "tidak_ada" ? (
+                                        <div className={"mt-2"}>
+                                            <label style={{ color: "#777575", fontSize: "14px" }}>Asal Sekolah</label>
+                                            <input
+                                                type="text"
+                                                value={school}
+                                                onChange={onChangeSchool}
+                                                className="w-full py-3 border-b-gray-300"
+                                                style={{ borderBottom: "1px solid #ebebeb" }}
+                                                placeholder="Tambahkan sekolah asal kamu"
+                                            />
                                         </div>
                                     ): (
+                                        <></>
+                                    )}
+
+                                    {errorSchool === '' ? (
                                         <div className="my-2">
-                                            <span style={{ fontSize:"14px"}} className={"text-red-600 "}>{errorSchool}</span>
+                                            {/* Kosongkan div jika tidak ada pesan kesalahan */}
+                                        </div>
+                                    ) : (
+                                        <div className="my-2">
+                                            <span style={{ fontSize: "14px" }} className={"text-red-600 "}>{errorSchool}</span>
                                         </div>
                                     )}
                                 </div>
