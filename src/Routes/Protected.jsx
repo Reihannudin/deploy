@@ -38,14 +38,9 @@ import AddInformationImage from "./../Pages/Auth/AddInformationImage";
 
 
 import { Route, Routes } from "react-router-dom";
-import Feed from "../Pages/Feed/Feed";
 import TestProfille from "../Pages/Helper/TestProfille";
 import Test from "../Pages/Test";
-import FeedForm from "../Pages/Feed/FeedForm";
-import FeedLiked from "../Pages/Feed/FeedLiked";
-import FeedNotification from "../Pages/Feed/FeedNotification";
-import FeedSearch from "../Pages/Feed/FeedSearch";
-import Profile from "../Pages/Profile/Profile";
+
 import DetailClassClassmate from "../Pages/Class/DetailClassClassmate";
 import ActionAbsentFaceRecognation from "../Pages/Absents/ActionAbsentFaceRecognation";
 import ActionAbsentFaceRecognationPassword from "../Pages/Absents/ActionAbsentFaceRecognationPassword";
@@ -54,6 +49,8 @@ import {useEffect, useState} from "react";
 import api from "../Config/api";
 import MainSchool from "../Pages/Home/MainSchool";
 import SendVerifyCode from "../Pages/Profile/SendVerifyCode";
+import FeedWrite from "../Pages/Feed/FeedWrite";
+import Feed from "../Pages/Feed/Feed";
 
 export const Protected = () => {
 
@@ -118,6 +115,17 @@ export const Protected = () => {
         {/*<Route path="/send/verify/code" element={<SendVerifyCode  user={user} isFetching={isFetching} isDataFetched={isDataFetched}/>} />*/}
 
 
+        <Route path="/feed" element={<Feed user={user} isFetching={isFetching} isDataFetched={isDataFetched} />} />
+        {/*<Route path="/feed/write" element={<FeedWrite />} />*/}
+        {/*<Route path="/feed/forum" element={<FeedForm />} />*/}
+        {/*<Route path="/feed/liked" element={<FeedLiked />} />*/}
+        {/*<Route path="/feed/notification" element={<FeedNotification />} />*/}
+        {/*<Route path="/feed/search" element={<FeedSearch />} />*/}
+
+
+
+
+
         <Route path="/my/class" element={<MyClass />} /> {/* Done */}
 
         {/*==========================* Class Path ==========================*/}
@@ -169,12 +177,6 @@ export const Protected = () => {
 
 
       {/*   ======================================   */}
-
-      <Route path="/feed" element={<Feed />} />
-      <Route path="/feed/form" element={<FeedForm />} />
-      <Route path="/feed/liked" element={<FeedLiked />} />
-      <Route path="/feed/notification" element={<FeedNotification />} />
-      <Route path="/feed/search" element={<FeedSearch />} />
 
 
 
