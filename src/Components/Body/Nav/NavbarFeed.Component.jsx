@@ -86,7 +86,7 @@ export const NavbarFeedComponent = ({isFetching ,isDataFetched ,user}) => {
 
     return(
         <>
-            <div className="w-full mx-auto"  style={{  zIndex:"39" , minWidth:"280px" , maxWidth:"1500px"}}>
+            <div className="w-full mx-auto"  style={{  zIndex:"39" , minWidth:"300px" , maxWidth:"1500px"}}>
 
             <div className="w-full fixed md:py-0.5 py-0 bg-white" style={{  zIndex:"39" , minWidth:"300px"}}>
                 <div className="mx-auto   flex py-1 w-full border-b border-gray-200" >
@@ -94,8 +94,7 @@ export const NavbarFeedComponent = ({isFetching ,isDataFetched ,user}) => {
                         <nav
                             className="
                         lg:w-11/12
-                        sm:w-11/12
-                        w-full
+                        w-11/12
                         xl:w-10/12
           flex
           justify-between
@@ -108,27 +107,27 @@ export const NavbarFeedComponent = ({isFetching ,isDataFetched ,user}) => {
         "
                         >
                             <div className="w-full justify-between flex">
-                                <div className="flex xl:w-4/12 lg:w-3/12 md:w-5/12 my-auto  gap-1">
+                                <div className="flex xl:w-4/12 lg:w-3/12 md:w-5/12 w-6/12 my-auto  gap-1">
                                     <a href="#" >
-                                        <div className="sm:mt-2 mt-3 hidden sm:block mb-2 h-logo-nav"  >
+                                        <div className="sm:mt-2 mt-3 hidden md:block mb-2 h-logo-nav"  >
                                             <img className="w-full my-auto h-full" src="/assets/spaceskool-logo-bg.svg" alt="" />
                                         </div>
                                     </a>
                                     {isSearchHiddenMini === true? (
                                         <div className="my-0.5 text-left  text-purple-700" >
-                                            <h4 className="mt-0 sm:mt-3 font18-res-300 sm:font16-res-300 ps-0 sm:ps-2  border-none sm:border-s border-gray-100" style={{  fontWeight:"500"}} >Feeds</h4>
+                                            <h4 className="mt-0 md:mt-3 font18-res-300 sm:font16-res-300 ps-0 sm:ps-2  border-none sm:border-s border-gray-100" style={{  fontWeight:"500"}} >Feeds</h4>
                                         </div>
                                     ): (
                                         <>
                                             <input
 
-                                                className="font16-res-300 py-0  w-full border-gray-300 border-b" placeholder="Cari sesuatu"/>
+                                                className="font16-res-300 py-0  md:hidden   w-full border-gray-300 border-b" placeholder="Cari sesuatu"/>
 
                                         </>
                                     )}
 
                                 </div>
-                                <div className="flex  xl:w-8/12 lg:w-8/12 md:w-7/12 justify-between">
+                                <div className="flex  xl:w-8/12 lg:w-8/12 md:w-7/12 w-6/12 justify-between">
                                     <div className=" lg:w-5/12 md:w-9/12 flex ">
                                         <div className="w-10/12 relative hidden md:block" ref={componentRef}>
                                             <div className="my-2.5 bg-gray-100 w-full flex  text-gray-500 ps-6 border-radius-4 ">
@@ -325,7 +324,6 @@ export const NavbarFeedComponent = ({isFetching ,isDataFetched ,user}) => {
                                     <div className={"flex  lg:w-7/12 md:w-5/12 justify-end lg:justify-between"}>
                                         <button id="menu-button" className="  hidden sm:hidden md:block ms-2 sm:ms-0 mx-0" onClick={toggleMenu} style={{  transform: isMenuHidden ? 'rotate(-40deg)' : 'none' ,    transition: 'transform 0.3s ease-in-out'}}>
                                             {isMenuHidden === false ? (
-
                                                 <div className="h-6 w-6 me-2 cursor-pointer lg:hidden block" style={{ height:"26px"}} >
                                                     <img className="h-full w-full" src="/assets/icon-close.svg"/>
                                                 </div>
@@ -351,8 +349,7 @@ export const NavbarFeedComponent = ({isFetching ,isDataFetched ,user}) => {
                                                 onClick={handleSearchHiddenMini}
                                                 style={{ fontSize: "14px"  }}
                                                 className="
-                                                cursor-pointer block md:hidden w-3/12  hover:bg-gray-50 px-1 py-2.5 radius-full  mx-auto gap-2 my-auto"                                            >
-                                                <div  className="my-auto mx-auto" style={{ height:"18px"}}>
+                                                 cursor-pointer block md:hidden  hover:bg-gray-50 py-1.5 px-1.5 radius-full  mx-auto gap-2 my-auto">                                                <div  className="my-auto mx-auto" style={{ height:"20px"}}>
                                                     <img className="h-full mx-auto" src="/assets/icon-search-purple.svg"/>
                                                 </div>
 
@@ -440,7 +437,7 @@ export const NavbarFeedComponent = ({isFetching ,isDataFetched ,user}) => {
                             </div>
                             {isSearchHiddenMini ? null : (
                                 <div className={"fixed w-full md:hidden block top-14 z-30 "} >
-                                    <div className="w-11/12 bg-gray-50  border border-r-gray-100 ">
+                                    <div className="w-10/12 bg-gray-50  border border-r-gray-100 ">
                                         <div className="w-full">
                                             <div className="py-3  px-3" style={{ maxHeight:"400px"}}>
                                                 <div className="text-left">
@@ -464,25 +461,6 @@ export const NavbarFeedComponent = ({isFetching ,isDataFetched ,user}) => {
                                                 <div className="text-left my-3">
                                                     <h4 className={"font15-res-300 "} style={{ fontWeight:"500"}}>Pencarian Terakhir</h4>
                                                     <ul className="block w-full overflow-y-auto" style={{ maxHeight:"180px"}}>
-                                                        <Link >
-                                                            <li  onMouseOver={handleHover}
-                                                                 onMouseOut={handleHoverOut}
-                                                                 className="w-11/12 flex py-2 justify-between text-purple-700 px-3 border-radius-4 hover:text-white  border-b cursor-pointer  border-gray-100 hover:bg-purple-600">
-                                                                <div className="w-full ">
-                                                                    <p className="font14-res-300 w-full my-0 cursor-pointer ">Website</p>
-                                                                </div>
-                                                                <div>
-                                                                    <div className="my-auto" style={{height:"20px"}}>
-                                                                        <img
-                                                                            className="h-full mt-1 icon"
-                                                                            src="/assets/icon-history-white.svg"
-                                                                            data-hover-src="/assets/icon-history-white.svg"
-                                                                            alt="History Icon"
-                                                                        />
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-                                                        </Link>
                                                         <Link >
                                                             <li  onMouseOver={handleHover}
                                                                  onMouseOut={handleHoverOut}
