@@ -225,6 +225,9 @@
   .grid-class-card-flex {
     width: 30%;
   }
+  .w-3-3{
+    width: 5.333333%;
+  }
 
   .h-26{
     height: 22px;
@@ -248,6 +251,9 @@
     height: 24px;
   }
 
+  .w-3-3{
+    width: 5.333333%;
+  }
 }
 
 @media (min-width: 1380px) {
@@ -341,8 +347,8 @@
 
 
 .h-profile-feed{
-  height: 50px;
-  width: 50px;
+  height: 40px;
+  width: 40px;
 }
 
 .h-profile-banner-new{
@@ -818,6 +824,11 @@ body{
     padding-top: 0.5rem; /* 2/4 = 0.5 */
     padding-bottom: 0.5rem; /* 2/4 = 0.5 */
   }
+
+
+  .w-3-3{
+    width: 5.333333%;
+  }
 }
 
 @media screen and (max-width: 640px) {
@@ -930,13 +941,25 @@ body{
   .p-nav-content-crud {
     padding-top: 65px;
   }
+  .w-3-3{
+    width: 5.333333%;
+  }
+
+  .w-3-3{
+    width: 5.333333%;
+  }
 }
 
+.w-3-3{
+
+  width:12.333333%
+}
 
 @media  (min-width: 321px) and  (max-width: 768px){
   .p-nav-content-crud {
     padding-top: 60px;
   }
+
 
 }
 /* Apply pt-10 when the screen width is less than 320px */
@@ -966,6 +989,9 @@ body{
 @media (min-width: 768px) {
   .w-bar-class-list {
     width: 100%; /* Default width for md:w-full and w-11/12 */
+  }
+  .w-3-3{
+    width: 5.333333%;
   }
 }
 
@@ -997,11 +1023,23 @@ body{
   .w-class-card-grid {
     width: 48.5%; /* On small screens (sm:w-1/2) */
   }
+  .w-3-3{
+    width: 7.333333%;
+  }
+
 }
+
+.w-3-3{
+  width: 12.333333%;
+}
+
 
 @media (min-width: 768px) {
   .w-class-card-grid {
     width: 31%; /* On medium screens (md:w-1/2) */
+  }
+  .w-3-3{
+    width: 5.333333%;
   }
 
   .h-icon-arrow-card{
@@ -1018,11 +1056,19 @@ body{
   .h-icon-arrow-card{
     height: 18px;
   }
+  .w-3-3{
+    width: 3.033333%;
+  }
 }
 
 @media (min-width: 1280px) {
   .w-class-card-grid {
     width: 24%; /* On extra-large screens (xl:w-1/5) */
+  }
+
+
+  .w-3-3{
+    width: 3.0333333%;
   }
 
 }
@@ -1203,6 +1249,9 @@ body{
 @media (min-width: 768px) {
   .w-36-c {
     width: 11rem; /* 44/4 = 11 */
+  }
+  .w-3-3{
+    width: 5.333333%;
   }
 }
 

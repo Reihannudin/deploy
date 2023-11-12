@@ -114,32 +114,32 @@ export const NavbarComponent = ({isFetching ,isDataFetched ,user}) => {
                                                     </div>
                                                 )}
                                             </button>
-                                            <div className="relative  hidden md:block ms-auto sm:ms-0 me-0 sm:me-0 my-auto">
-                                                <button onClick={toggleDropdownCreate} id="menu-button" className={` ${isDropdownHiddenCreate ? 'bg-white px-1 ' : 'px-1 bg-gray-100 radius-100 '} my-2`} >
-                                                    <div className="h-8 w-8 mx-auto my-auto cursor-pointer block" style={{ height:"36px"}} >
-                                                        <img className="h-full w-full" style={{ height:"36px"}} src="/assets/add-icon.svg"/>
-                                                    </div>
-                                                </button>
-                                                {isDropdownHiddenCreate ? null : (
-                                                    <div
-                                                        id="dropdown_profile"
-                                                        className="z-10 fixed inset-0"
-                                                        onClick={handleDropdownCreate}
-                                                    >
-                                                        <div className="bg-white bg-opacity-0 w-full h-full z-40 absolute right-0 bottom-0"></div>
-                                                        <div className="absolute right-0 md:right-16 xl:right-28 z-50 top-12 font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-36 md:w-44 dark:bg-gray-700 dark:divide-gray-600">
-                                                            <ul className="py-2 text-sm text-left text-gray-700 dark:text-gray-400">
-                                                                <li className={"py-1"}>
-                                                                    <Link to={`/join/class`} className="block px-4 py-1.5 lg:py-2  font14-res-300 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600  dark:hover:text-white">Bergabung Kelas</Link>
-                                                                </li>
-                                                                <li className={"py-1"}>
-                                                                    <Link to={`/create/class`} className="block px-4 py-1.5 lg:py-2  font14-res-300 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600  dark:hover:text-white">Buat Kelas</Link>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                )}
-                                            </div>
+                                            {/*<div className="relative  hidden md:block ms-auto sm:ms-0 me-0 sm:me-0 my-auto">*/}
+                                            {/*    <button onClick={toggleDropdownCreate} id="menu-button" className={` ${isDropdownHiddenCreate ? 'bg-white px-1 ' : 'px-1 bg-gray-100 radius-100 '} my-2`} >*/}
+                                            {/*        <div className="h-8 w-8 mx-auto my-auto cursor-pointer block" style={{ height:"36px"}} >*/}
+                                            {/*            <img className="h-full w-full" style={{ height:"36px"}} src="/assets/add-icon.svg"/>*/}
+                                            {/*        </div>*/}
+                                            {/*    </button>*/}
+                                            {/*    {isDropdownHiddenCreate ? null : (*/}
+                                            {/*        <div*/}
+                                            {/*            id="dropdown_profile"*/}
+                                            {/*            className="z-10 fixed inset-0"*/}
+                                            {/*            onClick={handleDropdownCreate}*/}
+                                            {/*        >*/}
+                                            {/*            <div className="bg-white bg-opacity-0 w-full h-full z-40 absolute right-0 bottom-0"></div>*/}
+                                            {/*            <div className="absolute right-0 md:right-16 xl:right-28 z-50 top-12 font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-36 md:w-44 dark:bg-gray-700 dark:divide-gray-600">*/}
+                                            {/*                <ul className="py-2 text-sm text-left text-gray-700 dark:text-gray-400">*/}
+                                            {/*                    <li className={"py-1"}>*/}
+                                            {/*                        <Link to={`/join/class`} className="block px-4 py-1.5 lg:py-2  font14-res-300 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600  dark:hover:text-white">Bergabung Kelas</Link>*/}
+                                            {/*                    </li>*/}
+                                            {/*                    <li className={"py-1"}>*/}
+                                            {/*                        <Link to={`/create/class`} className="block px-4 py-1.5 lg:py-2  font14-res-300 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600  dark:hover:text-white">Buat Kelas</Link>*/}
+                                            {/*                    </li>*/}
+                                            {/*                </ul>*/}
+                                            {/*            </div>*/}
+                                            {/*        </div>*/}
+                                            {/*    )}*/}
+                                            {/*</div>*/}
                                             <div className="mt-0.5 relative flex gap-3">
                                                 <li className="my-auto relative mt-1 list-none">
                                                     <button

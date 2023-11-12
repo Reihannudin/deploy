@@ -15,8 +15,8 @@ const TopBar = () => {
 const BottomBar = ({storeFeed, isLoading}) => {
   return (
     <>
-      <div className="border-t mt-3 w-full px-4 py-3 left-0">
-        <button className="bg-indigo-500 text-white w-full rounded py-2" disabled={isLoading} onClick={e => storeFeed()}>
+      <div className="border-t fixed bottom-10  mt-3 w-full px-4 py-3 left-0">
+        <button className="bg-purple-600 hover:bg-purple-700 text-white w-full rounded py-2" disabled={isLoading} onClick={e => storeFeed()}>
           {isLoading ? "Memposting..." : "Posting"}
         </button>
       </div>
@@ -26,6 +26,16 @@ const BottomBar = ({storeFeed, isLoading}) => {
 
 export const FeedWriteComponent = ({storeFeed, setContent, isArchive, setIsArchive, isLoading}) => {
   const [imagePreview, setImagePreview] = useState("");
+  const [handleFullScreen  , setHandleFullScreen] = useState(false);
+
+  const toggleDropdownFullScreen = () => {
+      setHandleFullScreen((prevHidden) => !prevHidden)
+  }
+
+    const handleFullScreenItemClick = () => {
+        setHandleFullScreen(false);
+    };
+
 
   const handleToggle = () => {
     setIsArchive(!isArchive);
@@ -47,7 +57,24 @@ export const FeedWriteComponent = ({storeFeed, setContent, isArchive, setIsArchi
 
   return (
     <>
-      <TopBar />
+        {handleFullScreen && (
+            <div id="drop-action" className="flex items-center justify-center w-full fixed h-full z-50  min-h-screen">
+                {/* This div serves as a backdrop and should cover the entire screen */}
+                <div onClick={handleFullScreenItemClick} className="bg-gray-400 bg-opacity-40 w-full h-full z-40 absolute bottom-2"></div>
+
+                {/* Centered dropdown content */}
+                <div className="relative  w-10/12 my-auto mx-auto py-4 z-50 border-radius-8 top-0 bottom-0 left-0 right-0">
+                    <div className="my-auto">
+                            <div className="relative my-auto" >
+                                <img src={imagePreview} alt="" className=" my-auto" style={{ objectFit: "cover" }} />
+
+                            </div>
+                    </div>
+                </div>
+            </div>
+        )}
+
+        <TopBar />
 
       {/* <div className="flex sm:mx-4 mx-2 sm:gap-3 gap-1 absolute mt-4 right-4 bg-white shadow px-2 py-1 rounded-full" style={{zIndex:9}}>
         
@@ -55,25 +82,48 @@ export const FeedWriteComponent = ({storeFeed, setContent, isArchive, setIsArchi
           <img className="h-full my-auto" src="/assets/emoji-icon.svg" />
         </button>
       </div> */}
-      <textarea
-        className="w-full p-4 outline-none border-b -mb-2"
-        rows={8}
-        placeholder="Tulis postingan"
-        onKeyUp={e => setContent(e.target.value)}
-      ></textarea>
+        <div className="mt-10 text-left w-11/12 mx-auto">
+            <p className="font14-res-300 text-gray-600">Postingan</p>
+        </div>
+        <div>
+             <textarea
+                 className="w-full px-4 pt-4 pb-8 outline-none border-b -mb-2"
+                 rows={4}
+                 placeholder="Tulis postingan"
+                 onKeyUp={e => setContent(e.target.value)}
+             ></textarea>
+        </div>
       <div className="">
-        <img src={imagePreview} alt="" className="w-full" />
+          {imagePreview ?  (
+              <div className="relative" style={{ height:"200px"}}>
+              <img src={imagePreview} alt="" className="w-11/12 h-full my-4 mx-auto border-radius-20 " style={{ objectFit: "cover" }} />
+                      <button onClick={toggleDropdownFullScreen} className="mx-auto absolute z-50 top-0 bottom-0 left-0 right-0 my-auto" style={{ width:"28" , height:"28"}}>
+                              <img className="mx-auto my-auto" src={"/assets/icon-fullscreen-purple.svg"} style={{ width:"28px" , height:"28px"}}/>
+                      </button>
+                  </div>
+          ): (
+              <div>
+              </div>
+          )}
+
       </div>
       <div>
-        {imagePreview && (
+        {imagePreview ?  (
           <div
             className="border-t flex py-3 items-center text-left px-3 hover:bg-red-50 cursor-pointer"
             onClick={(e) => setImagePreview(null)}
           >
             <h6 className="text-xs text-red-600">Hapus Gambar</h6>
           </div>
+        ): (
+            <div>
+            </div>
         )}
-        <div className="border-y flex py-3 items-center text-left px-3 hover:bg-gray-50">
+          <div className="mt-4 text-left w-11/12 mx-auto">
+              <p className="font14-res-300 text-gray-600">Postingan</p>
+          </div>
+        <div className="border-b flex py-3 items-center text-left px-3 hover:bg-gray-50">
+
           <div className="mr-2">
             <img className="h-7" src="/assets/image-icon.svg" />
           </div>

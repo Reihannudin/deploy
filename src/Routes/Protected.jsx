@@ -116,7 +116,9 @@ export const Protected = () => {
 
 
         <Route path="/feed" element={<Feed user={user} isFetching={isFetching} isDataFetched={isDataFetched} />} />
-        {/*<Route path="/feed/write" element={<FeedWrite />} />*/}
+        <Route path="/feed/write" element={<FeedWrite user={user} isFetching={isFetching} isDataFetched={isDataFetched} />} />
+
+
         {/*<Route path="/feed/forum" element={<FeedForm />} />*/}
         {/*<Route path="/feed/liked" element={<FeedLiked />} />*/}
         {/*<Route path="/feed/notification" element={<FeedNotification />} />*/}
