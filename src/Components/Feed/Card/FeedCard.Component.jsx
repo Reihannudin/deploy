@@ -1,8 +1,9 @@
 import React, {useState} from "react";
 import CustomAlert from "../../Helper/CustomAlert.Component";
 import {OutAlertComponent} from "../../Helper/OutAlert.Component";
+import {Link} from "react-router-dom";
 
-export const FeedCardComponent = ({ }) => {
+export const FeedCardComponent = ({handleOpenFeed }) => {
 
 
   const [isDropdown , setIsDropdown ] = useState(true);
@@ -48,12 +49,14 @@ export const FeedCardComponent = ({ }) => {
               </p>
             </div>
           </div>
-          <div className="w-full my-2 text-left px-2">
-            <p className="font15-res-300 text-gray-700">
-              Weyyy anjirr, ini gue cuyy
-              {/*{feed.content.content}*/}
-            </p>
-          </div>
+          <button className={"w-full text-left"}  onClick={handleOpenFeed }>
+            <div className="w-full py-2 text-left px-2">
+              <p className="font15-res-300 text-left w-full text-gray-700">
+                Weyyy anjirr, ini gue cuyy
+                {/*{feed.content.content}*/}
+              </p>
+            </div>
+          </button>
           {/*=======================*/}
           <div className="flex  mx-2">
             <div className="w-full">
@@ -61,7 +64,7 @@ export const FeedCardComponent = ({ }) => {
                 <div className="flex gap-7 w-full">
                   <div className="flex mt-1 gap-1">
                       <button>
-                        <div className="" style={{ height:"24px"}}>
+                        <div className="" style={{ height:"28px"}}>
                           <img
                               className="h-full hover:bg-gray-50 cursor-pointer radius-full py-1 px-1"
                               src="/assets/comment-icon.svg"
@@ -78,7 +81,7 @@ export const FeedCardComponent = ({ }) => {
                   </div>
                   <div className="flex mt-1.5 gap-1">
                     <button>
-                      <div className="" style={{ height:"24px"}}>
+                      <div className="" style={{ height:"28px"}}>
                         <img
                           className="h-full hover:bg-gray-50 cursor-pointer radius-full py-1 px-1"
                           src="/assets/retweet-icon-gray.svg" />
@@ -94,7 +97,7 @@ export const FeedCardComponent = ({ }) => {
                   </div>
                   <div className="flex mt-1.5 gap-1">
                     <button>
-                      <div className="" style={{ height:"24px"}}>
+                      <div className="" style={{ height:"28px"}}>
                         <img
                             className="h-full hover:bg-gray-50 cursor-pointer radius-full py-1 px-1"
                             src="/assets/like-icon.svg" />

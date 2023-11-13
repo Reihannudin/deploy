@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import api from "../../Config/api";
 import {NavbarFeedComponent} from "../../Components/Body/Nav/NavbarFeed.Component";
 import {useNavigate} from "react-router-dom";
+import FeedDetail from "./FeedDetail";
 
 function Feed({user , isFetching , isDataFetched}) {
 
@@ -12,6 +13,8 @@ function Feed({user , isFetching , isDataFetched}) {
     const [error, setError] = useState(null);
     const [content, setContent] = useState(null);
     const [isArchive, setIsArchive] = useState(false);
+
+
 
     const storeFeed = async () => {
         setIsLoading(true);
@@ -55,6 +58,8 @@ function Feed({user , isFetching , isDataFetched}) {
                 setIsArchive={setIsArchive}
                 isLoading={isLoading}
             />
+
+
         </div>
     </div>
   );

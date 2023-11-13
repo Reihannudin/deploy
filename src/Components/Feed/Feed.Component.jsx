@@ -2,16 +2,38 @@ import { FeedBarComponent } from "./FeedBar.Component";
 import { FeedCardComponent } from "./Card/FeedCard.Component";
 import { MainNavComponent } from "../Body/MainNav/MainNav.Component";
 import {useState} from "react";
-import { Link } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {MainNavSchoolComponent} from "../Body/MainNav/MainNavSchool.Component";
 import {FeedMiniBarComponent} from "./FeedMiniBar.Component";
 import {FeedSpacesComponent} from "./FeedSpaces.Component";
+import FeedDetail from "../../Pages/Feed/FeedDetail";
 
 export const FeedComponent = ({storeFeed, setContent, isArchive, setIsArchive, isLoading}) => {
 
+  const navigate = useNavigate();
   const [openPopUpCreate  , setOpenPopUpCreate] = useState(false);
   const [imagePreview, setImagePreview] = useState("");
   const [handleFullScreen  , setHandleFullScreen] = useState(false);
+
+
+  const id = 3;
+  const [openFeed, setOpenFeed] = useState(true);
+
+  const handleOpenFeed = () => {
+    setOpenFeed(true);
+
+    navigate(`/feed/d/${id}`);
+  };
+
+  const handleCloseFeed = () => {
+    setOpenFeed(false);
+    navigate(`/feed`);
+  };
+
+  console.log("open feed in main : " , openFeed);
+
+
+
 
   const handlePopUpCreate  = () => {
     setOpenPopUpCreate((prevHidden) => !prevHidden);
@@ -170,7 +192,9 @@ export const FeedComponent = ({storeFeed, setContent, isArchive, setIsArchive, i
             </div>
           </div>
       )}
-
+      {openFeed === false ? null : (
+          <FeedDetail  handleCloseFeed={handleCloseFeed} openFeed={openFeed}/>
+      )}
       {/*<Link to={'/feed/write'}>*/}
       {/*  <div className="py-3  px-4 hover:bg-gray-100 font14-res-300">*/}
       {/*    <div className="mx-auto" style={{height:"24px"}}>*/}
@@ -241,29 +265,8 @@ export const FeedComponent = ({storeFeed, setContent, isArchive, setIsArchive, i
                   <ul className="gap-2">
                     {/*{feeds.map((feed) => (*/}
                       <li className="my-0">
-                        <FeedCardComponent  />
+                        <FeedCardComponent handleOpenFeed={handleOpenFeed}   />
                       </li>
-                    <li className="my-0">
-                      <FeedCardComponent  />
-                    </li>
-                    <li className="my-0">
-                      <FeedCardComponent  />
-                    </li>
-                    <li className="my-0">
-                      <FeedCardComponent  />
-                    </li>
-                    <li className="my-0">
-                      <FeedCardComponent  />
-                    </li>
-                    <li className="my-0">
-                      <FeedCardComponent  />
-                    </li>
-                    <li className="my-0">
-                      <FeedCardComponent  />
-                    </li>
-                    <li className="my-0">
-                      <FeedCardComponent  />
-                    </li>
 
                     {/*))}*/}
                   </ul>

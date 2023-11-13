@@ -3,6 +3,19 @@
   text-align: center;
 }
 
+.h-comment-feed{
+  height:480px;
+}
+
+.h-content-feed{
+  height: 330px;
+}
+
+.wh-d-feed{
+  width: 50px ;
+  height: 50px;
+}
+
 /* Add spinning animation to the .spinner div */
 .spinner {
   display: inline-block;
@@ -75,11 +88,38 @@
 }
 
 
+.h-500{
+  height: 500px;
+}
+
+.h-comment-feed{
+  height:480px;
+}
+.h-comment-v-feed{
+  height: 370px;
+}
+
 
 @media (max-width: 767px){
   .w-res-card-news{
     width: 18rem;
   }
+
+
+  .h-500{
+    height: 640px;
+  }
+
+  .h-comment-feed{
+    height: 280px;
+  }
+  .h-comment-v-feed{
+    height: 190px;
+  }
+  .h-content-feed{
+    height: 260px;
+  }
+
   .h-icon-main-nav{
     height: 24px;
   }
@@ -360,13 +400,15 @@
 }
 
 .h-icon{
-  height: 28px;
-  width: 28px;
-}
-
-.h-icon-menu{
   height: 24px;
   width: 24px;
+}
+
+
+
+.h-icon-menu{
+  height: 22px;
+  width: 22px;
 }
 
 .font16-res-400{
