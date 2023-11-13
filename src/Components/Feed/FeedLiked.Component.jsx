@@ -68,11 +68,12 @@ export const FeedLikedComponent = () => {
 
                         </div>
 
-                        <div className="lg:w-7/12 md:w-8/12 sm:w-11/12 w-10/12 md:mx-auto">
+                        <div className="
+                        lg:w-7/12 md:w-8/12 sm:w-11/12 w-11/12 ms-auto me-0 md:me-auto">
                             <div className="w-full">
                                 <div className="w-full">
                                     <div className="relative w-full">
-                                        <div className=" pt-5 top-16 w-11/12 mx-auto bg-white">
+                                        <div className=" pt-5 top-16 w-11/12 ms-auto me-0 sm:me-auto bg-white">
                                             <div className="lg:w-full w-full mx-auto text-left flex ">
                                                     <h1 className="font18-res-300  w-full mx-auto" style={{ fontWeight: "500"}}>Notifikasi</h1>
                                             </div>

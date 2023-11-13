@@ -13,7 +13,7 @@ export const FeedFormCardComponent = () => {
                                     src={"/assets/profile.jpg"}
                                 />
                             </div>
-                            <div className="flex w-11/12 mx-auto justify-between">
+                            <div className="flex w-10/12 sm:w-10/2 md:w-11/12 mx-auto justify-between">
                                 <div className="text-left">
                                     <div>
                                         <h2 className="font15-res-300 text-gray-800" style={{ fontWeight:"550"}}>Judul Pertanyaan</h2>
