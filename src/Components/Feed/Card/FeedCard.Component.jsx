@@ -111,7 +111,6 @@ export const FeedCardComponent = ({handleOpenFeed }) => {
                       {/*{feed.likes.length}*/}
                     </p>
                   </div>
-
                 </div>
                 <button onClick={handleDropdown} className="hover:bg-gray-100 bg-white cursor-pointer radius-full py-1 px-1.5 ">
                   <div className="my-auto " style={{ height:"24px"}}>

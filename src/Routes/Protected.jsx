@@ -55,6 +55,7 @@ import FeedForm from "../Pages/Feed/FeedForm";
 import FeedDetail from "../Pages/Feed/FeedDetail";
 import SpacesDetail from "../Pages/Feed/SpacesDetail";
 import FeedSearch from "../Pages/Feed/FeedSearch";
+import FeedLiked from "../Pages/Feed/FeedLiked";
 
 export const Protected = () => {
 
@@ -121,8 +122,10 @@ export const Protected = () => {
 
         <Route path="/feed" element={<Feed user={user} isFetching={isFetching} isDataFetched={isDataFetched} />} />
         <Route path="/feed/d/:id" element={<Feed user={user} isFetching={isFetching} isDataFetched={isDataFetched}><FeedDetail user={user} isFetching={isFetching} isDataFetched={isDataFetched} /></Feed>} />
+        <Route path="/feed/search" element={<FeedSearch user={user} isFetching={isFetching} isDataFetched={isDataFetched}/>} />
+        <Route path="/feed/liked" element={<FeedLiked  user={user} isFetching={isFetching} isDataFetched={isDataFetched}/>} />
+
         <Route path="/space/{id}/d/{slug}" element={<SpacesDetail user={user} isFetching={isFetching} isDataFetched={isDataFetched} />} />
-        <Route path="/feed/search" element={<FeedSearch />} />
 
 
         {/*<Route path="/feed/write" element={<FeedWrite user={user} isFetching={isFetching} isDataFetched={isDataFetched} />} />*/}
