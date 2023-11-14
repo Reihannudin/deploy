@@ -14,8 +14,8 @@ export const FeedCardComponent = ({handleOpenFeed }) => {
 
   return (
     <>
-      <div className="bg-white pt-3  pb-1 px-0  border-radius-4  border-b border-gray-100">
-        <div>
+      <div className="bg-white pt-3 hover:bg-gray-50 pb-1 px-0  border-radius-4  border-b border-gray-100">
+        <div className="font-inter">
           <div className="flex mx-2 ">
             <div className="radius-100 h-profile-feed">
               <img
@@ -25,8 +25,8 @@ export const FeedCardComponent = ({handleOpenFeed }) => {
             </div>
             <div className="block w-10/12  my-auto text-left mx-2">
               <div className="gap-1 w-full justify-between flex">
-                <div>
-                  <p className="font15-res-300" style={{ fontWeight: "550" }}>
+                <div className="">
+                  <p className="font15-res-300 my-0 py-0 font-semibold text-gray-700" >
                     {/*{feed.user.name}*/}
                     reihannudin
                   </p>
@@ -42,8 +42,10 @@ export const FeedCardComponent = ({handleOpenFeed }) => {
                 {/*    <img className="my-auto h-full" src="/assets/icon-dot.svg"/>*/}
                 {/*</div>*/}
               </div>
-              <p className="font14-res-300" style={{ color: "#797979" }}>
+              <p className="font14-res-300 my-0 py-0  text-gray-600">
+
                 {/*{feed.time}*/}
+                @
                 reireirei
 
               </p>
@@ -61,7 +63,7 @@ export const FeedCardComponent = ({handleOpenFeed }) => {
           <div className="flex  mx-2">
             <div className="w-full">
               <div className=" w-full mt-0 justify-between mb-0 pt-1 flex gap-6 text-left">
-                <div className="flex gap-7 w-full">
+                <div className="flex gap-7 f w-full">
                   <div className="flex mt-1 gap-1">
                       <button>
                         <div className="" style={{ height:"28px"}}>
@@ -72,7 +74,7 @@ export const FeedCardComponent = ({handleOpenFeed }) => {
                         </div>
                       </button>
                     <p
-                      className="my-auto font16-res-300"
+                      className="my-auto font15-res-300"
                       style={{ color: "#737373" }}
                     >
                       6
@@ -88,7 +90,7 @@ export const FeedCardComponent = ({handleOpenFeed }) => {
                       </div>
                     </button>
                     <p
-                      className="my-auto font16-res-300"
+                      className="my-auto font15-res-300"
                       style={{ color: "#737373" }}
                     >
                       4
@@ -104,7 +106,7 @@ export const FeedCardComponent = ({handleOpenFeed }) => {
                       </div>
                     </button>
                     <p
-                        className="my-auto font16-res-300"
+                        className="my-auto font15-res-300"
                         style={{ color: "#737373" }}
                     >
                       34

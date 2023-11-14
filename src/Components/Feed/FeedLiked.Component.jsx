@@ -6,6 +6,8 @@ import {FeedFormCardComponent} from "./Card/FeedFormCard.Component";
 import {MainNavSchoolComponent} from "../Body/MainNav/MainNavSchool.Component";
 import {FeedMiniBarComponent} from "./FeedMiniBar.Component";
 import {FeedSpacesComponent} from "./FeedSpaces.Component";
+import {FeedLikedNotificationComponent} from "./Card/FeedLikedNotification.Component";
+import {FeedRepliedNotificationComponent} from "./Card/FeedRepliedNotification.Component";
 
 export const FeedLikedComponent = () => {
 
@@ -60,7 +62,8 @@ export const FeedLikedComponent = () => {
                 </div>
                 <div className="xl:w-11/12  relativelg:w-full md:w-full w-full mx-auto">
                     <div className="flex justify-between my-4 md:my-6 w-full">
-                        <div className="sm:w-1/12 w-1/12 relative">
+                            <div className="sm:w-1/12 w-2/12 relative">
+
                             <div className="    fixed w-3-3   lg:mx-3 xl:mx-4   top-auto   ">
                                 {/*<FeedBarComponent />*/}
                                 <FeedMiniBarComponent />
@@ -69,20 +72,24 @@ export const FeedLikedComponent = () => {
                         </div>
 
                         <div className="
-                        lg:w-7/12 md:w-8/12 sm:w-11/12 w-11/12 ms-auto me-0 md:me-auto">
+                        lg:w-7/12 md:w-8/12  sm:w-10/12 w-10/12 ms-auto me-auto">
                             <div className="w-full">
                                 <div className="w-full">
-                                    <div className="relative w-full">
-                                        <div className=" pt-5 top-16 w-11/12 ms-auto me-0 sm:me-auto bg-white">
-                                            <div className="lg:w-full w-full mx-auto text-left flex ">
-                                                    <h1 className="font18-res-300  w-full mx-auto" style={{ fontWeight: "500"}}>Notifikasi</h1>
+                                    <div className="fixed w-full">
+                                        {/*make this fixed and width follow the parent not w-full as screen*/}
+                                        <div className="
+                                          top-0 xl:w-6/12 lg:w-7/12 md:w-8/12 w-full  bg-white">
+                                            <div className="
+                                            xl:w-full lg:w-11/12 md:w-9/12 w-11/12   ms-0 me-auto text-left flex
+                                            ">
+                                                <h1 className="font18-res-300  w-full mx-auto" style={{ fontWeight: "500"}}>Disukai</h1>
                                             </div>
-                                            <ul id="tabs" className="flex mt-1 w-full font16-res-300 justify-between     mx-auto px-1 pb-1 text-purple-500">
-                                                <li className="px-4 w-full border-b text-gray-500 hover:text-purple-600 mx-0 font-normal py-2">
-                                                    <a id="default-tab" className="w-full font15-res-300" href="#semua" onClick={(e) => handleTabCLick(e, 'semua')}>Semua</a>
+                                            <ul id="tabs" className="flex mt-1 xl:w-full lg:w-11/12  md:w-9/12 sm:w-10/12 w-10/12  ms-0 me-auto mx-auto font16-res-300 justify-between     o px-1 pb-1 text-purple-500">
+                                                <li className="px-4 sm:w-full w-11/12 border-b text-gray-500 hover:text-purple-600 mx-0 font-normal py-2">
+                                                    <a id="default-tab" className="w-full font15-res-300" href="#liked" onClick={(e) => handleTabCLick(e, 'liked')}>Disukai</a>
                                                 </li>
-                                                <li className="px-4 w-full text-gray-500 hover:text-purple-600 font-normal py-2">
-                                                    <a href="#sebutan" className="w-full font15-res-300" onClick={(e) => handleTabCLick(e, 'sebutan')}>Sebutan</a>
+                                                <li className="px-4 sm:w-full w-11/12 text-gray-500 hover:text-purple-600 font-normal py-2">
+                                                    <a href="#bookmark" className="w-full font15-res-300" onClick={(e) => handleTabCLick(e, 'bookmark')}>Bookmark</a>
                                                 </li>
                                                 <li className="px-4 text-gray-800 hidden font-semibold py-2">
                                                     <a href="#fourth">Tab 4</a>
@@ -90,14 +97,15 @@ export const FeedLikedComponent = () => {
                                             </ul>
                                         </div>
                                     </div>
+
                                     <div className="mt-auto" >
                                         <div id="tab-contents" className="w-full h-full">
-                                            <div id="semua" className="pb-2 px-4">
-                                                <div className="w-full pb-5">
-                                                    <div className="mt-0 ">
+                                            <div id="liked" className="pb-2 px-0 ">
+                                                <div className="w-full md:w-full ms-0 pb-5">
+                                                    <div className="mt-0  ">
                                                         <div className="w-full my-4 mx-auto">
-                                                            <ul className="gap-2">
-                                                                <li className="mb-0">
+                                                            <ul className="gap-2 pt-20 w-full overflow-y-auto scrollbar-hide ">
+                                                               <li className="mb-0">
                                                                     <FeedCardComponent />
                                                                 </li>
                                                                 <li className="mb-0">
@@ -106,17 +114,16 @@ export const FeedLikedComponent = () => {
                                                                 <li className="mb-0">
                                                                     <FeedCardComponent />
                                                                 </li>
-
                                                             </ul>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div id="sebutan" className="hidden pb-2 px-4">
-                                                <div className="w-full pb-5">
+                                            <div id="bookmark" className="hidden pb-2 px-0">
+                                                <div className="w-full md:w-full ms-0 pb-5">
                                                     <div className="mt-0 ">
                                                         <div className="w-full my-4 mx-auto">
-                                                            <ul className="gap-2">
+                                                            <ul className="gap-2  pt-20">
                                                                 <li className="mb-0">
                                                                     <FeedFormCardComponent />
                                                                 </li>
@@ -182,3 +189,4 @@ export const FeedLikedComponent = () => {
 
     )
 }
+

@@ -3,8 +3,18 @@
   text-align: center;
 }
 
+.font-poppins{
+  font-family: 'Poppins', sans-serif;
+
+}
+
 .h-comment-feed{
   height:480px;
+}
+
+
+.font-inter{
+  font-family: 'Inter', sans-serif;
 }
 
 .h-content-feed{
@@ -15,6 +25,8 @@
   width: 50px ;
   height: 50px;
 }
+
+
 
 /* Add spinning animation to the .spinner div */
 .spinner {
@@ -100,42 +112,12 @@
 }
 
 
-@media (max-width: 767px){
-  .w-res-card-news{
-    width: 18rem;
-  }
-
-
-  .h-500{
-    height: 640px;
-  }
-
-  .h-comment-feed{
-    height: 280px;
-  }
-  .h-comment-v-feed{
-    height: 190px;
-  }
-  .h-content-feed{
-    height: 260px;
-  }
-
-  .h-icon-main-nav{
-    height: 24px;
-  }
-
-  .wh-icon-pp{
-    width: 36px;
-    height: 36px;
-  }
-}
-
-
 @media (max-width: 680px){
   .w-res-card-news{
     width: 17rem;
   }
 }
+
 
 
 
@@ -275,6 +257,12 @@
 
 }
 
+
+.w-input-feed{
+  width: 38rem;
+}
+
+
 @media (max-width: 1324px) {
   .img-h{
     height: 120px;
@@ -387,8 +375,8 @@
 
 
 .h-profile-feed{
-  height: 40px;
-  width: 40px;
+  height: 44px;
+  width: 44px;
 }
 
 .h-profile-banner-new{
@@ -1120,6 +1108,8 @@ body{
     width: 92%; /* When width is less than 360px, make it 92% */
   }
 
+
+
 }
 
 .h-icon-copy{
@@ -1255,6 +1245,12 @@ body{
     right:50%;
   }
 
+
+  .w-input-feed{
+    width: 28rem;
+  }
+
+
   .left-right-pop-up-card{
     left: 20%;
   }
@@ -1262,6 +1258,12 @@ body{
 }
 
 @media screen and (max-width: 900px) {
+
+  .w-input-feed{
+    width: 24rem;
+  }
+
+
   .left-right-pop-up{
     left:25% ;
     right:50%;
@@ -1321,6 +1323,42 @@ body{
 }
 
 
+@media (max-width: 767px){
+  .w-res-card-news{
+    width: 18rem;
+  }
+
+  .w-input-feed{
+    width: 33rem;
+  }
+
+
+  .h-500{
+    height: 640px;
+  }
+
+  .h-comment-feed{
+    height: 280px;
+  }
+  .h-comment-v-feed{
+    height: 190px;
+  }
+  .h-content-feed{
+    height: 260px;
+  }
+
+  .h-icon-main-nav{
+    height: 24px;
+  }
+
+  .wh-icon-pp{
+    width: 36px;
+    height: 36px;
+  }
+}
+
+
+
 
 
 
@@ -1329,6 +1367,10 @@ body{
     left: 0%;
     right: 300%;
   }
+  .w-input-feed{
+    width: 20rem;
+  }
+
 
   .h-icon-menu{
     height: 19px;

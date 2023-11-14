@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 export const FeedMiniBarComponent = () => {
     return(
         <>
-            <nav className="w-full block">
+            <nav className="w-full block ">
                 <header className="  pt-2 px-1  w-full border-radius-4">
                     <div className="w-full">
                         <div className="radius-100 bg-white p-1 mx-auto " style={{ height:"40px" , width:"40px"}}>

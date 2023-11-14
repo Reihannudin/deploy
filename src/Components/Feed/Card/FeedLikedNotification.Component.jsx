@@ -1,26 +1,36 @@
+import React from "react";
 
 export const FeedLikedNotificationComponent = () => {
     return(
         <>
-            <div className="bg-white pt-2 pb-1.5 border-radius-8 border-t border-b cursor-pointer border-gray-100">
+            <div className="bg-white pt-3 pb-1.5 border-radius-8  border-b cursor-pointer border-gray-100">
                 <div className="w-full flex justify-between">
                     <div className="block">
                         <div className="flex">
                             <div className="radius-100 h-profile-feed" >
                                 <img className="w-full h-full object-cover radius-100" src="https://phinf.wevpstatic.net/MjAyMjA2MTZfMTgg/MDAxNjU1MzU5MzI5MDI1.CPT4KScalDFCEzSOJ-NowH7WMo950Ye3LBNixzyj2rUg.HYBeomV6AVjjVUDn_GEPHrKJSS8X7Z-N-Nr9ZBjgurkg.JPEG/6cf09915b6524b9d810a5b2835db7115534.jpg?type=s88"/>
                             </div>
-                            <div className="block mx-2 mt-0">
-                                <div className="gap-2 flex">
-                                    <p className="font16-res-300" style={{ fontWeight:"550"}}>Nama</p>
-                                    <p className="font16-res-300" style={{color:"#797979"}}>@username</p>
+                            <div className="block mx-2 mt-1">
+                                <div className="gap-2 font-inter flex">
+                                    <p className="font15-res-300 my-0 py-0 font-semibold text-gray-700" >
+                                        {/*{feed.user.name}*/}
+                                        VBTS
+                                    </p>
+                                    <p className="font15-res-300 my-0 py-0  text-gray-600">
+
+                                        {/*{feed.time}*/}
+                                        @thv
+
+                                    </p>
                                 </div>
-                                <div className="gap-2 flex">
-                                    <p className="font14-res-300" style={{color:"#797979"}}>33 menit lalu</p>
+                                <div className="gap-2 font-inter flex">
+                                    <p className="font13-res-300" style={{color:"#797979"}}>33 menit lalu</p>
                                 </div>
                             </div>
                         </div>
                         <div className="block text-left">
-                            <div className="my-2">
+                            <div className="my-2 py-2">
+
                                 <p className="font14-res-300 text-gray-600" style={{ fontWeight:"500"}}>
                                     Liked you post on this post
                                 </p>

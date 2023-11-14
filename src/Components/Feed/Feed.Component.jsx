@@ -17,7 +17,7 @@ export const FeedComponent = ({storeFeed, setContent, isArchive, setIsArchive, i
 
 
   const id = 3;
-  const [openFeed, setOpenFeed] = useState(true);
+  const [openFeed, setOpenFeed] = useState(false);
 
   const handleOpenFeed = () => {
     setOpenFeed(true);
