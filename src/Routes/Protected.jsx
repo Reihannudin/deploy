@@ -58,6 +58,7 @@ import FeedSearch from "../Pages/Feed/FeedSearch";
 import FeedLiked from "../Pages/Feed/FeedLiked";
 import ResultSearch from "../Pages/Feed/ResultSearch";
 import FeedNotification from "../Pages/Feed/FeedNotification";
+import SpaceProfile from "../Pages/Feed/SpaceProfile";
 
 export const Protected = () => {
 
@@ -128,8 +129,8 @@ export const Protected = () => {
         <Route path="/feed/search/:query" element={<ResultSearch user={user} isFetching={isFetching} isDataFetched={isDataFetched}/>} />
         <Route path="/feed/liked" element={<FeedLiked  user={user} isFetching={isFetching} isDataFetched={isDataFetched}/>} />
         <Route path="/feed/notification" element={<FeedNotification  user={user} isFetching={isFetching} isDataFetched={isDataFetched}/>}/>
-
         <Route path="/space/s/:query" element={<SpacesDetail user={user} isFetching={isFetching} isDataFetched={isDataFetched} />} />
+        <Route path="/space/p/:id" element={<SpaceProfile user={user} isFetching={isFetching} isDataFetched={isDataFetched} />} />
 
         {/*<Route path="/feed/forum" element={<FeedForm />} />*/}
 

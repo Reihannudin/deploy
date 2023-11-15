@@ -8,6 +8,10 @@
 
 }
 
+.h-icon-space-bar{
+  height: 20px;
+}
+
 .h-comment-feed{
   height:480px;
 }
@@ -322,6 +326,12 @@
   .font-new-article{
     font-size: 15px;
   }
+
+
+  .h-icon-space-bar{
+    height: 28px;
+  }
+
 
 }
 

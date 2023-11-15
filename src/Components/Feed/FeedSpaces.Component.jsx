@@ -2,6 +2,7 @@ import {Link} from "react-router-dom";
 
 export const FeedSpacesComponent = () => {
 
+
     return(
       <>
           <div className="xl:w-full lg:w-11/12  md:block hidden  lg:mx-0  md:w-9/12">
