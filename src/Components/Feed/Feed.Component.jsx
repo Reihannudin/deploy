@@ -1,18 +1,16 @@
 import { FeedBarComponent } from "./FeedBar.Component";
 import { FeedCardComponent } from "./Card/FeedCard.Component";
 import { MainNavComponent } from "../Body/MainNav/MainNav.Component";
-import {useState} from "react";
+import React, {useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import {MainNavSchoolComponent} from "../Body/MainNav/MainNavSchool.Component";
 import {FeedMiniBarComponent} from "./FeedMiniBar.Component";
 import {FeedSpacesComponent} from "./FeedSpaces.Component";
 import FeedDetail from "../../Pages/Feed/FeedDetail";
 
-export const FeedComponent = ({storeFeed, setContent, isArchive, setIsArchive, isLoading}) => {
+export const FeedComponent = ({storeFeed , openPopUpCreate , setOpenPopUpCreate , errorFeed ,popUpNotif , setPopUpNotif , errorNotif , error , setImage , setContent  ,  image,  isArchive, setIsArchive, isLoading}) => {
 
   const navigate = useNavigate();
-  const [openPopUpCreate  , setOpenPopUpCreate] = useState(false);
-  const [imagePreview, setImagePreview] = useState("");
   const [handleFullScreen  , setHandleFullScreen] = useState(false);
 
 
@@ -37,7 +35,7 @@ export const FeedComponent = ({storeFeed, setContent, isArchive, setIsArchive, i
 
   const handlePopUpCreate  = () => {
     setOpenPopUpCreate((prevHidden) => !prevHidden);
-    setImagePreview('');
+    setImage('');
   }
 
   const toggleDropdownFullScreen = () => {
@@ -59,7 +57,7 @@ export const FeedComponent = ({storeFeed, setContent, isArchive, setIsArchive, i
       const reader = new FileReader();
 
       reader.onload = (e) => {
-        setImagePreview(e.target.result);
+        setImage(e.target.result);
       };
 
       reader.readAsDataURL(file);
@@ -124,6 +122,14 @@ export const FeedComponent = ({storeFeed, setContent, isArchive, setIsArchive, i
                  onKeyUp={e => setContent(e.target.value)}
              ></textarea>
                       </div>
+                      {errorFeed === '' ? (
+                          <div className="my-2">
+                          </div>
+                      ): (
+                          <div className="my-2 text-left">
+                            <span className={"text-red-600 font14-res-300 "}>{errorFeed}</span>
+                          </div>
+                      )}
                     </div>
 
                     <div className={"w-full block md:flex"}>
@@ -134,17 +140,17 @@ export const FeedComponent = ({storeFeed, setContent, isArchive, setIsArchive, i
                         </div>
                         <div className="border-b block ">
 
-                          {imagePreview ?  (
+                          {image ?  (
                               <div className="block">
                                 <div className="relative overflow-y-auto" style={{ height:"200px"}}>
-                                  <img src={imagePreview} alt="" className="w-full h-full my-4 mx-auto border-radius-20 " style={{ objectFit: "cover" }} />
+                                  <img src={image} alt="" className="w-full h-full my-4 mx-auto border-radius-20 " style={{ objectFit: "cover" }} />
                                   <button onClick={toggleDropdownFullScreen} className="mx-auto absolute z-50 top-0 bottom-0 left-0 right-0 my-auto" style={{ width:"28" , height:"28"}}>
                                     <img className="mx-auto my-auto" src={"/assets/icon-fullscreen-purple.svg"} style={{ width:"28px" , height:"28px"}}/>
                                   </button>
                                 </div>
                                 <div
                                     className="border-t flex py-3 items-center text-left px-3 hover:bg-red-50 cursor-pointer"
-                                    onClick={(e) => setImagePreview(null)}
+                                    onClick={(e) => setImage(null)}
                                 >
                                   <h6 className="text-xs text-red-600">Hapus Gambar</h6>
                                 </div>
@@ -179,12 +185,14 @@ export const FeedComponent = ({storeFeed, setContent, isArchive, setIsArchive, i
 
                     </div>
 
-                    <div className="border-t font15-res-300  mt-3 w-full px-0 py-3 left-0">
-                      <button className="bg-purple-600 hover:bg-purple-700 text-white w-full rounded py-2" disabled={isLoading} onClick={e => storeFeed()}>
-                        {isLoading ? "Memposting..." : "Posting"}
-                      </button>
-                    </div>
+                    <form onClick={storeFeed}>
+                      <div className="border-t font15-res-300  mt-3 w-full px-0 py-3 left-0">
+                        <button className="bg-purple-600 hover:bg-purple-700 text-white w-full rounded py-2">
+                          Posting
+                        </button>
+                      </div>
 
+                    </form>
                   </div>
 
 
@@ -236,8 +244,7 @@ export const FeedComponent = ({storeFeed, setContent, isArchive, setIsArchive, i
                     <button onClick={handlePopUpCreate}>
                       <div className="flex w-full text-left">
                         <input
-                            readOnly={true}
-                            className="my-auto w-full sm:mx-4 mx-2 font14-res-300 text-gray-500"
+                            readOnly={true} className="my-auto w-full sm:mx-4 mx-2 font14-res-300 text-gray-500"
                             placeholder="Apa yang kamu pikirkan?"
                         />
                       </div>
