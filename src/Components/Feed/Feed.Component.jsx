@@ -1,12 +1,13 @@
 import { FeedBarComponent } from "./FeedBar.Component";
 import { FeedCardComponent } from "./Card/FeedCard.Component";
 import { MainNavComponent } from "../Body/MainNav/MainNav.Component";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import {MainNavSchoolComponent} from "../Body/MainNav/MainNavSchool.Component";
 import {FeedMiniBarComponent} from "./FeedMiniBar.Component";
 import {FeedSpacesComponent} from "./FeedSpaces.Component";
 import FeedDetail from "../../Pages/Feed/FeedDetail";
+import api from "../../Config/api";
 
 export const FeedComponent = ({storeFeed , openPopUpCreate , setOpenPopUpCreate , errorFeed ,popUpNotif , setPopUpNotif , errorNotif , error , setImage , setContent  ,  image,  isArchive, setIsArchive, isLoading}) => {
 
@@ -14,10 +15,9 @@ export const FeedComponent = ({storeFeed , openPopUpCreate , setOpenPopUpCreate 
   const [handleFullScreen  , setHandleFullScreen] = useState(false);
 
 
-  const id = 3;
   const [openFeed, setOpenFeed] = useState(false);
 
-  const handleOpenFeed = () => {
+  const handleOpenFeed = (id) => {
     setOpenFeed(true);
 
     navigate(`/feed/d/${id}`);
@@ -28,7 +28,7 @@ export const FeedComponent = ({storeFeed , openPopUpCreate , setOpenPopUpCreate 
     navigate(`/feed`);
   };
 
-  console.log("open feed in main : " , openFeed);
+  // console.log("open feed in main : " , openFeed);
 
 
 
@@ -64,6 +64,61 @@ export const FeedComponent = ({storeFeed , openPopUpCreate , setOpenPopUpCreate 
     }
   };
 
+
+
+  const [feeds, setFeeds] = useState([]);
+  const [isFetchingFeeds, setIsFetchingFeeds] = useState(true);
+  const [isDataFetchedFeeds, setIsDataFetchedFeeds] = useState(false);
+  const [errorFeeds, setErrorFeeds] = useState(null);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    let token = localStorage.getItem('token');
+
+    const fetchData = async () => {
+      try {
+        if (!isDataFetchedFeeds) {
+          const response = await api.get(`/feed` , {
+            "Authorization" : "Bearer " + token,
+          });
+          const data = response.data;
+
+          if (isMounted) {
+            setFeeds(data);
+            setIsDataFetchedFeeds(true);
+            setIsFetchingFeeds(false);
+          }
+        }
+
+
+      } catch (error) {
+        if (isMounted) {
+          setErrorFeeds(error);
+          setIsFetchingFeeds(false);
+        }
+      }
+    };
+
+    const timeout = setTimeout(() => {
+      if (isFetchingFeeds) {
+        if (isMounted) {
+          setErrorFeeds(new Error("Timeout: Could not fetch data."));
+          setIsFetchingFeeds(false);
+        }
+      }
+    }, 20000);
+
+    fetchData();
+
+    return () => {
+      isMounted = false;
+      clearTimeout(timeout);
+    };
+  }, [isDataFetchedFeeds]);
+
+  // console.log("feeds : " , feeds)
+  // console.log("feeds data : " , feeds.data)
 
 
   return (
@@ -201,7 +256,7 @@ export const FeedComponent = ({storeFeed , openPopUpCreate , setOpenPopUpCreate 
           </div>
       )}
       {openFeed === false ? null : (
-          <FeedDetail  handleCloseFeed={handleCloseFeed} openFeed={openFeed}/>
+          <FeedDetail handleCloseFeed={handleCloseFeed} openFeed={openFeed}/>
       )}
       {/*<Link to={'/feed/write'}>*/}
       {/*  <div className="py-3  px-4 hover:bg-gray-100 font14-res-300">*/}
@@ -269,14 +324,36 @@ export const FeedComponent = ({storeFeed , openPopUpCreate , setOpenPopUpCreate 
                 {/*=========================*/}
 
                 <div className="w-full my-4 mx-auto">
-                  <ul className="gap-2">
-                    {/*{feeds.map((feed) => (*/}
-                      <li className="my-0">
-                        <FeedCardComponent handleOpenFeed={handleOpenFeed}   />
-                      </li>
+                  {isFetchingFeeds && !isDataFetchedFeeds && (
+                      <div className="flex items-center justify-center  h-96 md:mt-6 mt-20">
+                        <div
+                            className="animate-spin rounded-full border-r-gray-50 border-l-gray-50  border-b-gray-50  w-8 h-8 md:h-16 md:w-16 border-t-4 border-purple-700"></div>
+                      </div>
 
-                    {/*))}*/}
-                  </ul>
+                  )}
+                  {!isFetchingFeeds && isDataFetchedFeeds && (
+                      <>
+                      <ul className="gap-2">
+
+                        {feeds.data.feeds.map((item , index) => {
+                          return (
+                              <>
+                                {item.length === 0 ? (
+                                    <div>
+                                      tidak ada feed
+                                    </div>
+                                ) : (
+                                      <li className="my-0">
+                                        <FeedCardComponent id={item.id} user={item.user} index={index} content={item.content} likes={item.likes} comments={item.comments} repost={item.repost} status={item.status} time={item.time} repostChain={item.repost_chain}  handleOpenFeed={handleOpenFeed}/>
+                                      </li>
+                                )}
+                              </>
+                          )
+                        })}
+                      </ul>
+
+                      </>
+                      )}
                 </div>
               </div>
             </div>

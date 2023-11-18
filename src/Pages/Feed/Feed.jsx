@@ -18,7 +18,7 @@ function Feed({user , isFetching , isDataFetched}) {
     const [isArchive, setIsArchive] = useState(false);
     const [openPopUpCreate  , setOpenPopUpCreate] = useState(false);
 
-    const [popUpNotif, setPopUpNotif] = useState(true);
+    const [popUpNotif, setPopUpNotif] = useState(false);
     const [messageNotif, setMessageNotif] = useState('');
     const [errorNotif, setErrorNotif] = useState(null);
     const [errorFeed, setErrorFeed] = useState('');
@@ -32,7 +32,6 @@ function Feed({user , isFetching , isDataFetched}) {
     }
 
     const uniqueId = generateUniqueId();
-    console.log(uniqueId);
 
     const storeFeed = async (event) => {
 
@@ -57,17 +56,14 @@ function Feed({user , isFetching , isDataFetched}) {
             .then((response) => {
                 setIsLoading(false); // Stop loading indicator
                 if (response.data.status === 1) {
-                    console.log(response)
                     let redirectUrl = response.data.rediret_path;
                     setPopUpNotif(true)
-                    console.log(response.data.message)
                     setMessageNotif(response.data.message)
                     setOpenPopUpCreate(false)
                     navigate(redirectUrl);
                 }
             })
             .catch((error) => {
-                console.log(error)
                 setIsLoading(false); // Stop loading indicator
                 const {errors} = error.response.data;
                 if (error.response.status === 422){
@@ -78,26 +74,6 @@ function Feed({user , isFetching , isDataFetched}) {
             });
 
     }
-
-    console.log(errorFeed)
-    console.log(errorNotif)
-
-
-
-    // const [feeds , setFeeds] = useState([])
-
-  // const getFeeds = async () => {
-  //   const response = await api.get("/feed");
-  //   if (response.data.status) {
-  //     setFeeds(response.data.data.feeds);
-  //     return response.data.data.feeds
-  //   }
-  // };
-
-  // useEffect(async () => {
-  //   await getFeeds();
-  // }, []);
-
 
     useEffect(() => {
         if (popUpNotif) {
@@ -116,6 +92,7 @@ function Feed({user , isFetching , isDataFetched}) {
         zIndex :80,
         transition: "top 0.5s ease-in-out", // Adjust the duration and easing as needed
     };
+
 
 
     return (

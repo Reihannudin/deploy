@@ -3,7 +3,7 @@ import CustomAlert from "../../Helper/CustomAlert.Component";
 import {OutAlertComponent} from "../../Helper/OutAlert.Component";
 import {Link} from "react-router-dom";
 
-export const FeedCardComponent = ({handleOpenFeed }) => {
+export const FeedCardComponent = ({id , user , content , likes , comments , repost , status , time, repostChain  , handleOpenFeed }) => {
 
 
   const [isDropdown , setIsDropdown ] = useState(true);
@@ -12,52 +12,103 @@ export const FeedCardComponent = ({handleOpenFeed }) => {
     setIsDropdown((prevHidden) => !prevHidden);
   }
 
+
+  function timeView(originalTime) {
+    const currentTime = new Date();
+    const timeDifference = currentTime - new Date(time);
+    const minutesDifference = Math.floor(timeDifference / (1000 * 60));
+
+    if (minutesDifference < 60) {
+      return `${minutesDifference} ${minutesDifference === 1 ? 'minute' : 'minutes'} ago`;
+    } else if (minutesDifference < 24 * 60) {
+      const hoursDifference = Math.floor(minutesDifference / 60);
+      return `${hoursDifference} ${hoursDifference === 1 ? 'hour' : 'hours'} ago`;
+    } else if (minutesDifference >= 24 * 60 && minutesDifference < 48 * 60) {
+      return 'yesterday';
+    } else {
+      const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
+      return new Date(time).toLocaleDateString(undefined, options);
+    }
+  }
+
+  function truncateName(name, maxLength) {
+    if (name.length > maxLength) {
+      return name.substring(0, maxLength - 2) + "..";
+    }
+    return name;
+  }
+
+
+  const formattedTime = timeView(time);
+
   return (
     <>
       <div className="bg-white pt-3 hover:bg-gray-50 pb-1 px-0  border-radius-4  border-b border-gray-100">
         <div className="font-inter">
-          <div className="flex mx-2 ">
-            <div className="radius-100 h-profile-feed">
-              <img
-                  className="w-full h-full object-cover radius-100"
-                  src={"/assets/profile.jpg"}
-              />
-            </div>
-            <div className="block w-10/12  my-auto text-left mx-2">
-              <div className="gap-1 w-full justify-between flex">
-                <div className="">
-                  <p className="font15-res-300 my-0 py-0 font-semibold text-gray-700" >
-                    {/*{feed.user.name}*/}
-                    reihannudin
-                  </p>
+          {/*{user.map((itemUser) => {*/}
+          {/*  return(*/}
+                <div className="flex mx-2 ">
+                  <div className="radius-100 h-profile-feed">
+                    <img
+                        className="w-full h-full object-cover radius-100"
+                        src={user.image}
+                    />
+                  </div>
+                  <div className="block w-10/12  my-auto text-left mx-2">
+                    <div className="gap-1 w-full justify-between flex">
+                      <div className="">
+                        <p className="font15-res-300 my-0 py-0 font-semibold text-gray-700" >
+                          {/*{feed.user.name}*/}
+                          <div className={"sm:hidden "}>
+                            {truncateName(user.name, 15)}
+                          </div>
+                          <div className={"hidden sm:block "}>
+                            {truncateName(user.name, 22)}
+                          </div>
+                        </p>
+                      </div>
+                      <div>
+                        <p className="font14-res-300" style={{ color: "#797979" }}>
+                          {/*@{feed.user.username}*/}
+                          {formattedTime}
+                        </p>
+                      </div>
+                      {/*<div className="my-auto mx-0"  style={{ height:"30px"}}>*/}
+                      {/*    <img className="my-auto h-full" src="/assets/icon-dot.svg"/>*/}
+                      {/*</div>*/}
+                    </div>
+                    <p className="font14-res-300 my-0 py-0 flex text-gray-600">
+
+                      {/*{feed.time}*/}
+                      @ <div className={"sm:hidden "}>
+                      {truncateName(user.username, 28)}
+                    </div>
+                      <div className={"hidden sm:block "}>
+                        {truncateName(user.username, 30)}
+                      </div>
+
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <p className="font14-res-300" style={{ color: "#797979" }}>
-                    {/*@{feed.user.username}*/}
-                    2 jam yang lalu
-
-                  </p>
-                </div>
-                {/*<div className="my-auto mx-0"  style={{ height:"30px"}}>*/}
-                {/*    <img className="my-auto h-full" src="/assets/icon-dot.svg"/>*/}
-                {/*</div>*/}
-              </div>
-              <p className="font14-res-300 my-0 py-0  text-gray-600">
-
-                {/*{feed.time}*/}
-                @
-                reireirei
-
-              </p>
-            </div>
-          </div>
-          <button className={"w-full text-left"}  onClick={handleOpenFeed }>
+          {/*  )*/}
+          {/*})}*/}
+          <button className={"w-full text-left"}  onClick={() => handleOpenFeed(id)}>
             <div className="w-full py-2 text-left px-2">
               <p className="font15-res-300 text-left w-full text-gray-700">
-                Weyyy anjirr, ini gue cuyy
-                {/*{feed.content.content}*/}
+                {content.content}
               </p>
             </div>
+            {content.image === "" ?(
+                <></>
+            ):(
+                <div className="w-full py-2 text-left px-2">
+                  <div className="xl:w-8/12 lg:w-9/12 md:w-10/12 w-11/12 border-radius-8">
+                    <img src={`http://127.0.0.1:8000/storage/${content.image}`} style={{minHeight:"150px" , maxHeight:"150px", objectFit:"cover"}} className="w-full border-radius-8 " alt="Image" />
+                  </div>
+                </div>
+
+            ) }
+
           </button>
           {/*=======================*/}
           <div className="flex  mx-2">
@@ -77,7 +128,7 @@ export const FeedCardComponent = ({handleOpenFeed }) => {
                       className="my-auto font15-res-300"
                       style={{ color: "#737373" }}
                     >
-                      6
+                      {comments.length}
                       {/*{feed.comments.length}*/}
                     </p>
                   </div>
@@ -93,7 +144,8 @@ export const FeedCardComponent = ({handleOpenFeed }) => {
                       className="my-auto font15-res-300"
                       style={{ color: "#737373" }}
                     >
-                      4
+                      {repost.length}
+
                       {/*{feed.likes.length}*/}
                     </p>
                   </div>
@@ -109,7 +161,7 @@ export const FeedCardComponent = ({handleOpenFeed }) => {
                         className="my-auto font15-res-300"
                         style={{ color: "#737373" }}
                     >
-                      34
+                      {likes.length}
                       {/*{feed.likes.length}*/}
                     </p>
                   </div>

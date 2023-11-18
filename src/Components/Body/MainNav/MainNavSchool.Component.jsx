@@ -26,7 +26,7 @@ export const MainNavSchoolComponent = ({user}) => {
 
     return (
         <>
-            <div className="w-full fixed z-40  bottom-0 border-t border-gray-300 bg-white" >
+            <div className="w-full fixed z-40 left-0 bottom-0 border-t border-gray-300 bg-white" >
                 <div className="mx-auto relative sm:w-10/12 w-full">
 
                     <div className="w-full bg-white justify-between flex h-bar-main-nav">
