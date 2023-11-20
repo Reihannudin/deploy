@@ -59,6 +59,12 @@ import FeedLiked from "../Pages/Feed/FeedLiked";
 import ResultSearch from "../Pages/Feed/ResultSearch";
 import FeedNotification from "../Pages/Feed/FeedNotification";
 import SpaceProfile from "../Pages/Feed/SpaceProfile";
+import FeedEdit from "../Pages/Feed/FeedEdit";
+import School from "../Pages/School/School";
+import ReportData from "../Pages/School/ReportData";
+import MasterDashboard from "../Pages/School/MasterDashboard";
+import TeacherDashboard from "../Pages/School/TeacherDashboard";
+import DashboardSchool from "../Pages/School/DashboardSchool";
 
 export const Protected = () => {
 
@@ -125,6 +131,7 @@ export const Protected = () => {
 
         <Route path="/feed" element={<Feed user={user} isFetching={isFetching} isDataFetched={isDataFetched} />} />
         <Route path="/feed/d/:id" element={<Feed user={user} isFetching={isFetching} isDataFetched={isDataFetched}><FeedDetail user={user} isFetching={isFetching} isDataFetched={isDataFetched} /></Feed>} />
+        <Route path="/feed/edit/:id" element={<Feed user={user} isFetching={isFetching} isDataFetched={isDataFetched}><FeedEdit user={user} isFetching={isFetching} isDataFetched={isDataFetched} /></Feed>} />
         <Route path="/feed/search" element={<FeedSearch user={user} isFetching={isFetching} isDataFetched={isDataFetched}/>} />
         <Route path="/feed/search/:query" element={<ResultSearch user={user} isFetching={isFetching} isDataFetched={isDataFetched}/>} />
         <Route path="/feed/liked" element={<FeedLiked  user={user} isFetching={isFetching} isDataFetched={isDataFetched}/>} />
@@ -133,6 +140,13 @@ export const Protected = () => {
         <Route path="/space/p/:id" element={<SpaceProfile user={user} isFetching={isFetching} isDataFetched={isDataFetched} />} />
 
         {/*<Route path="/feed/forum" element={<FeedForm />} />*/}
+
+        <Route path="/dashboard/:school/" element={<DashboardSchool />}/>
+
+        {/*<Route path="/dashboard/:school/" element={<School />}/>*/}
+        <Route path="/dashboard/:school/report" element={<ReportData />}/>
+        <Route path="/dashboard/:school/master/" element={<MasterDashboard />}/>
+        <Route path="/dashboard/:school/teacher/" element={<TeacherDashboard />}/>
 
 
 

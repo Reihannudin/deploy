@@ -34,8 +34,10 @@ export const DetailFeedComponent = ({id , user , content , likes , comments , re
         return name;
     }
 
-
     const formattedTime = timeView(time);
+
+    console.log("repost data " , repost)
+    console.log("repost chain data " , repostChain)
 
 
     return(

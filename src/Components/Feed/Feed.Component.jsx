@@ -8,11 +8,25 @@ import {FeedMiniBarComponent} from "./FeedMiniBar.Component";
 import {FeedSpacesComponent} from "./FeedSpaces.Component";
 import FeedDetail from "../../Pages/Feed/FeedDetail";
 import api from "../../Config/api";
+import FeedEdit from "../../Pages/Feed/FeedEdit";
 
-export const FeedComponent = ({storeFeed , openPopUpCreate , setOpenPopUpCreate , errorFeed ,popUpNotif , setPopUpNotif , errorNotif , error , setImage , setContent  ,  image,  isArchive, setIsArchive, isLoading}) => {
+export const FeedComponent = ({storeFeed , openPopUpCreate , setOpenPopUpCreate , openPopUpEdit , setOpenPopUpEdit, errorFeed ,popUpNotif , setPopUpNotif , errorNotif , error , setImage , setContent  ,  image,  isArchive, setIsArchive, isLoading}) => {
 
   const navigate = useNavigate();
   const [handleFullScreen  , setHandleFullScreen] = useState(false);
+
+
+  const handlePopUpEdit  = (id) => {
+    setOpenPopUpEdit(true);
+
+    navigate(`/feed/edit/${id}`);
+  }
+
+  const handleClosePopUpEdit = () => {
+    setOpenPopUpEdit(false);
+
+    navigate(`/feed`);
+  };
 
 
   const [openFeed, setOpenFeed] = useState(false);
@@ -27,11 +41,6 @@ export const FeedComponent = ({storeFeed , openPopUpCreate , setOpenPopUpCreate 
     setOpenFeed(false);
     navigate(`/feed`);
   };
-
-  // console.log("open feed in main : " , openFeed);
-
-
-
 
   const handlePopUpCreate  = () => {
     setOpenPopUpCreate((prevHidden) => !prevHidden);
@@ -63,8 +72,6 @@ export const FeedComponent = ({storeFeed , openPopUpCreate , setOpenPopUpCreate 
       reader.readAsDataURL(file);
     }
   };
-
-
 
   const [feeds, setFeeds] = useState([]);
   const [isFetchingFeeds, setIsFetchingFeeds] = useState(true);
@@ -116,9 +123,6 @@ export const FeedComponent = ({storeFeed , openPopUpCreate , setOpenPopUpCreate 
       clearTimeout(timeout);
     };
   }, [isDataFetchedFeeds]);
-
-  // console.log("feeds : " , feeds)
-  // console.log("feeds data : " , feeds.data)
 
 
   return (
@@ -255,8 +259,14 @@ export const FeedComponent = ({storeFeed , openPopUpCreate , setOpenPopUpCreate 
             </div>
           </div>
       )}
+
+
       {openFeed === false ? null : (
           <FeedDetail handleCloseFeed={handleCloseFeed} openFeed={openFeed}/>
+      )}
+
+      {openPopUpEdit === false ? null : (
+          <FeedEdit handleClosePopUpEdit={handleClosePopUpEdit} openPopUpEdit={openPopUpEdit}/>
       )}
       {/*<Link to={'/feed/write'}>*/}
       {/*  <div className="py-3  px-4 hover:bg-gray-100 font14-res-300">*/}
@@ -344,7 +354,7 @@ export const FeedComponent = ({storeFeed , openPopUpCreate , setOpenPopUpCreate 
                                     </div>
                                 ) : (
                                       <li className="my-0">
-                                        <FeedCardComponent id={item.id} user={item.user} index={index} content={item.content} likes={item.likes} comments={item.comments} repost={item.repost} status={item.status} time={item.time} repostChain={item.repost_chain}  handleOpenFeed={handleOpenFeed}/>
+                                        <FeedCardComponent id={item.id} user={item.user} index={index} content={item.content} likes={item.likes} comments={item.comments} repost={item.repost} status={item.status} time={item.time} repostChain={item.repost_chain}  handleOpenFeed={handleOpenFeed} handlePopUpEdit={handlePopUpEdit}/>
                                       </li>
                                 )}
                               </>

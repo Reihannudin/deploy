@@ -17,6 +17,7 @@ function Feed({user , isFetching , isDataFetched}) {
     const [repostFeedId, setRepostFeedI] = useState(2);
     const [isArchive, setIsArchive] = useState(false);
     const [openPopUpCreate  , setOpenPopUpCreate] = useState(false);
+    const [openPopUpEdit  , setOpenPopUpEdit] = useState(false);
 
     const [popUpNotif, setPopUpNotif] = useState(false);
     const [messageNotif, setMessageNotif] = useState('');
@@ -114,6 +115,8 @@ function Feed({user , isFetching , isDataFetched}) {
                 errorNotif={errorNotif}
                 openPopUpCreate={openPopUpCreate}
                 setOpenPopUpCreate={setOpenPopUpCreate}
+                openPopUpEdit={openPopUpEdit}
+                setOpenPopUpEdit={setOpenPopUpEdit}
                 error={error}
                 errorFeed={errorFeed}
                 storeFeed={storeFeed}

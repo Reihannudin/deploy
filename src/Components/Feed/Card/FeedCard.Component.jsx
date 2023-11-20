@@ -3,7 +3,7 @@ import CustomAlert from "../../Helper/CustomAlert.Component";
 import {OutAlertComponent} from "../../Helper/OutAlert.Component";
 import {Link} from "react-router-dom";
 
-export const FeedCardComponent = ({id , user , content , likes , comments , repost , status , time, repostChain  , handleOpenFeed }) => {
+export const FeedCardComponent = ({id , user , content , likes , comments , repost , status , time, repostChain  , handleOpenFeed , handlePopUpEdit }) => {
 
 
   const [isDropdown , setIsDropdown ] = useState(true);
@@ -232,7 +232,7 @@ export const FeedCardComponent = ({id , user , content , likes , comments , repo
                                   style={{ position: 'fixed', top: '-9999px' }}
                               />
                               <button
-                                  // onClick={copyUrlClass}
+                                  onClick={() => handlePopUpEdit(id)}
                                   className="block px-4 py-2  w-full  text-left hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600 dark:hover:text-white"
 
                               >
