@@ -1,13 +1,42 @@
 import {CommentFeedComponent} from "./Card/CommentFeed.Component";
 import React, {useState} from "react";
 
-export const DetailFeedComponent = () => {
+export const DetailFeedComponent = ({id , user , content , likes , comments , repost , status , time, repostChain  }) => {
 
     const [isDropdownOpen , setIsDropdownOpen] = useState(true);
 
     const handleDropdownOpen = () => {
         setIsDropdownOpen((prevHidden) => !prevHidden);
     }
+
+    function timeView(originalTime) {
+        const currentTime = new Date();
+        const timeDifference = currentTime - new Date(time);
+        const minutesDifference = Math.floor(timeDifference / (1000 * 60));
+
+        if (minutesDifference < 60) {
+            return `${minutesDifference} ${minutesDifference === 1 ? 'minute' : 'minutes'} ago`;
+        } else if (minutesDifference < 24 * 60) {
+            const hoursDifference = Math.floor(minutesDifference / 60);
+            return `${hoursDifference} ${hoursDifference === 1 ? 'hour' : 'hours'} ago`;
+        } else if (minutesDifference >= 24 * 60 && minutesDifference < 48 * 60) {
+            return 'yesterday';
+        } else {
+            const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
+            return new Date(time).toLocaleDateString(undefined, options);
+        }
+    }
+
+    function truncateName(name, maxLength) {
+        if (name.length > maxLength) {
+            return name.substring(0, maxLength - 2) + "..";
+        }
+        return name;
+    }
+
+
+    const formattedTime = timeView(time);
+
 
     return(
         <>
@@ -19,19 +48,28 @@ export const DetailFeedComponent = () => {
                         <div className=" w-full relative h-full ">
                             <div className="w-full justify-between  flex bg-white ">
                                 <div className="flex">
-                                    <div className="flex w-10/12 ">
-                                        <div className="w-3/12">
+                                    <div className="flex  ">
+                                        <div className="">
                                             <div className="radius-100 p-1 wh-d-feed" style={{  objectFit:"cover"}}>
-                                                <img className="h-full w-full radius-100" src="https://phinf.wevpstatic.net/MjAyMzA2MTJfMTIw/MDAxNjg2NTI2NTI3MDA0.tnGOoNdTSU06Btq1AkMjhC0hj0W0-_t9bUEE-IpjQcIg.peUK5tbjk3Zbbn5_0o99rufk399yYougxz5uwIUa8ZQg.JPEG/Weverse_7a68f.jpg?type=s68"/>
+                                                <img className="h-full w-full radius-100"
+                                                     src={user.image}
+                                                />
                                             </div>
                                         </div>
                                     </div>
                                     <div className="text-left mx-2 my-auto">
                                         <div className="gap-2 flex">
-                                            <p className="font15-res-300" style={{  fontWeight:"550"}}>Nama</p>
+                                            <p className="font15-res-300" style={{  fontWeight:"550"}}>
+                                                <div className={"sm:hidden "}>
+                                                    {truncateName(user.name, 15)}
+                                                </div>
+                                                <div className={"hidden sm:block "}>
+                                                    {truncateName(user.name, 22)}
+                                                </div>
+                                            </p>
                                         </div>
 
-                                        <p className="font13-res-300" style={{ color:"#797979"}}>33mnt</p>
+                                        <p className="font13-res-300" style={{ color:"#797979"}}>  {formattedTime}</p>
                                     </div>
                                 </div>
                                 <div className="my-2.5 mx-5">
@@ -149,8 +187,7 @@ export const DetailFeedComponent = () => {
                                 <div className="overflow-y-auto scrollbar-hide h-full" >
                                     <div className="text-left sm:mx-3 mx-0 sm:w-11/12 w-11/12">
                                         <p className={"font15-res-300"} style={{  color: "#4f4f4f" }}>
-                                            Thank you BTS💜...
-                                            Happy 10th anniversary for the 7 people who make me smile every day 💜...
+                                            {content.content}
                                         </p>
                                     </div>
 
@@ -160,18 +197,37 @@ export const DetailFeedComponent = () => {
                                 <div className="relative border-t w-full">
                                     <div className="bg-white  w-full ">
                                         <div className="flex gap-2 w-full mx-3 py-3">
-                                            <h2 className="font16-res-400" style={{ fontWeight:"550" }}>1</h2>
+                                            <h2 className="font16-res-400" style={{ fontWeight:"550" }}>{comments.length}</h2>
                                             <h2 className="font16-res-400" style={{ fontWeight:"550" }}>comment</h2>
                                         </div>
                                     </div>
                                     <div className="relative">
                                         <div className="w-full">
-                                            <ul className="overflow-y-auto scrollbar-hide" style={{ maxHeight: "400px" }}>
-                                                <li className="mb-4">
-                                                    <CommentFeedComponent />
-                                                </li>
-                                            </ul>
+                                            {comments.length === 0? (
+                                                <div  className="overflow-y-auto  scrollbar-hide h-comment-v-feed">
+                                                    <h2 className={"my-10 text-gray-600 font15-res-300"}>Tidak ada komentar</h2>
+                                                </div>
+                                            ):(
+                                                <ul className="overflow-y-auto scrollbar-hide h-comment-v-feed">
+                                                    <li className="mb-4">
+                                                        <CommentFeedComponent />
+                                                    </li>
+                                                    <li className="mb-4">
+                                                        <CommentFeedComponent />
+                                                    </li>
+                                                    <li className="mb-4">
+                                                        <CommentFeedComponent />
+                                                    </li>
+                                                    <li className="mb-4">
+                                                        <CommentFeedComponent />
+                                                    </li>
+                                                    <li className="mb-4">
+                                                        <CommentFeedComponent />
+                                                    </li>
+                                                </ul>
+                                            )}
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -201,7 +257,7 @@ export const DetailFeedComponent = () => {
                                                     <img className="h-full" src="/assets/like-icon.svg"/>
                                                 </div>
                                             </button>
-                                            <p className="my-1  font16-res-300"  style={{ color:"#737373"}}>1</p>
+                                            <p className="my-1  font16-res-300"  style={{ color:"#737373"}}>{likes.length}</p>
                                         </div>
                                         <div className="flex gap-1 ">
                                             <button>
@@ -209,7 +265,7 @@ export const DetailFeedComponent = () => {
                                                     <img className="h-full" src="/assets/retweet-icon-gray.svg"/>
                                                 </div>
                                             </button>
-                                            <p className="my-1 font16-res-300"  style={{ color:"#737373"}}>6</p>
+                                            <p className="my-1 font16-res-300"  style={{ color:"#737373"}}>{repost.length}</p>
                                         </div>
                                         <div className="flex gap-1 ">
                                             <button>
@@ -239,7 +295,7 @@ export const DetailFeedComponent = () => {
 
 export const DetailFeedImageComponent = ({id , user , content , likes , comments , repost , status , time, repostChain  }) => {
 
-    const [isDropdownOpen , setIsDropdownOpen] = useState(false);
+    const [isDropdownOpen , setIsDropdownOpen] = useState(true);
 
     const handleDropdownOpen = () => {
         setIsDropdownOpen((prevHidden) => !prevHidden);

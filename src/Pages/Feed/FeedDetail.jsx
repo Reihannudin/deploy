@@ -94,7 +94,15 @@ function FeedDetail ({ handleCloseFeed , openFeed}) {
                         <div className="w-full fixed mx-auto z-50"  style={{  minWidth:"300px" }}>
                             <div className="w-full relative z-40 mx-0 px-0 h-full ">
                                 {feed.data.feed.content.image === "" ?(
-                            <DetailFeedComponent />
+                            <DetailFeedComponent    id={ feed.data.feed.id}
+                                                    user={ feed.data.feed.user}
+                                                    content={ feed.data.feed.content}
+                                                    likes={ feed.data.feed.likes}
+                                                    comments={ feed.data.feed.comments}
+                                                    repost={ feed.data.feed.repost}
+                                                    status={ feed.data.feed.status}
+                                                    time={ feed.data.feed.time}
+                                                    repostChain={ feed.data.feed.repost_chain}/>
                         ):(
                             <DetailFeedImageComponent
                                 id={ feed.data.feed.id}
