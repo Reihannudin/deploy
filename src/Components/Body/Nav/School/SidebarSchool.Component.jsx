@@ -14,8 +14,8 @@ export const  SidebarSchoolComponent = ({isMenuHidden , setIsMenuHidden ,  toggl
 
     return(
         <>
-            <div className={`w-full bg-white  h-screen border-r ${isMenuHidden ? 'small-sidebar py-5' : 'py-4'}`}>
-                <div className="w-10/12 block mx-auto">
+            <div className={`w-full bg-white relative h-screen border-r ${isMenuHidden ? 'small-sidebar py-5' : 'py-4'}`}>
+                <div className="w-10/12  block mx-auto">
                     <div className={`flex transition ${isMenuHidden ? 'mx-auto' : 'mx-0'} w-10/12`}>
 
                         <button
@@ -124,7 +124,6 @@ export const  SidebarSchoolComponent = ({isMenuHidden , setIsMenuHidden ,  toggl
                                     </div>
                                 </Link>
                             </li>
-
                             <li className={`my-4 w-11/12 transition ${isMenuHidden ? 'mx-auto' : 'mx-0'}`}>
                                 <Link to={"/"}>
                                     <div className="bg-white hover:bg-gray-50 border-radius-12 text-gray-600 hover:text-purple-600 cursor-pointer py-4">
@@ -148,7 +147,6 @@ export const  SidebarSchoolComponent = ({isMenuHidden , setIsMenuHidden ,  toggl
                                     </div>
                                 </Link>
                             </li>
-
                             <li className={`my-4 w-11/12 transition ${isMenuHidden ? 'mx-auto' : 'mx-0'}`}>
                                 <Link to={"/"}>
                                     <div className="bg-white hover:bg-gray-50 border-radius-12 text-gray-600 hover:text-purple-600 cursor-pointer py-4">
@@ -172,11 +170,35 @@ export const  SidebarSchoolComponent = ({isMenuHidden , setIsMenuHidden ,  toggl
                                     </div>
                                 </Link>
                             </li>
-
-
                         </ul>
                     </div>
                 </div>
+                <div className={"absolute bottom-0 list-none left-0 right-0"}>
+                    <li className={`my-4 w-10/12 mx-auto transition ${isMenuHidden ? 'mx-auto' : 'mx-0'}`}>
+                        <Link to={"/"}>
+                            <div className="bg-white  mx-auto hover:bg-red-600 border-radius-12 text-red-600 hover:text-white cursor-pointer py-3">
+                                <div className={`flex  w-10/12 ${isMenuHidden ? 'mx-auto' : 'mx-0'}`}>
+                                    <div className={`my-auto ${isMenuHidden ? 'mx-auto' : 'mx-1'} h-icon-back`}>
+                                        <img
+                                            src="/assets/icon-out-red.svg"
+                                            className="h-full mx-auto my-auto"
+                                            onMouseOver={(e) => e.currentTarget.src = "/assets/icon-out-white.svg"}
+                                            onMouseOut={(e) => e.currentTarget.src = "/assets/icon-out-red.svg"}
+                                        />
+                                    </div>
+                                    {isMenuHidden === false ? (
+                                        <p className="font15-res-300 mx-auto" style={{ fontWeight: "500" }}>
+                                            Kembali
+                                        </p>
+                                    ) : (
+                                        <></>
+                                    )}
+                                </div>
+                            </div>
+                        </Link>
+                    </li>
+                </div>
+
             </div>
         </>
     )
