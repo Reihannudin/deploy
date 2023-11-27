@@ -1,4 +1,4 @@
-import {AddInformationImageCardComponent} from "../../Components/Auth/Card/AddInformationImageCard.Component";
+import {AddInformationImageCardComponent} from "../../Components/Auth/Card/Information/AddInformationImageCard.Component";
 import React, {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
@@ -13,7 +13,7 @@ function AddInformationImage (){
     const [school , setSchool] = useState('');
     const [address , setAddress] = useState('');
      const [errorSchool , setErrorSchool] = useState('');
-    const [redirectPath, setRedirectPath] = useState("/register");
+    const [redirectPath, setRedirectPath] = useState("/Register");
     const [isLoading, setIsLoading] = useState(false);
 
     const [schoolList , setSchoolList] = useState([]);
@@ -71,7 +71,7 @@ function AddInformationImage (){
 
     useEffect(() => {
         if (!getEmail && !getToken) {
-            navigate("/register");
+            navigate("/Register");
         } else {
             setEmail(getEmail);
         }

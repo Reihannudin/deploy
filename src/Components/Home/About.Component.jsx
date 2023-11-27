@@ -14,7 +14,7 @@ export const AboutComponent = () => {
                                             <h1 className="my-2 font18-res-300" >Bukan sekedar Learning System Management</h1>
                                             <p className="my-2 font13-res-300">SpaceSkool membantu siswa maupun creater berkomunikasi, menghubungkan orang-orang, berkolaborasi maupun menunjukan karyanya dengan postingan, cuitan, dan sebagian di antaranya.</p>
                                             <button className="font13-res-300 lg:w-6/12 xl:w-5/12 md:w-3/12  px-4 py-2  my-4 lg:my-6  cursor-pointer  text-white" style={{  border:"2px solid #ffffff"  , borderRadius:"4px"}}>
-                                                Jelajahi SpaceSkool
+                                                Keuntungan spaceskool
                                             </button>
                                         </div>
                                     </div>
@@ -34,9 +34,9 @@ export const AboutComponent = () => {
                                                 Dengan keaslian laporan kehadiran yang dapat diakses melalui SpaceSkool, pengajar dapat mengecek daftar kehadiran siswa , siswa dapat mengabsent menggunakan dengan foto ataupun password.
                                                 </p>
                                         </div>
-                                        <div className=" mt-2 md:mt-4 mb-2 md:mb-4 text-left">
-                                            <a className=" text-purple-600 cursor-pointer font15-res-300 underline">Pelajari kehadiran</a>
-                                        </div>
+                                        {/*<div className=" mt-2 md:mt-4 mb-2 md:mb-4 text-left">*/}
+                                        {/*    <a className=" text-purple-600 cursor-pointer font15-res-300 underline">Pelajari kehadiran</a>*/}
+                                        {/*</div>*/}
                                     </div>
                                     <div className="lg:w-full xl:w-11/12 w-full sm:w-11/12 md:me-auto mx-auto border-b md:my-5 my-5">
                                         <div style={{ height:"80px"}}>
@@ -50,9 +50,9 @@ export const AboutComponent = () => {
                                                 Dengan Pengerjaan tanpa internet dan kesempatan pengerjaan yang terbatas meminimalisirkan adanya kecurangan yang dilakukan oleh siswa
                                             </p>
                                         </div>
-                                        <div className=" mt-2 md:mt-4 mb-2 md:mb-4 text-left">
-                                            <a className=" text-purple-600 cursor-pointer font15-res-300 underline">Pelajari laporan keaslian</a>
-                                        </div>
+                                        {/*<div className=" mt-2 md:mt-4 mb-2 md:mb-4 text-left">*/}
+                                        {/*    <a className=" text-purple-600 cursor-pointer font15-res-300 underline">Pelajari laporan keaslian</a>*/}
+                                        {/*</div>*/}
                                     </div>
                                 </div>
                             </div>

@@ -1,4 +1,4 @@
-import {ForgotPasswordCardComponent} from "../../Components/Auth/Card/ForgotPasswordCard.Component";
+import {ForgotPasswordCardComponent} from "../../Components/Auth/Card/Password/ForgotPasswordCard.Component";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import api from "../../Config/api";
@@ -13,7 +13,7 @@ function ForgotPassword(){
     const [newPassword , setNewPassword] = useState('')
     const [confirmPassword , setConfirmPassword] = useState('')
     const [isLoading, setIsLoading] = useState(false);
-    const [redirectPath, setRedirectPath] = useState("/register");
+    const [redirectPath, setRedirectPath] = useState("/Register");
 
     const [errorPassword , setErrorPassword] = useState('');
     const [errorNewPassword , setErrorNewPassword] = useState('');

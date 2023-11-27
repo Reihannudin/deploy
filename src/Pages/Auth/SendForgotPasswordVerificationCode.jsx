@@ -1,10 +1,10 @@
 import React, {useEffect, useRef, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../../Config/api";
-import {VerificationEmailCardComponent} from "../../Components/Auth/Card/VerificationEmailCard.Component";
+import {VerificationEmailCardComponent} from "../../Components/Auth/Card/Verification/VerificationEmailCard.Component";
 import {
     SendForgotPasswordVerificationCodeComponent
-} from "../../Components/Auth/Card/SendForgotPasswordVerificationCodeComponent";
+} from "../../Components/Auth/Card/Password/SendForgotPasswordVerificationCodeComponent";
 
 function SendForgotPasswordVerificationCode() {
     const navigate = useNavigate();
@@ -13,7 +13,7 @@ function SendForgotPasswordVerificationCode() {
     const [errorEmail, setErrorEmail] = useState('');
     const [redirect, setRedirect] = useState("/verification/email");
     const [isLoading, setIsLoading] = useState(false);
-    const [redirectPath, setRedirectPath] = useState("/register");
+    const [redirectPath, setRedirectPath] = useState("/Register");
 
     const inputRefCode = useRef(null);
 

@@ -13,7 +13,7 @@ function EditProfilePassword({user , isFetching , isDataFetched}){
     const [newPassword , setNewPassword] = useState('')
     const [confirmPassword , setConfirmPassword] = useState('')
     const [isLoading, setIsLoading] = useState(false);
-    const [redirectPath, setRedirectPath] = useState("/register");
+    const [redirectPath, setRedirectPath] = useState("/Register");
 
     const [errorPassword , setErrorPassword] = useState('');
     const [errorNewPassword , setErrorNewPassword] = useState('');

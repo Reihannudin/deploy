@@ -1,7 +1,7 @@
 import {useLocation, useNavigate} from "react-router-dom";
 import React, {useEffect, useState} from "react";
-import {AddInformationImageCardComponent} from "../../Components/Auth/Card/AddInformationImageCard.Component";
-import {AddImageFaceRecognitionComponent} from "../../Components/Auth/Card/AddImageFaceRecognition.Component";
+import {AddInformationImageCardComponent} from "../../Components/Auth/Card/Information/AddInformationImageCard.Component";
+import {AddImageFaceRecognitionComponent} from "../../Components/Auth/Card/Information/AddImageFaceRecognition.Component";
 import api from "../../Config/api";
 
 function AddImageFaceRecoognition(){
@@ -15,7 +15,7 @@ function AddImageFaceRecoognition(){
 
     useEffect(() => {
         if (!getEmail && !getToken) {
-            navigate("/register");
+            navigate("/Register");
         } else {
             setEmail(getEmail);
         }
@@ -43,7 +43,7 @@ function AddImageFaceRecoognition(){
             }
         }else {
             if (photoToken) {
-                navigate("/login");
+                navigate("/lLogin");
             }
         }
     }, [photoToken, navigate]);

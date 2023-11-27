@@ -1,4 +1,4 @@
-import { RegisterCardComponent } from "../../Components/Auth/Card/RegisterCard.Component";
+import { RegisterCardComponent } from "../../Components/Auth/Card/Register/RegisterCard.Component";
 import React, { useEffect, useState } from "react";
 import { redirect, useNavigate, useSearchParams } from "react-router-dom";
 import api from "../../Config/api";
@@ -10,7 +10,7 @@ function Register() {
 
     const [email, setEmail] = useState("");
     const [errorEmail, setErrorEmail] = useState("");
-    const [redirectPath, setRedirectPath] = useState("/register");
+    const [redirectPath, setRedirectPath] = useState("/Register");
     const [isLoading, setIsLoading] = useState(false);
 
     const handleSubmit = (event) => {
@@ -38,7 +38,7 @@ function Register() {
                         localStorage.setItem("registrationEmail", email);
                         setRedirectPath(redirectUrl);
                         navigate(redirectUrl);
-                    } else if (response.data.message === "Akun sudah terdaftar, silahkan login") {
+                    } else if (response.data.message === "Akun sudah terdaftar, silahkan Login") {
                         let redirectUrl = response.data.redirect_path;
                         localStorage.setItem("registrationEmail", email);
                         setRedirectPath(redirectUrl);

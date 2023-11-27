@@ -1,11 +1,8 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import LoadingComponent from "./Components/Helper/Loading.Component";
-import { Route, Routes } from "react-router-dom";
-
-import { Protected } from "./Routes/Protected";
-
-import {Unprotected} from "./Routes/Unprotected";
+import {Route, Routes, useNavigate} from "react-router-dom";
+import Home from "./Pages/Home/Home";
+import About from "./Pages/About/About";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -17,7 +14,7 @@ function App() {
     }, 1000);
   }, []);
 
-  // Retrieve login status from localStorage
+  // Retrieve Login status from localStorage
   const storedToken = localStorage.getItem("auth_token");
   const [isLogged, setIsLogged] = useState(!!storedToken); // Convert token to boolean
 
@@ -26,20 +23,23 @@ function App() {
 
   return (
     <div className="App mx-auto" style={{ maxWidth:"1500px" }}>
-      {isLoading ? (
-        <LoadingComponent />
-      ) : (
-          <>
-            {isLogged === true ? (
-                <Protected />
-            ) : (
-                <Unprotected setIsLogged={setIsLogged} isLogged={isLogged} />
-            )}
-          </>
-
-      )}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path={"*"} element={<Test />} />
+      </Routes>
     </div>
   );
+}
+
+export const Test = () => {
+
+  const navigate = useNavigate();
+  navigate("/")
+  return(
+      <>
+      </>
+  )
 }
 
 export default App;

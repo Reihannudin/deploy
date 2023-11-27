@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../../Config/api";
-import {VerificationEmailCardComponent} from "../../Components/Auth/Card/VerificationEmailCard.Component";
+import {VerificationEmailCardComponent} from "../../Components/Auth/Card/Verification/VerificationEmailCard.Component";
 
 function VerificationEmail() {
     const navigate = useNavigate();
@@ -12,7 +12,7 @@ function VerificationEmail() {
     const [errorCode, setErrorCode] = useState('');
     const [redirect, setRedirect] = useState("/verification/code/change/password");
     const [isLoading, setIsLoading] = useState(false);
-    const [redirectPath, setRedirectPath] = useState("/register");
+    const [redirectPath, setRedirectPath] = useState("/Register");
 
     const inputRefCode = useRef(null);
 
@@ -23,7 +23,7 @@ function VerificationEmail() {
 
     // useEffect(() => {
     //     if (!getEmail) {
-    //         navigate("/register");
+    //         navigate("/Register");
     //     } else {
     //         setEmail(getEmail);
     //     }

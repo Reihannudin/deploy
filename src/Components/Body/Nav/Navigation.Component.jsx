@@ -70,7 +70,7 @@ export const NavigationComponent = () => {
                                             </svg>
                                         )}
                                     </button>
-                                    <div className="  mx-16 w-full lg:flex hidden my-auto  lg:items-center lg:w-auto" id="menu">
+                                    <div className="  ms-16 w-full lg:flex hidden my-auto  lg:items-center lg:w-auto" id="menu">
                                         <div className="flex gap-4 my-auto ">
                                             <div  style={{ fontSize:"16px"}} className="font-medium mt-1.5">
                                                 <ul className="list-none gap-6 flex" style={{ fontWeight :"500"}}>
@@ -91,51 +91,7 @@ export const NavigationComponent = () => {
                                             </div>
                                         </div>
                                     </div>
-                                    {logged === true ? (
-                                        <div className="my-auto flex gap-3">
-                                            <li className="my-auto relative mt-1 list-none">
-                                                <button  onClick={toggleDropdown} style={{ fontSize:"14px"}}  data-dropdown-toggle="dropdown_profile"
-                                                         className=" cursor-pointer gap-2 my-auto flex ">
-                                                    <span style={{ fontSize:"16px"}} className="font-medium  text-gray-500">Reihannudin</span>
-                                                    <div className="my-auto" style={{ height:"14px" , width:"14px"}}>
-                                                        <img  className="w-full h-full" src="/assets/expand-icon.svg"/>
-                                                    </div>
-                                                </button>
-                                                <div id="dropdown_profile"
-                                                     className={`z-10 ${isDropdownHidden ? 'hidden' : ''} absolute left-0 font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600`}>
-                                                    <ul className="py-2 text-sm text-left text-gray-700 dark:text-gray-400"
-                                                        aria-labelledby="dropdownLargeButton">
-                                                        <li>
-                                                            <a href={`http://127.0.0.1:8000/logout`} className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600  dark:hover:text-white">Pengaturan</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href={`http://127.0.0.1:8000/logout`} className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600  dark:hover:text-white">Activities</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href={`http://127.0.0.1:8000/logout`} className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600  dark:hover:text-white">Log Out</a>
-                                                        </li>
 
-                                                    </ul>
-                                                </div>
-                                            </li>
-                                        </div>
-                                    ):(
-                                        <div className="my-auto lg:flex hidden gap-2 md:gap-1">
-                                            <Link to="/login">
-
-                                            <button className="btn lg:block weverse-background-btn hover:bg-purple-700 border-radius-20 px-4 sm:px-5 lg:px-5 xl:px-6 py-1">
-                                                    <p className="font-medium  text-white" style={{ fontSize:"14px"}}>Masuk</p>
-                                            </button>
-                                            </Link>
-                                            <Link to="/register">
-
-                                            <button className="btn  lg:block border-radius-20 bg-white hover:bg-purple-600 font-medium weverse-color hover:text-white sm:px-5 px-4 lg:px-5 xl:px-6 py-1" style={{ border:"1px solid #AC7EEE"}}>
-                                                    <p className="" style={{ fontSize:"14px"}}>Daftar</p>
-                                            </button>
-                                            </Link>
-
-                                        </div>
-                                    )}
                                 </div>
                             </div>
                         </nav>
@@ -168,25 +124,7 @@ export const NavigationComponent = () => {
                                         </div>
                                     </Link>
                                 </li>
-                                <li className="pb-3">
-                                    <div className="my-auto w-6/12 mx-auto block gap-2 md:gap-1">
-                                        <div className="my-3">
-                                            <button className="btn lg:block border-radius-4 weverse-background-btn px-4 w-10/12 py-1">
-                                                <Link to="/login">
-                                                    <p className="font-medium  text-white" style={{ fontSize:"14px"}}>Masuk</p>
-                                                </Link>
-                                            </button>
-                                        </div>
 
-                                        <div className="my-3">
-                                            <button className="btn  lg:block sm:px-5 px-4 border-radius-4 w-10/12 py-1" style={{ border:"1px solid #AC7EEE" }}>
-                                                <Link to="/register">
-                                                    <p className="font-medium weverse-color" style={{ fontSize:"14px"}}>Daftar</p>
-                                                </Link>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </li>
                             </ul>
                         </div>
                     </div>

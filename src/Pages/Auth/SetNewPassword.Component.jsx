@@ -1,4 +1,4 @@
-import {SetNewPasswordCardComponent} from "../../Components/Auth/Card/SetNewPasswordCard.Component";
+import {SetNewPasswordCardComponent} from "../../Components/Auth/Card/Password/SetNewPasswordCard.Component";
 
 function SetNewPassword(){
 

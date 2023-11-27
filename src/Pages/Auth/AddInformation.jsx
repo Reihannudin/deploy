@@ -1,4 +1,4 @@
-import {AddInformationCardComponent} from "../../Components/Auth/Card/AddInformationCard.Component";
+import {AddInformationCardComponent} from "../../Components/Auth/Card/Information/AddInformationCard.Component";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import bcrypt from "bcryptjs";
@@ -14,7 +14,7 @@ function AddInformation(){
     const [contact , setContact] = useState('');
     const [birthday , setBirthday] = useState('');
     const [redirect, setRedirect] = useState("/add/information");
-    const [redirectPath, setRedirectPath] = useState("/register");
+    const [redirectPath, setRedirectPath] = useState("/Register");
     const [isLoading, setIsLoading] = useState(false);
 
     const [errorEmail, setErrorEmail] = useState('');
@@ -28,7 +28,7 @@ function AddInformation(){
 
     useEffect(() => {
         if (!getEmail && !getToken) {
-            navigate("/register");
+            navigate("/Register");
         } else {
             setEmail(getEmail);
         }

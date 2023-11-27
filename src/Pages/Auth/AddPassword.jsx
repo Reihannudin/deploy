@@ -1,4 +1,4 @@
-import {AddPasswordCardComponent} from "../../Components/Auth/Card/AddPasswordCard.Component";
+import {AddPasswordCardComponent} from "../../Components/Auth/Card/Password/AddPasswordCard.Component";
 import {useNavigate, useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import bcrypt from "bcryptjs";
@@ -16,7 +16,7 @@ function AddPassword(){
     const [errorConfirmPassword , setErrorConfirmPassword] = useState('');
     const [redirect, setRedirect] = useState("/add/password");
     const [isLoading, setIsLoading] = useState(false);
-    const [redirectPath, setRedirectPath] = useState("/register");
+    const [redirectPath, setRedirectPath] = useState("/Register");
 
     const params = new URLSearchParams(window.location.search);
     const token = params.get('token');
@@ -38,7 +38,7 @@ function AddPassword(){
 
     useEffect(() => {
         if (!getEmail && !getToken) {
-            navigate("/register");
+            navigate("/Register");
         } else {
             setEmail(getEmail);
         }
@@ -77,7 +77,7 @@ function AddPassword(){
                         localStorage.setItem("isVerifyCodeSend", false);
                         setRedirect(redirectUrl);
                         navigate(redirectUrl);
-                    } else if (response.data.message === "Akun sudah terdaftar, silahkan login") {
+                    } else if (response.data.message === "Akun sudah terdaftar, silahkan Login") {
                         let redirectUrl = response.data.redirect_path;
                         localStorage.setItem("registrationEmail", email);
                         setRedirect(redirectUrl);

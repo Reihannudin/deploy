@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../../Config/api";
-import { LoginCardComponent } from "../../Components/Auth/Card/LoginCard.Component";
+import { LoginCardComponent } from "../../Components/Auth/Card/Login/LoginCard.Component";
 
 function Login({ setIsLogged }) {
   const navigate = useNavigate();
@@ -30,7 +30,7 @@ function Login({ setIsLogged }) {
           localStorage.setItem("isLogin", true);
           localStorage.setItem("isLogged", true);
           localStorage.setItem("whoLogin", JSON.stringify(response));
-          navigate("/"); // Redirect to "/" after successful login
+          navigate("/"); // Redirect to "/" after successful Login
         } else {
           alert("Something went wrong!");
         }
