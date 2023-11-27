@@ -183,7 +183,6 @@ export const NavbarComponent = ({isFetching ,isDataFetched ,user}) => {
                                                                 </li>
                                                                 <li className="py-1">
                                                                     <Link to="/logout" className="block px-4 py-1.5 lg:py-2 hover:bg-gray-100 font15-res-300 dark:hover:bg-gray-600 hover:text-purple-600 dark:hover:text-white">Log out</Link>
-
                                                                     {/*<button onSubmit={handleLogout} className="block px-4 font15-res-300 py-1.5 lg:py-2 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-purple-600 dark:hover:text-white">Log Out</button>*/}
                                                                 </li>
                                                             </ul>

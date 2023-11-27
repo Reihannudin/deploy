@@ -141,7 +141,7 @@ export const Protected = () => {
 
         {/*<Route path="/feed/forum" element={<FeedForm />} />*/}
 
-        <Route path="/dashboard/:school/" element={<DashboardSchool />}/>
+        <Route path="/dashboard/:school/" element={<DashboardSchool  user={user} isFetching={isFetching} isDataFetched={isDataFetched}  />}/>
 
         {/*<Route path="/dashboard/:school/" element={<School />}/>*/}
         <Route path="/dashboard/:school/report" element={<ReportData />}/>

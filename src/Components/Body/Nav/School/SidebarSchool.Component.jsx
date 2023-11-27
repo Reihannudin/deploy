@@ -48,8 +48,8 @@ export const  SidebarSchoolComponent = ({isMenuHidden , setIsMenuHidden ,  toggl
                             )}
                         </button>
 
-                        <div className={`transition ${isMenuHidden ? 'opacity-0 max-w-0 overflow-hidden ' : 'opacity-100 max-w-full my-4 ms-auto overflow-visible'}`}>
-                            <h2 className="font18-res-300 mx-auto text-purple-600 my-auto">Nama sekolah</h2>
+                        <div className={`transition ${isMenuHidden ? 'opacity-0 max-w-0 overflow-hidden ' : 'opacity-100 max-w-full my-auto ms-auto overflow-visible'}`}>
+                            <h2 className="font16-res-400 mx-auto text-purple-600 my-auto">Nama sekolah</h2>
                         </div>
 
                     </div>
@@ -68,7 +68,7 @@ export const  SidebarSchoolComponent = ({isMenuHidden , setIsMenuHidden ,  toggl
                                                 />
                                             </div>
                                             {isMenuHidden === false ? (
-                                                <p className="font15-res-300 mx-auto" style={{ fontWeight: "500" }}>
+                                                <p className="font14-res-300 mx-auto" style={{ fontWeight: "500" }}>
                                                     Dashboard
                                                 </p>
                                             ) : (
@@ -91,7 +91,7 @@ export const  SidebarSchoolComponent = ({isMenuHidden , setIsMenuHidden ,  toggl
                                                 />
                                             </div>
                                             {isMenuHidden === false ? (
-                                                <p className="font15-res-300 mx-auto" style={{ fontWeight: "500" }}>
+                                                <p className="font14-res-300 mx-auto" style={{ fontWeight: "500" }}>
                                                     Laporan
                                                 </p>
                                             ) : (
@@ -114,7 +114,7 @@ export const  SidebarSchoolComponent = ({isMenuHidden , setIsMenuHidden ,  toggl
                                                 />
                                             </div>
                                             {isMenuHidden === false ? (
-                                                <p className="font15-res-300 mx-auto" style={{ fontWeight: "500" }}>
+                                                <p className="font14-res-300 my-auto mx-auto" style={{ fontWeight: "500" }}>
                                                     Kelas
                                                 </p>
                                             ) : (
@@ -137,7 +137,7 @@ export const  SidebarSchoolComponent = ({isMenuHidden , setIsMenuHidden ,  toggl
                                                 />
                                             </div>
                                             {isMenuHidden === false ? (
-                                                <p className="font15-res-300 mx-auto" style={{ fontWeight: "500" }}>
+                                                <p className="font14-res-300 my-auto mx-auto" style={{ fontWeight: "500" }}>
                                                     Pendidik
                                                 </p>
                                             ) : (
@@ -160,7 +160,7 @@ export const  SidebarSchoolComponent = ({isMenuHidden , setIsMenuHidden ,  toggl
                                                 />
                                             </div>
                                             {isMenuHidden === false ? (
-                                                <p className="font15-res-300 mx-auto" style={{ fontWeight: "500" }}>
+                                                <p className="font14-res-300 my-auto mx-auto" style={{ fontWeight: "500" }}>
                                                     Pengaturan
                                                 </p>
                                             ) : (
@@ -187,7 +187,7 @@ export const  SidebarSchoolComponent = ({isMenuHidden , setIsMenuHidden ,  toggl
                                         />
                                     </div>
                                     {isMenuHidden === false ? (
-                                        <p className="font15-res-300 mx-auto" style={{ fontWeight: "500" }}>
+                                        <p className="font14-res-300 my-auto  mx-auto" style={{ fontWeight: "500" }}>
                                             Kembali
                                         </p>
                                     ) : (

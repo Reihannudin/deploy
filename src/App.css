@@ -5,8 +5,17 @@
 
 .font-poppins{
   font-family: 'Poppins', sans-serif;
-
 }
+
+
+.w-sidebar-lg{
+  width: 60%;
+}
+
+.w-sidebar-sm{
+  width: 16%;
+}
+
 
 .h-icon-space-bar{
   height: 20px;
@@ -981,6 +990,12 @@ body{
   .p-nav-content-crud {
     padding-top: 65px;
   }
+
+  .w-sidebar-lg{
+    width: 30%;
+  }
+
+
   .w-3-3{
     width: 5.333333%;
   }
@@ -1063,6 +1078,16 @@ body{
   .w-class-card-grid {
     width: 48.5%; /* On small screens (sm:w-1/2) */
   }
+
+  .w-sidebar-lg{
+    width: 42%;
+  }
+
+
+  .w-sidebar-sm{
+    width: 10%;
+  }
+
   .w-3-3{
     width: 7.333333%;
   }
@@ -1078,6 +1103,12 @@ body{
   .w-class-card-grid {
     width: 31%; /* On medium screens (md:w-1/2) */
   }
+
+
+  .w-sidebar-lg{
+    width: 36%;
+  }
+
   .w-3-3{
     width: 5.333333%;
   }
@@ -1093,6 +1124,14 @@ body{
     width: 24%; /* On large screens (lg:w-1/3) */
   }
 
+  .w-sidebar-sm{
+    width: 8%;
+  }
+
+  .w-sidebar-lg{
+    width: 26%;
+  }
+
   .h-icon-arrow-card{
     height: 18px;
   }
@@ -1106,6 +1145,14 @@ body{
     width: 24%; /* On extra-large screens (xl:w-1/5) */
   }
 
+  .w-sidebar-lg{
+    width: 20%;
+  }
+
+
+  .w-sidebar-sm{
+    width: 6%;
+  }
 
   .w-3-3{
     width: 3.0333333%;
